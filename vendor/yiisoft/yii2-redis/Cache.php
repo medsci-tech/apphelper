@@ -135,9 +135,12 @@ class Cache extends \yii\caching\Cache
         if ($expire == 0) {
             return (bool) $this->redis->executeCommand('SET', [$key, $value]);
         } else {
-            $expire = (int) ($expire * 1000);
+            //$expire = (int) ($expire * 1000);// 单位默认为毫秒
 
-            return (bool) $this->redis->executeCommand('SET', [$key, $value, 'PX', $expire]);
+            //return (bool) $this->redis->executeCommand('SET', [$key, $value, 'PX', $expire]);
+            $expire = +$expire > 0 ? $expire : 0; // 防止负数
+            return (bool) $this->redis->executeCommand('SET', [$key, $value, 'EX', $expire]); // 按秒缓存
+            
         }
     }
 

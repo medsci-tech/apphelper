@@ -1,4 +1,5 @@
 <?php
+ini_set('default_socket_timeout', -1);
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
