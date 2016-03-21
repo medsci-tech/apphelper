@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
  */
 class SiteController extends Controller
 {
+    const loginfailnumber = 5;
     /**
      * {@inheritdoc}
      */

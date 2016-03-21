@@ -4,7 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
-
+use backend\models\AdminLog;
 /**
  * Login form.
  */
@@ -63,9 +63,25 @@ class LoginForm extends Model
      */
     public function login()
     {
+        /* 有限限制是否超过限制 */
+
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
+            if (!array_key_exists("verifyCode",$this->errors)) // 记录用户或密码错误日志
+            {
+               $model = new AdminLog();
+               $model->saves();
+                $cookies = Yii::$app->request->cookies; //获取cookie
+                $loginSign = $cookies->getValue('loginSign');
+                $cookies = Yii::$app->response->cookies;
+                // 在要发送的响应中添加一个新的cookie
+                $cookies->add(new \yii\web\Cookie([
+                    'name' => 'loginSign',
+                    'value' => $loginSign + 1,
+                    'expire' => strtotime(date('Y-m-d 23:59:59'))
+                ]));
+            }
             return false;
         }
     }
