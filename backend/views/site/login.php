@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
+use yii\captcha\Captcha;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
@@ -39,6 +39,11 @@ $fieldOptions2 = [
             ->label(false)
             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
 
+        <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+            'template' => '<div class="input-group  form-group required"><span class="input-group-addon"><i class="glyphicon glyphicon-eye-open red"></i></span>{input}<div class="input-group-addon" style="padding:0px; cursor: pointer" title
+="点击更换验证码">{image}</div></div>',
+            'options' => ['class' => 'form-control','placeholder'=>"验证码"]
+        ])->label(false) ?>
         <div class="row">
             <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>

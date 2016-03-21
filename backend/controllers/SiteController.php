@@ -23,7 +23,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','captcha'],
                         'allow' => true,
                     ],
                     [
@@ -45,11 +45,20 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => 'yii\web\ErrorAction'
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'maxLength' => 4, //最大显示个数
+                'minLength' => 4,//最少显示个数
+                'padding' => 5,//间距
+                'height'=>32,//高度
+                'width' => 120,  //宽度
+                'offset'=>6,        //设置字符偏移量 有效果
             ],
         ];
     }
