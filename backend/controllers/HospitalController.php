@@ -2,7 +2,6 @@
 
 namespace backend\controllers;
 use Yii;
-use common\models\Region;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,7 +20,7 @@ class HospitalController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-            'model' => new Region(),
+
         ]);
     }
 

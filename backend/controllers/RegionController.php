@@ -15,6 +15,18 @@ class RegionController extends Controller
 {
 
     /**
+     *  通用省市区联动菜单
+     * @param int
+     * @param int
+     */
+    public function actionIndex()
+    {
+        return $this->render('index', [
+           // 'model' => new Region(),
+        ]);
+    }
+
+    /**
      * Function output the region that you selected.
      * @param int $pid
      * @param int $typeid
