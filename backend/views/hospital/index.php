@@ -15,7 +15,7 @@ use yii\bootstrap\ActiveForm;
             $.post("'.yii::$app->urlManager->createUrl('region/list').'?typeid=1&pid="+$(this).val(),function(data){
                 $("select#region-city").html(data);
             });',
-    ]) ?>
+    ])->label('省份'); ?>
 
 <?= $form->field($model, 'city')->dropDownList($model->getRegionList($model->province),
     [
@@ -25,6 +25,6 @@ use yii\bootstrap\ActiveForm;
             $.post("'.yii::$app->urlManager->createUrl('region/list').'?typeid=2&pid="+$(this).val(),function(data){
                 $("select#region-area").html(data);
             });',
-    ]) ?>
-<?= $form->field($model, 'area')->dropDownList($model->getRegionList($model->city),['prompt'=>'--请选择区--',]) ?>
+    ])->label('市');  ?>
+<?= $form->field($model, 'area')->dropDownList($model->getRegionList($model->city),['prompt'=>'--请选择区--',])->label('区/县');  ?>
 <?php ActiveForm::end();?>
