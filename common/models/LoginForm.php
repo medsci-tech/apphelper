@@ -15,7 +15,7 @@ class LoginForm extends Model
     public $rememberMe = true;
     public $verifyCode;
     private $_user;
-
+    const loginfailnumber = 5;
     /**
      * {@inheritdoc}
      */
@@ -29,6 +29,7 @@ class LoginForm extends Model
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
             ['verifyCode', 'captcha','message'=>'验证码错误!'], //验证码
+            [['username', 'password'], 'validateLogin'],// 登录限制验证
         ];
     }
     public function attributeLabels()
@@ -57,21 +58,34 @@ class LoginForm extends Model
     }
 
     /**
+     * Validates login access
+     * This method serves as the inline validation for password.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array  $params    the additional name-value pairs given in the rule
+     * @author lxhui
+     */
+    public function validateLogin ($attribute, $params)
+    {
+        $cookies = Yii::$app->request->cookies; //获取cookie
+        $loginSign = $cookies->getValue('loginSign');
+        if($loginSign >= self::loginfailnumber)
+            $this->addError($attribute, '当前登录错误已经超过最大限制!!');
+    }
+    /**
      * Logs in a user using the provided username and password.
      *
      * @return bool whether the user is logged in successfully
      */
     public function login()
     {
-        /* 有限限制是否超过限制 */
-
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
-            if (!array_key_exists("verifyCode",$this->errors)) // 记录用户或密码错误日志
+            if (array_key_exists("password",$this->errors)) // 记录用户或密码错误日志
             {
-               $model = new AdminLog();
-               $model->saves();
+                $model = new AdminLog();
+                $model->saves();
                 $cookies = Yii::$app->request->cookies; //获取cookie
                 $loginSign = $cookies->getValue('loginSign');
                 $cookies = Yii::$app->response->cookies;
