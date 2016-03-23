@@ -21,17 +21,44 @@ class Hospital extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return '{{%hospital}}';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['status', 'category_id', 'view', 'up', 'down', 'user_id'], 'integer'],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INIT]],
-            [['category_id'], 'setCategory'],
-            [['title', 'category', 'author'], 'string', 'max' => 50],
-            [['author', 'cover'], 'string', 'max' => 255],
+            [['name', 'address'], 'required'],
+            [['province_id', 'city_id', 'area_id'], 'integer'],
+//            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+//            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INIT]],
+//            [['category_id'], 'setCategory'],
+            [['name', 'address'], 'string', 'max' => 30],
+//            [['author', 'cover'], 'string', 'max' => 255],
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'name' => '名称',
+            'province_id' => '省份',
+            'city_id' => '城市',
+            'area_id' => '县区',
+            'address' => '地址',
+        ];
+    }
+
+//    public function getData($province, $city, $area)
+//    {
+//        return Hospital::find()->andFilterWhere(['province_id' => $province, 'city_id' => $city, 'area_id' => $area])->all();
+//    }
 }
