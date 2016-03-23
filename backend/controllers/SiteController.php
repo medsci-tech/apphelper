@@ -6,7 +6,9 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\LoginForm;
+use backend\models\App;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * Site controller.
@@ -74,6 +76,8 @@ class SiteController extends Controller
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        $apps = App::find()->all();
+        $listData = ArrayHelper::map($apps,'id','name');
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -81,6 +85,7 @@ class SiteController extends Controller
         } else {
             return $this->render('login', [
                 'model' => $model,
+                'listData' => $listData,
             ]);
         }
     }
