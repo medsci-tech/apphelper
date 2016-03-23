@@ -14,6 +14,7 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
     public $verifyCode;
+    public $name;
     private $_user;
     const loginfailnumber = 5;
     /**
@@ -35,6 +36,7 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
+            'name' => '应用App',
             'username' => '用户名',
             'password' => '密码',
             'rememberMe' => '记住我',

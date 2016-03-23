@@ -29,6 +29,8 @@ $fieldOptions2 = [
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
+        <?= $form->field($model, 'name')->dropDownList($listData,['prompt'=>'请选择应用App'])->label(false); ?>
+
         <?= $form
             ->field($model, 'username', $fieldOptions1)
             ->label(false)
