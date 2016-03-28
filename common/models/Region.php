@@ -18,9 +18,9 @@ use yii\helpers\ArrayHelper;
  */
 class Region extends \yii\db\ActiveRecord
 {
-    public $province;
-    public $city;
-    public $area;
+    public $province_id;
+    public $city_id;
+    public $area_id;
 
     /**
      * @param $pid

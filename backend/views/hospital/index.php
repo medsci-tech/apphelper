@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = '单位';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-index">
+<div class="hospital-index">
     <div class="box box-success">
         <div class="box-header"><h2 class="box-title">单位搜索</h2></div>
         <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
