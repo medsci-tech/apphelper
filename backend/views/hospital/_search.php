@@ -40,8 +40,8 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+    <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
+    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <div class="error-summary hide"><ul></ul></div>
 
     <?php ActiveForm::end(); ?>
