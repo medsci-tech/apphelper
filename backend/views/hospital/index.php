@@ -31,8 +31,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return  $result->name;
                             },
                     ],
-                    'city_id',
-                    'area_id',
+                    [
+                        'attribute' => 'city_id',
+                        'value'=>
+                            function($model){
+                                $result = Region::findOne($model->city_id);
+                                return  $result->name;
+                            },
+                    ],
+                    [
+                        'attribute' => 'area_id',
+                        'value'=>
+                            function($model){
+                                $result = Region::findOne($model->area_id);
+                                return  $result->name;
+                            },
+                    ],
                     'address',
                     // 'created_at',
                     // 'updated_at',

@@ -18,6 +18,9 @@ class Hospital extends HospitalModel
     public function search($params)
     {
         $query = HospitalModel::find()->orderBy('id desc');
+
+        $this->load($params);
+
         $query = $query->andFilterWhere
         (
             [
