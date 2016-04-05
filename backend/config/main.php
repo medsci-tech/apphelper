@@ -16,6 +16,11 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'on afterLogin' => function($event) {
+                $user = $event->identity;
+                $user->updated_at = time(); //登录后更新最后登录时间
+                $user->save();
+            }
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -28,6 +33,9 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
+            'itemTable' => 'auth_item',
+            'assignmentTable' => 'auth_assignment',
+            'itemChildTable' => 'auth_item_child',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

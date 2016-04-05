@@ -1,14 +1,8 @@
 <?php
 return [
     'components' => [
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=115.28.93.36;dbname=app_helper',
-            'username' => 'md_appHelper',
-            'password' => 'md_appHelper@Db2016',
-            'charset' => 'utf8',
-            'tablePrefix' => 'md_',
-        ],
+        //数据库存配置
+        'db' => require(__DIR__ . '/db.php'),
         'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => '115.28.93.36',
