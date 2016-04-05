@@ -33,9 +33,9 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'itemTable' => 'auth_item',
-            'assignmentTable' => 'auth_assignment',
-            'itemChildTable' => 'auth_item_child',
+            'itemTable' => 'md_auth_item',
+            'assignmentTable' => 'md_auth_assignment',
+            'itemChildTable' => 'md_auth_item_child',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
