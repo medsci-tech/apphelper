@@ -28,7 +28,7 @@ $fieldOptions2 = [
         <p class="login-box-msg">登录</p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
-        
+
         <?= $form
             ->field($model, 'username', $fieldOptions1)
             ->label(false)

@@ -32,4 +32,18 @@ class Region extends \yii\db\ActiveRecord
         return ArrayHelper::map($model, 'id', 'name');
     }
 
+    //
+
+    /**
+     * @abstract 返回多个区域
+     * @arr 区域id数组集合
+     * @return void or String
+     * @author by lxhui
+     * @version [2016-03-05]
+     */
+    public function getRegions($arr)
+    {
+        $model = Region::findAll(['in', 'id', $arr]);
+        return ArrayHelper::map($model, 'id', 'name');
+    }
 }

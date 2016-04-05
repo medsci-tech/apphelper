@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use common\models\Region;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -23,17 +23,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     'id',
                     'name',
-                    'province_id',
+                    [
+                        'attribute' => 'province_id',
+                        'value'=>
+                            function($model){
+                                $result = Region::findOne($model->province_id);
+                                return  $result->name;
+                            },
+                    ],
                     'city_id',
                     'area_id',
                     'address',
-                    // 'author',
                     // 'created_at',
                     // 'updated_at',
                     // 'status',
                     // 'cover',
 
-                    ['class' => 'yii\grid\ActionColumn'],
+                    ['class' => 'yii\grid\ActionColumn', 'header' => '操作'],
                 ],
             ]); ?>
         </div>
