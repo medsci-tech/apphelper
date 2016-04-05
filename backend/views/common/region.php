@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin(['enableClientValidation' => false]);?>
 
-<?= $form->field($model,'province', ['options' => ['class' => 'form-group col-lg-2']])->dropDownList($model->getRegionList(0),
+<?= $form->field($model,'province_id', ['options' => ['class' => 'form-group col-lg-2']])->dropDownList($model->getRegionList(0),
     [
         'prompt'=>'--请选择省--',
         'onchange'=>'
@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
             });',
     ])->label('省份'); ?>
 
-<?= $form->field($model, 'city', ['options' => ['class' => 'form-group col-lg-2']])->dropDownList($model->getRegionList($model->province),
+<?= $form->field($model, 'city_id', ['options' => ['class' => 'form-group col-lg-2']])->dropDownList($model->getRegionList($model->province_id),
     [
         'prompt'=>'--请选择市--',
         'onchange'=>'
@@ -26,5 +26,5 @@ use yii\widgets\ActiveForm;
                 $("select#region-area").html(data);
             });',
     ])->label('市');  ?>
-<?= $form->field($model, 'area', ['options' => ['class' => 'form-group col-lg-2']])->dropDownList($model->getRegionList($model->city),['prompt'=>'--请选择区--',])->label('区/县');  ?>
+<?= $form->field($model, 'area_id', ['options' => ['class' => 'form-group col-lg-2']])->dropDownList($model->getRegionList($model->city_id),['prompt'=>'--请选择区--',])->label('区/县');  ?>
 <?php ActiveForm::end();?>
