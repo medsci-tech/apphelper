@@ -10,6 +10,9 @@ use common\models\Region;
 $this->title = '单位';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<p>
+    <?= Html::a('添加单位', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 <div class="hospital-index">
     <div class="box box-success">
         <div class="box-header"><h2 class="box-title">单位搜索</h2></div>
