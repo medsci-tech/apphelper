@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
-    <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
+    <?= $form->field($model, 'rank_id')->dropDownList(Yii::$app->params['member']['rank']) ?>
 
     <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '正常']) ?>
 

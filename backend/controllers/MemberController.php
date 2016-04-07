@@ -30,17 +30,11 @@ class MemberController extends Controller
         $searchModel = new HospitalSearch();
 //        $dataProvider = $searchMember->findAll(Yii::$app->request->queryParams);
         $dataProvider = $searchMember->search(Yii::$app->request->queryParams);
-//var_dump($dataProvider);exit;
+//var_dump(Yii::$app->params['member']['rank']);exit;
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
         ]);
-
-
-
-
-//        $member = new RegionController(0,0);
-//        var_dump($member);
     }
 
     /**
@@ -65,25 +59,17 @@ class MemberController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Article();
-        $dataModel = new ArticleData();
-        if ($model->load(Yii::$app->request->post()) && $dataModel->load(Yii::$app->request->post())) {
+        $model = new Member();
+        if ($model->load(Yii::$app->request->post())) {
             $isValid = $model->validate();
             if ($isValid) {
                 $model->save(false);
-                $dataModel->id = $model->id;
-                $isValid = $dataModel->validate();
-                if ($isValid) {
-                    $dataModel->save(false);
-
-                    return $this->redirect(['index']);
-                }
+                return $this->redirect(['index']);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
-            'dataModel' => $dataModel,
         ]);
     }
 
@@ -98,20 +84,16 @@ class MemberController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $dataModel = ArticleData::findOne($id);
-        if ($model->load(Yii::$app->request->post()) && $dataModel->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
             $isValid = $model->validate();
-            $isValid = $dataModel->validate() && $isValid;
             if ($isValid) {
                 $model->save(false);
-                $dataModel->save(false);
                 return $this->redirect(['index']);
             }
         }
 
         return $this->render('update', [
             'model' => $model,
-            'dataModel' => $dataModel,
         ]);
     }
 
