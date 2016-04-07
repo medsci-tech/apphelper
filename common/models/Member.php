@@ -34,10 +34,10 @@ class Member extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-//            [['username', 'email', 'real_name'], 'required'],
-//            [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
-//            [['username'], 'string', 'length' => 11],
-//            [['real_name'], 'string', 'max' => 30],
+            [['username', 'email', 'real_name', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'required'],
+            [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['username'], 'string', 'length' => 11],
+            [['real_name'], 'string', 'max' => 30],
         ];
     }
     public function attributeLabels()
@@ -112,10 +112,7 @@ class Member extends \yii\db\ActiveRecord
     public function edit($attribute, $params)
     {
         $class = $this::find()->where($attribute)->one();
-        if(isset($params['username'])){
-            $this->username = $params['username'];
-        }
-
+        $this->username = $params['username'];
         $this->email = $params['email'];
         $this->real_name = $params['real_name'];
         $this->province_id = $params['province_id'];

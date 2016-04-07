@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\ArticleData;
 use common\models\Member;
+use common\models\Region;
 use yidashi\webuploader\WebuploaderAction;
 use Yii;
 use common\logic\Article;
@@ -27,10 +28,7 @@ class MemberController extends Controller
     public function actionIndex()
     {
         $searchMember = new \backend\models\search\Member();
-        $searchModel = new HospitalSearch();
-//        $dataProvider = $searchMember->findAll(Yii::$app->request->queryParams);
         $dataProvider = $searchMember->search(Yii::$app->request->queryParams);
-//var_dump(Yii::$app->params['member']['rank']);exit;
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
@@ -63,14 +61,21 @@ class MemberController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $isValid = $model->validate();
             if ($isValid) {
-                $model->save(false);
-                return $this->redirect(['index']);
+                $model->created_at = time();
+                $res = $model->save(false);
+                if($res){
+                    return $this->redirect(['index']);
+                }else{
+                    return $this->redirect(['create']);
+                }
+            }else{
+                return $this->redirect(['create']);
             }
+        }else{
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -86,15 +91,30 @@ class MemberController extends Controller
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             $isValid = $model->validate();
+//            var_dump($model->province_id);exit;
             if ($isValid) {
-                $model->save(false);
-                return $this->redirect(['index']);
+                $model->updated_at = time();
+                $res = $model->save(false);
+                if($res){
+                    return $this->redirect(['index']);
+                }else{
+                    return $this->redirect(['update?id=' . $id]);
+                }
+            }else{
+                return $this->redirect(['update?id=' . $id]);
             }
+        }else{
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
+    }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
     }
 
     /**

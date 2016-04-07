@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     <?
     echo $this->render('/region/index', [
         'model' => new \common\models\Region,
-        'm' => 'Hospital',
+        'm' => 'Member',
         'form' => $form,
     ]);
     ?>
