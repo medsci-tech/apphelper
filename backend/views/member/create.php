@@ -6,15 +6,15 @@ use yii\helpers\Html;
 /* @var $model common\models\Article */
 /* @var $dataModel common\models\ArticleData */
 
-$this->title = '添加用户';
-$this->params['breadcrumbs'][] = ['label' => '文章', 'url' => ['index']];
+$this->title = '添加用户 '.$model->real_name;
+$this->params['breadcrumbs'][] = ['label' => '用户', 'url' => ['index']];
+
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-create">
 
     <?= $this->render('_form', [
         'model' => $model,
-        'dataModel' => $dataModel,
     ]) ?>
 
 </div>
