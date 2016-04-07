@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use common\models\Region;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
