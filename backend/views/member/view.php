@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->real_name;
 $this->params['breadcrumbs'][] = ['label' => '用户', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+//var_dump($model);exit;
 ?>
 <div class="article-view">
 
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '此操作不可恢复，你确定要删除吗？',
                 'method' => 'post',
             ],
         ]) ?>
@@ -37,10 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'area_id',
             'hospital_id',
             'rank_id',
-            'city_id',
-            'created_at',
-            'updated_at',
-            'status',
+            'created_at:datetime',
+            'updated_at:datetime',
+            'status:boolean',
         ],
     ]) ?>
 

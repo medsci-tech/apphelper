@@ -58,6 +58,7 @@ class Member extends \yii\db\ActiveRecord
             'created_at' => '注册时间',
             'updated_at' => '编辑时间',
             'real_name' => '姓名',
+            'status' => '状态',
         ];
     }
     /**

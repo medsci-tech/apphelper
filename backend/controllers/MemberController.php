@@ -2,17 +2,12 @@
 
 namespace backend\controllers;
 
-use common\models\ArticleData;
+use common\models\Hospital;
 use common\models\Member;
 use common\models\Region;
-use yidashi\webuploader\WebuploaderAction;
 use Yii;
-use common\logic\Article;
-use backend\models\search\Article as ArticleSearch;
-use backend\models\search\Hospital as HospitalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -29,9 +24,11 @@ class MemberController extends Controller
     {
         $searchMember = new \backend\models\search\Member();
         $dataProvider = $searchMember->search(Yii::$app->request->queryParams);
+        $memberRank = Yii::$app->params['member'];
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
+            'memberRank' => $memberRank,
         ]);
     }
 
@@ -44,8 +41,14 @@ class MemberController extends Controller
      */
     public function actionView($id)
     {
+        $member = $this->findModel($id);
+        $member->hospital_id = Hospital::findOne($member->hospital_id)->name;
+        $member->rank_id = Yii::$app->params['member']['rank'][$member->rank_id];
+        $member->province_id =  Region::findOne($member->province_id)->name;
+        $member->city_id =  Region::findOne($member->city_id)->name;
+        $member->area_id =  Region::findOne($member->area_id)->name;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $member,
         ]);
     }
 
@@ -130,4 +133,6 @@ class MemberController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
 }
