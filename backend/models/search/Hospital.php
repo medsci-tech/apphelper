@@ -15,9 +15,19 @@ use common\models\Hospital as HospitalModel;
 class Hospital extends HospitalModel
 {
 
+    public function rules()
+    {
+        return [
+            [['province_id', 'city_id', 'area_id'], 'integer'],
+        ];
+    }
+
     public function search($params)
     {
         $query = HospitalModel::find()->orderBy('id desc');
+
+        $this->load($params);
+
         $query = $query->andFilterWhere
         (
             [

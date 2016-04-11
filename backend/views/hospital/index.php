@@ -10,6 +10,9 @@ use common\models\Region;
 $this->title = '单位';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<p>
+    <?= Html::a('添加单位', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
 <div class="hospital-index">
     <div class="box box-success">
         <div class="box-header"><h2 class="box-title">单位搜索</h2></div>
@@ -31,8 +34,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return  $result->name;
                             },
                     ],
-                    'city_id',
-                    'area_id',
+                    [
+                        'attribute' => 'city_id',
+                        'value'=>
+                            function($model){
+                                $result = Region::findOne($model->city_id);
+                                return  $result->name;
+                            },
+                    ],
+                    [
+                        'attribute' => 'area_id',
+                        'value'=>
+                            function($model){
+                                $result = Region::findOne($model->area_id);
+                                return  $result->name;
+                            },
+                    ],
                     'address',
                     // 'created_at',
                     // 'updated_at',
