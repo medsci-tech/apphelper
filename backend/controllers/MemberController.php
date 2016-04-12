@@ -66,7 +66,7 @@ class MemberController extends Controller
             if ($isValid) {
                 $model->created_at = time();
                 $res = $model->save(false);
-                if($res){
+                if($res && $model->signup()){
                     return $this->redirect(['index']);
                 }else{
                     return $this->redirect(['create']);

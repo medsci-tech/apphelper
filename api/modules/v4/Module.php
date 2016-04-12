@@ -11,6 +11,6 @@ namespace api\modules\v4;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'api\modules\v1\controllers';
+    public $controllerNamespace = 'api\modules\v4\controllers';
     public $defaultRoute = 'site';
 }
