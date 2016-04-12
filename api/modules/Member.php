@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace api\common\models;
 
 use Yii;
 
@@ -18,7 +18,7 @@ use Yii;
  * @property string $create_at
 
  */
-class Member extends User
+class Member extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -61,19 +61,6 @@ class Member extends User
             'status' => '状态',
         ];
     }
-
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        $scenarios['update'] = ['username', 'email'];
-        $scenarios['resetPassword'] = ['password'];
-        return $scenarios;
-    }
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
     /**
      * 添加用户
      * @param $params
@@ -83,32 +70,34 @@ class Member extends User
      * @startDate 20160406
      * @upDate 20160406
      */
-    public function signup()
+    public function add($params)
     {
         if ($this->validate()) {
-            $this->username;
-            $this->email;
-            if(isset($this->password)){
-                $password = $this->password;
+            // 验证成功！
+            $this->username = $params['username'];
+            $this->email = $params['email'];
+            $this->real_name = $params['real_name'];
+            $this->province_id = $params['province_id'];
+            $this->city_id = $params['city_id'];
+            $this->area_id = $params['area_id'];
+            $this->hospital_id = $params['hospital_id'];
+            $this->rank_id = $params['rank_id'];
+            $this->create_at = time();
+            $res = $this->insert();
+            if($res){
+                $return = [
+                    'id' => $this->id,
+                ];
             }else{
-                $password = Yii::$app->params['member']['defaultPwd'];
+                $return = false;
             }
-            $this->setPassword($password);
-            $this->generateAuthKey();
-            if ($this->save()) {
-                return $this;
-            }else{
-                return false;
-            }
+        } else {
+            $return = $this->getErrors();
+            // 失败！
+            // 使用 $model->getErrors() 获取错误详情
         }
-        return null;
-    }
 
-    public function resetPassword()
-    {
-        $this->setPassword($this->password);
-        unset($this->password);
-        return $this->save(false);
+        return $return;
     }
 
     /**
