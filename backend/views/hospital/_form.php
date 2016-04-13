@@ -20,8 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?
-    echo $this->render('/region/index', [
+    <?= $this->render('/region/index', [
         'model' => new \common\models\Region,
         'm' => 'Hospital',
         'form' => $form,
