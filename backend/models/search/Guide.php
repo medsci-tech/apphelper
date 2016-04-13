@@ -33,7 +33,7 @@ class Guide extends GuideModel
             [
                 'uid' => $this->uid,
             ]
-        )->andFilterWhere(['like', 'title', $this->name]);
+        )->andFilterWhere(['like', 'title', $this->title]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
