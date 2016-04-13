@@ -15,8 +15,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'real_name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-    <?
-    echo $this->render('/region/index', [
+    <?=
+     $this->render('/region/index', [
         'model' => new \common\models\Region,
         'm' => 'Member',
         'form' => $form,

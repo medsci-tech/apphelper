@@ -9,7 +9,7 @@
 namespace api\modules\v4\controllers;
 
 
-use api\modules\v1\models\Article;
+use api\modules\v4\models\Article;
 use yii\data\ActiveDataProvider;
 
 class ArticleController extends Controller
