@@ -43,7 +43,7 @@ class Guide extends GuideModel
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC,
-                    'name' => SORT_ASC,
+                    'title' => SORT_ASC,
                 ]
             ],
         ]);
