@@ -31,3 +31,4 @@ phpunit.phar
 /dump.rdb
 /static/*
 /runtime
+/backend/web/assets
