@@ -32,8 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'title',
                     'url',
-                    'uid',
-                    'created_at',
+                    [
+                        'attribute' => 'created_at',
+                        'value'=>
+                            function($model){
+                                $result = date('Y-m-d H:i:s',$model->created_at);
+                                return  $result;
+                            },
+                    ],
                     // 'updated_at',
                     // 'status',
                     // 'cover',

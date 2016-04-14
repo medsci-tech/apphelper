@@ -44,4 +44,7 @@ class Guide extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
         ];
     }
+
+
+
 }

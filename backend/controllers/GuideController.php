@@ -29,6 +29,13 @@ class GuideController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'webupload' => WebuploaderAction::className(),
+        ];
+    }
+
     public function actionIndex()
     {
         $searchModel = new GuideSearch();
@@ -51,7 +58,8 @@ class GuideController extends Controller
     public function actionCreate()
     {
         $model = new Guide();
-
+        $model->uid = Yii::$app->user->id;
+        $model->created_at = time();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

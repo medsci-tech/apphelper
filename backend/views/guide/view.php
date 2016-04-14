@@ -36,15 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'url',
-            'uid',
-            'create_at',
-
-//            [
-//                'attribute' => 'name',
-//                'label' => '省份',
-//                'value' => strip_tags(\yii\helpers\Markdown::process($model->province->name)),
-//                'format' => 'raw',
-//            ],
+            [
+                'attribute' => 'created_at',
+                'label' => '创建时间',
+                'value' => date('Y-m-d H:i:s',$model->created_at),
+                'format' => 'raw',
+            ],
 //            [
 //                'attribute' => 'name',
 //                'label' => '城市',

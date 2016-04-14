@@ -24,14 +24,7 @@ use yii\widgets\ActiveForm;
         'options' => ['class' => 'form-inline'],
     ]); ?>
 
-<!--    --><?//= $form->field($model, 'name') ?>
-
     <?= $form->field($model, 'title') ?>
-
-    <!--    --><?//= $form->field($model, 'category_id')->dropDownList(array_merge(['' => '全部'], \common\models\Category::find()->select('title')->indexBy('id')->column())) ?>
-    <!---->
-    <!--    --><?php // echo $form->field($model, 'status')->dropDownList(['' => '全部', '待审核', '正常']) ?>
-
 
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
