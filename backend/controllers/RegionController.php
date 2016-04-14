@@ -29,14 +29,14 @@ class RegionController extends Controller
     /**
      * Function output the region that you selected.
      * @param int $pid
-     * @param int $typeid
+     * @param int $grade
      */
-    public function actionList($pid, $typeid = 0)
+    public function actionList($pid,$grade=1)
     {
         $model = new Region();
-        $model = $model->getRegionList($pid);
+        $model = $model->getRegionList($pid, $grade);
 
-        if($typeid == 1){$aa="--请选择市--";}else if($typeid == 2 && $model){$aa="--请选择区--";}
+        if($grade == 2){$aa="--请选择市--";}else if($grade == 3 && $model){$aa="--请选择区--";}
 
         echo Html::tag('option',$aa, ['value'=>'empty']) ;
 
