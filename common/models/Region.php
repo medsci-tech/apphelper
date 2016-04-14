@@ -24,11 +24,12 @@ class Region extends \yii\db\ActiveRecord
 
     /**
      * @param $pid
+     * @param $grade
      * @return array
      */
-    public function getRegionList($pid)
+    public function getRegionList($pid, $grade = 1)
     {
-        $model = Region::findAll(array('parent'=>$pid));
+        $model = Region::findAll(['parent'=>$pid,'grade' => $grade]);
         return ArrayHelper::map($model, 'id', 'name');
     }
 
