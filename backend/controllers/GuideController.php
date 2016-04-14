@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\search\Guide as GuideSearch;
 use common\models\Guide;
+use yidashi\webuploader\WebuploaderAction;
 
 class GuideController extends Controller
 {
