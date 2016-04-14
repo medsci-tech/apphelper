@@ -97,11 +97,9 @@ class Member extends User
             $this->generateAuthKey();
             if ($this->save()) {
                 return $this;
-            }else{
-                return false;
             }
         }
-        return null;
+        return false;
     }
 
     public function resetPassword()
@@ -111,29 +109,4 @@ class Member extends User
         return $this->save(false);
     }
 
-    /**
-     * 编辑用户信息
-     * @param $attribute
-     * @param $params
-     * @return bool|int
-     * @throws \Exception
-     * @author zhaiyu
-     * @startDate 20160406
-     * @upDate 20160406
-     */
-    public function edit($attribute, $params)
-    {
-        $class = $this::find()->where($attribute)->one();
-        $this->username = $params['username'];
-        $this->email = $params['email'];
-        $this->real_name = $params['real_name'];
-        $this->province_id = $params['province_id'];
-        $this->city_id = $params['city_id'];
-        $this->area_id = $params['area_id'];
-        $this->hospital_id = $params['hospital_id'];
-        $this->rank_id = $params['rank_id'];
-        $this->create_at = time();
-        return $class->update();
-
-    }
 }

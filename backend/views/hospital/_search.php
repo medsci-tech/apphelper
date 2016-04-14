@@ -25,15 +25,8 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'name') ?>
-<!---->
-<!--    --><?//= $form->field($model, 'title') ?>
-<!---->
-<!--    --><?//= $form->field($model, 'category_id')->dropDownList(array_merge(['' => '全部'], \common\models\Category::find()->select('title')->indexBy('id')->column())) ?>
-<!---->
-<!--    --><?php // echo $form->field($model, 'status')->dropDownList(['' => '全部', '待审核', '正常']) ?>
 
-    <?
-    echo $this->render('/region/index', [
+    <?= $this->render('/region/index', [
         'model' => new \common\models\Region,
         'm' => 'Hospital',
         'form' => $form,
