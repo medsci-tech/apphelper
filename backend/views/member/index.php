@@ -22,7 +22,7 @@ $this->params['memberRank'] = $memberRank['rank'];
     <div class="box box-success">
         <div class="box-header">
             <h2 class="box-title">用户列表</h2>
-            <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('添加用户', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="box-body">
             <?= GridView::widget([

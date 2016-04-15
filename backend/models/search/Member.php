@@ -18,7 +18,6 @@ class Member extends MemberModel
     {
         return [
             [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
-            [['username'], 'string', 'length' => 11],
             [['real_name'], 'string'],
         ];
     }
@@ -35,11 +34,11 @@ class Member extends MemberModel
         }
         $query->andFilterWhere(
             [
-                'username' => $this->username,
                 'hospital_id' => $this->hospital_id,
             ]
         );
         $query->andFilterWhere(['like', 'real_name', $this->real_name]);
+        $query->andFilterWhere(['like', 'username', $this->username]);
         return $dataProvider;
     }
 }
