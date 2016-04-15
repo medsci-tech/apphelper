@@ -62,17 +62,17 @@ class Hospital extends \yii\db\ActiveRecord
         ];
     }
 
-    public function setProvince($attribute, $params)
+    public function setProvince()
     {
         $this->province = Region::find()->where(['id' => $this->province_id])->select('name')->scalar();
     }
 
-    public function setCity($attribute, $params)
+    public function setCity()
     {
         $this->city = Region::find()->where(['id' => $this->city_id])->select('name')->scalar();
     }
 
-    public function setArea($attribute, $params)
+    public function setArea()
     {
         $this->area = Region::find()->where(['id' => $this->area_id])->select('name')->scalar();
     }
