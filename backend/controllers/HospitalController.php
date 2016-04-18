@@ -1,17 +1,19 @@
 <?php
 
 namespace backend\controllers;
+use frontend\controllers\FrontendController;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\search\Hospital as HospitalSearch;
 use common\models\Hospital;
+use yii\widgets\FragmentCache;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
  */
-class HospitalController extends Controller
+class HospitalController extends BackendController
 {
 
     public function behaviors()
