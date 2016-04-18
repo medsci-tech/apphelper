@@ -393,7 +393,7 @@
 <script src="/js/plugins/flot/jquery.flot.resize.js"></script>
 <script src="/js/plugins/flot/jquery.flot.pie.js"></script>
 <script src="/js/plugins/flot/jquery.flot.symbol.js"></script>
-<script src="/js/plugins/flot/curvedLines.js"></script>
+<script src="/js/plugins/flot/curvedLines.js"></script>1
 <script src="/js/plugins/peity/jquery.peity.min.js"></script>
 <script src="/js/demo/peity-demo.min.js"></script>
 <script src="/js/content.min.js?v=1.0.0"></script>
