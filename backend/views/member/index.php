@@ -12,7 +12,7 @@ use common\models\Hospital;
 $this->title = '用户';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['memberRank'] = $memberRank['rank'];
-
+backend\assets\AppAsset::register($this);
 ?>
 <div class="article-index">
     <div class="box box-success">

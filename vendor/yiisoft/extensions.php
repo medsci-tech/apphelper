@@ -211,4 +211,14 @@ return array (
       '@dmstr' => $vendorDir . '/dmstr/yii2-adminlte-asset',
     ),
   ),
+
+  'dmstr/yii2-hplus-asset' =>
+      array (
+          'name' => 'dmstr/yii2-hplus-asset',
+          'version' => '4.01',
+          'alias' =>
+              array (
+                  '@dmstr' => $vendorDir . '/dmstr/yii2-hplus-asset',
+              ),
+      ),
 );

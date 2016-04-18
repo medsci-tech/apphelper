@@ -22,9 +22,9 @@ if (Yii::$app->controller->action->id === 'login') {
         app\assets\AppAsset::register($this);
     }
 
-    dmstr\web\AdminLteAsset::register($this);
+    dmstr\web\AdminPlusAsset::register($this);
 
-    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/hplus');
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -38,26 +38,18 @@ if (Yii::$app->controller->action->id === 'login') {
         <?php $this->head() ?>
 
     </head>
-    <body class="hold-transition <?= \dmstr\helpers\AdminLteHelper::skinClass() ?> sidebar-mini fixed">
+    <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <?php $this->beginBody() ?>
     <div class="wrapper">
-
-        <?= $this->render(
-            'header.php',
-            ['directoryAsset' => $directoryAsset]
-        ) ?>
-
         <?= $this->render(
             'left.php',
             ['directoryAsset' => $directoryAsset]
         )
         ?>
-
         <?= $this->render(
-            'content.php',
-            ['content' => $content, 'directoryAsset' => $directoryAsset]
+            'header.php',
+            ['directoryAsset' => $directoryAsset]
         ) ?>
-
     </div>
     <?php $this->endBody() ?>
     <?php if (isset($this->blocks['js'])): ?>

@@ -29,7 +29,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','index_v4'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -38,7 +38,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    //'logout' => ['post'],
                 ],
             ],
         ];
@@ -69,7 +69,11 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
+    public function actionIndex_v4()
+    {
+        $this->layout = 'main-common';
+        return $this->render('index_v4');
+    }
     public function actionLogin()
     {
 //        $this->layout = 'main-login';
