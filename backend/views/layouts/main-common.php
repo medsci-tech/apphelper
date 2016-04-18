@@ -19,11 +19,8 @@ dmstr\web\AdminPlusAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body class="gray-bg sidebar-content">
-
 <?php $this->beginBody() ?>
-
     <?= $content ?>
-
 <?php $this->endBody() ?>
 </body>
 </html>

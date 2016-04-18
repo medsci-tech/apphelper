@@ -4,7 +4,6 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
-
 <!--右侧部分开始-->
 <div id="page-wrapper" class="gray-bg dashbard-1">
     <div class="row border-bottom">
@@ -127,13 +126,13 @@ use yii\helpers\Html;
                 </li>
             </ul>
         </div>
-        <a href="<?= \yii\helpers\Url::to(['/site/logout']) ?>" class="roll-nav roll-right J_tabExit" data-method="post"><i class="fa fa fa-sign-out"></i> 退出</a>
+        <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
     </div>
     <div class="row J_mainContent" id="content-main">
-        <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/site/index_v4" frameborder="0" data-id="/site/index_v4" seamless></iframe>
+        <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/site/index_v4" frameborder="0" data-id="index_v1.html" seamless></iframe>
     </div>
     <div class="footer">
-        <div class="pull-right">&copy; 2014-2015 <a href="http://www.zi-han.net/" target="_blank">迈德科技</a>
+        <div class="pull-right">&copy; 2014-2015 <a href="http://www.zi-han.net/" target="_blank">zihan's blog</a>
         </div>
     </div>
 </div>
