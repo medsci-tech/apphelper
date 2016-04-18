@@ -27,6 +27,7 @@ class AdminPlusAsset extends AssetBundle
         'js/hplus.min.js?v=4.1.0',
         'js/contabs.min.js',
         'js/plugins/pace/pace.min.js',
+        'js/plugins/sweetalert/sweetalert.min.js',
     ];
     public $depends = [
 /*        'rmrevin\yii\fontawesome\AssetBundle',
