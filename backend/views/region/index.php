@@ -36,3 +36,11 @@ $htmlClass = 'form-group container-fluid';
     <div style="clear: both;margin: 0;padding: 0;width: 0;height: 0;"></div>
 </div>
 <?php //ActiveForm::end();?>
+<?php
+$js=<<<JS
+ $('.del').click(function () {
+
+});
+JS;
+$this->registerJs($js);
+?>

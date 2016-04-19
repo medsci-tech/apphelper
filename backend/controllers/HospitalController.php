@@ -39,6 +39,7 @@ class HospitalController extends BackendController
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'model' => new Hospital(),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
