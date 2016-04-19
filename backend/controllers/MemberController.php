@@ -12,7 +12,7 @@ use yii\web\NotFoundHttpException;
 /**
  * ArticleController implements the CRUD actions for Article model.
  */
-class MemberController extends Controller
+class MemberController extends BackendController
 {
 
     /**

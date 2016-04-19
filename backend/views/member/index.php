@@ -12,7 +12,7 @@ use common\models\Hospital;
 $this->title = '用户';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['memberRank'] = $memberRank['rank'];
-
+backend\assets\AppAsset::register($this);
 ?>
 <div class="article-index">
     <div class="box box-success">
@@ -22,7 +22,7 @@ $this->params['memberRank'] = $memberRank['rank'];
     <div class="box box-success">
         <div class="box-header">
             <h2 class="box-title">用户列表</h2>
-            <?= Html::a('Create', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('添加用户', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="box-body">
             <?= GridView::widget([
