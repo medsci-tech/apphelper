@@ -6,8 +6,8 @@ class ExcelController
     private $config = [
         'fileName' => 'excel',
         'sheetName' => 'sheet1',
-        'columnHeight' => '30',
-        'contentHeight' => '30',
+        'columnHeight' => '20',
+        'contentHeight' => '20',
         'fontSize' => '12',
     ];
 
@@ -15,13 +15,52 @@ class ExcelController
         $this->config = array_merge($this->config, $config);
     }
 
-    public function Import()
+    /**
+     * 读取Excel数据
+     * author zhaiyu
+     * @param $fileName
+     * @param $column
+     * @return array
+     * @throws \PHPExcel_Reader_Exception
+     */
+    public function Import($fileName, $column)
     {
+        error_reporting(E_ALL); //开启错误
+        set_time_limit(0); //脚本不超时
+        $inputFileType = 'Excel5';    //这个是读 xls的
 
+        $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($fileName);
+
+        $objWorksheet = $objPHPExcel->getActiveSheet();
+        $highestRow = $objWorksheet->getHighestRow();//取得总行数
+        $highestColumnIndex = count($column);//总列数
+
+        $listTitle = [];$listData = [];
+        for ($col = 0;$col < $highestColumnIndex;$col++)
+        {
+            $listTitle[] =$objWorksheet->getCellByColumnAndRow($col, 1)->getValue();
+        }
+        for ($row = 2;$row <= $highestRow;$row++)
+        {
+            $data = [];$emptyCount = 0;
+            foreach ($column as $key => $val){
+                $data[$key]=$objWorksheet->getCellByColumnAndRow(array_search($val, $listTitle), $row)->getValue();
+                if(empty(trim($data[$key]))){
+                    $emptyCount++;
+                }
+            }
+            if($emptyCount == 0){
+                $listData[] = $data;
+            }else if($emptyCount > 0 && $emptyCount < $highestColumnIndex){
+                return [];
+            }
+        }
+        return $listData;
     }
 
     /**
-     * 导出
+     * 导出Excel数据
      * @param $column
      * @param $data
      * @throws \PHPExcel_Exception
@@ -54,7 +93,7 @@ class ExcelController
 // Add some data
         foreach($column as $k => $v){
             //水平居中
-            $objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $objPHPExcel->getActiveSheet()->getStyle($v['column'].'1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
             //设置列宽
             $objPHPExcel->getActiveSheet()->getColumnDimension($v['column'])->setWidth($v['width']);
             //单元格
@@ -72,7 +111,7 @@ class ExcelController
         $objPHPExcel->getActiveSheet()->setTitle($this->config['sheetName']);
         
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-//        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->setActiveSheetIndex(0);
 
 // Redirect output to a client’s web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
