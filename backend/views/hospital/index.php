@@ -16,8 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </button>
 </p>
 <div class="hospital-index">
-    <div class="box box-success">
-        <div class="box-header"><h2 class="box-title">单位搜索</h2></div>
+    <div>
         <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
     </div>
     <div class="box box-success">
@@ -65,51 +64,28 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-    <!-- 弹出曾部分 -->
-    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" id="loadResult">
+<!-- 弹出曾部分 -->
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">单位发布</h4>
+            </div>
+<?=$this->render('create', [
+    'model' => $model,
+]);?>
         </div>
     </div>
+</div>
+</div>
 <?php
 $js=<<<JS
-$(document).ready(function(){alert(11);
-/* 添加编辑单位 */
-$(":button[name='doadd']").click(function(){
-    //var tid = $(this).attr('tid');  // tid
+ $(document).ready(function(){
+    $('div').removeClass('container-fluid'); // 去除多余样式
 
-    //$('div.chosen-container').attr("style","width:300px;");
-    $("#loadResult").empty();
-    $("#loadResult").load("/hospital/create", {pid: 1,type: 11}, function(){    });
-    }
-)
 
- $('.del').click(function () {
-var _this = $(this);
-var tid = $(_this).attr('tid');
-    swal({
-        title: "您确定要删除这条信息吗",
-        text: "删除后将无法恢复，请谨慎操作！",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        cancelButtonText: "取消",
-        confirmButtonText: "删除",
-        closeOnConfirm: false
-    }, function () {
-    $.post("/index.php?r=thread/delete", {tid:tid}, function(data){
-    if(data.status==1)
-    {
-        $(_this).removeClass('btn-danger del').addClass('btn-default');
-        $('#del_'+tid).html('后台删除');
-        $('#del_'+tid).removeClass('btn-primary').addClass('btn-default');
-        swal("删除成功！", "您已经永久删除了这条信息。", "success");
-        $(_this).unbind("click"); //移除clic
-    }
-    else
-        swal("删除失败！", "请联系管理员。", "error");
-});
-    });
-});
+
 });
 JS;
 $this->registerJs($js);
