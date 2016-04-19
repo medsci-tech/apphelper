@@ -10,17 +10,12 @@ use common\models\Region;
 $this->title = '单位';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<p>
-    <button type="button" name="doadd" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        添加单位
-    </button>
-</p>
+<p></p>
 <div class="hospital-index">
     <div>
         <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
     </div>
     <div class="box box-success">
-        <div class="box-header"><h2 class="box-title">单位列表</h2></div>
         <div class="box-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
