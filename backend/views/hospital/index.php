@@ -57,7 +57,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     // 'status',
                     // 'cover',
 
-                    ['class' => 'yii\grid\ActionColumn', 'header' => '操作'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template'=>'{view}  {update} {delete}',
+                        'header' => '操作',
+                        'buttons'=>[
+                            'update'=> function ($url, $model, $key) {
+                                return Html::a('<span name="del" class="glyphicon glyphicon-pencil" id="'.$model->id.'"></span>');
+                            },
+                        ]
+                    ]
                 ],
             ]); ?>
         </div>
@@ -84,7 +93,9 @@ $js=<<<JS
  $(document).ready(function(){
     $('div').removeClass('container-fluid'); // 去除多余样式
 
-
+$("span[name='del']").click(function(){
+alert($(this).attr('id'));
+});
 
 });
 JS;
