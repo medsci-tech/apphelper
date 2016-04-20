@@ -3,17 +3,7 @@ namespace backend\controllers;
 
 class ExcelController
 {
-    private $config = [
-        'fileName' => 'excel',
-        'sheetName' => 'sheet1',
-        'columnHeight' => '20',
-        'contentHeight' => '20',
-        'fontSize' => '12',
-    ];
 
-    public function __construct($config=array()){
-        $this->config = array_merge($this->config, $config);
-    }
 
     /**
      * 读取Excel数据
@@ -63,11 +53,21 @@ class ExcelController
      * 导出Excel数据
      * @param $column
      * @param $data
+     * @param $config
      * @throws \PHPExcel_Exception
      * @throws \PHPExcel_Reader_Exception
      */
-    public function Export($column, $data)
+    public function Export($config, $column, $data)
     {
+        $defaultConfig = [
+            'fileName' => 'excel',
+            'sheetName' => 'sheet1',
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $config = array_merge($defaultConfig, $config);
+
         ini_set('display_errors', TRUE);
         ini_set('display_startup_errors', TRUE);
         date_default_timezone_set('Europe/London');
@@ -87,9 +87,9 @@ class ExcelController
             ->setKeywords("office 2007 openxml php");
         //设置默认字体和大小
         $objPHPExcel->getDefaultStyle()->getFont()->setName(iconv('gbk', 'utf-8', '宋体'));
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize($this->config['fontSize']);
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize($config['fontSize']);
         //设置栏目行高
-        $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight($this->config['columnHeight']);
+        $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight($config['columnHeight']);
 // Add some data
         foreach($column as $k => $v){
             //水平居中
@@ -101,21 +101,21 @@ class ExcelController
         }
         foreach($data as $key => $val){
             //设置内容行高
-            $objPHPExcel->getActiveSheet()->getRowDimension($key+2)->setRowHeight($this->config['contentHeight']);
+            $objPHPExcel->getActiveSheet()->getRowDimension($key+2)->setRowHeight($config['contentHeight']);
             foreach($val as $k => $v){
                 $objPHPExcel->getActiveSheet()->setCellValue($column[$k]['column'].($key+2), $v);
             }
         }
 
 // Rename worksheet
-        $objPHPExcel->getActiveSheet()->setTitle($this->config['sheetName']);
+        $objPHPExcel->getActiveSheet()->setTitle($config['sheetName']);
         
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $objPHPExcel->setActiveSheetIndex(0);
 
 // Redirect output to a client’s web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$this->config['fileName'].'.xls"');
+        header('Content-Disposition: attachment;filename="'.$config['fileName'].'.xls"');
         header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
         header('Cache-Control: max-age=1');
