@@ -32,7 +32,6 @@ use yii\widgets\ActiveForm;
         'form' => $form,
     ]);
     ?>
-
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加单位', ['class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
