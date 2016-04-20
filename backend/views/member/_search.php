@@ -30,8 +30,22 @@ use yii\widgets\ActiveForm;
 
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
+    <?= Html::a('导出','export', ['class' => 'btn btn-info']) ?>
+    <?= Html::a('添加用户', ['create'], ['class' => 'btn btn-success animation_select','data-animation'=>'fadeInDown']) ?>
+
     <div class="error-summary hide"><ul></ul></div>
 
     <?php ActiveForm::end(); ?>
+
+
+    <?php $form = ActiveForm::begin([
+        'action' => ['import'],
+        'options' => ['enctype' => 'multipart/form-data']
+    ]) ?>
+    <?= $form->field($uploadModel, 'fileName')->fileInput() ?>
+
+    <button>Submit</button>
+    <?php ActiveForm::end() ?>
+
 
 </div>

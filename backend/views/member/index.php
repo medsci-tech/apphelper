@@ -7,6 +7,7 @@ use common\models\Hospital;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider  */
 /* @var $memberRank */
 
 $this->title = '用户';
@@ -17,12 +18,12 @@ backend\assets\AppAsset::register($this);
 <div class="article-index">
     <div class="box box-success">
         <div class="box-header"><h2 class="box-title">用户搜索</h2></div>
-        <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
+        <div class="box-body">
+            <?php echo $this->render('_search', ['model' => $searchModel,'uploadModel'=>$uploadModel]); ?>
+        </div>
     </div>
     <div class="box box-success">
         <div class="box-header">
-            <h2 class="box-title">用户列表</h2>
-            <?= Html::a('添加用户', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="box-body">
             <?= GridView::widget([

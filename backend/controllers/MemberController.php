@@ -11,6 +11,8 @@ use yii\base\Object;
 use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
+use common\models\Upload;
+use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -26,6 +28,7 @@ class MemberController extends BackendController
     {
         $appYii = Yii::$app;
         $searchMember = new \backend\models\search\Member();
+        $uploadModel = new Upload();
         $dataProvider = $searchMember->search($appYii->request->queryParams);
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
@@ -50,6 +53,7 @@ class MemberController extends BackendController
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
             'memberRank' => $memberRank,
+            'uploadModel' => $uploadModel,
         ]);
     }
 
@@ -156,6 +160,19 @@ class MemberController extends BackendController
     }
 
     public function actionImport(){
+        $model = new Upload();
+
+        if (Yii::$app->request->isPost) {
+            $model->fileName = UploadedFile::getInstance($model, 'fileName');
+            if ($model->upload()) {
+                // 文件上传成功
+                var_dump($model);exit;
+            }
+        }
+
+
+
+
         $column = [
             'real_name'=>'姓名',
             'username'=>'手机号',
@@ -215,6 +232,7 @@ class MemberController extends BackendController
             'city_id'=>['column'=>'G','name'=>'城市','width'=>10],
             'area_id'=>['column'=>'H','name'=>'县区','width'=>10],
             'created_at'=>['column'=>'I','name'=>'注册时间','width'=>20],
+            'status'=>['column'=>'J','name'=>'状态','width'=>10],
         ];
         $config = [
             'fileName' => '用户数据导出-' . date('YmdHis'),
