@@ -18,9 +18,6 @@ class MemberController extends BackendController
 
     /**
      * Lists all Article models.
-     *'real_name',
-    'username',
-    'email',
      * @return mixed
      */
     public function actionIndex()
