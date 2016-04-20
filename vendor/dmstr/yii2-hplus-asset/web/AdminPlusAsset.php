@@ -19,7 +19,7 @@ class AdminPlusAsset extends AssetBundle
         'css/style.min862f.css?v=4.1.0',
     ];
     public $js = [
-       // 'js/app.min.js',
+        'js/jquery.min.js',
         'js/bootstrap.min.js?v=3.3.6',
         'js/plugins/metisMenu/jquery.metisMenu.js',
         'js/plugins/slimscroll/jquery.slimscroll.min.js',

@@ -1,5 +1,5 @@
 <?
-$this->registerjsFile('/js/jquery.min.js?v=2.1.4');
+//$this->registerjsFile('/js/jquery.min.js?v=2.1.4');
 ?>
 <!--左侧导航开始-->
 <nav class="navbar-default navbar-static-side" role="navigation">
