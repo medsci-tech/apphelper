@@ -5,10 +5,14 @@ namespace backend\controllers;
 use common\models\Hospital;
 use common\models\Member;
 use common\models\Region;
+use common\models\User;
 use Yii;
+use yii\base\Object;
 use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
+use common\models\Upload;
+use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -22,30 +26,34 @@ class MemberController extends BackendController
      */
     public function actionIndex()
     {
+        $appYii = Yii::$app;
         $searchMember = new \backend\models\search\Member();
-        $dataProvider = $searchMember->search(Yii::$app->request->queryParams);
+        $uploadModel = new Upload();
+        $dataProvider = $searchMember->search($appYii->request->queryParams);
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $dataArray[$key]['real_name'] = $val->real_name;
             $dataArray[$key]['username'] = $val->username;
             $dataArray[$key]['email'] = $val->email;
             $dataArray[$key]['hospital_id'] = Hospital::findOne($val->hospital_id)->name;
-            $dataArray[$key]['rank_id'] = Yii::$app->params['member']['rank'][$val->rank_id];
+            $dataArray[$key]['rank_id'] = $appYii->params['member']['rank'][$val->rank_id];
             $dataArray[$key]['province_id'] =  Region::findOne($val->province_id)->name;
             $dataArray[$key]['city_id'] =  Region::findOne($val->city_id)->name;
             $dataArray[$key]['area_id'] =  Region::findOne($val->area_id)->name;
+            $dataArray[$key]['status'] =  $val->status;
             $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
-        Yii::$app->response->cookies->add(new Cookie([
+        $appYii->response->cookies->add(new Cookie([
             'name' => 'memberDataExportToExcel',
             'value' => json_encode($dataArray),
         ]));
 
-        $memberRank = Yii::$app->params['member'];
+        $memberRank = $appYii->params['member'];
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
             'memberRank' => $memberRank,
+            'uploadModel' => $uploadModel,
         ]);
     }
 
@@ -152,29 +160,61 @@ class MemberController extends BackendController
     }
 
     public function actionImport(){
+        $model = new Upload();
+
+        if (Yii::$app->request->isPost) {
+            $model->fileName = UploadedFile::getInstance($model, 'fileName');
+            if ($model->upload()) {
+                // 文件上传成功
+                var_dump($model);exit;
+            }
+        }
+
+
+
+
         $column = [
-            'title'=>'标题',
-            'uid'=>'UID',
-            'url'=>'地址',
+            'real_name'=>'姓名',
+            'username'=>'手机号',
+            'email'=>'邮箱',
+            'hospital_id'=>'医院',
+            'rank_id'=>'职称',
+            'province_id'=>'省份',
+            'city_id'=>'城市',
+            'area_id'=>'县区',
         ];
-        $fileName = 'E:\work\02simple.xls';
+        $fileName = 'C:/Users/mime/Desktop/20160420103139.xls';
         $excel = new ExcelController();
-        $data = $excel->Import($fileName, $column);
-        if($data){
-            $db = Yii::$app->db;
-            $transaction = $db->beginTransaction(); //开启事务
+        $result = $excel->Import($fileName, $column);
+        $appYii = Yii::$app;
+        if(200 == $result['code']){
+            $transaction = $appYii->db->beginTransaction(); //开启事务
             try {
-                $time = time();
-                foreach ($data as $key => $val){
-                    $val['created_at'] = $time;
-                    $db->createCommand()->insert('{{%guide}}',$val)->execute();
+                $rank = $appYii->params['member']['rank'];
+                $user = new User();
+                foreach ($result['data'] as $key => $val){
+                    $val['updated_at'] = time();
+                    $val['status'] = 1;
+                    $val['created_at'] = time();
+                    $val['rank_id'] = array_search($val['rank_id'], $rank);
+                    $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
+                    $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
+                    $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
+                    $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area_id']])->one()->id;
+                    $user->setPassword($appYii->params['member']['defaultPwd']);
+                    $user->generateAuthKey();
+                    $val['password_hash'] =$user->password_hash;
+                    $val['auth_key'] =$user->auth_key;
+                    $appYii->db->createCommand()->insert('{{%member}}',$val)->execute();
                 }
                 $transaction->commit(); // 两条sql均执行成功，则提交
+                echo 'success';
             } catch (\Exception $e) {
                 $transaction->rollBack(); // 事务执行失败，则回滚
+                echo 'error';
             }
         }else{
-            echo 'error';
+            echo $result['msg'];
         }
     }
 
@@ -192,6 +232,7 @@ class MemberController extends BackendController
             'city_id'=>['column'=>'G','name'=>'城市','width'=>10],
             'area_id'=>['column'=>'H','name'=>'县区','width'=>10],
             'created_at'=>['column'=>'I','name'=>'注册时间','width'=>20],
+            'status'=>['column'=>'J','name'=>'状态','width'=>10],
         ];
         $config = [
             'fileName' => '用户数据导出-' . date('YmdHis'),
@@ -203,6 +244,8 @@ class MemberController extends BackendController
         $excel = new ExcelController();
         $excel->Export($config, $column, json_decode($data, true));
     }
+
+
 
 
 
