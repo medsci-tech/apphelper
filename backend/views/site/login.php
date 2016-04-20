@@ -17,6 +17,14 @@ $fieldOptions2 = [
     'options' => ['class' => 'form-group has-feedback'],
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
+$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/hplus');
+$this->registerCssFile($directoryAsset.'/css/bootstrap.min14ed.css?v=3.3.6');
+$this->registerCssFile($directoryAsset.'/css/font-awesome.min93e3.css?v=4.4.0');
+$this->registerCssFile($directoryAsset.'/css/animate.min.css');
+$this->registerCssFile($directoryAsset.'/css/style.min862f.css?v=4.1.0');
+
+$this->registerJsFile($directoryAsset.'/js/bootstrap.min.js?v=3.3.6');
+
 ?>
 <div class="middle-box text-center loginscreen  animated fadeInDown">
     <div>

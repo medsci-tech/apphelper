@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-dmstr\web\AdminPlusAsset::register($this);
+//dmstr\web\AdminPlusAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
