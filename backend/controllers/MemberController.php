@@ -160,9 +160,9 @@ class MemberController extends BackendController
     }
 
     public function actionImport(){
-        $model = new Upload();
         $appYii = Yii::$app;
         if ($appYii->request->isPost) {
+            $model = new Upload();
             $model->file = UploadedFile::getInstance($model, 'file');
             $fileData = $model->excel(Yii::getAlias('@webroot/uploads'));
             if (200 == $fileData['code']) {
