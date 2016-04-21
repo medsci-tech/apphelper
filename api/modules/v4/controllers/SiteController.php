@@ -28,8 +28,9 @@ class SiteController extends Controller
     {
         $apiParams = $_POST['apiParams'];
 
-       // $apiParams = json_encode(['uid'=>100,'nickname'=>'mary','access_token' => 'absgfjfj#$48667JUY65']); //{"uid":100,"nickname":"mary","access_token":"absgfjfj#$48667JUY65"}
+       // $apiParams = json_encode(['uid'=>100,'nickname'=>'mary','access_token' => 'absgfjfj#$48667JUY65']); //{"uid":100,"username":"mary","access_token":"absgfjfj#$48667JUY65"}
         $apiParams = json_decode($apiParams,true);
+
         $code = '-1';
         if(!$apiParams['username'] || !$apiParams['password'])
         {
@@ -46,7 +47,8 @@ class SiteController extends Controller
         $apiParams = $_POST['apiParams'];
         $apiParams = json_decode($apiParams,true);
         $code = '-1';
-        if(!$apiParams['username'] || !$apiParams['password']  || !$apiParams['veryCode'])
+
+        if(!$apiParams['username'] || !$apiParams['password']  || !$apiParams['verycode'])
         {
             $result = ['code' => $code,'message'=>'用户名或密码不能为空','data'=>[]];
 
