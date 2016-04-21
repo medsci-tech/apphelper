@@ -162,7 +162,7 @@ class MemberController extends BackendController
     public function actionImport(){
         $model = new Upload();
         $appYii = Yii::$app;
-        if ($appYii->request->isAjax) {
+        if ($appYii->request->isPost) {
             $model->file = UploadedFile::getInstance($model, 'file');
             $fileData = $model->excel(Yii::getAlias('@webroot/uploads'));
             if (200 == $fileData['code']) {
@@ -178,7 +178,7 @@ class MemberController extends BackendController
                     'area_id'=>'县区',
                     'status'=>'状态',
                 ];
-                $fileName = $fileData['data']['fileName'];
+                $fileName = $fileData['data'];
                 $excel = new ExcelController();
                 $result = $excel->Import($fileName, $column);
                 if(200 == $result['code']){
@@ -188,7 +188,6 @@ class MemberController extends BackendController
                         $user = new User();
                         foreach ($result['data'] as $key => $val){
                             $val['updated_at'] = time();
-                            $val['status'] = 1;
                             $val['created_at'] = time();
                             $val['rank_id'] = array_search($val['rank_id'], $rank);
                             $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
