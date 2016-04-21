@@ -161,61 +161,62 @@ class MemberController extends BackendController
 
     public function actionImport(){
         $model = new Upload();
-
-        if (Yii::$app->request->isPost) {
-            $model->fileName = UploadedFile::getInstance($model, 'fileName');
-            if ($model->upload()) {
-                // 文件上传成功
-                var_dump($model);exit;
-            }
-        }
-
-
-
-
-        $column = [
-            'real_name'=>'姓名',
-            'username'=>'手机号',
-            'email'=>'邮箱',
-            'hospital_id'=>'医院',
-            'rank_id'=>'职称',
-            'province_id'=>'省份',
-            'city_id'=>'城市',
-            'area_id'=>'县区',
-        ];
-        $fileName = 'C:/Users/mime/Desktop/20160420103139.xls';
-        $excel = new ExcelController();
-        $result = $excel->Import($fileName, $column);
         $appYii = Yii::$app;
-        if(200 == $result['code']){
-            $transaction = $appYii->db->beginTransaction(); //开启事务
-            try {
-                $rank = $appYii->params['member']['rank'];
-                $user = new User();
-                foreach ($result['data'] as $key => $val){
-                    $val['updated_at'] = time();
-                    $val['status'] = 1;
-                    $val['created_at'] = time();
-                    $val['rank_id'] = array_search($val['rank_id'], $rank);
-                    $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
-                    $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
-                    $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
-                    $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area_id']])->one()->id;
-                    $user->setPassword($appYii->params['member']['defaultPwd']);
-                    $user->generateAuthKey();
-                    $val['password_hash'] =$user->password_hash;
-                    $val['auth_key'] =$user->auth_key;
-                    $appYii->db->createCommand()->insert('{{%member}}',$val)->execute();
+        if ($appYii->request->isAjax) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $fileData = $model->excel(Yii::getAlias('@webroot/uploads'));
+            if (200 == $fileData['code']) {
+                 //文件上传成功
+                $column = [
+                    'real_name'=>'姓名',
+                    'username'=>'手机号',
+                    'email'=>'邮箱',
+                    'hospital_id'=>'医院',
+                    'rank_id'=>'职称',
+                    'province_id'=>'省份',
+                    'city_id'=>'城市',
+                    'area_id'=>'县区',
+                    'status'=>'状态',
+                ];
+                $fileName = $fileData['data']['fileName'];
+                $excel = new ExcelController();
+                $result = $excel->Import($fileName, $column);
+                if(200 == $result['code']){
+                    $transaction = $appYii->db->beginTransaction(); //开启事务
+                    try {
+                        $rank = $appYii->params['member']['rank'];
+                        $user = new User();
+                        foreach ($result['data'] as $key => $val){
+                            $val['updated_at'] = time();
+                            $val['status'] = 1;
+                            $val['created_at'] = time();
+                            $val['rank_id'] = array_search($val['rank_id'], $rank);
+                            $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
+                            $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
+                            $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
+                            $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area_id']])->one()->id;
+                            $user->setPassword($appYii->params['member']['defaultPwd']);
+                            $user->generateAuthKey();
+                            $val['password_hash'] =$user->password_hash;
+                            $val['auth_key'] =$user->auth_key;
+                            $appYii->db->createCommand()->insert('{{%member}}',$val)->execute();
+                        }
+                        $transaction->commit(); // 两条sql均执行成功，则提交
+                        $return = [200,'success'];
+                    } catch (\Exception $e) {
+                        $transaction->rollBack(); // 事务执行失败，则回滚
+                        $return = [602,'导入失败'];
+                    }
+                }else{
+                    $return = [603,$result['msg']];
                 }
-                $transaction->commit(); // 两条sql均执行成功，则提交
-                echo 'success';
-            } catch (\Exception $e) {
-                $transaction->rollBack(); // 事务执行失败，则回滚
-                echo 'error';
+            }else{
+                $return = [605,$fileData['msg']];
             }
         }else{
-            echo $result['msg'];
+            $return = [606,'request error'];
         }
+        $this->ajaxReturn($return);
     }
 
     /**
@@ -244,9 +245,5 @@ class MemberController extends BackendController
         $excel = new ExcelController();
         $excel->Export($config, $column, json_decode($data, true));
     }
-
-
-
-
 
 }

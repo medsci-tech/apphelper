@@ -42,7 +42,7 @@ class ExcelController
             if($emptyCount == 0){
                 $listData[] = $data;
             }else if($emptyCount > 0 && $emptyCount < $highestColumnIndex){
-                return ['code'=>800,'msg' => '第' . $row . '行数据有误，请更正后重新导入'];
+                return ['code'=>601,'msg' => '第' . $row . '行数据有误，请更正后重新导入'];
             }
         }
         return ['code'=>200,'msg'=>'success', 'data' => $listData];
@@ -64,6 +64,7 @@ class ExcelController
             'columnHeight' => '20',
             'contentHeight' => '20',
             'fontSize' => '12',
+            'create' => 'helper',
         ];
         $config = array_merge($defaultConfig, $config);
 
@@ -78,8 +79,8 @@ class ExcelController
         $objPHPExcel = new \PHPExcel();
 
 // Set document properties
-        $objPHPExcel->getProperties()->setCreator("helper")
-            ->setLastModifiedBy("helper")
+        $objPHPExcel->getProperties()->setCreator($config['create'])
+            ->setLastModifiedBy($config['create'])
             ->setTitle("Office 2007 XLSX Document")
             ->setSubject("Office 2007 XLSX Document")
             ->setDescription("Document for Office 2007 XLSX, generated using PHP classes.")

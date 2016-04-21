@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
@@ -13,23 +14,33 @@ class Upload extends Model
     /**
      * @var UploadedFile|Null file attribute
      */
-    public $fileName;
+    public $file;
 
     public function rules()
     {
         return [
-            [['fileName'], 'file', 'skipOnEmpty' => false],
+            [['file'], 'file', 'skipOnEmpty' => false],
         ];
     }
 
-    public function upload()
+    public function excel($filePath)
     {
-        $fileName = date('YmdHis').'.xls';
-        if ($this->validate()) {
-            $this->fileName->saveAs($fileName);
-            return $fileName;
-        } else {
-            return false;
+        $suffix = mb_substr($this->file->name, (strripos($this->file->name, '.') + 1));
+        if(in_array($suffix,['xls','xlsx'])){
+            $fileName = $filePath .'/temp/'. date('YmdHis') . '.' . $suffix;
+            if ($this->validate()) {
+                $res = $this->file->saveAs($fileName);
+                if($res){
+                    $return = ['code'=>200,'msg'=>'success','data'=>['fileName'=>$fileName,'suffix'=>$suffix]];
+                }else{
+                    $return = ['code'=>701,'msg'=>'save error','data'=>''];
+                }
+            } else {
+                $return = ['code'=>702,'msg'=>'validate error','data'=>''];
+            }
+        }else{
+            $return = ['code'=>703,'msg'=>'suffix error','data'=>''];
         }
+        return $return;
     }
 }
