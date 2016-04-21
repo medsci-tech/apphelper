@@ -13,4 +13,8 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'api\modules\v4\controllers';
     public $defaultRoute = 'site';
+     public function init()
+    {
+         parent::init();
+    }
 }
