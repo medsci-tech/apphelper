@@ -38,11 +38,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin([
         'action' => ['import'],
-        'options' => ['enctype' => 'multipart/form-data']
+        'options' => ['enctype' => 'multipart/form-data','class' => 'form-inline']
     ]) ?>
     <?= $form->field($uploadModel, 'file')->fileInput() ?>
-    <?= Html::submitButton('查询', ['class' => 'btn btn-info']) ?>
+    <?= Html::submitButton('导入', ['class' => 'btn btn-info'])?>
     <?php ActiveForm::end() ?>
 
-    <div class="error-summary hide"><ul></ul></div>
 </div>
