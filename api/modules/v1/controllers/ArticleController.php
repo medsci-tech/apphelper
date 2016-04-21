@@ -29,6 +29,10 @@ class ArticleController extends Controller
     {
         echo(11);
     }
+    public function actionDelete($id)
+    {
+        echo(110);
+    }
     public function actionList()
     {
         $request = Yii::$app->request;
