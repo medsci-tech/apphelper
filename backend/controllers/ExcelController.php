@@ -42,7 +42,7 @@ class ExcelController
             if($emptyCount == 0){
                 $listData[] = $data;
             }else if($emptyCount > 0 && $emptyCount < $highestColumnIndex){
-                return ['code'=>800,'msg' => '第' . $row . '行数据有误，请更正后重新导入'];
+                return ['code'=>601,'msg' => '第' . $row . '行数据有误，请更正后重新导入'];
             }
         }
         return ['code'=>200,'msg'=>'success', 'data' => $listData];

@@ -33,8 +33,6 @@ use yii\widgets\ActiveForm;
     <?= Html::a('导出','export', ['class' => 'btn btn-info']) ?>
     <?= Html::a('添加用户', ['create'], ['class' => 'btn btn-success animation_select','data-animation'=>'fadeInDown']) ?>
 
-    <div class="error-summary hide"><ul></ul></div>
-
     <?php ActiveForm::end(); ?>
 
 
@@ -42,10 +40,9 @@ use yii\widgets\ActiveForm;
         'action' => ['import'],
         'options' => ['enctype' => 'multipart/form-data']
     ]) ?>
-    <?= $form->field($uploadModel, 'fileName')->fileInput() ?>
-
-    <button>Submit</button>
+    <?= $form->field($uploadModel, 'file')->fileInput() ?>
+    <?= Html::submitButton('查询', ['class' => 'btn btn-info']) ?>
     <?php ActiveForm::end() ?>
 
-
+    <div class="error-summary hide"><ul></ul></div>
 </div>
