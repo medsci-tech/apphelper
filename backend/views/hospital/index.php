@@ -58,7 +58,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'header' => '操作',
                         'buttons'=>[
                             'update'=> function ($url, $model, $key) {
-                                return Html::a('<span name="del" class="glyphicon glyphicon-pencil" id="'.$model->id.'"></span>');
+                                return Html::a('<span name="del" class="glyphicon glyphicon-pencil" data-target="#myModal" data-toggle="modal"
+                                names="'.$model->name.'"
+                                address="'.$model->address.'"
+                                id="'.$model->id.'"
+                                province_id="'.$model->province_id.'"
+                                city_id="'.$model->city_id.'"
+                                area_id="'.$model->area_id.'"
+                                 ></span>');
                             },
                         ]
                     ]
@@ -85,12 +92,27 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 $js=<<<JS
- $(document).ready(function(){
+$(document).ready(function(){
     $('div').removeClass('container-fluid'); // 去除多余样式
 
-$("span[name='del']").click(function(){
-alert($(this).attr('id'));
-});
+    $("span[name='del']").click(function(){
+    var id = $(this).attr('id');
+    var name = $(this).attr('names');
+    var address = $(this).attr('address');
+    var province_id = $(this).attr('province_id');
+    var city_id = $(this).attr('city_id');
+    var area_id = $(this).attr('area_id');
+
+    /* 编辑初始化 */
+    $('#id').val(id);
+    $('#name').val(name);
+    $('#address').val(address);
+    $('#w2').children().find("select[id='region-province_id']").val(province_id);
+    $('#w2').children().find("select[id='region-province_id']").trigger('change');
+    $('#province_id').val(province_id); // 标记下拉框一级区域的默认选项值
+    $('#city_id').val(city_id); // 标记下拉框二级区域的默认选项值
+    $('#area_id').val(area_id); // 标记下拉框三级区域的默认选项值
+    });
 
 });
 JS;

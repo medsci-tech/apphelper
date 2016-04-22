@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin(); ?>
 <div class="modal-body">
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true,'id'=>'name']) ?>
 
     <?= $this->render('/region/index', [
         'model' => new \common\models\Region,
@@ -23,8 +23,8 @@ use yii\widgets\ActiveForm;
         'form' => $form,
     ]);
     ?>
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-    <!--<div class="form-group"><label>Email</label> <input type="email" placeholder="请输入您的Email" class="form-control"></div>-->
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true,'id'=>'address']) ?>
+    <input type="hidden" id="id">
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
