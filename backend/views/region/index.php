@@ -8,9 +8,6 @@ $htmlClass = 'form-group container-fluid';
 ?>
 <div class="form-inline form-group">
 <?php //$form = ActiveForm::begin(['enableClientValidation' => false]);?>
-<input type="hidden" id="province_id">
-<input type="hidden" id="city_id">
-<input type="hidden" id="area_id">
 <?= $form->field($model,'province_id', ['options' => ['class' => $htmlClass]])->dropDownList($model->getRegionList(0,1),
     [
         'prompt'=>'--请选择省--',
@@ -34,7 +31,7 @@ $htmlClass = 'form-group container-fluid';
             $.post("'.yii::$app->urlManager->createUrl('region/list').'?grade=3&pid="+$(this).val(),function(data){
                 $("select#region-area_id").html(data);
                 $("select#region-area_id").val($("#area_id").val());
-                $("select#region-city_id").trigger("change");
+                //$("select#region-city_id").trigger("change");
             });',
     ])->label('市', ['class' => 'sr-only']);  ?>
 <?= $form->field($model, 'area_id', ['options' => ['class' => $htmlClass]])->dropDownList($model->getRegionList($model->city_id,3),
