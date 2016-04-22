@@ -27,9 +27,23 @@ class MemberController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $searchMember = new \backend\models\search\Member();
         $uploadModel = new Upload();
-        $dataProvider = $searchMember->search($appYii->request->queryParams);
+        $uploadModel->file = UploadedFile::getInstance($uploadModel, 'file');
+        if('' != $uploadModel->file){
+            $fileData = $uploadModel->excel(Yii::getAlias('@webroot/uploads'));
+            if (200 == $fileData['code']) {
+                $import = $this->actionImport($fileData['data']);
+                if(200 == $import['code']){
+                    echo 'success';
+                }else{
+                    echo $import['msg'];
+                }
+            }else{
+                echo $fileData['msg'];
+            }
+        }
+        $searchMember = new \backend\models\search\Member();
+        $dataProvider = $searchMember->search($appYii->request->post());
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $dataArray[$key]['real_name'] = $val->real_name;
@@ -159,63 +173,53 @@ class MemberController extends BackendController
         }
     }
 
-    public function actionImport(){
+    protected function actionImport($fileName){
         $appYii = Yii::$app;
-        if ($appYii->request->isPost) {
-            $model = new Upload();
-            $model->file = UploadedFile::getInstance($model, 'file');
-            $fileData = $model->excel(Yii::getAlias('@webroot/uploads'));
-            if (200 == $fileData['code']) {
-                 //文件上传成功
-                $column = [
-                    'real_name'=>'姓名',
-                    'username'=>'手机号',
-                    'email'=>'邮箱',
-                    'hospital_id'=>'医院',
-                    'rank_id'=>'职称',
-                    'province_id'=>'省份',
-                    'city_id'=>'城市',
-                    'area_id'=>'县区',
-                    'status'=>'状态',
-                ];
-                $fileName = $fileData['data'];
-                $excel = new ExcelController();
-                $result = $excel->Import($fileName, $column);
-                if(200 == $result['code']){
-                    $transaction = $appYii->db->beginTransaction(); //开启事务
-                    try {
-                        $rank = $appYii->params['member']['rank'];
-                        $user = new User();
-                        foreach ($result['data'] as $key => $val){
-                            $val['updated_at'] = time();
-                            $val['created_at'] = time();
-                            $val['rank_id'] = array_search($val['rank_id'], $rank);
-                            $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
-                            $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
-                            $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
-                            $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area_id']])->one()->id;
-                            $user->setPassword($appYii->params['member']['defaultPwd']);
-                            $user->generateAuthKey();
-                            $val['password_hash'] =$user->password_hash;
-                            $val['auth_key'] =$user->auth_key;
-                            $appYii->db->createCommand()->insert('{{%member}}',$val)->execute();
-                        }
-                        $transaction->commit(); // 两条sql均执行成功，则提交
-                        $return = [200,'success'];
-                    } catch (\Exception $e) {
-                        $transaction->rollBack(); // 事务执行失败，则回滚
-                        $return = [602,'导入失败'];
-                    }
-                }else{
-                    $return = [603,$result['msg']];
+
+         //文件上传成功
+        $column = [
+            'real_name'=>'姓名',
+            'username'=>'手机号',
+            'email'=>'邮箱',
+            'hospital_id'=>'医院',
+            'rank_id'=>'职称',
+            'province_id'=>'省份',
+            'city_id'=>'城市',
+            'area_id'=>'县区',
+            'status'=>'状态',
+        ];
+//                $fileName = $fileData['data'];
+        $excel = new ExcelController();
+        $result = $excel->Import($fileName, $column);
+        if(200 == $result['code']){
+            $transaction = $appYii->db->beginTransaction(); //开启事务
+            try {
+                $rank = $appYii->params['member']['rank'];
+                $user = new User();
+                foreach ($result['data'] as $key => $val){
+                    $val['updated_at'] = time();
+                    $val['created_at'] = time();
+                    $val['rank_id'] = array_search($val['rank_id'], $rank);
+                    $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
+                    $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
+                    $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
+                    $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area_id']])->one()->id;
+                    $user->setPassword($appYii->params['member']['defaultPwd']);
+                    $user->generateAuthKey();
+                    $val['password_hash'] =$user->password_hash;
+                    $val['auth_key'] =$user->auth_key;
+                    $appYii->db->createCommand()->insert('{{%member}}',$val)->execute();
                 }
-            }else{
-                $return = [605,$fileData['msg']];
+                $transaction->commit(); // 两条sql均执行成功，则提交
+                $return = ['code' => 200,'msg' => 'success'];
+            } catch (\Exception $e) {
+                $transaction->rollBack(); // 事务执行失败，则回滚
+                $return = ['code' => 602,'msg' => '导入失败'];
             }
         }else{
-            $return = [606,'request error'];
+            $return = ['code' => 603,'msg' => $result['msg']];
         }
-        $this->ajaxReturn($return);
+        return $return;
     }
 
     /**
@@ -245,4 +249,28 @@ class MemberController extends BackendController
         $excel->Export($config, $column, json_decode($data, true));
     }
 
+
+
+    public function actionTest(){
+        $targetFolder = '/uploads'; // Relative to the root
+
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+            $tempFile = $_FILES['Filedata']['tmp_name'];
+            $targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
+            $targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
+
+            // Validate the file type
+            $fileTypes = array('jpg','jpeg','gif','png'); // File extensions
+            $fileParts = pathinfo($_FILES['Filedata']['name']);
+
+            if (in_array($fileParts['extension'],$fileTypes)) {
+                move_uploaded_file($tempFile,$targetFile);
+                echo '1';
+            } else {
+                echo 'Invalid file type.';
+            }
+        }
+    }
 }

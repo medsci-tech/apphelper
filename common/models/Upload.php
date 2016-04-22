@@ -25,7 +25,7 @@ class Upload extends Model
 
     public function excel($filePath)
     {
-        $suffix = mb_substr($this->file->name, (strripos($this->file->name, '.') + 1));
+        $suffix = mb_substr($this->file->name, (mb_strripos($this->file->name, '.') + 1));
         if(in_array($suffix,['xls','xlsx'])){
             $fileName = $filePath .'/temp/'. date('YmdHis') . '.' . $suffix;
             if ($this->validate()) {

@@ -16,7 +16,7 @@ class ExcelController
     {
         error_reporting(E_ALL); //开启错误
         set_time_limit(0); //脚本不超时
-        $suffix = mb_substr($fileName, (strripos($fileName, '.') + 1));
+        $suffix = mb_substr($fileName, (mb_strripos($fileName, '.') + 1));
         if('xls' == $suffix){
             $inputFileType = 'Excel5';    //这个是读 xls的
         }elseif ('xlsx' == $suffix){
