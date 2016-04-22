@@ -24,7 +24,7 @@ return [
         'user' => [
             'identityClass' => 'dektrium\user\models\User',
            // 'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
             'enableSession' => false,
             'loginUrl' => null
         ],
@@ -45,7 +45,12 @@ return [
             //'enableStrictParsing' => true, // 是否执行严格的url解析
             'showScriptName' => false,// 在URL路径中是否显示脚本入口文件
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['v1/article','v2/site', 'v2/post']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['v1/article','v4/site', 'v4/article'],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET test' => 'test',
+                    ]
+                ],
             ],
         ],
     ],
@@ -54,8 +59,9 @@ return [
             'basePath' => '@api/modules/v1',
             'class' => api\modules\v1\Module::className()
         ],
-        'v2' => [
-            'basePath' => '@api/modules/v2',
+        'v4' => [
+            'basePath' => '@api/modules/v4',
+            'class' => api\modules\v4\Module::className()
         ],
     ],
     'params' => $params

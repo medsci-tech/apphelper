@@ -211,14 +211,31 @@ return array (
       '@dmstr' => $vendorDir . '/dmstr/yii2-adminlte-asset',
     ),
   ),
-
-  'dmstr/yii2-hplus-asset' =>
-      array (
-          'name' => 'dmstr/yii2-hplus-asset',
-          'version' => '4.01',
-          'alias' =>
-              array (
-                  '@dmstr' => $vendorDir . '/dmstr/yii2-hplus-asset',
-              ),
-      ),
+  'dmstr/yii2-hplus-asset' => 
+  array (
+    'name' => 'dmstr/yii2-hplus-asset',
+    'version' => '4.01',
+    'alias' => 
+    array (
+      '@dmstr' => $vendorDir . '/dmstr/yii2-hplus-asset',
+    ),
+  ),
+  '2amigos/yii2-gallery-widget' => 
+  array (
+    'name' => '2amigos/yii2-gallery-widget',
+    'version' => '1.0.2.0',
+    'alias' => 
+    array (
+      '@dosamigos/gallery' => $vendorDir . '/2amigos/yii2-gallery-widget/src',
+    ),
+  ),
+  '2amigos/yii2-file-upload-widget' => 
+  array (
+    'name' => '2amigos/yii2-file-upload-widget',
+    'version' => '1.0.4.0',
+    'alias' => 
+    array (
+      '@dosamigos/fileupload' => $vendorDir . '/2amigos/yii2-file-upload-widget/src',
+    ),
+  ),
 );

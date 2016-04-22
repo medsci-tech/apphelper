@@ -24,7 +24,6 @@ $this->registerCssFile($directoryAsset.'/css/animate.min.css');
 $this->registerCssFile($directoryAsset.'/css/style.min862f.css?v=4.1.0');
 
 $this->registerJsFile($directoryAsset.'/js/bootstrap.min.js?v=3.3.6');
-
 ?>
 <div class="middle-box text-center loginscreen  animated fadeInDown">
     <div>

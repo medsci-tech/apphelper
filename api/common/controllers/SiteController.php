@@ -9,6 +9,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        echo('here');
         return Article::find()->limit(1)->one();
     }
 

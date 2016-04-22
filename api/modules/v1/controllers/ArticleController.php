@@ -8,14 +8,15 @@
 
 namespace api\modules\v1\controllers;
 
-
+use Yii;
 use api\modules\v1\models\Article;
 use yii\data\ActiveDataProvider;
-
 class ArticleController extends Controller
 {
+    public $modelClass = 'api\modules\v1\models\article';
     public function actionIndex()
     {
+
         $topStories = Article::find()->orderBy(['view' => SORT_DESC])->limit(5)->asArray()->all();
         $stories = Article::find()->orderBy(['created_at' => SORT_DESC, 'title' => SORT_ASC])->limit(10)->asArray()->all();
         return [
@@ -24,9 +25,18 @@ class ArticleController extends Controller
             'top_stories' => $topStories
         ];
     }
-
+    public function actionTest()
+    {
+        echo(11);
+    }
+    public function actionDelete($id)
+    {
+        echo(110);
+    }
     public function actionList()
     {
+        $request = Yii::$app->request;
+        print_r($request->post());exit;
         $query = Article::find();
         $provider = new ActiveDataProvider([
             'query' => $query,
