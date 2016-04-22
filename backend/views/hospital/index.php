@@ -20,6 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
+                    [
+                        'class' => 'yii\grid\CheckboxColumn',
+                        'checkboxOptions' => function($model, $key, $index, $column) {
+                            return ['value' => $model->id];
+                        }
+
+                    ],
                     'id',
                     'name',
                     [
