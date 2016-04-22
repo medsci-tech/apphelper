@@ -16,8 +16,14 @@ class ExcelController
     {
         error_reporting(E_ALL); //开启错误
         set_time_limit(0); //脚本不超时
-        $inputFileType = 'Excel5';    //这个是读 xls的
-
+        $suffix = mb_substr($fileName, (mb_strripos($fileName, '.') + 1));
+        if('xls' == $suffix){
+            $inputFileType = 'Excel5';    //这个是读 xls的
+        }elseif ('xlsx' == $suffix){
+            $inputFileType = 'Excel2007';    //这个是读 xls的
+        }else{
+            return ['code'=>601,'msg' => '文件格式不正确'];
+        }
         $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
         $objPHPExcel = $objReader->load($fileName);
 
