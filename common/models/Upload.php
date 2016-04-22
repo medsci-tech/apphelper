@@ -25,13 +25,13 @@ class Upload extends Model
 
     public function excel($filePath)
     {
-        $suffix = mb_substr($this->file->name, (strripos($this->file->name, '.') + 1));
+        $suffix = mb_substr($this->file->name, (mb_strripos($this->file->name, '.') + 1));
         if(in_array($suffix,['xls','xlsx'])){
             $fileName = $filePath .'/temp/'. date('YmdHis') . '.' . $suffix;
             if ($this->validate()) {
                 $res = $this->file->saveAs($fileName);
                 if($res){
-                    $return = ['code'=>200,'msg'=>'success','data'=>['fileName'=>$fileName,'suffix'=>$suffix]];
+                    $return = ['code'=>200,'msg'=>'success','data'=>$fileName];
                 }else{
                     $return = ['code'=>701,'msg'=>'save error','data'=>''];
                 }

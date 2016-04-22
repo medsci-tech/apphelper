@@ -1,3 +1,4 @@
+<script src="/js/jquery.min.js"></script>
 <!--左侧导航开始-->
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="nav-close"><i class="fa fa-times-circle"></i>
