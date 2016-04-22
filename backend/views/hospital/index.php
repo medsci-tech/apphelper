@@ -102,16 +102,16 @@ $(document).ready(function(){
     var province_id = $(this).attr('province_id');
     var city_id = $(this).attr('city_id');
     var area_id = $(this).attr('area_id');
-
     /* 编辑初始化 */
     $('#id').val(id);
     $('#name').val(name);
     $('#address').val(address);
-    $('#w2').children().find("select[id='region-province_id']").val(province_id);
-    $('#w2').children().find("select[id='region-province_id']").trigger('change');
     $('#province_id').val(province_id); // 标记下拉框一级区域的默认选项值
     $('#city_id').val(city_id); // 标记下拉框二级区域的默认选项值
     $('#area_id').val(area_id); // 标记下拉框三级区域的默认选项值
+    $('#w2').children().find("select[id='region-province_id']").val(province_id);
+
+    $('#w2').children().find("select[id='region-province_id']").trigger('change');
     });
 
 });
