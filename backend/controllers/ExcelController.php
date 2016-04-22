@@ -51,7 +51,11 @@ class ExcelController
                 return ['code'=>601,'msg' => '第' . $row . '行数据有误，请更正后重新导入'];
             }
         }
-        return ['code'=>200,'msg'=>'success', 'data' => $listData];
+        if($listData){
+            return ['code'=>200,'msg'=>'success', 'data' => $listData];
+        }else{
+            return ['code'=>602,'msg'=>'data empty'];
+        }
     }
 
     /**
