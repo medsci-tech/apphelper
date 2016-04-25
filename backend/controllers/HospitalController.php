@@ -55,15 +55,30 @@ class HospitalController extends BackendController
 
     public function actionCreate()
     {
-        $model = new Hospital();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $id = Yii::$app->request->post('id');
+        if($id) {
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+//                return $this->render('update', [
+//                    'model' => $model,
+//                ]);
+            }
+        }else {
+            $model = new Hospital();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+//                return $this->render('create', [
+//                    'model' => $model,
+//                ]);
+            }
         }
+
+
     }
 
     public function actionUpdate($id)

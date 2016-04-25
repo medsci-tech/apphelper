@@ -54,6 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                     ],
                     'address',
+                    [
+                        'attribute' => 'status',
+                        'value'=>
+                            function($model){
+                                if($model->status == 1) {
+                                    return  '启用';
+                                } else {
+                                    return  '禁用';
+                                }
+                            },
+                    ],
                     // 'created_at',
                     // 'updated_at',
                     // 'status',
@@ -88,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">单位发布</h4>
+                <h4 class="modal-title"><label id="l_title">单位发布</label></h4>
             </div>
 <?=$this->render('create', [
     'model' => $model,
@@ -102,6 +113,12 @@ $js=<<<JS
 $(document).ready(function(){
     $('div').removeClass('container-fluid'); // 去除多余样式
 
+    $("#btn_add").click(function(){
+    var title = "单位发布";
+    document.getElementById('l_title').innerText = title;
+    $('#w2')[0].reset();
+    });
+
     $("span[name='del']").click(function(){
     var id = $(this).attr('id');
     var name = $(this).attr('names');
@@ -109,7 +126,10 @@ $(document).ready(function(){
     var province_id = $(this).attr('province_id');
     var city_id = $(this).attr('city_id');
     var area_id = $(this).attr('area_id');
+    var title = "单位编辑";
     /* 编辑初始化 */
+    console.info("1111");
+    document.getElementById('l_title').innerText = title;
     $('#id').val(id);
     $('#name').val(name);
     $('#address').val(address);
@@ -121,6 +141,15 @@ $(document).ready(function(){
     $('#w2').children().find("select[id='region-province_id']").trigger('change');
     });
 
+    $("#btn_enable").click(function(){
+    var keys = $('#w1').yiiGridView('getSelectedRows');
+    console.info(keys);
+    });
+
+    $("#btn_unenable").click(function(){
+    var keys = $('#w1').yiiGridView('getSelectedRows');
+    console.info(keys);
+    });
 });
 JS;
 $this->registerJs($js);
