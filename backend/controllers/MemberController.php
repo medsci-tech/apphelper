@@ -47,6 +47,7 @@ class MemberController extends BackendController
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $dataArray[$key]['real_name'] = $val->real_name;
+            $dataArray[$key]['nickname'] = $val->nickname;
             $dataArray[$key]['username'] = $val->username;
             $dataArray[$key]['email'] = $val->email;
             $dataArray[$key]['hospital_id'] = Hospital::findOne($val->hospital_id)->name;
@@ -54,7 +55,7 @@ class MemberController extends BackendController
             $dataArray[$key]['province_id'] =  Region::findOne($val->province_id)->name;
             $dataArray[$key]['city_id'] =  Region::findOne($val->city_id)->name;
             $dataArray[$key]['area_id'] =  Region::findOne($val->area_id)->name;
-            $dataArray[$key]['status'] =  $val->status;
+            $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
             $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
         $appYii->response->cookies->add(new Cookie([
@@ -62,11 +63,10 @@ class MemberController extends BackendController
             'value' => json_encode($dataArray),
         ]));
 
-        $memberRank = $appYii->params['member'];
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
-            'memberRank' => $memberRank,
+            'params' => $appYii->params,
             'uploadModel' => $uploadModel,
         ]);
     }
@@ -86,6 +86,7 @@ class MemberController extends BackendController
         $member->province_id =  Region::findOne($member->province_id)->name;
         $member->city_id =  Region::findOne($member->city_id)->name;
         $member->area_id =  Region::findOne($member->area_id)->name;
+        $member->status =  Yii::$app->params['statusOption'][$member->status];
         return $this->render('view', [
             'model' => $member,
         ]);
@@ -133,7 +134,6 @@ class MemberController extends BackendController
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             $isValid = $model->validate();
-//            var_dump($model->province_id);exit;
             if ($isValid) {
                 $model->updated_at = time();
                 $res = $model->save(false);
@@ -152,11 +152,34 @@ class MemberController extends BackendController
         }
     }
 
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $params = Yii::$app->request->post();
+        if('disable' == $params['type']){
+            /*禁用*/
+            foreach ($params['selection'] as $key => $val){
+                $member = $this->findModel($val);
+                $member->status = 0;
+                $member->save(false);
+            }
+            return $this->redirect(['index']);
+        }elseif('enable' == $params['type']){
+            /*启用*/
+            foreach ($params['selection'] as $key => $val){
+                $member = $this->findModel($val);
+                $member->status = 1;
+                $member->save(false);
+            }
+            return $this->redirect(['index']);
+        }elseif('del' == $params['type']){
+            /*删除*/
+            foreach ($params['selection'] as $key => $val){
+                $this->findModel($val)->delete();
+            }
+            return $this->redirect(['index']);
+        }else{
+            return $this->redirect(['index']);
+        }
     }
 
     /**
@@ -179,6 +202,7 @@ class MemberController extends BackendController
          //文件上传成功
         $column = [
             'real_name'=>'姓名',
+            'nickname'=>'昵称',
             'username'=>'手机号',
             'email'=>'邮箱',
             'hospital_id'=>'医院',
@@ -195,11 +219,13 @@ class MemberController extends BackendController
             $transaction = $appYii->db->beginTransaction(); //开启事务
             try {
                 $rank = $appYii->params['member']['rank'];
+                $status = $appYii->params['statusOption'];
                 $user = new User();
                 foreach ($result['data'] as $key => $val){
                     $val['updated_at'] = time();
                     $val['created_at'] = time();
                     $val['rank_id'] = array_search($val['rank_id'], $rank);
+                    $val['status'] = array_search($val['status'], $status);
                     $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
                     $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
                     $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
@@ -228,15 +254,16 @@ class MemberController extends BackendController
     public function actionExport(){
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>20],
-            'username'=>['column'=>'B','name'=>'手机号','width'=>20],
-            'email'=>['column'=>'C','name'=>'邮箱','width'=>30],
-            'hospital_id'=>['column'=>'D','name'=>'医院','width'=>20],
-            'rank_id'=>['column'=>'E','name'=>'职称','width'=>10],
-            'province_id'=>['column'=>'F','name'=>'省份','width'=>10],
-            'city_id'=>['column'=>'G','name'=>'城市','width'=>10],
-            'area_id'=>['column'=>'H','name'=>'县区','width'=>10],
-            'created_at'=>['column'=>'I','name'=>'注册时间','width'=>20],
-            'status'=>['column'=>'J','name'=>'状态','width'=>10],
+            'nickname'=>['column'=>'B','name'=>'昵称','width'=>20],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
+            'email'=>['column'=>'D','name'=>'邮箱','width'=>30],
+            'hospital_id'=>['column'=>'E','name'=>'医院','width'=>20],
+            'rank_id'=>['column'=>'F','name'=>'职称','width'=>10],
+            'province_id'=>['column'=>'G','name'=>'省份','width'=>10],
+            'city_id'=>['column'=>'H','name'=>'城市','width'=>10],
+            'area_id'=>['column'=>'I','name'=>'县区','width'=>10],
+            'created_at'=>['column'=>'J','name'=>'注册时间','width'=>20],
+            'status'=>['column'=>'K','name'=>'状态','width'=>10],
         ];
         $config = [
             'fileName' => '用户数据导出-' . date('YmdHis'),

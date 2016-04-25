@@ -4,15 +4,16 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Region;
 use common\models\Hospital;
+use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $dataProvider  */
-/* @var $memberRank */
+/* @var $params */
 
 $this->title = '用户';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['memberRank'] = $memberRank['rank'];
+$this->params['params'] = $params;
 backend\assets\AppAsset::register($this);
 ?>
 <div class="article-index">
@@ -26,10 +27,25 @@ backend\assets\AppAsset::register($this);
         <div class="box-header">
         </div>
         <div class="box-body">
+            <?php
+            $form = ActiveForm::begin([
+                'action' => ['delete'],
+                'method' => 'post',
+                'options' => ['class' => 'form-inline','id' => 'delForm'],
+            ]); ?>
+            <?= Html::input('hidden','type','enable',['id'=>'typeForm']); ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
+                    [
+                        'class' => 'yii\grid\CheckboxColumn',
+                        'checkboxOptions' => function($model, $key, $index, $column) {
+                            return ['value' => $model->id];
+                        }
+
+                    ],
                     'real_name',
+                    'nickname',
                     'username',
                     'email',
                     [
@@ -44,7 +60,7 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'rank_id',
                         'value'=>
                             function($model){
-                                $result = $this->params['memberRank'][$model->rank_id];
+                                $result = $this->params['params']['member']['rank'][$model->rank_id];
                                 return  $result ? $result : '';
                             },
                     ],
@@ -73,10 +89,18 @@ backend\assets\AppAsset::register($this);
                             },
                     ],
                     'created_at:date',
-//                    'status:boolean',
+                    [
+                        'attribute' => 'status',
+                        'value'=>
+                            function($model){
+                                $result = $this->params['params']['statusOption'][$model->status];
+                                return  $result ? $result : '';
+                            },
+                    ],
                     ['class' => 'yii\grid\ActionColumn'],
                 ],
             ]); ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
