@@ -134,7 +134,6 @@ class MemberController extends BackendController
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             $isValid = $model->validate();
-//            var_dump($model->province_id);exit;
             if ($isValid) {
                 $model->updated_at = time();
                 $res = $model->save(false);
@@ -153,11 +152,34 @@ class MemberController extends BackendController
         }
     }
 
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $params = Yii::$app->request->post();
+        if('disable' == $params['type']){
+            /*禁用*/
+            foreach ($params['selection'] as $key => $val){
+                $member = $this->findModel($val);
+                $member->status = 0;
+                $member->save(false);
+            }
+            return $this->redirect(['index']);
+        }elseif('enable' == $params['type']){
+            /*启用*/
+            foreach ($params['selection'] as $key => $val){
+                $member = $this->findModel($val);
+                $member->status = 1;
+                $member->save(false);
+            }
+            return $this->redirect(['index']);
+        }elseif('del' == $params['type']){
+            /*删除*/
+            foreach ($params['selection'] as $key => $val){
+                $this->findModel($val)->delete();
+            }
+            return $this->redirect(['index']);
+        }else{
+            return $this->redirect(['index']);
+        }
     }
 
     /**
