@@ -35,8 +35,8 @@ use yii\widgets\ActiveForm;
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加单位', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
-    <?= Html::button('启用单位', ['id'=>'btn_enable','class' => 'btn btn-success']) ?>
-    <?= Html::button('禁用单位', ['id'=>'btn_unenable','class' => 'btn btn-success']) ?>
+    <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-primary']) ?>
+    <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
     <div class="error-summary hide"><ul></ul></div>
 
     <?php ActiveForm::end(); ?>

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Region;
+use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,6 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box box-success">
         <div class="box-body">
+            <?php
+                $form = ActiveForm::begin([
+                'action' => ['modify'],
+                'method' => 'post',
+                'options' => ['class' => 'form-inline', 'id' => 'modifyForm'],
+            ]); ?>
+            <?= Html::input('hidden', 'type', 'enable', ['id' => 'typeForm']); ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
@@ -142,14 +150,25 @@ $(document).ready(function(){
     });
 
     $("#btn_enable").click(function(){
-    var keys = $('#w1').yiiGridView('getSelectedRows');
-    console.info(keys);
+//    var keys = $('#w1').yiiGridView('getSelectedRows');
+//    subAction("typeForm","enable");
+    $("#typeForm").val("enable");
+    $("#modifyForm").submit();
     });
 
-    $("#btn_unenable").click(function(){
-    var keys = $('#w1').yiiGridView('getSelectedRows');
-    console.info(keys);
+    $("#btn_disable").click(function(){
+//    var keys = $('#w1').yiiGridView('getSelectedRows');
+//    subAction("typeForm","disable");
+    console.info("btn_disable");
+    $("#typeForm").val("disable");
+    $("#modifyForm").submit();
     });
+
+    function subAction(formId,val) {
+        console.info("subAction");
+        $("#" + formId).val(val);
+        $('#'+formId).submit();
+    }
 });
 JS;
 $this->registerJs($js);

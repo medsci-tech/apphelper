@@ -110,4 +110,27 @@ class HospitalController extends BackendController
         }
     }
 
+    public function actionModify()
+    {
+        $params = Yii::$app->request->post();
+        if('disable' == $params['type']){
+            /*禁用*/
+            foreach ($params['selection'] as $key => $val){
+                $model = $this->findModel($val);
+                $model->status = 0;
+                $model->save(false);
+            }
+            return $this->redirect(['index']);
+        }else if('enable' == $params['type']){
+            /*启用*/
+            foreach ($params['selection'] as $key => $val){
+                $model = $this->findModel($val);
+                $model->status = 1;
+                $model->save(false);
+            }
+            return $this->redirect(['index']);
+        } else{
+            return $this->redirect(['index']);
+        }
+    }
 }
