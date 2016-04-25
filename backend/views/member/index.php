@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Region;
 use common\models\Hospital;
+use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,6 +27,13 @@ backend\assets\AppAsset::register($this);
         <div class="box-header">
         </div>
         <div class="box-body">
+            <?php
+            $form = ActiveForm::begin([
+                'action' => ['delete'],
+                'method' => 'post',
+                'options' => ['class' => 'form-inline','id' => 'delForm'],
+            ]); ?>
+            <?= Html::input('hidden','type','enable',['id'=>'typeForm']); ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
@@ -92,6 +100,7 @@ backend\assets\AppAsset::register($this);
                     ['class' => 'yii\grid\ActionColumn'],
                 ],
             ]); ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
