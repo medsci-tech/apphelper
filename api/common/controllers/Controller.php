@@ -1,54 +1,48 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yidashi
- * Date: 16/3/2
- * Time: 下午2:07
- */
 
 namespace api\common\controllers;
+use yii\rest\ActiveController;
 use yii\web\Response;
-
-class Controller extends \yii\rest\Controller
+use yii\filters\auth\HttpBasicAuth;
+class Controller extends ActiveController
 {
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBasicAuth::className(),
+        ];
         $behaviors['contentNegotiator']['formats'] = '';
         $behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSON;
         return $behaviors;
 
     }
+    public function actions()
+    {
+        $actions = parent::actions();
+        // 注销系统自带的实现方法
+        unset($actions['index'], $actions['update'], $actions['create'], $actions['delete'], $actions['view']);
+        return $actions;
+    }
 
     /**
-     * 返回数据到客户端
-     * @author zhaiyu
-     * @startDate 20160310
-     * @upDate 20160310
-     * @param array $content 要返回的数据
-     * @param String $type AJAX返回数据格式
-     * @param String $handler 默认的JSONP格式返回的处理方法是callback
-     * @return void
+     * Checks the privilege of the current user. 检查当前用户的权限
+     *
+     * This method should be overridden to check whether the current user has the privilege
+     * to run the specified action against the specified data model.
+     * If the user does not have access, a ForbiddenHttpException should be thrown.
+     * 本方法应被覆盖来检查当前用户是否有权限执行指定的操作访问指定的数据模型
+     * 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     *
+     * @param string $action the ID of the action to be executed
+     * @param \yii\base\Model $model the model to be accessed. If null, it means no specific model is being accessed.
+     * @param array $params additional parameters
+     * @throws ForbiddenHttpException if the user does not have access
      */
-    protected function ajaxReturn($content = array(), $type = 'JSON', $handler = 'callback') {
-        $format = array('code', 'msg', 'data');
-        $data = array_combine($format, array_pad($content, 3, ''));
-        switch (strtoupper($type)) {
-            case 'JSON':
-                // 返回JSON数据格式到客户端 包含状态信息
-                header('Content-Type:application/json; charset=utf-8');
-                $data = json_encode($data);
-                break;
-            case 'JSONP':
-                // 返回JSON数据格式到客户端 包含状态信息
-                header('Content-Type:application/json; charset=utf-8');
-                $data = $handler . '(' . json_encode($data) . ');';
-                break;
-            case 'EVAL':
-                // 返回可执行的js脚本
-                header('Content-Type:text/html; charset=utf-8');
-                break;
-        }
-        exit($data);
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        // 检查用户能否访问 $action 和 $model
+        // 访问被拒绝应抛出ForbiddenHttpException
     }
+
 }

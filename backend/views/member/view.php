@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => '用户', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 //var_dump($model);exit;
 ?>
-<div class="article-view">
+<div class="modal-body">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

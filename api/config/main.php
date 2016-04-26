@@ -9,7 +9,7 @@ return [
     'id' => 'app-api',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'api\common\controllers',
+    //'controllerNamespace' => 'api\common\controllers',
     'components' => [
         'request' => [
             'enableCookieValidation' => false,
@@ -44,21 +44,17 @@ return [
             'enablePrettyUrl' => true,// 启用美化URL
             //'enableStrictParsing' => true, // 是否执行严格的url解析
             'showScriptName' => false,// 在URL路径中是否显示脚本入口文件
+           // 'rules' => require(__DIR__ . '/restful.php'),
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['v1/article','v4/site', 'v4/article'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['v4/article','v4/site'],
                     'pluralize' => false,
                     'extraPatterns' => [
-                        'GET test' => 'test',
                     ]
                 ],
             ],
         ],
     ],
     'modules' => [
-        'v1' => [
-            'basePath' => '@api/modules/v1',
-            'class' => api\modules\v1\Module::className()
-        ],
         'v4' => [
             'basePath' => '@api/modules/v4',
             'class' => api\modules\v4\Module::className()

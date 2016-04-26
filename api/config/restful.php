@@ -9,6 +9,6 @@ return [
     'DELETE <module>/users/<id>' => '<module>/user/delete',
     'GET,HEAD <module>/users/<id>' => '<module>/user/view',
     'POST <module>/users' => '<module>/user/create',
-    'GET,HEAD <module>/users' => '<module>/user/index',
+    'GET,HEAD <module>/site' => '<module>/site',
 	'POST,GET,DELETE  <module>/v4/business/<business_id:\d+>/products/<product_id:\d+>' => 'v1/business/products'
 ];

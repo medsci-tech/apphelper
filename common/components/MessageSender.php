@@ -8,7 +8,6 @@
 
 namespace common\components;
 
-
 class MessageSender {
 
     /**
@@ -20,7 +19,6 @@ class MessageSender {
     {
         return sprintf('%06d',random_int($start, $end));
     }
-
 
     /**
      * @param $phone
@@ -41,11 +39,10 @@ class MessageSender {
         curl_setopt($ch, CURLOPT_USERPWD, 'api:key-' . $SMS_KEY);
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
-            array('mobile' => $phone, 'message' => '验证码：' . $verify . '【医师助手】'));
+            array('mobile' => $phone, 'message' => '您当前的验证码为：' . $verify . '【普安医师助手】'));
 
         $res = curl_exec($ch);
         curl_close($ch);
-
         return $res;
     }
 }
