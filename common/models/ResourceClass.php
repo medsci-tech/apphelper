@@ -29,19 +29,20 @@ class ResourceClass extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['status', 'category_id', 'view', 'up', 'down', 'user_id'], 'integer'],
+            [['name'], 'required'],
+            [['status', 'parent', 'grade', 'uid', 'attr_type'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INIT]],
-            [['category_id'], 'setCategory'],
-            [['title', 'category', 'author'], 'string', 'max' => 50],
-            [['author', 'cover'], 'string', 'max' => 255],
+//            [['category_id'], 'setCategory'],
+            [['name'], 'string', 'max' => 50],
+            [['path'], 'string', 'max' => 20],
         ];
     }
-    public function setCategory($attribute, $params)
-    {
-        $this->category = Category::find()->where(['id' => $this->category_id])->select('title')->scalar();
-    }
+
+//    public function setCategory($attribute, $params)
+//    {
+//        $this->category = Category::find()->where(['id' => $this->category_id])->select('title')->scalar();
+//    }
     /**
      * {@inheritdoc}
      */
@@ -60,17 +61,17 @@ class ResourceClass extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-            PushBehavior::className(),
-            AfterFindArticleBehavior::className(),
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            TimestampBehavior::className(),
+//            PushBehavior::className(),
+//            AfterFindArticleBehavior::className(),
+//        ];
+//    }
 
-    public function getData()
-    {
-        return $this->hasOne(ArticleData::className(), ['id' => 'id']);
-    }
+//    public function getData()
+//    {
+//        return $this->hasOne(ArticleData::className(), ['id' => 'id']);
+//    }
 }
