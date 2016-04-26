@@ -14,18 +14,18 @@
             i18n: {
                 deleteNull: 'Select a node to delete',
                 deleteConfirmation: 'Delete this node?',
-                confirmButtonLabel: 'Okay',
+                confirmButtonLabel: '确定',
                 editNull: 'Select a node to edit',
                 editMultiple: 'Only one node can be edited at one time',
                 addMultiple: 'Select a node to add a new node',
-                collapseTip: 'collapse',
-                expandTip: 'expand',
-                selectTip: 'select',
-                unselectTip: 'unselet',
-                editTip: 'edit',
-                addTip: 'add',
-                deleteTip: 'delete',
-                cancelButtonLabel: 'cancle'
+                collapseTip: '收起分支',
+                expandTip: '展开分支',
+                selectTip: '选择',
+                unselectTip: '取消选择',
+                editTip: '编辑',
+                addTip: '添加',
+                deleteTip: '删除',
+                cancelButtonLabel: '取消'
             }
         };
 

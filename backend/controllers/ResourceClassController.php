@@ -35,10 +35,10 @@ class ResourceClassController extends BackendController
      */
     public function actionIndex()
     {
-
-
+        $strHtml = $this->getTreeMenu();
+        print($strHtml);
         return $this->render('index', [
-
+            'strHtml' => $strHtml,
         ]);
     }
 
@@ -75,5 +75,57 @@ class ResourceClassController extends BackendController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function getTreeMenu()
+    {
+        $strHtml = "<ul>";
+        $parents = ResourceClass::find()
+            ->where(['grade' => 1])
+            ->orderBy('id')
+            ->all();
+
+        foreach($parents as $parent)
+        {
+            $childLevel1s = ResourceClass::find()
+                ->where(['parent' => $parent->id])
+                ->orderBy('id')
+                ->all();
+
+            if($childLevel1s)
+            {
+                $strHtml = $strHtml."<li>".$parent->name."<ul>";
+                foreach($childLevel1s as $childLevel1)
+                {
+                    $childLevel2s = ResourceClass::find()
+                        ->where(['parent' => $childLevel1->id])
+                        ->orderBy('id')
+                        ->all();
+
+                    if($childLevel2s)
+                    {
+                        $strHtml = $strHtml."<li>".$childLevel1->name."<ul>";
+                        foreach($childLevel2s as $childLevel2)
+                        {
+                            $strHtml = $strHtml."<li>".$childLevel2->name."</li>";
+                        }
+                        $strHtml = $strHtml."</ul></li>";
+                    }
+                    else
+                    {
+                        $strHtml = $strHtml."<li>".$childLevel1->name."</li>";
+                    }
+                }
+                $strHtml = $strHtml."</ul></li>";
+            }
+            else
+            {
+                $strHtml = $strHtml."<li>".$parent->name."</li>";
+            }
+        }
+
+        $strHtml = $strHtml."</ul>";
+
+        return $strHtml;
     }
 }
