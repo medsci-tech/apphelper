@@ -13,6 +13,11 @@ class SiteController extends Controller
         return Article::find()->limit(1)->one();
     }
 
+    public function actionLogin()
+    {
+       echo'login';exit;
+    }
+
     public function actionTest()
     {
         return ['code'=>200,'','data'=>['a','b','c']];
