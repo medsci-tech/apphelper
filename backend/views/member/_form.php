@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? '添加' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
