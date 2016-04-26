@@ -155,31 +155,29 @@ class MemberController extends BackendController
     public function actionDelete()
     {
         $params = Yii::$app->request->post();
-        if('disable' == $params['type']){
-            /*禁用*/
-            foreach ($params['selection'] as $key => $val){
-                $member = $this->findModel($val);
-                $member->status = 0;
-                $member->save(false);
+        if(isset($params['selection'])) {
+            if ('disable' == $params['type']) {
+                /*禁用*/
+                foreach ($params['selection'] as $key => $val) {
+                    $member = $this->findModel($val);
+                    $member->status = 0;
+                    $member->save(false);
+                }
+            } elseif ('enable' == $params['type']) {
+                /*启用*/
+                foreach ($params['selection'] as $key => $val) {
+                    $member = $this->findModel($val);
+                    $member->status = 1;
+                    $member->save(false);
+                }
+            } elseif ('del' == $params['type']) {
+                /*删除*/
+                foreach ($params['selection'] as $key => $val) {
+                    $this->findModel($val)->delete();
+                }
             }
-            return $this->redirect(['index']);
-        }elseif('enable' == $params['type']){
-            /*启用*/
-            foreach ($params['selection'] as $key => $val){
-                $member = $this->findModel($val);
-                $member->status = 1;
-                $member->save(false);
-            }
-            return $this->redirect(['index']);
-        }elseif('del' == $params['type']){
-            /*删除*/
-            foreach ($params['selection'] as $key => $val){
-                $this->findModel($val)->delete();
-            }
-            return $this->redirect(['index']);
-        }else{
-            return $this->redirect(['index']);
         }
+        return $this->redirect(['index']);
     }
 
     /**
