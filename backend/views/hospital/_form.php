@@ -28,6 +28,6 @@ use yii\widgets\ActiveForm;
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-    <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
 </div>
     <?php ActiveForm::end(); ?>

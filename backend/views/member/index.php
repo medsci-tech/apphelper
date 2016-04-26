@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $params;
 backend\assets\AppAsset::register($this);
 ?>
-<div class="article-index">
+<div class="modal-body">
     <div class="box box-success">
         <div class="box-header"><h2 class="box-title">用户搜索</h2></div>
         <div class="box-body">
@@ -97,7 +97,6 @@ backend\assets\AppAsset::register($this);
                                 return  $result ? $result : '';
                             },
                     ],
-                    ['class' => 'yii\grid\ActionColumn'],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template'=>'{view}  {update} {delete}',
