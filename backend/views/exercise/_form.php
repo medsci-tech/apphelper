@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
                 <td><input type="checkbox" class="checkValue" name="Exercise[answer][]" value="C"></td>
                 <td>
                     <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
-                    <a href="javascript:void(0);" class="addnextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>
                 </td>
             </tr>
             </tbody>
@@ -74,14 +74,14 @@ use yii\widgets\ActiveForm;
 $js = <<<JS
 $(function() {
     $('.delThisOption').click(function() {
-    var optionListCount = $('#optionListBody').find('tr').length;
+        var optionListCount = $('#optionListBody').find('tr').length;
         if(optionListCount > 1){
             var parentTr = $(this).parent().parent();
             var nextTr = parentTr.nextAll('tr');
             var addHtmlLength = $(this).next('a').length;
             if(addHtmlLength){
-                var addHtml = '<a href="javascript:void(0);" class="addnextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
-                parentTr.prev('tr').find('td').last().append('  '+addHtml);
+                var addHtml = ' <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+                parentTr.prev('tr').find('td').last().append(addHtml);
             }
             for (var i = 0; i < parentTr.nextAll('tr').length; i++){
                 var thisTr = $(parentTr.nextAll('tr')[i]);
@@ -96,38 +96,23 @@ $(function() {
             parentTr.remove();
         }
     });
-    $('.addnextOption').click(function() {
-        var parentTr = $(this).parent().parent();
-            var nextTr = parentTr.nextAll('tr');
-            var addHtmlLength = $(this).next('a').length;
-            // return false;
-            if(addHtmlLength){
-                var addHtml = ''
-                    + '<tr data-key="3">'
-                    + '    <td>C</td>'
-                    + '    <td><input type="text" class="form-control" name="Exercise[option][]"></td>'
-                    + '    <td><input type="checkbox" class="checkValue" name="Exercise[answer][]" value="C"></td>'
-                    + '    <td>'
-                    + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
-                    + '        <a href="javascript:void(0);" class="addnextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
-                    + '    </td>'
-                    + '</tr>';
-                parentTr.prev('tr').find('td').last().append('  '+addHtml);
-            }
-            
-            
-            
-            for (var i = 0; i < parentTr.nextAll('tr').length; i++){
-                var thisTr = $(parentTr.nextAll('tr')[i]);
-                var thisTd = thisTr.find('td');
-                var datakey = parseInt(thisTr.attr('data-key'));
-                var thisLatter = String.fromCharCode(63 + datakey);
-                thisTr.attr('data-key',datakey - 1);
-                thisTd.eq(0).text(thisLatter);
-                thisTd.find('.checkValue').val(thisLatter);
-                console.log(thisLatter);
-            }
-            parentTr.remove();
+    $('.addNextOption').click(function() {
+        var thisTr = $(this).parent().parent().first();
+        var datakey = parseInt(thisTr.attr('data-key'));
+        var thisLatter = String.fromCharCode(65 + datakey);
+        var trHtml = ''
+            + '<tr data-key="' + ( datakey + 1 ) + '">'
+            + '    <td>' +thisLatter+ '</td>'
+            + '    <td><input type="text" class="form-control" name="Exercise[option][]"></td>'
+            + '    <td><input type="checkbox" class="checkValue" name="Exercise[answer][]" value="' +thisLatter+ '"></td>'
+            + '    <td>'
+            + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
+            + '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
+            + '    </td>'
+            + '</tr>';
+            console.log(trHtml);
+        $(this).remove();
+        $('#optionListBody').append(trHtml);
     });
 });
 JS;
