@@ -59,6 +59,7 @@ class Hospital extends \yii\db\ActiveRecord
             'area_id' => '县区',
             'area' => '县区',
             'address' => '地址',
+            'status' => '状态',
         ];
     }
 

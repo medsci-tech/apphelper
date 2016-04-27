@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\hospital */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['action' => ['hospital/create'],'method'=>'post',]); ; ?>
 <div class="modal-body">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true,'id'=>'name']) ?>
 
@@ -28,6 +28,6 @@ use yii\widgets\ActiveForm;
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('保存', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 </div>
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>

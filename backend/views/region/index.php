@@ -20,6 +20,7 @@ $htmlClass = 'form-group container-fluid';
             $.post("'.yii::$app->urlManager->createUrl('region/list').'?grade=2&pid="+$(this).val(),function(data){
                 $("select#region-city_id").html(data);
                 $("select#region-city_id").val($("#city_id").val());
+//                $("select#region-province_id").val($("#province_id").val());
                 $("select#region-city_id").trigger("change");
             });',
     ])->label('省份', ['class' => 'sr-only']); ?>
