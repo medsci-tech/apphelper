@@ -33,7 +33,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
-        $scenarios['stu_register'] = ['username', 'password', 'email','verifyCode'];
+        $scenarios['login'] = ['username', 'password']; // 登录
         $scenarios['editprofile'] = ['password', 'newPassword', 'verifyNewPassword'];
         return $scenarios;
     }
@@ -44,10 +44,10 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username'], 'required','message' => '用户名不能为空!'],
-            [['verycode'], 'required','message' => '验证码不能为空!'],
+            [['username'], 'required','message' => '请输入手机号!'],
+            [['verycode'], 'required','message' => '请输入验证码!'],
             [['username'], 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/','message' => '请输入有效的手机号!'],
-            ['username', 'unique', 'targetClass' => '\api\common\models\Member', 'message' => '用户已经存在!'],
+            ['username', 'unique', 'targetClass' => '\api\common\models\Member', 'message' => '该手机号已经存在!'],
             [['verycode'], function ($attribute, $params) {
                 $verycode = Yii::$app->cache->get($this->username);
                 if ($verycode !== $this->verycode) {
@@ -59,29 +59,6 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             //注册资料场景
             [['username', 'password', 'verycode'], 'required', 'on' => 'register'], //必填
         ];
-    }
-
-    /**
-     * 修改资料
-     * @author by lxhui
-     *@param username 用户名
-     * @param verycode 验证码
-     * @version [2016-03-02]
-     * @param array $params additional parameters
-     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
-     */
-    public function editProfile($id) {
-        $user = User::findIdentity($id);
-        if ($user) {
-            if ($this->validate()) {
-                echo(11);exit;
-            } else {
-                return false;
-            }
-        } else {
-            $this->addError('username', '未找到该用户');
-            return false;
-        }
     }
 
     public static function findIdentity($id)
@@ -131,11 +108,36 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         return $fields;
     }
 
+    /**
+     * 修改资料
+     * @author by lxhui
+     *@param username 用户名
+     * @param verycode 验证码
+     * @version [2016-03-02]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function editProfile($id) {
+        $user = User::findIdentity($id);
+        if ($user) {
+            if ($this->validate()) {
+                echo(11);exit;
+            } else {
+                return false;
+            }
+        } else {
+            $this->addError('username', '未找到该用户');
+            return false;
+        }
+    }
+
     public function signup()
     {
         if ($this->validate()) {
             $this->username = $this->username;
+            $this->access_token = Yii::$app->security->generateRandomString();
             $this->setPassword($this->password);
+            $this->created_at = time();
             $this->generateAuthKey();
             if ($this->save()) {
                 return $this;
@@ -143,5 +145,36 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         }
         return false;
     }
+    /* 登录相关 */
+    /**
+     * Validates the password.
+     * This method serves as the inline validation for password.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array  $params    the additional name-value pairs given in the rule
+     */
+    public function validatePassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, '用户名或密码错误!');
+            }
+        }
+    }
+    /**
+     * Finds user by [[username]]
+     *
+     * @return User|null
+     */
+    public function getUser()
+    {
+        if ($this->_user === false) {
+            $this->_user = User::findByUsername($this->username);
+        }
+
+        return $this->_user;
+    }
+
 
 }

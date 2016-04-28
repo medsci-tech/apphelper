@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v4\controllers;
-use api\common\controllers\CommonController;;
+use api\common\controllers\CommonController;
+use api\common\models\LoginForm;
 use yii\web\Response;
 use api\common\models\member;use Yii;
 class SiteController extends CommonController
@@ -10,6 +11,7 @@ class SiteController extends CommonController
     protected function verbs(){
         return [
             'sign'=>['POST'],
+            'send'=>['POST'],
             'login'=>['POST'],
         ];
     }
@@ -31,13 +33,10 @@ class SiteController extends CommonController
             return $result;
         }
         else
-            print_r($model->id);exit;
+            $data=['uid'=>(string)$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
 
-        exit;
-        $result =$model->signup('15927086090','123456');print_r($result);exit;
-
-            //$result = ['code' => '200','message'=>'注册成功','data'=>['uid'=>101,'nickname'=>'mary01','access_token' => 'absgfjfj#$48667JUY65']];
-            return $result;
+        $result = ['code' => '200','message'=>'注册成功!','data'=>$data];
+        return $result;
     }
 
     /**
@@ -49,21 +48,26 @@ class SiteController extends CommonController
      */
     public function actionLogin()
     {
-        $apiParams = $_POST['apiParams'];
-
-        // $apiParams = json_encode(['uid'=>100,'nickname'=>'mary','access_token' => 'absgfjfj#$48667JUY65']); //{"uid":100,"username":"mary","access_token":"absgfjfj#$48667JUY65"}
-        $apiParams = json_decode($apiParams,true);
-
-        $code = '-1';
-        if(!$apiParams['username'] || !$apiParams['password'])
-        {
-            $result = ['code' => $code,'message'=>'用户密码不能为空','data'=>[]];
+        $model = new $this->modelClass(['scenario' => 'login']);
+        if ($model->load($this->params) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
         }
-        else{
-            $result = ['code' => '200','message'=>'登录成功','data'=>['uid'=>100,'nickname'=>'mary','access_token' => 'absgfjfj#$48667JUY65']];
-        }
-        return $result;
     }
-
+    /**
+     * 发送验证码
+     * @author by lxhui
+     * @version [2010-03-02]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionSend()
+    {
+        $username = $this->params['username'];
+        return $this->sendCode($username);
+    }
 
 }
