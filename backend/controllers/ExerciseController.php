@@ -48,7 +48,11 @@ class ExerciseController extends BackendController
         $exercise->load($appYii->request->post());
         $isValid = $exercise->validate();
         if ($isValid) {
-            $exercise->option = serialize($exercise->option);
+            $optionArray = [];
+            foreach ($exercise->option as $key => $val){
+                $optionArray[chr(65 + $key)] = $val;
+            }
+            $exercise->option = serialize($optionArray);
             $exercise->answer = implode(',', $exercise->answer);
             if(isset($exercise->id)){
                 $exercise->update_at = time();
