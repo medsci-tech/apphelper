@@ -50,11 +50,11 @@ class MemberController extends BackendController
             $dataArray[$key]['nickname'] = $val->nickname;
             $dataArray[$key]['username'] = $val->username;
             $dataArray[$key]['email'] = $val->email;
-            $dataArray[$key]['hospital_id'] = Hospital::findOne($val->hospital_id)->name;
-            $dataArray[$key]['rank_id'] = $appYii->params['member']['rank'][$val->rank_id];
-            $dataArray[$key]['province_id'] =  Region::findOne($val->province_id)->name;
-            $dataArray[$key]['city_id'] =  Region::findOne($val->city_id)->name;
-            $dataArray[$key]['area_id'] =  Region::findOne($val->area_id)->name;
+            $dataArray[$key]['hospital_id'] =$val->hospital_id ?? Hospital::findOne($val->hospital_id)->name;
+            $dataArray[$key]['rank_id'] = $val->rank_id ?? $appYii->params['member']['rank'][$val->rank_id];
+            $dataArray[$key]['province_id'] =  $val->province_id ?? Region::findOne($val->province_id)->name;
+            $dataArray[$key]['city_id'] =  $val->city_id ?? Region::findOne($val->city_id)->name;
+            $dataArray[$key]['area_id'] =  $val->area_id ?? Region::findOne($val->area_id)->name;
             $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
             $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
