@@ -34,8 +34,32 @@ use yii\widgets\ActiveForm;
             <tbody id="optionListBody">
             <tr data-key="1">
                 <td>A</td>
-                <td><input type="text" class="form-control" name="Exercise[option][]"></td>
+                <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>
                 <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="A"></td>
+                <td>
+                    <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
+                </td>
+            </tr>
+            <tr data-key="2">
+                <td>B</td>
+                <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>
+                <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="B"></td>
+                <td>
+                    <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
+                </td>
+            </tr>
+            <tr data-key="3">
+                <td>C</td>
+                <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>
+                <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="C"></td>
+                <td>
+                    <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
+                </td>
+            </tr>
+            <tr data-key="4">
+                <td>D</td>
+                <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>
+                <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="D"></td>
                 <td>
                     <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
                     <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>
