@@ -73,7 +73,7 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
 $(function() {
-    $('.delThisOption').click(function() {
+    $('#optionListBody').on('click','.delThisOption',function() {
         var optionListCount = $('#optionListBody').find('tr').length;
         if(optionListCount > 1){
             var parentTr = $(this).parent().parent();
@@ -96,10 +96,12 @@ $(function() {
             parentTr.remove();
         }
     });
-    $('.addNextOption').click(function() {
-        var thisTr = $(this).parent().parent().first();
+    $('#optionListBody').on('click','.addNextOption',function() {
+        var thisTr = $(this).parent().parent();
         var datakey = parseInt(thisTr.attr('data-key'));
         var thisLatter = String.fromCharCode(65 + datakey);
+        console.log(thisTr);
+        // return false;
         var trHtml = ''
             + '<tr data-key="' + ( datakey + 1 ) + '">'
             + '    <td>' +thisLatter+ '</td>'
@@ -110,11 +112,12 @@ $(function() {
             + '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
             + '    </td>'
             + '</tr>';
-            console.log(trHtml);
+        thisTr.after(trHtml);
         $(this).remove();
-        $('#optionListBody').append(trHtml);
     });
+    
 });
+
 JS;
 $this->registerJs($js);
 ?>
