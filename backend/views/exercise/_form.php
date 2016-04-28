@@ -91,7 +91,6 @@ $(function() {
                 thisTr.attr('data-key',datakey - 1);
                 thisTd.eq(0).text(thisLatter);
                 thisTd.find('.checkValue').val(thisLatter);
-                console.log(thisLatter);
             }
             parentTr.remove();
         }
@@ -100,8 +99,6 @@ $(function() {
         var thisTr = $(this).parent().parent();
         var datakey = parseInt(thisTr.attr('data-key'));
         var thisLatter = String.fromCharCode(65 + datakey);
-        console.log(thisTr);
-        // return false;
         var trHtml = ''
             + '<tr data-key="' + ( datakey + 1 ) + '">'
             + '    <td>' +thisLatter+ '</td>'
