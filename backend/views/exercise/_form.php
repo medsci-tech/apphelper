@@ -45,7 +45,7 @@ use yii\widgets\ActiveForm;
         </table>
     </div>
     
-    <?= $form->field($model, 'keyword')->textInput() ?>
+    <?= $form->field($model, 'keyword')->textInput(['placeholder' => '关键词可添加多个，用“|”分开']) ?>
     <?= $form->field($model, 'resolve')->textarea() ?>
 
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
