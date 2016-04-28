@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Exercise;
 use Yii;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -18,10 +19,15 @@ class ExerciseController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $searchMember = new Exercise();
-        $dataProvider = $searchMember->search($appYii->request->queryParams);
+        $search = new Exercise();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $search->search($appYii->request->queryParams)->query,
+            'pagination' => [
+                'pageSize' => '10',
+            ]
+        ]);
         return $this->render('index', [
-            'searchModel' => $searchMember,
+            'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'params' => $appYii->params,
         ]);
@@ -30,24 +36,39 @@ class ExerciseController extends BackendController
     public function actionForm()
     {
         $appYii = Yii::$app;
-        $exercise = new Exercise();
-//        $exercise->load($appYii->request->post());
-//        $isValid = $exercise->validate();
-        return $this->render('_form',[
-            'model' => $exercise,
-        ]);
-        var_dump($appYii->request->post());exit;
-        if ($isValid) {
-            $this->created_at = time();
-            $this->update_at = time();
-            $res = $this->save(false);
-            return $res;
+        if(isset($appYii->request->get()['id'])){
+            $id = $appYii->request->get()['id'];
+            $exercise = $this->findModel($id);
+            if(empty($exercise)){
+                $exercise = new Exercise();
+            }
         }else{
-            return false;
+            $exercise = new Exercise();
         }
-
-
-        var_dump($res);
+        $exercise->load($appYii->request->post());
+        $isValid = $exercise->validate();
+        if ($isValid) {
+            $optionArray = [];
+            foreach ($exercise->option as $key => $val){
+                $optionArray[chr(65 + $key)] = $val;
+            }
+            $exercise->option = serialize($optionArray);
+            $exercise->answer = implode(',', $exercise->answer);
+            if(isset($exercise->id)){
+                $exercise->update_at = time();
+            }else{
+                $exercise->created_at = time();
+            }
+            $result = $exercise->save(false);
+            if($result){
+                $return = [200,'success'];
+            }else{
+                $return = [801,'save error'];
+            }
+        }else{
+            $return = [802,'validate error'];
+        }
+        $this->ajaxReturn($return);
     }
 
 
@@ -89,7 +110,7 @@ class ExerciseController extends BackendController
         if (($model = Exercise::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return false;
         }
     }
 }

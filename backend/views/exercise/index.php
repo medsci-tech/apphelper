@@ -58,7 +58,6 @@ $this->params['params'] = $params;
                     'question',
                     [
                         'attribute' => 'option',
-//                        'label'=>'选项',
                         'value' => function ($model) {
                             return count(unserialize($model->option));
                         }
@@ -83,7 +82,7 @@ $this->params['params'] = $params;
                                 data-type="'.$model->type.'"
                                 data-category="'.$model->category.'"
                                 data-question="'.$model->question.'"
-                                data-option="'.$model->option.'"
+                                data-option='.json_encode(unserialize($model->option)).'
                                 data-answer="'.$model->answer.'"
                                 data-keyword="'.$model->keyword.'"
                                 data-resolve="'.$model->resolve.'"
@@ -118,12 +117,13 @@ $this->params['params'] = $params;
 <?php
 $js=<<<JS
 $(document).ready(function(){
+    /*修改题库*/
     $("span[name='saveData']").click(function(){
         var id = $(this).attr('data-id');
         var type = $(this).attr('data-type');
         var category = $(this).attr('data-category');
         var question = $(this).attr('data-question');
-        var option = $(this).attr('data-option');
+        var option = JSON.parse($(this).attr('data-option'));
         var answer = $(this).attr('data-answer');
         var keyword = $(this).attr('data-keyword');
         var resolve = $(this).attr('data-resolve');
@@ -133,24 +133,58 @@ $(document).ready(function(){
         $('#formModal #exercise-type').val(type);
         $('#formModal #exercise-category').val(category);
         $('#formModal #exercise-question').val(question);
-        $('#formModal #exercise-option').val(option);
-        $('#formModal #exercise-answer').val(answer);
         $('#formModal #exercise-keyword').val(keyword);
         $('#formModal #exercise-resolve').val(resolve);
         $('#formModal #exercise-status').val(status);
-
+        
+        var checkType = 'radio';
+        if(type == 2){
+            checkType = 'checkbox';
+        }
+        var optionHtml = '';
+        var i = 0;
+        var optionLength = Object.keys(option).length;
+        for(var key in option){
+            optionHtml += '<tr data-key="' + ( i + 1 ) + '">';
+            optionHtml += '    <td>' +key+ '</td>';
+            optionHtml += '    <td><input type="text" class="form-control" name="Exercise[option][]" value="' + option[key] + '"></td>';
+            optionHtml += '    <td><input type="' + checkType + '" ';
+            if(answer.match(key)){
+                optionHtml += 'checked="checked" ';
+            }
+            optionHtml += ' class="checkValue" name="Exercise[answer][]" value="' +key+ '"></td>';
+            optionHtml += '    <td>';
+            optionHtml += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+            if(i == optionLength - 1){
+                optionHtml += '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+            }
+            optionHtml += '    </td>';
+            optionHtml += '</tr>';
+            i++;
+        }
+        $('#optionListBody').html(optionHtml);
     });
+    /*添加题库初始化*/
     $("#createBtn").click(function(){
         var defaltData = ''; 
         $('#formModal #tableForm').attr('action','/exercise/form');
-        $('#formModal #exercise-type').val(defaltData);
+        $('#formModal #exercise-type').val(1);
         $('#formModal #exercise-category').val(defaltData);
         $('#formModal #exercise-question').val(defaltData);
-        $('#formModal #exercise-option').val(defaltData);
-        $('#formModal #exercise-answer').val(defaltData);
         $('#formModal #exercise-keyword').val(defaltData);
         $('#formModal #exercise-resolve').val(defaltData);
-        $('#formModal #exercise-status').val(defaltData);
+        $('#formModal #exercise-status').val(1);
+         var trHtml = ''
+            + '<tr data-key="1">'
+            + '    <td>A</td>'
+            + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
+            + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="A"></td>'
+            + '    <td>'
+            + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
+            + '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
+            + '    </td>'
+            + '</tr>';
+         $('#optionListBody').html(trHtml);
     });
 });
 JS;

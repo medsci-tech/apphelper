@@ -26,9 +26,7 @@ class Exercise extends ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'question', 'category', 'option', 'answer'], 'required'],
-            [['question'], 'string', 'max' => 20],
-            [['answer'], 'string', 'max' => 10],
+            [['type', 'question', 'category', 'option', 'answer', 'keyword', 'resolve'], 'required'],
         ];
     }
 
