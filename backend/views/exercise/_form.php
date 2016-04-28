@@ -36,18 +36,6 @@ use yii\widgets\ActiveForm;
                 <td>A</td>
                 <td><input type="text" class="form-control" name="Exercise[option][]"></td>
                 <td><input type="checkbox" class="checkValue" name="Exercise[answer][]" value="A"></td>
-                <td><a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
-            </tr>
-            <tr data-key="2">
-                <td>B</td>
-                <td><input type="text" class="form-control" name="Exercise[option][]"></td>
-                <td><input type="checkbox" class="checkValue" name="Exercise[answer][]" value="B"></td>
-                <td><a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
-            </tr>
-            <tr data-key="3">
-                <td>C</td>
-                <td><input type="text" class="form-control" name="Exercise[option][]"></td>
-                <td><input type="checkbox" class="checkValue" name="Exercise[answer][]" value="C"></td>
                 <td>
                     <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
                     <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>
