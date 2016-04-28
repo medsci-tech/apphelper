@@ -23,7 +23,7 @@ class ExerciseController extends BackendController
         $dataProvider = new ActiveDataProvider([
             'query' => $search->search($appYii->request->queryParams)->query,
             'pagination' => [
-                'pageSize' => '10',
+                'pageSize' => $appYii->params['pageSize'],
             ]
         ]);
         return $this->render('index', [
