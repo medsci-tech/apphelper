@@ -6,7 +6,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
 }
-if (!YII_ENV_TEST) {
+if (YII_ENV_TEST) {
     // 以下配置项仅在测试环境中起作用
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
