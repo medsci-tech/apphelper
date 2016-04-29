@@ -15,28 +15,9 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
 $(function() {
-     var e = [{
-        text: "父节点 1",
-        nodes: [
-            {
-                text: "子节点 1",
-                nodes: [
-                    {
-                        text: "孙子节点 1"
-                    },
-                    {
-                        text: "孙子节点 2"
-                    }
-                ]
-            }, 
-            {
-                text: "子节点 2"
-            }
-        ]
-    }];
     $("#treeview2").treeview({
         levels: 1,
-        data: e
+        data: $examClass
     });
 });
 JS;

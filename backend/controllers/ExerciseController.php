@@ -21,6 +21,7 @@ class ExerciseController extends BackendController
     {
         $appYii = Yii::$app;
         $search = new Exercise();
+        $examClass = (new ExamClass())->recursionTree();
         $dataProvider = new ActiveDataProvider([
             'query' => $search->search($appYii->request->queryParams)->query,
             'pagination' => [
@@ -31,6 +32,7 @@ class ExerciseController extends BackendController
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'params' => $appYii->params,
+            'examClass' => json_encode($examClass),
         ]);
     }
 
@@ -119,8 +121,4 @@ class ExerciseController extends BackendController
         }
     }
 
-    protected function treeNavigate(){
-       
-
-    }
 }
