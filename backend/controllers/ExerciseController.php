@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Exercise;
+use common\models\ExamClass;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
@@ -116,5 +117,10 @@ class ExerciseController extends BackendController
         } else {
             return false;
         }
+    }
+
+    protected function treeNavigate(){
+       
+
     }
 }
