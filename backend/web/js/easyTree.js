@@ -75,6 +75,7 @@
                     $(createInput).find('.confirm').click(function () {
                         if ($(createInput).find('input').val() === '')
                             return;
+                        var flag = false;
                         var selected = getSelectedItems();
                         console.log(selected);
                         var item = $('<li><span><span class="glyphicon glyphicon-file"></span><a href="javascript: void(0);">' + $(createInput).find('input').val() + '</a> </span></li>');
@@ -82,6 +83,12 @@
                         $(item).find(' > span > a').attr('title', options.i18n.selectTip);
                         if (selected.length <= 0) {
                             $(easyTree).find(' > ul').append($(item));
+                            var input = $(createInput).find('input').val();
+                            $("#resource_name").val(input);
+                            $("#type").val('addable');
+                            $("#grade").val(1);
+                            $("#uid").val(0);
+                            flag = true;
                         } else if (selected.length > 1) {
                             $(easyTree).prepend(warningAlert);
                             $(easyTree).find('.alert .alert-content').text(options.i18n.addMultiple);
@@ -97,7 +104,7 @@
                                 var input = $(createInput).find('input').val();
                                 $("#resource_name").val(input);
                                 $("#type").val('addable');
-                                console.log(input);
+                                flag = true;
                             }
                         }
 
@@ -140,6 +147,10 @@
                             });
                         }
                         $(createInput).remove();
+                        if(flag) {
+                            console.log("addable submit");
+                            $("#option").submit();
+                        }
                     });
                     $(createInput).find('.cancel').text(options.i18n.cancelButtonLabel);
                     $(createInput).find('.cancel').click(function () {
