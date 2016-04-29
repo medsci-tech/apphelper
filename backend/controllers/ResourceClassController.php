@@ -94,7 +94,9 @@ class ResourceClassController extends BackendController
 
             if($childLevel1s)
             {
-                $strHtml = $strHtml."<li>".$parent->name."<ul>";
+                $strHtml = $strHtml."<li uid='".$parent->id."' grade='"
+                    .$parent->grade."'>"
+                    .$parent->name."<ul>";
                 foreach($childLevel1s as $childLevel1)
                 {
                     $childLevel2s = ResourceClass::find()
@@ -104,28 +106,63 @@ class ResourceClassController extends BackendController
 
                     if($childLevel2s)
                     {
-                        $strHtml = $strHtml."<li>".$childLevel1->name."<ul>";
+                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' grade='"
+                            .$childLevel1->grade."'>"
+                            .$childLevel1->name."<ul>";
                         foreach($childLevel2s as $childLevel2)
                         {
-                            $strHtml = $strHtml."<li>".$childLevel2->name."</li>";
+                            $strHtml = $strHtml."<li uid='".$childLevel2->id."' grade='"
+                                .$childLevel2->grade."'>"
+                                .$childLevel2->name."</li>";
                         }
                         $strHtml = $strHtml."</ul></li>";
                     }
                     else
                     {
-                        $strHtml = $strHtml."<li>".$childLevel1->name."</li>";
+                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' grade='"
+                            .$childLevel1->grade."'>"
+                            .$childLevel1->name."</li>";
                     }
                 }
                 $strHtml = $strHtml."</ul></li>";
             }
             else
             {
-                $strHtml = $strHtml."<li>".$parent->name."</li>";
+                $strHtml = $strHtml."<li uid='".$parent->id."' grade='"
+                    .$parent->grade."'>"
+                    .$parent->name."</li>";
             }
         }
 
         $strHtml = $strHtml."</ul>";
 
         return $strHtml;
+    }
+
+    public function actionOption()
+    {
+        $params = Yii::$app->request->post();
+        if('addable' == $params['type']){
+            /*新增*/
+//            foreach ($params['selection'] as $key => $val){
+//                $model = $this->findModel($val);
+//                $model->status = 0;
+//                $model->save(false);
+//            }
+            return $this->redirect(['index']);
+        }else if('editable' == $params['type']){
+
+            $model = $this->findModel($params['uid']);
+            $model -> name = $params['resource_name'];
+            $model -> save(false);
+//            foreach ($params['selection'] as $key => $val){
+//                $model = $this->findModel($val);
+//                $model->status = 1;
+//                $model->save(false);
+//            }
+            return $this->redirect(['index']);
+        } else{
+            return $this->redirect(['index']);
+        }
     }
 }
