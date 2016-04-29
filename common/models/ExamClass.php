@@ -60,7 +60,21 @@ class ExamClass extends ActiveRecord
         return $examClass;
     }
 
-  
+    /*树形结构*/
+    public function recursionTree($parent = 0){
+        $column = [];
+        $model = (new ExamClass())->getDataForParent($parent);
+        if(is_array($model)){
+            foreach ($model as $key => $val){
+                $column[$key]['text'] = $val['name'];
+                $column[$key]['nodes'] = $this->recursionTree($val['id']);
+                if(empty($column[$key]['nodes'])){
+                    unset($column[$key]['nodes']);
+                }
+            }
+        }
+        return $column;
+    }
 
 
 }
