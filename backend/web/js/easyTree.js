@@ -76,6 +76,7 @@
                         if ($(createInput).find('input').val() === '')
                             return;
                         var selected = getSelectedItems();
+                        console.log(selected);
                         var item = $('<li><span><span class="glyphicon glyphicon-file"></span><a href="javascript: void(0);">' + $(createInput).find('input').val() + '</a> </span></li>');
                         $(item).find(' > span > span').attr('title', options.i18n.collapseTip);
                         $(item).find(' > span > a').attr('title', options.i18n.selectTip);
@@ -85,15 +86,24 @@
                             $(easyTree).prepend(warningAlert);
                             $(easyTree).find('.alert .alert-content').text(options.i18n.addMultiple);
                         } else {
-                            if ($(selected).hasClass('parent_li')) {
-                                $(selected).find(' > ul').append(item);
-                            } else {
-                                $(selected).addClass('parent_li').find(' > span > span').addClass('glyphicon-folder-open').removeClass('glyphicon-file');
-                                $(selected).append($('<ul></ul>')).find(' > ul').append(item);
+                            var grade = $("#grade").val();
+                            if( grade != '3') {
+                                if ($(selected).hasClass('parent_li')) {
+                                    $(selected).find(' > ul').append(item);
+                                } else {
+                                    $(selected).addClass('parent_li').find(' > span > span').addClass('glyphicon-folder-open').removeClass('glyphicon-file');
+                                    $(selected).append($('<ul></ul>')).find(' > ul').append(item);
+                                }
+                                var input = $(createInput).find('input').val();
+                                $("#resource_name").val(input);
+                                $("#type").val('addable');
+                                console.log(input);
                             }
                         }
+
                         $(createInput).find('input').val('');
                         if (options.selectable) {
+                            console.log('selectable');
                             $(item).find(' > span > a').attr('title', options.i18n.selectTip);
                             $(item).find(' > span > a').click(function (e) {
                                 var li = $(this).parent().parent();
@@ -140,6 +150,7 @@
 
             // editable
             if (options.editable) {
+                console.log('editable');
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="edit"><button class="btn btn-default btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .edit > button').attr('title', options.i18n.editTip).click(function () {
                     $(easyTree).find('input.easy-tree-editor').remove();
@@ -166,6 +177,9 @@
                                     $(selected).find(' > span > a').text($(editor).val());
                                     $(editor).remove();
                                     $(selected).find(' > span > a').show();
+                                    $("#resource_name").val($(editor).val());
+                                    $("#type").val('editable');
+                                    $("#option").submit();
                                 }
                             }
                         });
@@ -175,6 +189,7 @@
 
             // deletable
             if (options.deletable) {
+                console.log('deletable');
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="remove"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-remove"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.deleteTip).click(function () {
                     var selected = getSelectedItems();
@@ -220,9 +235,18 @@
 
             // selectable, only single select
             if (options.selectable) {
+                console.log('selectable');
                 $(easyTree).find('li > span > a').attr('title', options.i18n.selectTip);
                 $(easyTree).find('li > span > a').click(function (e) {
                     var li = $(this).parent().parent();
+                    //console.log(li[0]);
+                    //console.log($(li[0]).attr('grade'));
+                    $("#grade").val($(li[0]).attr('grade'));
+                    //console.log($(li[0]).attr('uid'));
+                    $("#uid").val($(li[0]).attr('uid'));
+                    $("#type").val('selectable');
+                    var dd = $(li[0]).find(' span > a')[0];
+                    console.log($(dd).text());
                     if (li.hasClass('li_selected')) {
                         $(this).attr('title', options.i18n.selectTip);
                         $(li).removeClass('li_selected');

@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Exercise;
+use common\models\ExamClass;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
@@ -74,7 +75,9 @@ class ExerciseController extends BackendController
 
     public function actionDelete()
     {
-        $params = Yii::$app->request->post();
+        $appYii = Yii::$app;
+        $params = $appYii->request->post();
+        $id = $appYii->request->get('id');
         if(isset($params['selection'])) {
             if ('disable' == $params['type']) {
                 /*禁用*/
@@ -96,6 +99,8 @@ class ExerciseController extends BackendController
                     $this->findModel($val)->delete();
                 }
             }
+        }elseif($id){
+            $this->findModel($id)->delete();
         }
         return $this->redirect(['index']);
     }
@@ -112,5 +117,10 @@ class ExerciseController extends BackendController
         } else {
             return false;
         }
+    }
+
+    protected function treeNavigate(){
+       
+
     }
 }
