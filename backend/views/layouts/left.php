@@ -42,6 +42,9 @@
                         <a class="J_menuItem" href="member/index" data-index="0">用户管理</a>
                     </li>
                     <li>
+                        <a class="J_menuItem" href="exercise/index" >题库管理</a>
+                    </li>
+                    <li>
                         <a class="J_menuItem" href="/admin/assignment/index" data-index="0">管理员管理</a>
                     </li>
                     <li>
