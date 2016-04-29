@@ -49,13 +49,13 @@ class SiteController extends CommonController
     public function actionLogin()
     {
         $model = new $this->modelClass(['scenario' => 'login']);
-        if ($model->load($this->params) && $model->login()) {
-            return $this->goBack();
+        $model->load($this->params, '');
+        if ($result = $model->login()) {
         } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => '200','message'=>$message,'data'=>[]];
         }
+        return $result;
     }
     /**
      * 发送验证码
