@@ -7,16 +7,14 @@ use yii\widgets\ActiveForm;
 
 
 <!--树形视图--start-->
-<div id="treeview2" class="col-lg-2 modal-body treeview">
-
-</div>
+<div id="treeView" class="col-lg-2 modal-body"></div>
 <!--树形视图--end-->
 
 <?php
 $js = <<<JS
 $(function() {
-    $("#treeview2").treeview({
-        levels: 1,
+    $("#treeView").treeview({
+        levels: 9,
         data: $examClass
     });
 });
