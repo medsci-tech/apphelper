@@ -56,16 +56,17 @@ class ExamClass extends ActiveRecord
     }
 
     public function getDataForParent($parent = 0){
-        $examClass = ExamClass::find()->where(['status' => 1,'parent' => $parent])->asArray()->all();
+        $examClass = ExamClass::find()->where(['status' => 1,'parent' => $parent])->orderBy(['sort' => SORT_DESC])->asArray()->all();
         return $examClass;
     }
 
     /*树形结构*/
     public function recursionTree($parent = 0){
         $column = [];
-        $model = (new ExamClass())->getDataForParent($parent);
+        $model = $this->getDataForParent($parent);
         if(is_array($model)){
             foreach ($model as $key => $val){
+                $column[$key]['id'] = $val['id'];
                 $column[$key]['text'] = $val['name'];
                 $column[$key]['nodes'] = $this->recursionTree($val['id']);
                 if(empty($column[$key]['nodes'])){

@@ -13,10 +13,17 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
 $(function() {
-    $("#treeView").treeview({
-        levels: 9,
-        data: $examClass
-    });
+	var initSelectableTree = function() {
+		return $('#treeView').treeview({
+		    levels: 1,
+			data: $examClass
+		});
+	};
+	var selectableTree = initSelectableTree();
+	var findSelectableNodes = function() {
+		return selectableTree.treeview('search', [ '第', { ignoreCase: false, exactMatch: false } ]);
+	};
+	var selectableNodes = findSelectableNodes();
 });
 JS;
 $this->registerJs($js);
