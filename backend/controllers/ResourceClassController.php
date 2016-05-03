@@ -2,11 +2,8 @@
 
 namespace backend\controllers;
 
-use common\models\ArticleData;
-use yidashi\webuploader\WebuploaderAction;
 use Yii;
 use common\models\ResourceClass;
-use backend\models\search\Article as ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +33,7 @@ class ResourceClassController extends BackendController
     public function actionIndex()
     {
         $strHtml = $this->getTreeMenu();
-        print($strHtml);
+//        print($strHtml);
         return $this->render('index', [
             'strHtml' => $strHtml,
         ]);
@@ -70,7 +67,7 @@ class ResourceClassController extends BackendController
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null) {
+        if (($model = ResourceClass::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -143,23 +140,35 @@ class ResourceClassController extends BackendController
     {
         $params = Yii::$app->request->post();
         if('addable' == $params['type']){
-            /*新增*/
-//            foreach ($params['selection'] as $key => $val){
-//                $model = $this->findModel($val);
-//                $model->status = 0;
-//                $model->save(false);
-//            }
+            if ('0' == $params['uid']) {
+                $model = new ResourceClass();
+                $model->name = $params['resource_name'];
+                $model->grade = 1;
+                $model->parent = 0;
+                $model->status = 1;
+                $model->uid = 0;
+                $model->attr_type = 0;
+                $model->sort = 0;
+                $model->save(false);
+            }
+            else {
+                $model = new ResourceClass();
+                $model->name = $params['resource_name'];
+                $model->grade = $params['grade'] + 1;
+                $model->parent = $params['uid'];
+                $model->status = 1;
+                $model->uid = 0;
+                $model->attr_type = 0;
+                $model->sort = 0;
+                $model->save(false);
+            }
             return $this->redirect(['index']);
         }else if('editable' == $params['type']){
 
             $model = $this->findModel($params['uid']);
-            $model -> name = $params['resource_name'];
-            $model -> save(false);
-//            foreach ($params['selection'] as $key => $val){
-//                $model = $this->findModel($val);
-//                $model->status = 1;
-//                $model->save(false);
-//            }
+            $model ->name = $params['resource_name'];
+            $model ->save(false);
+
             return $this->redirect(['index']);
         } else{
             return $this->redirect(['index']);

@@ -29,7 +29,8 @@ use yii\helpers\Html;
             $('.easy-tree').EasyTree({
                 addable: true,
                 editable: true,
-                deletable: true
+                deletable: true,
+                enable: true
             });
         }
         window.onload = init();

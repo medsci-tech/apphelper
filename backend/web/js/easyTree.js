@@ -11,12 +11,15 @@
             deletable: false,
             editable: false,
             addable: false,
+            enable: false,
             i18n: {
                 deleteNull: 'Select a node to delete',
                 deleteConfirmation: 'Delete this node?',
                 confirmButtonLabel: '确定',
                 editNull: 'Select a node to edit',
                 editMultiple: 'Only one node can be edited at one time',
+                enableNull: '请选择一个节点进行启用',
+                enableMultiple: '一次只能选择一个节点进行启用',
                 addMultiple: 'Select a node to add a new node',
                 collapseTip: '收起分支',
                 expandTip: '展开分支',
@@ -25,6 +28,7 @@
                 editTip: '编辑',
                 addTip: '添加',
                 deleteTip: '删除',
+                enableTip: '启用',
                 cancelButtonLabel: '取消'
             }
         };
@@ -32,7 +36,7 @@
         var warningAlert = $('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong></strong><span class="alert-content"></span> </div> ');
         var dangerAlert = $('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong></strong><span class="alert-content"></span> </div> ');
 
-        var createInput = $('<div class="input-group"><input type="text" class="form-control"><span class="input-group-btn"><button type="button" class="btn btn-default btn-success confirm"></button> </span><span class="input-group-btn"><button type="button" class="btn btn-default cancel"></button> </span> </div> ');
+        var createInput = $('<div class="input-group"><input type="text" class="form-control" style="color:black"><span class="input-group-btn"><button type="button" class="btn btn-success confirm"></button> </span><span class="input-group-btn"><button type="button" class="btn btn-default cancel"></button> </span> </div> ');
 
         options = $.extend(defaults, options);
 
@@ -66,7 +70,7 @@
 
             // addable
             if (options.addable) {
-                $(easyTree).find('.easy-tree-toolbar').append('<div class="create"><button class="btn btn-default btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="create"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .create > button').attr('title', options.i18n.addTip).click(function () {
                     var createBlock = $(easyTree).find('.easy-tree-toolbar .create');
                     $(createBlock).append(createInput);
@@ -75,6 +79,7 @@
                     $(createInput).find('.confirm').click(function () {
                         if ($(createInput).find('input').val() === '')
                             return;
+                        var flag = false;
                         var selected = getSelectedItems();
                         console.log(selected);
                         var item = $('<li><span><span class="glyphicon glyphicon-file"></span><a href="javascript: void(0);">' + $(createInput).find('input').val() + '</a> </span></li>');
@@ -82,6 +87,12 @@
                         $(item).find(' > span > a').attr('title', options.i18n.selectTip);
                         if (selected.length <= 0) {
                             $(easyTree).find(' > ul').append($(item));
+                            var input = $(createInput).find('input').val();
+                            $("#resource_name").val(input);
+                            $("#type").val('addable');
+                            $("#grade").val(1);
+                            $("#uid").val(0);
+                            flag = true;
                         } else if (selected.length > 1) {
                             $(easyTree).prepend(warningAlert);
                             $(easyTree).find('.alert .alert-content').text(options.i18n.addMultiple);
@@ -97,7 +108,7 @@
                                 var input = $(createInput).find('input').val();
                                 $("#resource_name").val(input);
                                 $("#type").val('addable');
-                                console.log(input);
+                                flag = true;
                             }
                         }
 
@@ -140,6 +151,10 @@
                             });
                         }
                         $(createInput).remove();
+                        if(flag) {
+                            console.log("addable submit");
+                            $("#option").submit();
+                        }
                     });
                     $(createInput).find('.cancel').text(options.i18n.cancelButtonLabel);
                     $(createInput).find('.cancel').click(function () {
@@ -151,7 +166,7 @@
             // editable
             if (options.editable) {
                 console.log('editable');
-                $(easyTree).find('.easy-tree-toolbar').append('<div class="edit"><button class="btn btn-default btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="edit"><button class="btn btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .edit > button').attr('title', options.i18n.editTip).click(function () {
                     $(easyTree).find('input.easy-tree-editor').remove();
                     $(easyTree).find('li > span > a:hidden').show();
@@ -214,6 +229,34 @@
                 });
             }
 
+            // enable
+            if (options.enable) {
+                console.log('enable');
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="enable"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-ok-circle"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.enableTip).click(function () {
+                    var selected = getSelectedItems();
+                    if (selected.length <= 0) {
+                        $(easyTree).prepend(warningAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.enableNull);
+                    } else {
+                        $(easyTree).prepend(dangerAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
+                            .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
+                            .find('.confirm').html(options.i18n.confirmButtonLabel);
+                        $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
+                            $(selected).find(' ul ').remove();
+                            if($(selected).parent('ul').find(' > li').length <= 1) {
+                                $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
+                                $(selected).parent('ul').remove();
+                            }
+                            $(selected).remove();
+                            $(dangerAlert).remove();
+                        });
+                    }
+                });
+            }
+
+
             // collapse or expand
             $(easyTree).delegate('li.parent_li > span', 'click', function (e) {
                 var children = $(this).parent('li.parent_li').find(' > ul > li');
@@ -232,6 +275,7 @@
                 }
                 e.stopPropagation();
             });
+
 
             // selectable, only single select
             if (options.selectable) {
