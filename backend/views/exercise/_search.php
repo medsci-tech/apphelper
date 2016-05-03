@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
     $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => ['class' => 'form-inline'],
+        'options' => ['class' => 'form-inline navbar-btn'],
     ]); ?>
 
     <?= $form->field($model, 'question') ?>
