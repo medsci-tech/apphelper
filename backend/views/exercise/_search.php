@@ -25,9 +25,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'question') ?>
     <?= $form->field($model, 'category')->hiddenInput()->label(false) ?>
-    <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
     <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
+    <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
     <?= Html::a('启用', 'javascript:void(0);', ['class' => 'btn btn-primary','id'=> 'enable']) ?>
     <?= Html::a('禁用', 'javascript:void(0);', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
     <?= Html::a('批量删除', 'javascript:void(0);', ['class' => 'btn btn-danger', 'id'=> 'del']) ?>
