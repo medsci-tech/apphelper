@@ -20,8 +20,13 @@ class ExerciseController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $search = new Exercise();
-        $examClass = (new ExamClass())->recursionTree();
+        $search = new \backend\models\search\Exercise();
+        $examClass = new ExamClass();
+        $recursionTree = $examClass->recursionTree();
+        $examClassFindOne = [];
+        if(isset($appYii->request->queryParams['Exercise']['category'])){
+            $examClassFindOne = $examClass->getDataForWhere(['id' => $appYii->request->queryParams['Exercise']['category']]);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $search->search($appYii->request->queryParams)->query,
             'pagination' => [
@@ -32,7 +37,8 @@ class ExerciseController extends BackendController
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'params' => $appYii->params,
-            'examClass' => json_encode($examClass),
+            'examClass' => json_encode($recursionTree),
+            'treeNavigateSelectedName' => $examClassFindOne[0]['name'] ?? '',
         ]);
     }
 

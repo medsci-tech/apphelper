@@ -69,7 +69,13 @@
 		onNodeUnchecked: undefined,
 		onNodeUnselected: undefined,
 		onSearchComplete: undefined,
-		onSearchCleared: undefined
+		onSearchCleared: undefined,
+
+
+		/*表单查询form Id--zhaiyu--20160503--start*/
+		onSubmitFormId: undefined,
+		onSubmitInputValue: undefined
+		/*表单查询form Id--zhaiyu--20160503--end*/
 	};
 
 	_default.options = {
@@ -518,9 +524,7 @@
 				.addClass(node.state.selected ? 'node-selected' : '')
 				.addClass(node.searchResult ? 'search-result' : '') 
 				.attr('data-nodeid', node.nodeId)
-				.attr('data-id', node.id)
 				.attr('style', _this.buildStyleOverride(node));
-			console.log(_this);
 
 			// Add indent/spacer to mimic tree structure
 			for (var i = 0; i < (level - 1); i++) {
@@ -635,6 +639,7 @@
 			if (this.options.selectedBackColor) {
 				backColor = this.options.selectedBackColor;
 			}
+			this.selectedSubmitForm(node.id, this.options);
 		}
 
 		if (this.options.highlightSearchResults && node.searchResult && !node.state.disabled) {
@@ -1208,6 +1213,19 @@
 			}
 		}
 	};
+
+	/*表单查询方法--zhaiyu--20160503--start*/
+	Tree.prototype.selectedSubmitForm = function (id, options) {
+		console.log(options);
+		console.log(id);
+		if (options.onSubmitFormId && options.onSubmitInputValue){
+			$('#' + options.onSubmitInputValue).val(id);
+			$('#' + options.onSubmitFormId).submit();
+		}else {
+			return;
+		}
+	};
+	/*表单查询方法--zhaiyu--20160503--end*/
 
 	var logError = function (message) {
 		if (window.console) {
