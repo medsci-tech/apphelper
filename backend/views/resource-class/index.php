@@ -30,7 +30,8 @@ use yii\helpers\Html;
                 addable: true,
                 editable: true,
                 deletable: true,
-                enable: true
+                enable: true,
+                disable: true
             });
         }
         window.onload = init();
