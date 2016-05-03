@@ -56,16 +56,6 @@ class Exercise extends ActiveRecord
         return $scenarios;
     }
 
-    public function search($params)
-    {
-        $this->load($params);
-        $query = $this::find()->orderBy('id desc');
-        $query->andFilterWhere(['like', 'question', $this->question]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        return $dataProvider;
-    }
 
   
 
