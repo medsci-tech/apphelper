@@ -20,72 +20,45 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->registerMetaTag(['name' => 'keywords', 'content' => \common\models\Config::get('SEO_SITE_KEYWORDS')]);?>
-    <?php $this->registerMetaTag(['name' => 'description', 'content' => \common\models\Config::get('SEO_SITE_DESCRIPTION')]);?>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <header class="header" style="background:url(<?= \common\models\Config::get('PAGE_TOP_BG')?>) no-repeat;background-size: cover;">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="pull-left"><?= Html::a(\common\models\Config::get('SITE_NAME'), Yii::$app->homeUrl)?></h1>
-                <form role="search" class="form-inline pull-right">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="搜索" id="bdcsMain">
-                    </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
-                </form>
-            </div>
-        </div>
-    </header>
     <?php
     NavBar::begin([
+        'brandLabel' => 'My Company',
+        'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-static-top',
+            'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [];
-    $menuItems[] = ['label' => '首页', 'url' => Yii::$app->homeUrl];
-    foreach (\common\models\Category::find()->all() as $nav) {
-        $menuItems[] = ['label' => $nav['title'], 'url' => ['/article/index', 'cate' => $nav['name']]];
-    }
-    foreach (\common\models\Nav::find()->all() as $nav) {
-        $menuItems[] = ['label' => $nav['title'], 'url' => [$nav['route']]];
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => $menuItems,
-    ]);
-    $rightMenuItems = [];
-    $rightMenuItems[] = ['label' => '投稿', 'url' => ['/my/create-article']];
+    $menuItems = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+    ];
     if (Yii::$app->user->isGuest) {
-        $rightMenuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup'], 'options' => ['class' => 'pull-right']];
-        $rightMenuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $rightMenuItems[] = [
-            'label' => Yii::$app->user->identity->username,
-            'items' => [
-                [
-                    'label' => '我的投稿',
-                    'url' => ['/my/article-list'],
-                ],
-                [
-                    'label' => '退出',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post'],
-                ],
-            ],
-        ];
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link']
+            )
+            . Html::endForm()
+            . '</li>';
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $rightMenuItems,
+        'items' => $menuItems,
     ]);
     NavBar::end();
     ?>
+
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -97,29 +70,12 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3"><a href="<?= \yii\helpers\Url::to(['/page?id=1'])?>" target="_blank">免责声明</a></div>
-            <div class="col-sm-3"><a href="<?= \yii\helpers\Url::to(['/page?id=2'])?>" target="_blank">关于我们</a></div>
-            <div class="col-sm-3"><a href="<?= \yii\helpers\Url::to(['/suggest/create'])?>" target="_blank">问题反馈</a></div>
-            <div class="col-sm-3"><a href="https://github.com/yidashi/yii" target="_blank">获取源码</a></div>
-        </div>
-    </div>
-    <hr/>
-    <div class="container">
-        <p class="pull-left">&copy; <?= \common\models\Config::get('SITE_NAME').' '.date('Y') ?></p>
-        <p class="pull-right"><?= \common\models\Config::get('SITE_ICP')?></p>
+        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+
+        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content"></div>
-    </div>
-</div>
-<a class="back-to-top btn btn-default" style="display: none;"><span class="fa fa-arrow-up"></span></a>
-<?php if (YII_ENV_PROD):?>
-<!--页脚-->
-<?= \common\models\Config::get('FOOTER')?>
-<?php endif; ?>
+
 <?php $this->endBody() ?>
 </body>
 </html>
