@@ -1,12 +1,12 @@
 <?php
-
 namespace frontend\models;
 
 use common\models\User;
 use yii\base\Model;
+use Yii;
 
 /**
- * Signup form.
+ * Signup form
  */
 class SignupForm extends Model
 {
@@ -15,7 +15,7 @@ class SignupForm extends Model
     public $password;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
@@ -35,14 +35,7 @@ class SignupForm extends Model
             ['password', 'string', 'min' => 6],
         ];
     }
-    public function attributeLabels()
-    {
-        return [
-            'username' => '用户名',
-            'email' => '邮箱',
-            'password' => '密码',
-        ];
-    }
+
     /**
      * Signs user up.
      *
@@ -50,17 +43,16 @@ class SignupForm extends Model
      */
     public function signup()
     {
-        if ($this->validate()) {
-            $user = new User();
-            $user->username = $this->username;
-            $user->email = $this->email;
-            $user->setPassword($this->password);
-            $user->generateAuthKey();
-            if ($user->save()) {
-                return $user;
-            }
+        if (!$this->validate()) {
+            return null;
         }
-
-        return;
+        
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        
+        return $user->save() ? $user : null;
     }
 }
