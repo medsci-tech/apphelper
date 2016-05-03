@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $examClass */
 /* @var $dataProvider */
 /* @var $params */
 
@@ -18,7 +19,7 @@ $this->params['params'] = $params;
 
 
 ?>
-<?= $this->render('/common/treeNavigate');?>
+<?= $this->render('/common/treeNavigate', ['examClass' => $examClass]);?>
 
 <div class="modal-body col-lg-10">
     <div class="box box-success">
