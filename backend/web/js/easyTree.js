@@ -18,6 +18,8 @@
                 confirmButtonLabel: '确定',
                 editNull: 'Select a node to edit',
                 editMultiple: 'Only one node can be edited at one time',
+                enableNull: '请选择一个节点进行启用',
+                enableMultiple: '一次只能选择一个节点进行启用',
                 addMultiple: 'Select a node to add a new node',
                 collapseTip: '收起分支',
                 expandTip: '展开分支',
@@ -227,6 +229,34 @@
                 });
             }
 
+            // enable
+            if (options.enable) {
+                console.log('enable');
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="enable"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-ok-circle"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.enableTip).click(function () {
+                    var selected = getSelectedItems();
+                    if (selected.length <= 0) {
+                        $(easyTree).prepend(warningAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.enableNull);
+                    } else {
+                        $(easyTree).prepend(dangerAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
+                            .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
+                            .find('.confirm').html(options.i18n.confirmButtonLabel);
+                        $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
+                            $(selected).find(' ul ').remove();
+                            if($(selected).parent('ul').find(' > li').length <= 1) {
+                                $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
+                                $(selected).parent('ul').remove();
+                            }
+                            $(selected).remove();
+                            $(dangerAlert).remove();
+                        });
+                    }
+                });
+            }
+
+
             // collapse or expand
             $(easyTree).delegate('li.parent_li > span', 'click', function (e) {
                 var children = $(this).parent('li.parent_li').find(' > ul > li');
@@ -245,6 +275,7 @@
                 }
                 e.stopPropagation();
             });
+
 
             // selectable, only single select
             if (options.selectable) {
@@ -290,46 +321,6 @@
 
                     e.stopPropagation();
 
-                });
-            }
-
-
-            // enable
-            if (options.enable) {
-                console.log('enable');
-                $(easyTree).find('.easy-tree-toolbar').append('<div class="enable"><button class="btn btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
-                $(easyTree).find('.easy-tree-toolbar .edit > button').attr('title', options.i18n.enableTip).click(function () {
-                    $(easyTree).find('input.easy-tree-editor').remove();
-                    $(easyTree).find('li > span > a:hidden').show();
-                    var selected = getSelectedItems();
-                    //if (selected.length <= 0) {
-                    //    $(easyTree).prepend(warningAlert);
-                    //    $(easyTree).find('.alert .alert-content').html(options.i18n.editNull);
-                    //}
-                    //else if (selected.length > 1) {
-                    //    $(easyTree).prepend(warningAlert);
-                    //    $(easyTree).find('.alert .alert-content').html(options.i18n.editMultiple);
-                    //}
-                    //else {
-                    //    var value = $(selected).find(' > span > a').text();
-                    //    $(selected).find(' > span > a').hide();
-                    //    $(selected).find(' > span').append('<input type="text" class="easy-tree-editor">');
-                    //    var editor = $(selected).find(' > span > input.easy-tree-editor');
-                    //    $(editor).val(value);
-                    //    $(editor).focus();
-                    //    $(editor).keydown(function (e) {
-                    //        if (e.which == 13) {
-                    //            if ($(editor).val() !== '') {
-                    //                $(selected).find(' > span > a').text($(editor).val());
-                    //                $(editor).remove();
-                    //                $(selected).find(' > span > a').show();
-                    //                $("#resource_name").val($(editor).val());
-                    //                $("#type").val('editable');
-                    //                $("#option").submit();
-                    //            }
-                    //        }
-                    //    });
-                    //}
                 });
             }
 
