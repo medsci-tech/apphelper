@@ -2,6 +2,7 @@
 
 namespace api\common\models;
 
+use backend\models\User;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\Model;
@@ -24,6 +25,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
 {
     public $verycode;
     public $password;
+    public $passwordRepeat;
     private $_user = false;
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
@@ -40,7 +42,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
         $scenarios['login'] = ['username', 'password']; // 登录
-        $scenarios['editprofile'] = ['password', 'newPassword', 'verifyNewPassword'];
+        $scenarios['setPassword'] = ['password', 'verycode']; // 设置密码
         return $scenarios;
     }
 
@@ -60,11 +62,18 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
                     //$this->addError($attribute, '手机验证码不匹配！');
                 }
             }],
+            ['password', 'string', 'min' => 6, 'max' => 24,'message' => '密码长度在6-24之间!'],
             ['password', 'validatePassword', 'on' => 'login'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'avatar', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             //注册资料场景
             [['username', 'password', 'verycode'], 'required', 'on' => 'register'], //必填
+
+            /* 设置密码相关 */
+            [['password', 'passwordRepeat'], 'required', 'on' => 'setPassword'],
+            [['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 24],
+            ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
+
         ];
     }
 
@@ -213,6 +222,23 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             }
         }
         return false;
+    }
+
+    /**
+     * Resets password.
+     *
+     * @return boolean if password was reset.
+     */
+    public function changePassword($runValidation = true)
+    {
+        if ($runValidation && !$this->validate()) {
+            return false;
+        }
+
+        $user = User::findOne(1);
+        $user->password = $this->password;
+
+        return $user->save(false);
     }
 
 
