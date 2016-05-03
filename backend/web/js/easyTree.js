@@ -202,6 +202,13 @@
                                 }
                             }
                         });
+                        $(editor).blur(function(){
+                            console.log('editor blur');
+                            $(easyTree).find('input.easy-tree-editor').remove();
+                            $(easyTree).find('li > span > a:hidden').show();
+                            $(easyTree).find('li.li_selected').removeClass('li_selected');
+                            $(this).attr('title', options.i18n.unselectTip);
+                        });
                     }
                 });
             }
@@ -209,7 +216,7 @@
             // deletable
             if (options.deletable) {
                 console.log('deletable');
-                $(easyTree).find('.easy-tree-toolbar').append('<div class="remove"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-remove"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="remove"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-trash"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.deleteTip).click(function () {
                     var selected = getSelectedItems();
                     if (selected.length <= 0) {
@@ -242,19 +249,22 @@
                     if (selected.length <= 0) {
                         $(easyTree).prepend(warningAlert);
                         $(easyTree).find('.alert .alert-content').html(options.i18n.enableNull);
+                    } else if (selected.length > 1) {
+                        $(easyTree).prepend(warningAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.enableMultiple);
                     } else {
                         $(easyTree).prepend(dangerAlert);
                         $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
                             .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
                             .find('.confirm').html(options.i18n.confirmButtonLabel);
                         $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
-                            $(selected).find(' ul ').remove();
-                            if($(selected).parent('ul').find(' > li').length <= 1) {
-                                $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
-                                $(selected).parent('ul').remove();
-                            }
-                            $(selected).remove();
-                            $(dangerAlert).remove();
+                            //$(selected).find(' ul ').remove();
+                            //if($(selected).parent('ul').find(' > li').length <= 1) {
+                            //    $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
+                            //    $(selected).parent('ul').remove();
+                            //}
+                            //$(selected).remove();
+                            //$(dangerAlert).remove();
                         });
                     }
                 });
@@ -269,19 +279,22 @@
                     if (selected.length <= 0) {
                         $(easyTree).prepend(warningAlert);
                         $(easyTree).find('.alert .alert-content').html(options.i18n.disableNull);
+                    } else if (selected.length > 1) {
+                        $(easyTree).prepend(warningAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.disableMultiple);
                     } else {
                         $(easyTree).prepend(dangerAlert);
                         $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
                             .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
                             .find('.confirm').html(options.i18n.confirmButtonLabel);
                         $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
-                            $(selected).find(' ul ').remove();
-                            if($(selected).parent('ul').find(' > li').length <= 1) {
-                                $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
-                                $(selected).parent('ul').remove();
-                            }
-                            $(selected).remove();
-                            $(dangerAlert).remove();
+                            //$(selected).find(' ul ').remove();
+                            //if($(selected).parent('ul').find(' > li').length <= 1) {
+                            //    $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
+                            //    $(selected).parent('ul').remove();
+                            //}
+                            //$(selected).remove();
+                            //$(dangerAlert).remove();
                         });
                     }
                 });
@@ -330,7 +343,7 @@
                         $(li).addClass('li_selected');
                     }
 
-                    if (options.deletable || options.editable || options.addable) {
+                    if (options.deletable || options.editable || options.enable || options.disable || options.addable) {
                         var selected = getSelectedItems();
                         if (options.editable) {
                             if (selected.length <= 0 || selected.length > 1)
@@ -348,16 +361,16 @@
 
                         if (options.enable) {
                             if (selected.length <= 0 || selected.length > 1)
-                                $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
+                                $(easyTree).find('.easy-tree-toolbar .enable > button').addClass('disabled');
                             else
-                                $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                                $(easyTree).find('.easy-tree-toolbar .enable > button').removeClass('disabled');
                         }
 
                         if (options.disable) {
                             if (selected.length <= 0 || selected.length > 1)
-                                $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
+                                $(easyTree).find('.easy-tree-toolbar .disable > button').addClass('disabled');
                             else
-                                $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                                $(easyTree).find('.easy-tree-toolbar .disable > button').removeClass('disabled');
                         }
 
                     }
