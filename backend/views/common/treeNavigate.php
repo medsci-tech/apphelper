@@ -7,18 +7,23 @@ use yii\widgets\ActiveForm;
 
 
 <!--树形视图--start-->
-<div id="treeview2" class="col-lg-2 modal-body treeview">
-
-</div>
+<div id="treeView" class="col-lg-2 modal-body"></div>
 <!--树形视图--end-->
 
 <?php
 $js = <<<JS
 $(function() {
-    $("#treeview2").treeview({
-        levels: 1,
-        data: $examClass
-    });
+	var initSelectableTree = function() {
+		return $('#treeView').treeview({
+		    levels: 1,
+			data: $examClass
+		});
+	};
+	var selectableTree = initSelectableTree();
+	var findSelectableNodes = function() {
+		return selectableTree.treeview('search', [ '第', { ignoreCase: false, exactMatch: false } ]);
+	};
+	var selectableNodes = findSelectableNodes();
 });
 JS;
 $this->registerJs($js);
