@@ -12,6 +12,7 @@
             editable: false,
             addable: false,
             enable: false,
+            disable: false,
             i18n: {
                 deleteNull: 'Select a node to delete',
                 deleteConfirmation: 'Delete this node?',
@@ -20,6 +21,8 @@
                 editMultiple: 'Only one node can be edited at one time',
                 enableNull: '请选择一个节点进行启用',
                 enableMultiple: '一次只能选择一个节点进行启用',
+                disableNull: '请选择一个节点进行禁用',
+                disableMultiple: '一次只能选择一个节点进行禁用',
                 addMultiple: 'Select a node to add a new node',
                 collapseTip: '收起分支',
                 expandTip: '展开分支',
@@ -29,6 +32,7 @@
                 addTip: '添加',
                 deleteTip: '删除',
                 enableTip: '启用',
+                disableTip: '禁用',
                 cancelButtonLabel: '取消'
             }
         };
@@ -232,8 +236,8 @@
             // enable
             if (options.enable) {
                 console.log('enable');
-                $(easyTree).find('.easy-tree-toolbar').append('<div class="enable"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-ok-circle"></span></button></div> ');
-                $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.enableTip).click(function () {
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="enable"><button class="btn btn-sm btn-primary disabled"><span class="glyphicon glyphicon-ok-circle"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar .enable > button').attr('title', options.i18n.enableTip).click(function () {
                     var selected = getSelectedItems();
                     if (selected.length <= 0) {
                         $(easyTree).prepend(warningAlert);
@@ -256,7 +260,32 @@
                 });
             }
 
-
+            // disable
+            if (options.disable) {
+                console.log('disable');
+                $(easyTree).find('.easy-tree-toolbar').append('<div class="disable"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-ban-circle"></span></button></div> ');
+                $(easyTree).find('.easy-tree-toolbar .disable > button').attr('title', options.i18n.disableTip).click(function () {
+                    var selected = getSelectedItems();
+                    if (selected.length <= 0) {
+                        $(easyTree).prepend(warningAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.disableNull);
+                    } else {
+                        $(easyTree).prepend(dangerAlert);
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
+                            .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
+                            .find('.confirm').html(options.i18n.confirmButtonLabel);
+                        $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
+                            $(selected).find(' ul ').remove();
+                            if($(selected).parent('ul').find(' > li').length <= 1) {
+                                $(selected).parents('li').removeClass('parent_li').find(' > span > span').removeClass('glyphicon-folder-open').addClass('glyphicon-file');
+                                $(selected).parent('ul').remove();
+                            }
+                            $(selected).remove();
+                            $(dangerAlert).remove();
+                        });
+                    }
+                });
+            }
             // collapse or expand
             $(easyTree).delegate('li.parent_li > span', 'click', function (e) {
                 var children = $(this).parent('li.parent_li').find(' > ul > li');
@@ -311,6 +340,20 @@
                         }
 
                         if (options.deletable) {
+                            if (selected.length <= 0 || selected.length > 1)
+                                $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
+                            else
+                                $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                        }
+
+                        if (options.enable) {
+                            if (selected.length <= 0 || selected.length > 1)
+                                $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
+                            else
+                                $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                        }
+
+                        if (options.disable) {
                             if (selected.length <= 0 || selected.length > 1)
                                 $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
                             else
