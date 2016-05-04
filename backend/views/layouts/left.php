@@ -42,9 +42,6 @@
                         <a class="J_menuItem" href="member/index" data-index="0">用户管理</a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="exercise/index" >题库管理</a>
-                    </li>
-                    <li>
                         <a class="J_menuItem" href="/admin/assignment/index" data-index="0">管理员管理</a>
                     </li>
                     <li>
@@ -111,6 +108,15 @@
                     <li><a class="J_menuItem" href="resource-class/index">培训分类</a>
                     </li>
                     <li><a class="J_menuItem" href="form_validate.html">开题分类</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">考题管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a class="J_menuItem" href="exam/index">试卷管理</a>
+                    </li>
+                    <li><a class="J_menuItem" href="exercise/index">题库管理</a>
                     </li>
                 </ul>
             </li>
