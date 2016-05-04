@@ -55,8 +55,8 @@ class CommonController extends ActiveController
                 return $result;
             }
             $verycode = MessageSender::generateMessageVerify();
-            $flag = MessageSender::sendMessageVerify($username, $verycode); // 发送验证码
-            //$flag=true;
+            //$flag = MessageSender::sendMessageVerify($username, $verycode); // 发送验证码
+            $flag=true;
             if($flag)
             {
                 Yii::$app->cache->set($username,$verycode,60);// 缓存60s有效
