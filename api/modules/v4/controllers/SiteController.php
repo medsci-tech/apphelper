@@ -30,7 +30,7 @@ class SiteController extends CommonController
         $model->load($this->params, '');
         if (!$model->signup()) {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '200','message'=>$message,'data'=>null];
+            $result = ['code' => '-1','message'=>$message,'data'=>null];
             return $result;
         }
         else
@@ -54,7 +54,7 @@ class SiteController extends CommonController
         if(!$result = $model->login())
             {
                 $message = array_values($model->getFirstErrors())[0];
-                $result = ['code' => '200','message'=>$message,'data'=>null];
+                $result = ['code' => '-1','message'=>$message,'data'=>null];
             }
         return $result;
     }
@@ -73,7 +73,7 @@ class SiteController extends CommonController
         if(!$result = $model->changePassword())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '200','message'=>$message,'data'=>null];
+            $result = ['code' => '-1','message'=>$message,'data'=>null];
         }
         return $result;
     }
