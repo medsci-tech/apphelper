@@ -163,10 +163,22 @@ class ResourceClassController extends BackendController
                 $model->save(false);
             }
             return $this->redirect(['index']);
-        }else if('editable' == $params['type']){
+        } else if('editable' == $params['type']) {
 
             $model = $this->findModel($params['uid']);
             $model ->name = $params['resource_name'];
+            $model ->save(false);
+
+            return $this->redirect(['index']);
+        } else if('enable' == $params['type']) {
+            $model = $this->findModel($params['uid']);
+            $model->status = 1;
+            $model ->save(false);
+
+            return $this->redirect(['index']);
+        } else if('disable' == $params['type']) {
+            $model = $this->findModel($params['uid']);
+            $model->status = 0;
             $model ->save(false);
 
             return $this->redirect(['index']);
