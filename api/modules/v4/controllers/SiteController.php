@@ -60,23 +60,17 @@ class SiteController extends CommonController
     }
 
     /**
-     * 忘记密码
+     * 设置密码
      * @author by lxhui
      * @version [2010-04-02]
      * @param array $params additional parameters
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
      */
-    public function actionForget()
+    public function actionPassword()
     {
-        $user = Member::findOne(165);
-        $user->nickname='mary2';
-        $user->save(false);
-        print_r($user);exit;
-        exit;
-        $user->password = $this->password;
         $model = new $this->modelClass(['scenario' => 'setPassword']);
         $model->load($this->params, '');
-        if(!$result = $model->login())
+        if(!$result = $model->changePassword())
         {
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => '200','message'=>$message,'data'=>[]];
