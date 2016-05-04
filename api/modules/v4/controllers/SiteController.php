@@ -51,11 +51,13 @@ class SiteController extends CommonController
     {
         $model = new $this->modelClass(['scenario' => 'login']);
         $model->load($this->params, '');
-        if(!$result = $model->login())
-            {
-                $message = array_values($model->getFirstErrors())[0];
-                $result = ['code' => '-1','message'=>$message,'data'=>null];
-            }
+        if(!$response = $model->login())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => '-1','message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => '200','message'=>'登录成功','data'=>['uid'=>(string)$response->id,'access_token'=>$response->access_token]];
         return $result;
     }
 
@@ -70,11 +72,13 @@ class SiteController extends CommonController
     {
         $model = new $this->modelClass(['scenario' => 'setPassword']);
         $model->load($this->params, '');
-        if(!$result = $model->changePassword())
+        if(!$response = $model->changePassword())
         {
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => '-1','message'=>$message,'data'=>null];
         }
+        else
+            $result = ['code' => '200','message'=>'设置成功','data'=>['uid'=>(string)$response->id,'access_token'=>$response->access_token]];
         return $result;
     }
     /**
