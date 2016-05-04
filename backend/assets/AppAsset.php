@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-//        'css/plugins/sweetalert/sweetalert.css',
+        'css/plugins/sweetalert/sweetalert.css',
     ];
     public $js = [
         'js/plugins/treeview/bootstrap-treeview.js',
