@@ -17,12 +17,6 @@ return [
             'enableCookieValidation' => false,
             'enableCsrfValidation' => false,
         ],
-        'redis' => [
-            'class' => 'yii\redis\Connection',
-            'hostname' => '115.28.93.36',
-            'port' => 6379,
-            'database' => 0,
-        ],
     ],
     'aliases' => [
         '@common/logic' => '@common/models/logic',

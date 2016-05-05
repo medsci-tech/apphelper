@@ -56,7 +56,8 @@ class ExamClass extends ActiveRecord
     }
 
     public function getDataForWhere($where = []){
-        $examClass = ExamClass::find()->where(array_merge(['status' => 1], $where))->orderBy(['sort' => SORT_DESC])->asArray()->all();
+        $where['status'] = 1;
+        $examClass = ExamClass::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
         return $examClass;
     }
 

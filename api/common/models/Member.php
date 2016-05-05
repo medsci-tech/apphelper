@@ -43,7 +43,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
         $scenarios['login'] = ['username', 'password']; // 登录
-        $scenarios['setPassword'] = ['username','password', 'passwordRepeat']; // 设置密码
+        $scenarios['setPassword'] = ['username','verycode','password', 'passwordRepeat']; // 设置密码
         return $scenarios;
     }
 
@@ -60,15 +60,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['verycode'], function ($attribute, $params) {
                 $verycode = Yii::$app->cache->get($this->username);
                 if ($verycode !== $this->verycode) {
-                    $this->addError($attribute, '手机验证码不匹配！');
+                    //$this->addError($attribute, '手机验证码不匹配或者已过期！');
                 }
             }],
-            [['username'], function ($attribute, $params) {
-                $username = Yii::$app->cache->get($this->username);
-                if ($username !== $this->username) {
-                    $this->addError($attribute, '请求已过期!请重新获取验证码！');
-                }
-            }, 'on' => 'setPassword'],
             ['password', 'string', 'min' => 6, 'max' => 24,'message' => '密码长度在6-24之间!'],
             ['password', 'validatePassword', 'on' => 'login'],
             [['status', 'created_at', 'updated_at'], 'integer'],
@@ -77,8 +71,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['username', 'password', 'verycode'], 'required', 'on' => ['register']], //必填
 
             /* 设置密码相关 */
+            [['username', 'password'], 'required', 'message' => '用户或密码不能为空!', 'on' => 'login'],
             [['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 24],
-            [['password', 'passwordRepeat'], 'required', 'message' => '密码不能为空!', 'on' => 'setPassword'],
+            [['password', 'passwordRepeat'], 'required', 'message' => '密码和确认密码不能为空!', 'on' => 'setPassword'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
 
         ];
@@ -211,7 +206,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser());
+            return $this->_user;
         } else {
             return false;
         }
@@ -241,14 +236,11 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        if($step==2)
-        {
-            $user = Member::findOne($uid);
-            $user->password = $this->password;
-            return $user->save(false);
+        $user = Member::find()->where(['username'=>$this->username])->one();
+        $user->setPassword($this->password);
+        if ($user->save(false)) {
+            return $user;
         }
-        return true;
-
     }
 
 
