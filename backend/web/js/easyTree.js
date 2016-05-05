@@ -267,6 +267,8 @@
                             //}
                             //$(selected).remove();
                             $(dangerAlert).remove();
+                            $("#type").val('enable');
+                            $("#option").submit();
                         });
                     }
                 });
@@ -297,6 +299,8 @@
                             //}
                             //$(selected).remove();
                             $(dangerAlert).remove();
+                            $("#type").val('disable');
+                            $("#option").submit();
                         });
                     }
                 });

@@ -1,17 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: 觐松
+ * Date: 2016/5/5
+ * Time: 14:52
+ */
 
 namespace backend\controllers;
 
 use Yii;
-use common\models\ResourceClass;
+use common\models\ExamClass;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * ArticleController implements the CRUD actions for Article model.
- */
-class ResourceClassController extends BackendController
+
+class ExamClassController extends BackendController
 {
     public function behaviors()
     {
@@ -67,7 +71,7 @@ class ResourceClassController extends BackendController
      */
     protected function findModel($id)
     {
-        if (($model = ResourceClass::findOne($id)) !== null) {
+        if (($model = ExamClass::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -77,14 +81,14 @@ class ResourceClassController extends BackendController
     protected function getTreeMenu()
     {
         $strHtml = "<ul>";
-        $parents = ResourceClass::find()
+        $parents = ExamClass::find()
             ->where(['grade' => 1])
             ->orderBy('id')
             ->all();
 
         foreach($parents as $parent)
         {
-            $childLevel1s = ResourceClass::find()
+            $childLevel1s = ExamClass::find()
                 ->where(['parent' => $parent->id])
                 ->orderBy('id')
                 ->all();
@@ -96,7 +100,7 @@ class ResourceClassController extends BackendController
                     .$parent->name."<ul>";
                 foreach($childLevel1s as $childLevel1)
                 {
-                    $childLevel2s = ResourceClass::find()
+                    $childLevel2s = ExamClass::find()
                         ->where(['parent' => $childLevel1->id])
                         ->orderBy('id')
                         ->all();
@@ -148,7 +152,6 @@ class ResourceClassController extends BackendController
                 $model->status = 1;
                 $model->uid = 0;
                 $model->sort = 0;
-                $model->attr_type = 0;
                 $model->path =',';
                 $model->save(false);
 
@@ -164,7 +167,6 @@ class ResourceClassController extends BackendController
                 $model->status = 1;
                 $model->uid = 0;
                 $model->sort = 0;
-                $model->attr_type = 0;
                 $model->path = $parent->path;
                 $model->save(false);
 
