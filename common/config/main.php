@@ -8,7 +8,8 @@ return [
     'name' => '普安医师助手管理系统',
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+           // 'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
            # 'cachePath' => '@frontend/runtime/cache'
         ],
         'request' => [
@@ -16,12 +17,12 @@ return [
             'enableCookieValidation' => false,
             'enableCsrfValidation' => false,
         ],
-/*        'redis' => [
+        'redis' => [
             'class' => 'yii\redis\Connection',
-            'hostname' => '127.0.0.1',
+            'hostname' => '115.28.93.36',
             'port' => 6379,
             'database' => 0,
-        ],*/
+        ],
     ],
     'aliases' => [
         '@common/logic' => '@common/models/logic',

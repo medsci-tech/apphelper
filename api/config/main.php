@@ -10,7 +10,16 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     //'controllerNamespace' => 'api\common\controllers',
+    'language' => 'zh-CN',
+    'timeZone' => 'Asia/Shanghai',
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'CNY',
+        ],
         'request' => [
             'enableCookieValidation' => false,
             'enableCsrfValidation' => false,

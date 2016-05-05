@@ -11,8 +11,9 @@ class CommonController extends ActiveController
     public $params;
     public function behaviors()
     {
-        $params = Yii::$app->getRequest()->getBodyParams()['apiParams'];
-        $this->params = json_decode($params,true);
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $this->params  = $params;
+            //$this->params = json_decode($params,true);
         $behaviors = parent::behaviors();
         $behaviors['contentNegotiator']['formats'] = '';
         $behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSON;
