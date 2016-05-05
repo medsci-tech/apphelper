@@ -27,6 +27,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public $password;
     public $passwordRepeat;
     public $uid;
+    public $nickname;
+    public $real_name;
     private $_user = false;
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
@@ -44,6 +46,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
         $scenarios['login'] = ['username', 'password']; // 登录
         $scenarios['setPassword'] = ['username','verycode','password', 'passwordRepeat']; // 设置密码
+        $scenarios['setNickname'] = ['uid', 'nickname']; // 修改昵称
+        $scenarios['setUsername'] = ['uid', 'username','verycode']; // 修改用户手机号
+        $scenarios['setRealname'] = ['uid', 'real_name']; // 修改真实姓名
         return $scenarios;
     }
 
@@ -53,10 +58,10 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username'], 'required','message' => '请输入手机号!', 'on' => ['register','login','setPassword']],
+            [['username'], 'required','message' => '请输入手机号!', 'on' => ['register','login','setPassword','setUsername']],
             [['verycode'], 'required','message' => '请输入验证码!'],
             [['username'], 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/','message' => '请输入有效的手机号!'],
-            ['username', 'unique', 'targetClass' => '\api\common\models\Member', 'message' => '该手机号已经存在!', 'on' => 'register'],
+            ['username', 'unique', 'targetClass' => '\api\common\models\Member', 'message' => '该手机号已经存在!', 'on' => ['register']],
             [['verycode'], function ($attribute, $params) {
                 $verycode = Yii::$app->cache->get($this->username);
                 if ($verycode !== $this->verycode) {
@@ -76,6 +81,10 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['password', 'passwordRepeat'], 'required', 'message' => '密码和确认密码不能为空!', 'on' => 'setPassword'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
 
+            /* 个人资料相关 */
+            [['uid'], 'required', 'message' => 'uid不能为空!', 'on' => ['setNickname','setRealname','']],
+            [[ 'nickname'], 'required', 'message' => '昵称不能为空!', 'on' => 'setNickname'],
+            [['real_name'], 'required', 'message' => '真实姓名不能为空!', 'on' => 'setRealname'],
         ];
     }
 
@@ -177,6 +186,16 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
     /**
+     * Finds user by uid
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUid($uid)
+    {
+        return static::findOne(['id' => $uid, 'status' => self::STATUS_ACTIVE]);
+    }
+    /**
      * 修改资料
      * @author by lxhui
      *@param username 用户名
@@ -242,6 +261,52 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             return $user;
         }
     }
+    /**
+     * Resets nickname
+     * @return boolean if password was reset.
+     */
+    public function changeNickname()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->nickname= $this->nickname;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
 
+    /**
+     * Resets real_name
+     * @return boolean if password was reset.
+     */
+    public function changeRealname()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->real_name= $this->real_name;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
+
+    /**
+     * Resets username
+     * @return boolean if password was reset.
+     */
+    public function changeUsername()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->username= $this->username;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
 
 }
