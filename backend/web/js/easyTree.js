@@ -175,6 +175,9 @@
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="edit"><button class="btn btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .edit > button').attr('title', options.i18n.editTip).click(function () {
                     $(easyTree).find('input.easy-tree-editor').remove();
+                    $(easyTree).find('input.easy-tree-editor-sort').remove();
+                    $(easyTree).find('button.edit-confirm').remove();
+                    $(easyTree).find('button.edit-cancel').remove();
                     $(easyTree).find('li > span > a:hidden').show();
                     var selected = getSelectedItems();
                     if (selected.length <= 0) {
@@ -189,11 +192,15 @@
                         var value = $(selected).find(' > span > a').text();
                         $(selected).find(' > span > a').hide();
                         $(selected).find(' > span').append('<input type="text" class="easy-tree-editor ">' +
-                            '<input type="number" class="easy-tree-editor-sort" id="gdyefehfeihfueihuifhru" placeholder="排序">' +
-                            '<button type="button" class="btn btn-info btn-xs btn-right">确定</button>' +
-                            '<button type="button" class="btn btn-default btn-xs">取消</button>');
+                            '<input type="number" class="easy-tree-editor-sort" placeholder="排序">' +
+                            '<button type="button" class="btn btn-info btn-xs btn-right edit-confirm">确定</button>' +
+                            '<button type="button" class="btn btn-default btn-xs edit-cancel">取消</button>');
                         var editor = $(selected).find(' > span > input.easy-tree-editor');
+                        var sort_input = $(selected).find(' > span > input.easy-tree-editor-sort');
+                        var confirm = $(selected).find(' > span > button.edit-confirm');
+                        var cancel = $(selected).find(' > span > button.edit-cancel');
                         $(editor).val(value);
+                        $(sort_input).val($("#sort").val());
                         $(editor).focus();
                         $(editor).keydown(function (e) {
                             if (e.which == 13) {
@@ -207,13 +214,42 @@
                                 }
                             }
                         });
-                        $(editor).blur(function(){
-                            console.log('editor blur');
+                        $(cancel).click(function () {
+                            console.log('cancel click');
                             $(easyTree).find('input.easy-tree-editor').remove();
+                            $(easyTree).find('input.easy-tree-editor-sort').remove();
+                            $(easyTree).find('button.edit-confirm').remove();
+                            $(easyTree).find('button.edit-cancel').remove();
                             $(easyTree).find('li > span > a:hidden').show();
                             $(easyTree).find('li.li_selected').removeClass('li_selected');
                             $(this).attr('title', options.i18n.unselectTip);
                         });
+
+                        $(confirm).click(function () {
+                            console.log('confirm click');
+                            $(easyTree).find('input.easy-tree-editor').remove();
+                            $(easyTree).find('input.easy-tree-editor-sort').remove();
+                            $(easyTree).find('button.edit-confirm').remove();
+                            $(easyTree).find('button.edit-cancel').remove();
+                            $(easyTree).find('li > span > a:hidden').show();
+                            $(easyTree).find('li.li_selected').removeClass('li_selected');
+                            $(this).attr('title', options.i18n.unselectTip);
+
+                            $("#resource_name").val($(editor).val());
+                            $("#sort").val($(sort_input).val())
+                            $("#type").val('editable');
+                            $("#option").submit();
+                        });
+                        //$(editor).blur(function(){
+                        //    console.log('editor blur');
+                        //    $(easyTree).find('input.easy-tree-editor').remove();
+                        //    $(easyTree).find('input.easy-tree-editor-sort').remove();
+                        //    $(easyTree).find('button.edit-confirm').remove();
+                        //    $(easyTree).find('button.edit-cancel').remove();
+                        //    $(easyTree).find('li > span > a:hidden').show();
+                        //    $(easyTree).find('li.li_selected').removeClass('li_selected');
+                        //    $(this).attr('title', options.i18n.unselectTip);
+                        //});
                     }
                 });
             }
@@ -339,6 +375,7 @@
                     $("#grade").val($(li[0]).attr('grade'));
                     //console.log($(li[0]).attr('uid'));
                     $("#uid").val($(li[0]).attr('uid'));
+                    $("#sort").val($(li[0]).attr('sort'))
                     $("#type").val('selectable');
                     var dd = $(li[0]).find(' span > a')[0];
                     console.log($(dd).text());
@@ -355,6 +392,11 @@
                     if (options.deletable || options.editable || options.enable || options.disable || options.addable) {
                         var selected = getSelectedItems();
                         if (options.editable) {
+                            $(easyTree).find('input.easy-tree-editor').remove();
+                            $(easyTree).find('input.easy-tree-editor-sort').remove();
+                            $(easyTree).find('button.edit-confirm').remove();
+                            $(easyTree).find('button.edit-cancel').remove();
+                            $(easyTree).find('li > span > a:hidden').show();
                             if (selected.length <= 0 || selected.length > 1)
                                 $(easyTree).find('.easy-tree-toolbar .edit > button').addClass('disabled');
                             else

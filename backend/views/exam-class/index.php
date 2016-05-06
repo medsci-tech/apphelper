@@ -14,7 +14,16 @@ use yii\helpers\Html;
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="/js/easyTree.js"></script>
 <style>
+    .easy-tree-editor-sort {
+        color: black;
+        width: 55px;
+        margin-left: 10px;
+        margin-right: 10px
+    }
 
+    .btn-right {
+        margin-right: 10px;
+    }
 </style>
 
 <div class="col-md-12">
@@ -28,6 +37,7 @@ use yii\helpers\Html;
     <input id="grade" name="grade" type="hidden">
     <input id="type" name="type" type="hidden">
     <input id="resource_name" name="resource_name" type="hidden">
+    <input id="sort" name="sort" type="hidden">
 </form>
 <script>
     (function ($) {

@@ -20,13 +20,16 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'real_name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-    <?=
-     $this->render('/region/index', [
+
+    <div class="form-group">
+        <label class="control-label">名称</label>
+    <?= $this->render('/region/index', [
         'model' => new \common\models\Region,
         'm' => 'Member',
         'form' => $form,
     ]);
     ?>
+    </div>
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
     <?= $form->field($model, 'rank_id')->dropDownList(Yii::$app->params['member']['rank']) ?>
