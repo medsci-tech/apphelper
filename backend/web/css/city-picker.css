@@ -11,9 +11,10 @@
     display: block;
     outline: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #e5e6e7;
     background-color: #fff;
     color: #ccc;
+    padding-left: 6px;
     cursor: pointer;
 }
 
@@ -52,7 +53,7 @@
 
 .city-picker-dropdown {
     position: absolute;
-    width: 315px;
+    /*width: 315px;*/
     left: -9999px;
     top: -9999px;
     outline: 0;

@@ -525,7 +525,7 @@
 
     CityPicker.DEFAULTS = {
         simple: false,
-        responsive: false,
+        responsive: true,
         placeholder: '请选择省/市/区',
         level: 'district',
         province: '',
@@ -574,7 +574,7 @@
         return this;
     };
 
-    $(function () {
-        $('[data-toggle="city-picker"]').citypicker();
-    });
+    // $(function () {
+    //     $('[data-toggle="city-picker"]').citypicker();
+    // });
 });
