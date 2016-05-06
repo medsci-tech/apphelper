@@ -82,9 +82,17 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
 
             /* 个人资料相关 */
-            [['uid'], 'required', 'message' => 'uid不能为空!', 'on' => ['setNickname','setRealname','']],
-            [[ 'nickname'], 'required', 'message' => '昵称不能为空!', 'on' => 'setNickname'],
+            [['uid'], 'required', 'message' => 'uid不能为空!', 'on' => ['setNickname','setRealname','next']],
+            [[ 'nickname'], 'required', 'message' => '昵称不能为空!', 'on' => ['setNickname','next']],
+            [['nickname'], 'string', 'max' => 20,'message' => '昵称不能超过20个字符!'],
             [['real_name'], 'required', 'message' => '真实姓名不能为空!', 'on' => 'setRealname'],
+
+            /* 注册下一步 */
+            [['sex','province','hospital_id','rank_id'], 'required', 'on' => 'next'],
+            [['hospital_id', 'rank_id'], 'integer','message' => '药店或职称不能为空!', 'on' => 'next'],
+            ['sex', 'in', 'range' => ['男','女'], 'on' => 'next'],
+            [['city', 'area'], 'default', 'on' => 'next'],// 若 "city" 和 "area" 为空，则设为 null
+
         ];
     }
 

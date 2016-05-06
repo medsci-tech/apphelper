@@ -9,22 +9,12 @@
 namespace api\modules\v4\controllers;
 
 use Yii;
-use yii\rest\ActiveController;
-use yii\filters\auth\CompositeAuth;
-use yii\filters\auth\QueryParamAuth;
+use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\base\InvalidConfigException;
 class IndexController extends \api\common\controllers\Controller
 {
     public $modelClass = 'api\common\models\Member';
-    public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-        $behaviors['contentNegotiator']['formats'] = '';
-        $behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSON;
-        return $behaviors;
-
-    }
 
     protected function verbs(){
         return [
@@ -56,13 +46,11 @@ class IndexController extends \api\common\controllers\Controller
     public function actionRank()
     {
         $p = $this->params['p'] ?? 1; // 当前页码
-        //$data = Yii::$app->params('member').rank;
-        print_r($p);exit;
-        return [
-            'date' => date('Ymd'),
-            'stories' => $stories,
-            'top_stories' => $topStories
-        ];
+        $data = Yii::$app->params['member']['rank'];
+        $rows['rank_id'] = array_keys($data);
+        $rows['rank_name'] = $data;
+        $result = ['code' => '200','message'=>'职称列表','data'=>$rows];
+        return $result;
     }
     /**
      * 设置昵称
