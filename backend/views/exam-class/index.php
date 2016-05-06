@@ -17,7 +17,7 @@ use yii\helpers\Html;
 
 </style>
 
-<div class="col-md-3">
+<div class="col-md-12">
     <h3 class="text-success">考题分类管理</h3>
     <div class="easy-tree">
         <?= $strHtml ?>
