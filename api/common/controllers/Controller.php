@@ -41,7 +41,7 @@ class Controller extends ActiveController
      * @throws ForbiddenHttpException if the user does not have access
      */
     public function checkAccess($action, $model = null, $params = [])
-    {echo(11);exit;
+    {
         // 检查用户能否访问 $action 和 $model
         // 访问被拒绝应抛出ForbiddenHttpException
     }

@@ -29,6 +29,7 @@ class IndexController extends \api\common\controllers\Controller
     protected function verbs(){
         return [
             'index'=>['GET','POST'],
+            'rank'=>['POST'],
             'nickname'=>['POST'],
             'username'=>['POST'],
             'realname'=>['POST'],
@@ -45,6 +46,24 @@ class IndexController extends \api\common\controllers\Controller
         ];
     }
 
+    /**
+     * 职称列表
+     * @author by lxhui
+     * @version [2010-05-05]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionRank()
+    {
+        $p = $this->params['p'] ?? 1; // 当前页码
+        //$data = Yii::$app->params('member').rank;
+        print_r($p);exit;
+        return [
+            'date' => date('Ymd'),
+            'stories' => $stories,
+            'top_stories' => $topStories
+        ];
+    }
     /**
      * 设置昵称
      * @author by lxhui
