@@ -1,8 +1,13 @@
-
+<?php
+//$this->params['params'] = $label;
+//var_dump($this);
+?>
 <link href="/css/city-picker.css" rel="stylesheet">
-<div style="position: relative;">
-    <input id="city-picker" class="form-control" type="text" value="" data-toggle="city-picker">
-</div>
+
+    <div style="position: relative;min-width: 330px;">
+        <input id="city-picker" class="form-control" type="text" value="" data-toggle="city-picker">
+    </div>
+
 
 <?php
 $js = <<<JS

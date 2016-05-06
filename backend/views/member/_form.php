@@ -20,16 +20,15 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'real_name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-    <div class="form-group field-region">
-        <label class="control-label" for="region">地区</label>
-    <?=
-     $this->render('/region/index', [
+
+    <div class="form-group">
+        <label class="control-label">名称</label>
+    <?= $this->render('/region/index', [
         'model' => new \common\models\Region,
         'm' => 'Member',
         'form' => $form,
     ]);
     ?>
-        <div class="help-block"></div>
     </div>
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
