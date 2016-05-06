@@ -22,7 +22,7 @@ class RegionController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-           // 'model' => new Region(),
+            'model' => new Region(),
         ]);
     }
 

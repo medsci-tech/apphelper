@@ -23,6 +23,8 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/plugins/treeview/bootstrap-treeview.js',
+        'js/city-picker.data.js',
+        'js/city-picker.js',
     ];
     public $depends = [
 //        'yii\web\YiiAsset',

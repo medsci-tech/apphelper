@@ -188,7 +188,10 @@
                     else {
                         var value = $(selected).find(' > span > a').text();
                         $(selected).find(' > span > a').hide();
-                        $(selected).find(' > span').append('<input type="text" class="easy-tree-editor">');
+                        $(selected).find(' > span').append('<input type="text" class="easy-tree-editor ">' +
+                            '<input type="number" class="easy-tree-editor-sort" id="gdyefehfeihfueihuifhru" placeholder="排序">' +
+                            '<button type="button" class="btn btn-info btn-xs btn-right">确定</button>' +
+                            '<button type="button" class="btn btn-default btn-xs">取消</button>');
                         var editor = $(selected).find(' > span > input.easy-tree-editor');
                         $(editor).val(value);
                         $(editor).focus();
