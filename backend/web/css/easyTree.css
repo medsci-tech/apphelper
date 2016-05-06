@@ -118,12 +118,3 @@
 .easy-tree .easy-tree-toolbar .create .input-group button {
     border-radius: 0;
 }
-.easy-tree ul li .easy-tree-editor-sort{
-    color: black;
-    width: 55px;
-    margin-left: 10px;
-    margin-right: 10px
-}
-.easy-tree ul li .btn-right{
-    margin-right: 10px;
-}
