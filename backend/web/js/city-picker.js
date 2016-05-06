@@ -133,18 +133,19 @@
             p = this.$element.position();
             s = this.getSize(this.$element);
             h = s.height;
-            w = s.width;
-            if (this.options.responsive) {
-                pw = this.$element.offsetParent().width();
-                if (pw) {
-                    w = w / pw;
-                    if (w > 0.99) {
-                        w = 1;
-                    }
-                    w = w * 100 + '%';
-                }
-            }
-
+            w = '100%';
+            // w = s.width;
+            // if (this.options.responsive) {
+            //     pw = this.$element.offsetParent().width();
+            //     if (pw) {
+            //         w = w / pw;
+            //         if (w > 0.99) {
+            //             w = 1;
+            //         }
+            //         w = w * 100 + '%';
+            //     }
+            // }
+// console.log(this.$element);
             return {
                 top: p.top || 0,
                 left: p.left || 0,
@@ -525,7 +526,7 @@
 
     CityPicker.DEFAULTS = {
         simple: false,
-        responsive: false,
+        responsive: true,
         placeholder: '请选择省/市/区',
         level: 'district',
         province: '',
@@ -573,8 +574,8 @@
         $.fn.citypicker = CityPicker.other;
         return this;
     };
-
-    $(function () {
-        $('[data-toggle="city-picker"]').citypicker();
-    });
+// console.log($model);
+    // $(function () {
+    //     $('[data-toggle="city-picker"]').citypicker();
+    // });
 });
