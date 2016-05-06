@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
         'css/plugins/sweetalert/sweetalert.css',
     ];
     public $js = [
+        'js/jquery.min.js',
         'js/plugins/treeview/bootstrap-treeview.js',
         'js/city-picker.data.js',
         'js/city-picker.js',
