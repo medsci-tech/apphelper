@@ -574,8 +574,8 @@
         $.fn.citypicker = CityPicker.other;
         return this;
     };
-// console.log($model);
-    // $(function () {
-    //     $('[data-toggle="city-picker"]').citypicker();
-    // });
+
+    $(function () {
+        $('[data-toggle="city-picker"]').citypicker();
+    });
 });
