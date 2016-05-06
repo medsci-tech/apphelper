@@ -3,7 +3,7 @@ namespace api\modules\v4\controllers;
 use api\common\controllers\CommonController;
 use api\common\models\LoginForm;
 use yii\web\Response;
-use api\common\models\member;use Yii;
+use api\common\models\member;
 class SiteController extends CommonController
 {
     public $modelClass = 'api\common\models\Member';//Yii::$app->getRequest()->getBodyParams()['newsItem'];
@@ -13,6 +13,7 @@ class SiteController extends CommonController
             'sign'=>['POST'],
             'send'=>['POST'],
             'login'=>['POST'],
+            'forget'=>['POST'],
         ];
     }
 
@@ -29,7 +30,7 @@ class SiteController extends CommonController
         $model->load($this->params, '');
         if (!$model->signup()) {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '200','message'=>$message,'data'=>[]];
+            $result = ['code' => '-1','message'=>$message,'data'=>null];
             return $result;
         }
         else
@@ -50,11 +51,49 @@ class SiteController extends CommonController
     {
         $model = new $this->modelClass(['scenario' => 'login']);
         $model->load($this->params, '');
-        if ($result = $model->login()) {
-        } else {
+        if(!$response = $model->login())
+        {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '200','message'=>$message,'data'=>[]];
+            $result = ['code' => '-1','message'=>$message,'data'=>null];
         }
+        else
+            $result = ['code' => '200','message'=>'登录成功','data'=>['uid'=>(string)$response->id,'access_token'=>$response->access_token]];
+        return $result;
+    }
+    public function actionLoginbk()
+    {
+        $model = new LoginForm();
+        $res = ['LoginForm' =>$this->params];
+        if ($model->load($res))
+        {
+            if($model->login())
+            {
+                $result = ['code' => '200','message'=>'登录成功'];
+            }
+            else
+                $result = ['code' => '-1','message'=>'登录失败'];
+        }
+        return $result;
+
+    }
+    /**
+     * 设置密码
+     * @author by lxhui
+     * @version [2010-04-02]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionPassword()
+    {
+        $model = new $this->modelClass(['scenario' => 'setPassword']);
+        $model->load($this->params, '');
+        if(!$response = $model->changePassword())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => '-1','message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => '200','message'=>'设置成功','data'=>['uid'=>(string)$response->id,'access_token'=>$response->access_token]];
         return $result;
     }
     /**

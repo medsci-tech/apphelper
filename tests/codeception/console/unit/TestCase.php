@@ -3,9 +3,9 @@
 namespace tests\codeception\console\unit;
 
 /**
- * {@inheritdoc}
+ * @inheritdoc
  */
 class TestCase extends \yii\codeception\TestCase
 {
-    public $appConfig = '@tests/codeception/config/console/config.php';
+    public $appConfig = '@tests/codeception/config/console/unit.php';
 }

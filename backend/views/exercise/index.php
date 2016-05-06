@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $treeNavigateSelectedName; */
 /* @var $examClass */
 /* @var $dataProvider */
 /* @var $params */
@@ -19,7 +20,9 @@ $this->params['params'] = $params;
 
 
 ?>
-<?= $this->render('/common/treeNavigate', ['examClass' => $examClass]);?>
+<!--树形视图--start-->
+<div id="treeView" class="col-lg-2 modal-body"></div>
+<!--树形视图--end-->
 
 <div class="modal-body col-lg-10">
     <div class="box box-success">
@@ -118,6 +121,21 @@ $this->params['params'] = $params;
 <?php
 $js=<<<JS
 $(document).ready(function(){
+    /*树形结构初始化*/
+	var initSelectableTree = function() {
+		return $('#treeView').treeview({
+		    levels: 1,
+		    onSubmitFormId: 'w0',
+		    onSubmitInputValue: 'exercise-category',
+			data: $examClass
+		});
+	};
+	var selectableTree = initSelectableTree();
+	var findSelectableNodes = function() {
+		return selectableTree.treeview('search', [ '$treeNavigateSelectedName', { ignoreCase: false, exactMatch: false } ]);
+	};
+	var selectableNodes = findSelectableNodes();
+	
     /*修改题库*/
     $("span[name='saveData']").click(function(){
         var id = $(this).attr('data-id');

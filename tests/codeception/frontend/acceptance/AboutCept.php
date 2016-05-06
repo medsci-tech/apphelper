@@ -1,5 +1,4 @@
 <?php
-
 use tests\codeception\frontend\AcceptanceTester;
 use tests\codeception\frontend\_pages\AboutPage;
 

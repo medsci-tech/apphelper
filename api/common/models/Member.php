@@ -2,6 +2,7 @@
 
 namespace api\common\models;
 
+use backend\models\User;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\Model;
@@ -24,6 +25,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
 {
     public $verycode;
     public $password;
+    public $passwordRepeat;
+    public $uid;
     private $_user = false;
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
@@ -40,7 +43,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $scenarios = parent::scenarios();
         $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
         $scenarios['login'] = ['username', 'password']; // 登录
-        $scenarios['editprofile'] = ['password', 'newPassword', 'verifyNewPassword'];
+        $scenarios['setPassword'] = ['username','verycode','password', 'passwordRepeat']; // 设置密码
         return $scenarios;
     }
 
@@ -50,21 +53,29 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username'], 'required','message' => '请输入手机号!', 'on' => ['register','login']],
+            [['username'], 'required','message' => '请输入手机号!', 'on' => ['register','login','setPassword']],
             [['verycode'], 'required','message' => '请输入验证码!'],
             [['username'], 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/','message' => '请输入有效的手机号!'],
             ['username', 'unique', 'targetClass' => '\api\common\models\Member', 'message' => '该手机号已经存在!', 'on' => 'register'],
             [['verycode'], function ($attribute, $params) {
                 $verycode = Yii::$app->cache->get($this->username);
                 if ($verycode !== $this->verycode) {
-                    //$this->addError($attribute, '手机验证码不匹配！');
+                    //$this->addError($attribute, '手机验证码不匹配或者已过期！');
                 }
             }],
+            ['password', 'string', 'min' => 6, 'max' => 24,'message' => '密码长度在6-24之间!'],
             ['password', 'validatePassword', 'on' => 'login'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'avatar', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             //注册资料场景
-            [['username', 'password', 'verycode'], 'required', 'on' => 'register'], //必填
+            [['username', 'password', 'verycode'], 'required', 'on' => ['register']], //必填
+
+            /* 设置密码相关 */
+            [['username', 'password'], 'required', 'message' => '用户或密码不能为空!', 'on' => 'login'],
+            [['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 24],
+            [['password', 'passwordRepeat'], 'required', 'message' => '密码和确认密码不能为空!', 'on' => 'setPassword'],
+            ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
+
         ];
     }
 
@@ -195,7 +206,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser());
+            return $this->_user;
         } else {
             return false;
         }
@@ -213,6 +224,23 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             }
         }
         return false;
+    }
+
+    /**
+     * Resets password.
+     * $step 操作步骤
+     * @return boolean if password was reset.
+     */
+    public function changePassword()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = Member::find()->where(['username'=>$this->username])->one();
+        $user->setPassword($this->password);
+        if ($user->save(false)) {
+            return $user;
+        }
     }
 
 

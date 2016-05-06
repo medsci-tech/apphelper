@@ -7,9 +7,9 @@ use common\models\User;
 
 class SignupCest
 {
+
     /**
-     * This method is called before each cest class test method.
-     *
+     * This method is called before each cest class test method
      * @param \Codeception\Event\TestEvent $event
      */
     public function _before($event)
@@ -18,7 +18,6 @@ class SignupCest
 
     /**
      * This method is called after each cest class test method, even if test failed.
-     *
      * @param \Codeception\Event\TestEvent $event
      */
     public function _after($event)
@@ -31,7 +30,6 @@ class SignupCest
 
     /**
      * This method is called when test fails.
-     *
      * @param \Codeception\Event\FailEvent $event
      */
     public function _fail($event)
@@ -40,24 +38,24 @@ class SignupCest
 
     /**
      * @param \codeception_frontend\AcceptanceTester $I
-     * @param \Codeception\Scenario                  $scenario
+     * @param \Codeception\Scenario $scenario
      */
     public function testUserSignup($I, $scenario)
     {
         $I->wantTo('ensure that signup works');
 
         $signupPage = SignupPage::openBy($I);
-        $I->see('注册', 'h1');
-//        $I->see('Please fill out the following fields to signup:');
+        $I->see('Signup', 'h1');
+        $I->see('Please fill out the following fields to signup:');
 
         $I->amGoingTo('submit signup form with no data');
 
         $signupPage->submit([]);
 
         $I->expectTo('see validation errors');
-        $I->see('用户名不能为空。', '.help-block');
-        $I->see('邮箱不能为空。', '.help-block');
-        $I->see('密码不能为空。', '.help-block');
+        $I->see('Username cannot be blank.', '.help-block');
+        $I->see('Email cannot be blank.', '.help-block');
+        $I->see('Password cannot be blank.', '.help-block');
 
         $I->amGoingTo('submit signup form with not correct email');
         $signupPage->submit([
@@ -69,7 +67,7 @@ class SignupCest
         $I->expectTo('see that email address is wrong');
         $I->dontSee('Username cannot be blank.', '.help-block');
         $I->dontSee('Password cannot be blank.', '.help-block');
-        $I->see('邮箱不是有效的邮箱地址。', '.help-block');
+        $I->see('Email is not a valid email address.', '.help-block');
 
         $I->amGoingTo('submit signup form with correct email');
         $signupPage->submit([
@@ -79,6 +77,6 @@ class SignupCest
         ]);
 
         $I->expectTo('see that user logged in');
-        $I->seeLink('退出 (tester)');
+        $I->see('Logout (tester)', 'form button[type=submit]');
     }
 }

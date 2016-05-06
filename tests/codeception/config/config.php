@@ -1,9 +1,9 @@
 <?php
 /**
- * Application configuration shared by all applications and test types.
+ * Application configuration shared by all applications and test types
  */
 return [
-    'language' => 'zh-CN',
+    'language' => 'en-US',
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\faker\FixtureController',
@@ -14,7 +14,7 @@ return [
     ],
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=127.0.0.1;dbname=yii',
+            'dsn' => 'mysql:host=localhost;dbname=yii2_advanced_tests',
         ],
         'mailer' => [
             'useFileTransport' => true,

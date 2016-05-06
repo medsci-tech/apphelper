@@ -264,7 +264,6 @@ class Session extends Component implements \IteratorAggregate, \ArrayAccess, \Co
         // https://github.com/yiisoft/yii2/pull/1812
         if (session_status() != PHP_SESSION_ACTIVE)
             @session_regenerate_id($deleteOldSession);
-        //@session_regenerate_id($deleteOldSession);
     }
 
     /**

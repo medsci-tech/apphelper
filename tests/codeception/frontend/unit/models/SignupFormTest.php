@@ -9,6 +9,7 @@ use frontend\models\SignupForm;
 
 class SignupFormTest extends DbTestCase
 {
+
     use Specify;
 
     public function testCorrectSignup()

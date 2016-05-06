@@ -141,34 +141,77 @@ class ResourceClassController extends BackendController
         $params = Yii::$app->request->post();
         if('addable' == $params['type']){
             if ('0' == $params['uid']) {
-                $model = new ResourceClass();
+                $model = new ExamClass();
                 $model->name = $params['resource_name'];
                 $model->grade = 1;
                 $model->parent = 0;
                 $model->status = 1;
                 $model->uid = 0;
-                $model->attr_type = 0;
                 $model->sort = 0;
+                $model->attr_type = 0;
+                $model->path =',';
+                $model->save(false);
+
+                $model->path = $model->path.$model->id.',';
                 $model->save(false);
             }
             else {
-                $model = new ResourceClass();
+                $parent = $this->findModel($params['uid']);
+                $model = new ExamClass();
                 $model->name = $params['resource_name'];
                 $model->grade = $params['grade'] + 1;
                 $model->parent = $params['uid'];
                 $model->status = 1;
                 $model->uid = 0;
-                $model->attr_type = 0;
                 $model->sort = 0;
+                $model->attr_type = 0;
+                $model->path = $parent->path;
+                $model->save(false);
+
+                $model->path = $model->path.$model->id.',';
                 $model->save(false);
             }
             return $this->redirect(['index']);
-        }else if('editable' == $params['type']){
+        } else if('editable' == $params['type']) {
 
             $model = $this->findModel($params['uid']);
-            $model ->name = $params['resource_name'];
-            $model ->save(false);
+            $model -> name = $params['resource_name'];
+            $model -> save(false);
 
+            return $this->redirect(['index']);
+        } else if('enable' == $params['type']) {
+            $model = $this->findModel($params['uid']);
+            $model -> status = 1;
+            $model -> save(false);
+            if($model -> grade != 3) {
+                $childs = ExamClass::find()
+                    ->andFilterWhere(['like', 'path', $model->id])
+                    ->all();
+                foreach($childs as $child)
+                {
+                    if($child->id != $model->id) {
+                        $child->status = 1;
+                        $child->save(false);
+                    }
+                }
+            }
+            return $this->redirect(['index']);
+        } else if('disable' == $params['type']) {
+            $model = $this->findModel($params['uid']);
+            $model -> status = 0;
+            $model -> save(false);
+            if($model -> grade != 3) {
+                $childs = ExamClass::find()
+                    ->andFilterWhere(['like', 'path', $model->id])
+                    ->all();
+                foreach($childs as $child)
+                {
+                    if($child->id != $model->id) {
+                        $child->status = 0;
+                        $child->save(false);
+                    }
+                }
+            }
             return $this->redirect(['index']);
         } else{
             return $this->redirect(['index']);
