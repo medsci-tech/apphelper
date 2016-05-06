@@ -90,29 +90,32 @@ class ExamClassController extends BackendController
         {
             $childLevel1s = ExamClass::find()
                 ->where(['parent' => $parent->id])
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->all();
 
             if($childLevel1s)
             {
-                $strHtml = $strHtml."<li uid='".$parent->id."' grade='"
+                $strHtml = $strHtml."<li uid='".$parent->id."' sort='"
+                    .$parent->sort."' grade='"
                     .$parent->grade."'>"
                     .$parent->name."<ul>";
                 foreach($childLevel1s as $childLevel1)
                 {
                     $childLevel2s = ExamClass::find()
                         ->where(['parent' => $childLevel1->id])
-                        ->orderBy('id')
+                        ->orderBy('sort')
                         ->all();
 
                     if($childLevel2s)
                     {
-                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' grade='"
+                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' sort='"
+                            .$childLevel1->sort."'grade='"
                             .$childLevel1->grade."'>"
                             .$childLevel1->name."<ul>";
                         foreach($childLevel2s as $childLevel2)
                         {
-                            $strHtml = $strHtml."<li uid='".$childLevel2->id."' grade='"
+                            $strHtml = $strHtml."<li uid='".$childLevel2->id."' sort='"
+                                .$childLevel2->sort."'grade='"
                                 .$childLevel2->grade."'>"
                                 .$childLevel2->name."</li>";
                         }
@@ -120,7 +123,8 @@ class ExamClassController extends BackendController
                     }
                     else
                     {
-                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' grade='"
+                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' sort='"
+                            .$childLevel1->sort."' grade='"
                             .$childLevel1->grade."'>"
                             .$childLevel1->name."</li>";
                     }
@@ -129,7 +133,8 @@ class ExamClassController extends BackendController
             }
             else
             {
-                $strHtml = $strHtml."<li uid='".$parent->id."' grade='"
+                $strHtml = $strHtml."<li uid='".$parent->id."' sort='"
+                    .$parent->sort."' grade='"
                     .$parent->grade."'>"
                     .$parent->name."</li>";
             }

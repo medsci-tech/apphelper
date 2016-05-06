@@ -86,29 +86,31 @@ class ResourceClassController extends BackendController
         {
             $childLevel1s = ResourceClass::find()
                 ->where(['parent' => $parent->id])
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->all();
 
             if($childLevel1s)
             {
-                $strHtml = $strHtml."<li uid='".$parent->id."' grade='"
+                $strHtml = $strHtml."<li uid='".$parent->id."' sort='".$parent->sort."' grade='"
                     .$parent->grade."'>"
                     .$parent->name."<ul>";
                 foreach($childLevel1s as $childLevel1)
                 {
                     $childLevel2s = ResourceClass::find()
                         ->where(['parent' => $childLevel1->id])
-                        ->orderBy('id')
+                        ->orderBy('sort')
                         ->all();
 
                     if($childLevel2s)
                     {
-                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' grade='"
+                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' sort='"
+                            .$childLevel1->sort."'grade='"
                             .$childLevel1->grade."'>"
                             .$childLevel1->name."<ul>";
                         foreach($childLevel2s as $childLevel2)
                         {
-                            $strHtml = $strHtml."<li uid='".$childLevel2->id."' grade='"
+                            $strHtml = $strHtml."<li uid='".$childLevel2->id."' sort='"
+                                .$childLevel2->sort."'grade='"
                                 .$childLevel2->grade."'>"
                                 .$childLevel2->name."</li>";
                         }
@@ -116,7 +118,8 @@ class ResourceClassController extends BackendController
                     }
                     else
                     {
-                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' grade='"
+                        $strHtml = $strHtml."<li uid='".$childLevel1->id."' sort='"
+                            .$childLevel1->sort."' grade='"
                             .$childLevel1->grade."'>"
                             .$childLevel1->name."</li>";
                     }
@@ -125,7 +128,8 @@ class ResourceClassController extends BackendController
             }
             else
             {
-                $strHtml = $strHtml."<li uid='".$parent->id."' grade='"
+                $strHtml = $strHtml."<li uid='".$parent->id."' sort='"
+                    .$parent->sort."' grade='"
                     .$parent->grade."'>"
                     .$parent->name."</li>";
             }
@@ -141,7 +145,7 @@ class ResourceClassController extends BackendController
         $params = Yii::$app->request->post();
         if('addable' == $params['type']){
             if ('0' == $params['uid']) {
-                $model = new ExamClass();
+                $model = new ResourceClass();
                 $model->name = $params['resource_name'];
                 $model->grade = 1;
                 $model->parent = 0;
@@ -157,7 +161,7 @@ class ResourceClassController extends BackendController
             }
             else {
                 $parent = $this->findModel($params['uid']);
-                $model = new ExamClass();
+                $model = new ResourceClass();
                 $model->name = $params['resource_name'];
                 $model->grade = $params['grade'] + 1;
                 $model->parent = $params['uid'];
@@ -176,6 +180,7 @@ class ResourceClassController extends BackendController
 
             $model = $this->findModel($params['uid']);
             $model -> name = $params['resource_name'];
+            $model -> sort = $params['sort'];
             $model -> save(false);
 
             return $this->redirect(['index']);
