@@ -14,15 +14,17 @@
             enable: false,
             disable: false,
             i18n: {
-                deleteNull: 'Select a node to delete',
-                deleteConfirmation: 'Delete this node?',
+                deleteNull: '请选择一个节点删除',
+                deleteConfirmation: '删除这个节点？',
                 confirmButtonLabel: '确定',
-                editNull: 'Select a node to edit',
-                editMultiple: 'Only one node can be edited at one time',
+                editNull: '请选择一个节点进行编辑',
+                editMultiple: '一次只能选择一个节点进行编辑',
                 enableNull: '请选择一个节点进行启用',
                 enableMultiple: '一次只能选择一个节点进行启用',
+                enableConfirmation: '启用这个节点？',
                 disableNull: '请选择一个节点进行禁用',
                 disableMultiple: '一次只能选择一个节点进行禁用',
+                disableConfirmation: '禁用这个节点？',
                 addMultiple: 'Select a node to add a new node',
                 collapseTip: '收起分支',
                 expandTip: '展开分支',
@@ -186,7 +188,10 @@
                     else {
                         var value = $(selected).find(' > span > a').text();
                         $(selected).find(' > span > a').hide();
-                        $(selected).find(' > span').append('<input type="text" class="easy-tree-editor">');
+                        $(selected).find(' > span').append('<input type="text" class="easy-tree-editor ">' +
+                            '<input type="number" class="easy-tree-editor-sort" id="gdyefehfeihfueihuifhru" placeholder="排序">' +
+                            '<button type="button" class="btn btn-info btn-xs btn-right">确定</button>' +
+                            '<button type="button" class="btn btn-default btn-xs">取消</button>');
                         var editor = $(selected).find(' > span > input.easy-tree-editor');
                         $(editor).val(value);
                         $(editor).focus();
@@ -254,7 +259,7 @@
                         $(easyTree).find('.alert .alert-content').html(options.i18n.enableMultiple);
                     } else {
                         $(easyTree).prepend(dangerAlert);
-                        $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.enableConfirmation)
                             .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
                             .find('.confirm').html(options.i18n.confirmButtonLabel);
                         $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
@@ -264,7 +269,9 @@
                             //    $(selected).parent('ul').remove();
                             //}
                             //$(selected).remove();
-                            //$(dangerAlert).remove();
+                            $(dangerAlert).remove();
+                            $("#type").val('enable');
+                            $("#option").submit();
                         });
                     }
                 });
@@ -284,7 +291,7 @@
                         $(easyTree).find('.alert .alert-content').html(options.i18n.disableMultiple);
                     } else {
                         $(easyTree).prepend(dangerAlert);
-                        $(easyTree).find('.alert .alert-content').html(options.i18n.deleteConfirmation)
+                        $(easyTree).find('.alert .alert-content').html(options.i18n.disableConfirmation)
                             .append('<a style="margin-left: 10px;" class="btn btn-default btn-danger confirm"></a>')
                             .find('.confirm').html(options.i18n.confirmButtonLabel);
                         $(easyTree).find('.alert .alert-content .confirm').on('click', function () {
@@ -294,7 +301,9 @@
                             //    $(selected).parent('ul').remove();
                             //}
                             //$(selected).remove();
-                            //$(dangerAlert).remove();
+                            $(dangerAlert).remove();
+                            $("#type").val('disable');
+                            $("#option").submit();
                         });
                     }
                 });
