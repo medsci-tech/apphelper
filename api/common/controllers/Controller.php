@@ -3,17 +3,18 @@
 namespace api\common\controllers;
 use yii\rest\ActiveController;
 use yii\web\Response;
-use yii\filters\auth\HttpBasicAuth;
+use Yii;
 class Controller extends ActiveController
 {
+    public $params;
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
-        ];
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $this->params  = $params;
         $behaviors['contentNegotiator']['formats'] = '';
         $behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSON;
+        $this->checkAccess($action=null, $model = null, $params = []);
         return $behaviors;
 
     }
