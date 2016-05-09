@@ -11,6 +11,7 @@ namespace api\modules\v4\controllers;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
+use common\components\Helper;
 use yii\base\InvalidConfigException;
 class IndexController extends \api\common\controllers\Controller
 {
@@ -35,7 +36,6 @@ class IndexController extends \api\common\controllers\Controller
             'top_stories' => $topStories
         ];
     }
-
     /**
      * 职称列表
      * @author by lxhui
@@ -47,9 +47,10 @@ class IndexController extends \api\common\controllers\Controller
     {
         $p = $this->params['p'] ?? 1; // 当前页码
         $data = Yii::$app->params['member']['rank'];
-        $rows['rank_id'] = array_keys($data);
-        $rows['rank_name'] = $data;
-        $result = ['code' => '200','message'=>'职称列表','data'=>$rows];
+        $res=[];
+        foreach($data as $k=>$v)
+            $res[$k]=['rank_id'=>$k,'rank_name'=> $v];
+        $result = ['code' => '200','message'=>'职称列表','data'=>$res];
         return $result;
     }
     /**
