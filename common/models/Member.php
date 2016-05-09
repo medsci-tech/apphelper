@@ -34,7 +34,7 @@ class Member extends User
     public function rules()
     {
         return [
-            [['username', 'email', 'real_name', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'required'],
+            [['username', 'email', 'real_name', 'province_id', 'city_id', 'area_id', 'province', 'city', 'area', 'hospital_id', 'rank_id'], 'required'],
             [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
             [['username'], 'string', 'length' => 11],
             [['real_name'], 'string', 'max' => 30],
