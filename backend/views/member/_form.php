@@ -22,13 +22,12 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <label class="control-label">地区</label>
-        <?= $this->render('/region/index');?>
-        <?= $form->field($model, 'province_id')->input('hidden')->label(false) ?>
-        <?= $form->field($model, 'city_id')->input('hidden')->label(false) ?>
-        <?= $form->field($model, 'area_id')->input('hidden')->label(false) ?>
-        <?= $form->field($model, 'province')->input('hidden')->label(false) ?>
-        <?= $form->field($model, 'city')->input('hidden')->label(false) ?>
-        <?= $form->field($model, 'area')->input('hidden')->label(false) ?>
+        <?= $this->render('/region/index',[
+            'model' => $model,
+            'm' => 'Member',
+            'form' => $form,
+            'parentBomId' => 'updateModal',
+        ]);?>
     </div>
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
@@ -46,19 +45,7 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
     $('#updateModal #memberFormSubmit').click(function() {
-        var cityTitle = $('#updateModal #city-picker').next().find('.title');
-        var province = cityTitle.find('span[data-count="province"]');
-        var city = cityTitle.find('span[data-count="city"]');
-        var area = cityTitle.find('span[data-count="district"]');
-        
-        $('#updateModal #member-province_id').val(province.attr('data-code'));
-        $('#updateModal #member-city_id').val(city.attr('data-code'));
-        $('#updateModal #member-area_id').val(area.attr('data-code'));
-        
-        $('#updateModal #member-province').val(province.text());
-        $('#updateModal #member-city').val(city.text());
-        $('#updateModal #member-area').val(area.text());
-        
+        regionDefaultValue();/*地区联动*/
         $('#updateModal #tableForm').submit();
     });
 JS;
