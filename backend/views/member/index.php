@@ -149,12 +149,12 @@ $(document).ready(function(){
         var hospital_id = $(this).attr('data-hospital_id');
         var rank_id = $(this).attr('data-rank_id');
         var status = $(this).attr('data-status');
-        var province = $(this).attr('data-province');
         var province_id = $(this).attr('data-province_id');
-        var city = $(this).attr('data-city');
         var city_id = $(this).attr('data-city_id');
-        var area = $(this).attr('data-area');
         var area_id = $(this).attr('data-area_id');
+        var province = $(this).attr('data-province');
+        var city = $(this).attr('data-city');
+        var area = $(this).attr('data-area');
         /* 编辑初始化 */
         $('#updateModal #tableForm').attr('action','/member/update?id='+id);
         $('#updateModal #member-id').val(id);
