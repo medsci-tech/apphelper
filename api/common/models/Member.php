@@ -77,7 +77,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
 
             /* 设置密码相关 */
             [['username', 'password'], 'required', 'message' => '用户或密码不能为空!', 'on' => 'login'],
-            [['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 24],
+            [['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 16, 'message' => '{attribute}是6-16位数字或字母'],
+            //[['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 24],
             [['password', 'passwordRepeat'], 'required', 'message' => '密码和确认密码不能为空!', 'on' => 'setPassword'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
 
