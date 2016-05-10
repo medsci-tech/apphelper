@@ -8,7 +8,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\search\Hospital as HospitalSearch;
 use common\models\Hospital;
-use yii\widgets\FragmentCache;
+use yii\data\ActiveDataProvider;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -35,9 +35,14 @@ class HospitalController extends BackendController
      */
     public function actionIndex()
     {
+        $appYii = Yii::$app;
         $searchModel = new HospitalSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider = new ActiveDataProvider([
+            'query' => $searchModel->search($appYii->request->queryParams)->query,
+            'pagination' => [
+                'pageSize' => $appYii->params['pageSize'],
+            ]
+        ]);
         return $this->render('index', [
             'model' => new Hospital(),
             'searchModel' => $searchModel,
@@ -56,11 +61,14 @@ class HospitalController extends BackendController
     public function actionCreate()
     {
 
-        $id = Yii::$app->request->post('id');
+        $id = Yii::$app->request->post('Hospital')['id'];
+        var_dump($id);
+        var_dump(Yii::$app->request->post());
+//        exit;
         if($id) {
             $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
 //                return $this->redirect(['view', 'id' => $model->id]);
             } else {
 //                return $this->render('update', [
@@ -69,7 +77,7 @@ class HospitalController extends BackendController
             }
         }else {
             $model = new Hospital();
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
 //                return $this->redirect(['view', 'id' => $model->id]);
             } else {
 //                return $this->render('create', [
@@ -77,7 +85,7 @@ class HospitalController extends BackendController
 //                ]);
             }
         }
-
+        return $this->redirect(['index']);
 
     }
 
@@ -120,7 +128,6 @@ class HospitalController extends BackendController
                 $model->status = 0;
                 $model->save(false);
             }
-            return $this->redirect(['index']);
         }else if('enable' == $params['type']){
             /*启用*/
             foreach ($params['selection'] as $key => $val){
@@ -128,9 +135,12 @@ class HospitalController extends BackendController
                 $model->status = 1;
                 $model->save(false);
             }
-            return $this->redirect(['index']);
-        } else{
-            return $this->redirect(['index']);
+        } elseif ('del' == $params['type']) {
+            /*删除*/
+            foreach ($params['selection'] as $key => $val) {
+                $this->findModel($val)->delete();
+            }
         }
+        return $this->redirect(['index']);
     }
 }

@@ -26,12 +26,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
     <div class="form-group">
-    <?= $this->render('/region/index', [
-        'model' => new \common\models\Region,
-        'm' => 'Hospital',
-        'form' => $form,
-    ]);
-    ?>
+        <label class="control-label"></label>
+        <?= $this->render('/region/index',[
+            'model' => $model,
+            'm' => 'Hospital',
+            'form' => $form,
+        ]);?>
     </div>
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
@@ -43,3 +43,44 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$js = <<<JS
+    /*启用*/
+    $("#btn_enable").click(function(){
+        swal({
+            title: "您确定要启用选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#1ab394",
+            confirmButtonText: "启用",
+            closeOnConfirm: false
+        }, function () {
+            subAction('typeForm','enable');
+            swal("启用成功！", "", "success");
+        });
+    });
+    /*禁用*/
+    $("#btn_disable").click(function(){
+         swal({
+            title: "您确定要禁用选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#f8ac59",
+            confirmButtonText: "禁用",
+            closeOnConfirm: false
+        }, function () {
+            subAction('typeForm','disable');
+            swal("禁用成功！", "", "success");
+        });
+    });
+
+    function subAction(formId,val) {
+        $("#" + formId).val(val);
+        $('#'+formId).submit();
+    }
+JS;
+$this->registerJs($js);
+?>

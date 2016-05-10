@@ -17,7 +17,7 @@ $parentBom = isset($parentBomId) ? '#' . $parentBomId . ' ' : '';
 <?php
 $js = <<<JS
      function regionDefaultValue() {
-         var cityTitle = $('#updateModal #city-picker').next().find('.title');
+         var cityTitle = $('$parentBom#city-picker').next().find('.title');
          var province = cityTitle.find('span[data-count="province"]');
          var city = cityTitle.find('span[data-count="city"]');
          var area = cityTitle.find('span[data-count="district"]');
@@ -28,8 +28,8 @@ $js = <<<JS
          $('$parentBom#$mLower-province').val(province.text());
          $('$parentBom#$mLower-city').val(city.text());
          $('$parentBom#$mLower-area').val(area.text());
+         // console.log($('$parentBom#$mLower-area').val());
      }
-    // regionDefaultValue(regionSelect);
 JS;
 $this->registerJs($js);
 ?>
