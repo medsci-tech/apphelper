@@ -61,7 +61,7 @@ backend\assets\AppAsset::register($this);
                         'value'=>
                             function($model){
                                 $result = $this->params['params']['member']['rank'][$model->rank_id];
-                                return  $result ? $result : '';
+                                return $result ?? '';
                             },
                     ],
                     'province',
@@ -73,7 +73,7 @@ backend\assets\AppAsset::register($this);
                         'value'=>
                             function($model){
                                 $result = $this->params['params']['statusOption'][$model->status];
-                                return  $result ? $result : '';
+                                return $result ?? '';
                             },
                     ],
                     [
