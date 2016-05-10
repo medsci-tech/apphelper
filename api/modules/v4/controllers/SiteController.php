@@ -4,6 +4,7 @@ use api\common\controllers\CommonController;
 use api\common\models\LoginForm;
 use yii\web\Response;
 use api\common\models\member;
+use Yii;
 class SiteController extends CommonController
 {
     public $modelClass = 'api\common\models\Member';//Yii::$app->getRequest()->getBodyParams()['newsItem'];
@@ -117,6 +118,15 @@ class SiteController extends CommonController
             $result = ['code' => 200,'message'=>'用户信息','data'=>['username'=>$this->params['username'],'access_token'=>$result['access_token']]];
         else
             $result = ['code' => -1,'message'=>'获取失败!','data'=>null];
+        return $result;
+
+    }
+
+    public function actionTest()
+    {
+        $headers = Yii::$app->request->headers;
+        $accept = $headers->get('access-token');
+        $result = ['code' => -1,'message'=>'测试tocken!','data'=>['access-token'=>$accept]];
         return $result;
 
     }
