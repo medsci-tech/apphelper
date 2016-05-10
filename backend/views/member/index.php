@@ -64,30 +64,9 @@ backend\assets\AppAsset::register($this);
                                 return  $result ? $result : '';
                             },
                     ],
-                    [
-                        'attribute' => 'province_id',
-                        'value'=>
-                            function($model){
-                                $result = Region::findOne($model->province_id);
-                                return  $result ? $result->name : '';
-                            },
-                    ],
-                    [
-                        'attribute' => 'city_id',
-                        'value'=>
-                            function($model){
-                                $result = Region::findOne($model->city_id);
-                                return  $result ? $result->name : '';
-                            },
-                    ],
-                    [
-                        'attribute' => 'area_id',
-                        'value'=>
-                            function($model){
-                                $result = Region::findOne($model->area_id);
-                                return  $result ? $result->name : '';
-                            },
-                    ],
+                    'province',
+                    'city',
+                    'area',
                     'created_at:date',
                     [
                         'attribute' => 'status',
@@ -115,6 +94,9 @@ backend\assets\AppAsset::register($this);
                                 data-province_id="'.$model->province_id.'"
                                 data-city_id="'.$model->city_id.'"
                                 data-area_id="'.$model->area_id.'"
+                                data-province="'.$model->province.'"
+                                data-city="'.$model->city.'"
+                                data-area="'.$model->area.'"
                                  ></span>');
                             },
                         ]
@@ -167,8 +149,11 @@ $(document).ready(function(){
         var hospital_id = $(this).attr('data-hospital_id');
         var rank_id = $(this).attr('data-rank_id');
         var status = $(this).attr('data-status');
+        var province = $(this).attr('data-province');
         var province_id = $(this).attr('data-province_id');
+        var city = $(this).attr('data-city');
         var city_id = $(this).attr('data-city_id');
+        var area = $(this).attr('data-area');
         var area_id = $(this).attr('data-area_id');
         /* 编辑初始化 */
         $('#updateModal #tableForm').attr('action','/member/update?id='+id);
@@ -180,13 +165,20 @@ $(document).ready(function(){
         $('#updateModal #member-hospital_id').val(hospital_id);
         $('#updateModal #member-rank_id').val(rank_id);
         $('#updateModal #member-status').val(status);
-   
-        $('#updateModal #region-province_id').val(province_id);
-        $('#updateModal #region-province_id').trigger('change');
-        $('#updateModal #region-city_id').val(city_id);
-        $('#updateModal #region-city_id').trigger('change');
-        $('#updateModal #region-area_id').val(area_id);
-    // alert(hospital_id);
+        /*地区联动*/
+        var pickerHtml = '';
+        if(province){
+                pickerHtml += '<span class="select-item" data-count="province" data-code="' +province_id+ '">' +province+ '</span>/';
+            if(city){
+                pickerHtml += '<span class="select-item" data-count="city" data-code="' +city_id+ '">' +city+ '</span>/';
+                if(area){
+                    pickerHtml += '<span class="select-item" data-count="district" data-code="' +area_id+ '">' +area+ '</span>';
+                }
+            }
+        var pickerspan = $('#updateModal #city-picker').next();
+        pickerspan.find('.placeholder').css('display','none');
+        pickerspan.find('.title').css('display','inline').html(pickerHtml);
+        }
     });
 
 });
