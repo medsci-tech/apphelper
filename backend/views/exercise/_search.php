@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
     <?= Html::a('禁用', 'javascript:void(0);', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
     <?= Html::a('批量删除', 'javascript:void(0);', ['class' => 'btn btn-danger', 'id'=> 'del']) ?>
     <?php ActiveForm::end(); ?>
-
+</div>
 <?php
 $js = <<<JS
     $(function() {
@@ -81,7 +81,6 @@ $js = <<<JS
                 subActionForMamber('typeForm','enable');
                 swal("启用成功！", "", "success");
             });
-       
       });
     });
     function subActionForMamber(formId,val) {
@@ -90,8 +89,4 @@ $js = <<<JS
     }
 JS;
 $this->registerJs($js);
-
 ?>
-
-
-</div>

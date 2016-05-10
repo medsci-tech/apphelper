@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="ad-index">
 <button type="button" class="btn btn-success" data-toggle="modal" data-target ="#myModal"><span class="glyphicon-class"></span>添加</button>
+
 <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>修改</button>
 <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
 <div class="row">
@@ -34,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <img src="../img/a4.jpg"
              alt="" class="thumbnail">
     </div>
-</div>
+
+
 </div>
 
 
