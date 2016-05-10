@@ -6,7 +6,6 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
-//var_dump($model->id);exit;
 ?>
 
 <div class="modal-body">
@@ -22,13 +21,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <label class="control-label">名称</label>
-    <?= $this->render('/region/index', [
-        'model' => new \common\models\Region,
-        'm' => 'Member',
-        'form' => $form,
-    ]);
-    ?>
+        <label class="control-label">地区</label>
+        <?= $this->render('/region/index',[
+            'model' => $model,
+            'm' => 'Member',
+            'form' => $form,
+            'parentBomId' => 'updateModal',
+        ]);?>
     </div>
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
@@ -37,9 +36,18 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('确定','javascript:;', ['class' => 'btn btn-primary', 'id' => 'memberFormSubmit']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php
+$js = <<<JS
+    $('#updateModal #memberFormSubmit').click(function() {
+        regionDefaultValue();/*地区联动*/
+        $('#updateModal #tableForm').submit();
+    });
+JS;
+$this->registerJs($js);
+?>
