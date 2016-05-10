@@ -80,11 +80,8 @@ class MemberController extends BackendController
     public function actionView($id)
     {
         $member = $this->findModel($id);
-        $member->hospital_id = Hospital::findOne($member->hospital_id)->name;
+        $member->hospital_id = $member->hospital_id ? Hospital::findOne($member->hospital_id)->name : '';
         $member->rank_id = Yii::$app->params['member']['rank'][$member->rank_id];
-        $member->province_id =  Region::findOne($member->province_id)->name;
-        $member->city_id =  Region::findOne($member->city_id)->name;
-        $member->area_id =  Region::findOne($member->area_id)->name;
         $member->status =  Yii::$app->params['statusOption'][$member->status];
         return $this->render('view', [
             'model' => $member,
