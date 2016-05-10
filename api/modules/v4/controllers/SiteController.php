@@ -109,4 +109,16 @@ class SiteController extends CommonController
         return $this->sendCode($username);
     }
 
+    // 临时返货token ,生成环境删除
+    public function actionView()
+    {
+        $result = Member::find()->where(['username' => $this->params])->asArray()->one();
+        if($result)
+            $result = ['code' => 200,'message'=>'用户信息','data'=>['username'=>$this->params['username'],'access_token'=>$result['access_token']]];
+        else
+            $result = ['code' => -1,'message'=>'获取失败!','data'=>null];
+        return $result;
+
+    }
+
 }
