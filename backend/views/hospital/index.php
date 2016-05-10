@@ -83,7 +83,7 @@ backend\assets\AppAsset::register($this);
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><label id="l_title">单位发布</label></h4>
+                <h4 class="modal-title"><label id="l_title">单位</label></h4>
             </div>
 <?=$this->render('create', [
     'model' => $model,
@@ -100,31 +100,22 @@ $js=<<<JS
     var id = $(this).attr('id');
     var name = $(this).attr('names');
     var address = $(this).attr('address');
-    var province_id = $(this).attr('province_id');
-    var city_id = $(this).attr('city_id');
-    var area_id = $(this).attr('area_id');
-    var province = $(this).attr('province');
-    var city = $(this).attr('city');
-    var area = $(this).attr('area');
+    
     var title = "编辑";
     document.getElementById('l_title').innerText = title;
     $('#hospital-id').val(id);
     $('#hospitalName').val(name);
     $('#hospital-address').val(address);
    /*地区联动*/
-        var pickerHtml = '';
-        if(province){
-                pickerHtml += '<span class="select-item" data-count="province" data-code="' +province_id+ '">' +province+ '</span>/';
-            if(city){
-                pickerHtml += '<span class="select-item" data-count="city" data-code="' +city_id+ '">' +city+ '</span>/';
-                if(area){
-                    pickerHtml += '<span class="select-item" data-count="district" data-code="' +area_id+ '">' +area+ '</span>';
-                }
-            }
-        var pickerspan = $('#myModal #city-picker').next();
-        pickerspan.find('.placeholder').css('display','none');
-        pickerspan.find('.title').css('display','inline').html(pickerHtml);
-        }
+    var regionValue = {};
+    regionValue.province_id = $(this).attr('province_id');
+    regionValue.city_id = $(this).attr('city_id');
+    regionValue.area_id = $(this).attr('area_id');
+    regionValue.province = $(this).attr('province');
+    regionValue.city = $(this).attr('city');
+    regionValue.area = $(this).attr('area');
+    console.log(regionValue);
+    getRegionDefault(regionValue, 'tableForm');
     });
     
     /*添加初始化*/
@@ -136,10 +127,7 @@ $js=<<<JS
         $('#hospitalName').val(defaltData);
         $('#hospital-address').val(defaltData);
         /*地区联动*/
-        var pickerHtml = '';
-        var pickerspan = $('#myModal #city-picker').next();
-        pickerspan.find('.placeholder').css('display','');
-        pickerspan.find('.title').css('display','none').html(pickerHtml);
+        getRegionInit('tableForm');
    });
    
 JS;
