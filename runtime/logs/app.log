@@ -44161,3 +44161,1939 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1462850028.2346
     'REQUEST_TIME' => 1462850028
 ]
+2016-05-10 16:54:18 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\backend\config\main.php:22
+    in D:\GitHub\apphelper\backend\mdmsoft\yii2-admin\components\AccessControl.php:117
+2016-05-10 16:54:15 [127.0.0.1][1][-][info][application] $_COOKIE = [
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => '_identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6894'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870455.5128
+    'REQUEST_TIME' => 1462870455
+]
+2016-05-10 16:54:20 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:20 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:20 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6899'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870460.1193
+    'REQUEST_TIME' => 1462870460
+]
+2016-05-10 16:54:22 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:22 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:22 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/site/index_v4'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6895'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870462.8158
+    'REQUEST_TIME' => 1462870462
+]
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "site/img/a1.jpg". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('site/img/a1.jpg', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:23 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/site/index_v4'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'image/webp,image/*,*/*;q=0.8'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6894'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/site/img/a1.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870463.0652
+    'REQUEST_TIME' => 1462870463
+]
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "site/img/a2.jpg". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('site/img/a2.jpg', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:23 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/site/index_v4'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'image/webp,image/*,*/*;q=0.8'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6898'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/site/img/a2.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870463.2954
+    'REQUEST_TIME' => 1462870463
+]
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "site/img/a3.jpg". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('site/img/a3.jpg', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:23 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/site/index_v4'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'image/webp,image/*,*/*;q=0.8'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6897'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/site/img/a3.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870463.5442
+    'REQUEST_TIME' => 1462870463
+]
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:23 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "site/img/a4.jpg". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('site/img/a4.jpg', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:23 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/site/index_v4'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'image/webp,image/*,*/*;q=0.8'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6896'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/site/img/a4.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870463.7648
+    'REQUEST_TIME' => 1462870463
+]
+2016-05-10 16:54:47 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\backend\views\ad\_form.php:21
+    in D:\GitHub\apphelper\backend\views\ad\create.php:19
+    in D:\GitHub\apphelper\backend\views\ad\index.php:61
+2016-05-10 16:54:48 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: D:\GitHub\apphelper/backend/messages/zh-CH/app.php Fallback file does not exist as well: D:\GitHub\apphelper/backend/messages/zh/app.php
+    in D:\GitHub\apphelper\common\models\AD.php:40
+    in D:\GitHub\apphelper\backend\views\ad\_form.php:21
+    in D:\GitHub\apphelper\backend\views\ad\create.php:19
+2016-05-10 16:54:46 [127.0.0.1][1][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6895'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/ad/index'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870486.3977
+    'REQUEST_TIME' => 1462870486
+]
+2016-05-10 16:54:48 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 16:54:48 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 16:54:48 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/ad/index'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '6895'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462870488.5011
+    'REQUEST_TIME' => 1462870488
+]
+2016-05-10 17:17:03 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 17:17:03 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 17:17:03 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/resource-class/index'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9024'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462871823.3398
+    'REQUEST_TIME' => 1462871823
+]
+2016-05-10 17:17:10 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 17:17:10 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 17:17:10 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/resource-class/index'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9024'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462871830.5031
+    'REQUEST_TIME' => 1462871830
+]
+2016-05-10 17:17:10 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 17:17:10 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/bootstrap.min.css.map". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 17:17:10 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9024'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/bootstrap.min.css.map'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462871830.7726
+    'REQUEST_TIME' => 1462871830
+]
+2016-05-10 17:18:45 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\backend\views\ad\_form.php:21
+    in D:\GitHub\apphelper\backend\views\ad\create.php:19
+    in D:\GitHub\apphelper\backend\views\ad\index.php:61
+2016-05-10 17:18:46 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: D:\GitHub\apphelper/backend/messages/zh-CH/app.php Fallback file does not exist as well: D:\GitHub\apphelper/backend/messages/zh/app.php
+    in D:\GitHub\apphelper\common\models\AD.php:40
+    in D:\GitHub\apphelper\backend\views\ad\_form.php:21
+    in D:\GitHub\apphelper\backend\views\ad\create.php:19
+2016-05-10 17:18:45 [127.0.0.1][1][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9052'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/ad/index'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462871925.1324
+    'REQUEST_TIME' => 1462871925
+]
+2016-05-10 17:18:56 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: D:\GitHub\apphelper/backend/messages/zh-CH/app.php Fallback file does not exist as well: D:\GitHub\apphelper/backend/messages/zh/app.php
+    in D:\GitHub\apphelper\common\models\Hospital.php:53
+    in D:\GitHub\apphelper\backend\models\search\Hospital.php:48
+    in D:\GitHub\apphelper\backend\controllers\HospitalController.php:39
+2016-05-10 17:18:56 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\backend\views\hospital\_search.php:27
+    in D:\GitHub\apphelper\backend\views\hospital\index.php:17
+    in D:\GitHub\apphelper\backend\controllers\HospitalController.php:44
+2016-05-10 17:18:56 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: common\models\Region::province in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Component.php:143
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\db\BaseActiveRecord.php(252): yii\base\Component->__get('province')
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\helpers\BaseHtml.php(2068): yii\db\BaseActiveRecord->__get('province')
+#2 D:\GitHub\apphelper\vendor\yiisoft\yii2\helpers\BaseHtml.php(1243): yii\helpers\BaseHtml::getAttributeValue(Object(common\models\Region), 'province')
+#3 D:\GitHub\apphelper\vendor\yiisoft\yii2\widgets\ActiveField.php(336): yii\helpers\BaseHtml::activeInput('hidden', Object(common\models\Region), 'province', Array)
+#4 D:\GitHub\apphelper\backend\views\region\index.php(13): yii\widgets\ActiveField->input('hidden')
+#5 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(325): require('D:\\GitHub\\apphe...')
+#6 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(247): yii\base\View->renderPhpFile('D:\\GitHub\\apphe...', Array)
+#7 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('D:\\GitHub\\apphe...', Array, NULL)
+#8 D:\GitHub\apphelper\backend\views\hospital\_search.php(32): yii\base\View->render('/region/index', Array)
+#9 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(325): require('D:\\GitHub\\apphe...')
+#10 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(247): yii\base\View->renderPhpFile('D:\\GitHub\\apphe...', Array)
+#11 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('D:\\GitHub\\apphe...', Array, NULL)
+#12 D:\GitHub\apphelper\backend\views\hospital\index.php(17): yii\base\View->render('_search', Array)
+#13 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(325): require('D:\\GitHub\\apphe...')
+#14 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(247): yii\base\View->renderPhpFile('D:\\GitHub\\apphe...', Array)
+#15 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('D:\\GitHub\\apphe...', Array, Object(backend\controllers\HospitalController))
+#16 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Controller.php(378): yii\base\View->render('index', Array, Object(backend\controllers\HospitalController))
+#17 D:\GitHub\apphelper\backend\controllers\HospitalController.php(44): yii\base\Controller->render('index', Array)
+#18 [internal function]: backend\controllers\HospitalController->actionIndex()
+#19 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#20 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#21 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php(454): yii\base\Controller->runAction('index', Array)
+#22 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('hospital/index', Array)
+#23 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#24 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#25 {main}
+2016-05-10 17:18:55 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9052'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/hospital/index'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462871935.1386
+    'REQUEST_TIME' => 1462871935
+]
+2016-05-10 17:20:28 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\common\models\Member.php:67
+    in D:\GitHub\apphelper\backend\models\search\Member.php:32
+    in D:\GitHub\apphelper\backend\controllers\MemberController.php:46
+2016-05-10 17:20:28 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: D:\GitHub\apphelper/backend/messages/zh-CH/app.php Fallback file does not exist as well: D:\GitHub\apphelper/backend/messages/zh/app.php
+    in D:\GitHub\apphelper\common\models\Member.php:46
+    in D:\GitHub\apphelper\backend\controllers\MemberController.php:48
+2016-05-10 17:20:27 [127.0.0.1][1][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9116'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/member/index'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462872027.755
+    'REQUEST_TIME' => 1462872027
+]
+2016-05-10 17:20:32 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 17:20:32 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 17:20:32 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/member/index'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9125'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462872032.1474
+    'REQUEST_TIME' => 1462872032
+]
+2016-05-10 17:21:09 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 17:21:09 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 17:21:09 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9125'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462872069.0784
+    'REQUEST_TIME' => 1462872069
+]
+2016-05-10 17:21:09 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 17:21:09 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/bootstrap.min.css.map". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 17:21:09 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9125'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/bootstrap.min.css.map'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462872069.4983
+    'REQUEST_TIME' => 1462872069
+]
+2016-05-10 17:23:14 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: D:\GitHub\apphelper/backend/messages/zh-CH/app.php Fallback file does not exist as well: D:\GitHub\apphelper/backend/messages/zh/app.php
+    in D:\GitHub\apphelper\common\models\Hospital.php:53
+    in D:\GitHub\apphelper\backend\models\search\Hospital.php:48
+    in D:\GitHub\apphelper\backend\controllers\HospitalController.php:39
+2016-05-10 17:23:14 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\backend\views\hospital\_search.php:27
+    in D:\GitHub\apphelper\backend\views\hospital\index.php:17
+    in D:\GitHub\apphelper\backend\controllers\HospitalController.php:44
+2016-05-10 17:23:14 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][error][yii\base\UnknownPropertyException] yii\base\UnknownPropertyException: Getting unknown property: common\models\Region::province in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Component.php:143
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\db\BaseActiveRecord.php(252): yii\base\Component->__get('province')
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\helpers\BaseHtml.php(2068): yii\db\BaseActiveRecord->__get('province')
+#2 D:\GitHub\apphelper\vendor\yiisoft\yii2\helpers\BaseHtml.php(1243): yii\helpers\BaseHtml::getAttributeValue(Object(common\models\Region), 'province')
+#3 D:\GitHub\apphelper\vendor\yiisoft\yii2\widgets\ActiveField.php(336): yii\helpers\BaseHtml::activeInput('hidden', Object(common\models\Region), 'province', Array)
+#4 D:\GitHub\apphelper\backend\views\region\index.php(13): yii\widgets\ActiveField->input('hidden')
+#5 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(325): require('D:\\GitHub\\apphe...')
+#6 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(247): yii\base\View->renderPhpFile('D:\\GitHub\\apphe...', Array)
+#7 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('D:\\GitHub\\apphe...', Array, NULL)
+#8 D:\GitHub\apphelper\backend\views\hospital\_search.php(32): yii\base\View->render('/region/index', Array)
+#9 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(325): require('D:\\GitHub\\apphe...')
+#10 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(247): yii\base\View->renderPhpFile('D:\\GitHub\\apphe...', Array)
+#11 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('D:\\GitHub\\apphe...', Array, NULL)
+#12 D:\GitHub\apphelper\backend\views\hospital\index.php(17): yii\base\View->render('_search', Array)
+#13 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(325): require('D:\\GitHub\\apphe...')
+#14 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(247): yii\base\View->renderPhpFile('D:\\GitHub\\apphe...', Array)
+#15 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('D:\\GitHub\\apphe...', Array, Object(backend\controllers\HospitalController))
+#16 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Controller.php(378): yii\base\View->render('index', Array, Object(backend\controllers\HospitalController))
+#17 D:\GitHub\apphelper\backend\controllers\HospitalController.php(44): yii\base\Controller->render('index', Array)
+#18 [internal function]: backend\controllers\HospitalController->actionIndex()
+#19 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#20 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#21 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php(454): yii\base\Controller->runAction('index', Array)
+#22 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('hospital/index', Array)
+#23 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#24 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#25 {main}
+2016-05-10 17:23:13 [127.0.0.1][1][fbm9s2e54mf3ft6f4jipo21cb0][info][application] $_COOKIE = [
+    'PHPSESSID' => 'fbm9s2e54mf3ft6f4jipo21cb0'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=fbm9s2e54mf3ft6f4jipo21cb0; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '9177'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/hospital/index'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462872193.6496
+    'REQUEST_TIME' => 1462872193
+]
