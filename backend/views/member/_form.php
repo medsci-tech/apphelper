@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
             'model' => $model,
             'm' => 'Member',
             'form' => $form,
-            'parentBomId' => 'updateModal',
+            'parentBomId' => 'tableForm',
         ]);?>
     </div>
 
