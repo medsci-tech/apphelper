@@ -31,6 +31,6 @@ class AdController extends BackendController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index',['model' => new AD(),]);
     }
 }
