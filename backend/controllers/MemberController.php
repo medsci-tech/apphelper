@@ -66,7 +66,6 @@ class MemberController extends BackendController
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
-            'params' => $appYii->params,
             'uploadModel' => $uploadModel,
         ]);
     }

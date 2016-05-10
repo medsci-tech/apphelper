@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = '用户';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['params'] = $params;
+$this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
