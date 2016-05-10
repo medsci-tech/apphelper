@@ -43961,3 +43961,203 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1462849692.7694
     'REQUEST_TIME' => 1462849692
 ]
+2016-05-10 11:13:47 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+    in D:\GitHub\apphelper\backend\views\ad\_form.php:21
+    in D:\GitHub\apphelper\backend\views\ad\create.php:19
+    in D:\GitHub\apphelper\backend\views\ad\index.php:50
+2016-05-10 11:13:47 [127.0.0.1][1][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: D:\GitHub\apphelper/backend/messages/zh-CH/app.php Fallback file does not exist as well: D:\GitHub\apphelper/backend/messages/zh/app.php
+    in D:\GitHub\apphelper\common\models\AD.php:40
+    in D:\GitHub\apphelper\backend\views\ad\_form.php:21
+    in D:\GitHub\apphelper\backend\views\ad\create.php:19
+2016-05-10 11:13:46 [127.0.0.1][1][-][info][application] $_COOKIE = [
+    'PHPSESSID' => '91srgvimgtfldqmkttllglot04'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=91srgvimgtfldqmkttllglot04; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '45190'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/ad/index'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462850026.9444
+    'REQUEST_TIME' => 1462850026
+]
+2016-05-10 11:13:48 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'yii' does not exist: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh-CH/yii.php Fallback file does not exist as well: D:\GitHub\apphelper\vendor\yiisoft\yii2/messages/zh/yii.php
+2016-05-10 11:13:48 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "assets/ef4f97c1/css/skins/_all-skins.min.css". in D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('assets/ef4f97c1...', Array)
+#1 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Page not found. in D:\GitHub\apphelper\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 D:\GitHub\apphelper\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\GitHub\apphelper\backend\web\index.php(21): yii\base\Application->run()
+#2 {main}
+2016-05-10 11:13:48 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => '91srgvimgtfldqmkttllglot04'
+    '_identity' => '[1,\"1lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs\",2592000]'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Roaming'
+    'CLASSPATH' => '.;D:\\Program Files\\Java\\jdk1.7.0_51\\lib;D:\\Program Files\\Java\\jdk1.7.0_51\\lib\\tools.jar'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'MED-TECH'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'configsetroot' => 'C:\\WINDOWS\\ConfigSetRoot'
+    'easyplussdk' => '\"C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin\"'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\êîËÉ'
+    'JAVA_HOME' => 'D:\\Program Files\\Java\\jdk1.7.0_51'
+    'LOCALAPPDATA' => 'C:\\Users\\êîËÉ\\AppData\\Local'
+    'LOGONSERVER' => '\\\\MicrosoftAccount'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'D:\\Program Files (x86)\\SepanderSoft;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Program Files (x86)\\Lenovo\\FusionEngine;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Lenovo\\Bluetooth Software\\;C:\\Program Files\\Lenovo\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files (x86)\\iFLYTEK\\VoiceAssistant\\SpeechPlusRuntime;C:\\Program Files (x86)\\Lenovo\\Voice SDK;C:\\Program Files (x86)\\Lenovo\\Lenovo Home\\;D:\\Program Files\\Java\\jdk1.7.0_51\\bin;C:\\WINDOWS\\system32\\config\\systemprofile\\.dnx\\bin;C:\\Program Files\\Microsoft DNX\\Dnvm\\;C:\\Program Files\\Microsoft SQL Server\\120\\Tools\\Binn\\;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;D:\\Program Files (x86)\\nodejs\\;D:\\WebDevelop\\xampp\\mysql\\bin;D:\\Program Files (x86)\\CloudFoundry;C:\\Users\\êîËÉ\\AppData\\Roaming\\npm;D:\\WebDevelop\\xampp\\php;D:\\Program Files\\Git\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\êîËÉ\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'MED-TECH'
+    'USERDOMAIN_ROAMINGPROFILE' => 'MED-TECH'
+    'USERNAME' => 'êîËÉ'
+    'USERPROFILE' => 'C:\\Users\\êîËÉ'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'VS120COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\Common7\\Tools\\'
+    'VS140COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\'
+    'VSSDK140Install' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VSSDK\\'
+    'windir' => 'C:\\WINDOWS'
+    'HTTP_COOKIE' => 'PHPSESSID=91srgvimgtfldqmkttllglot04; _identity=%5B1%2C%221lQl4TG6sYlyWRqXZEWL0ZhQkPATVnMs%22%2C2592000%5D'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, sdch'
+    'HTTP_REFERER' => 'http://apphelper.dev/ad/index'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/css,*/*;q=0.1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_HOST' => 'apphelper.dev'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'apphelper.dev'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '45195'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'D:/GitHub/apphelper/backend/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/assets/ef4f97c1/css/skins/_all-skins.min.css'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'D:/GitHub/apphelper/backend/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'D:/GitHub/apphelper/backend/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1462850028.2346
+    'REQUEST_TIME' => 1462850028
+]

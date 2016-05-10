@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dc249afa-b9be-4162-be72-e3a57ad504a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/ad/index.php" afterPath="$PROJECT_DIR$/backend/views/ad/index.php" />
-    </list>
+    <list default="true" id="dc249afa-b9be-4162-be72-e3a57ad504a4" name="Default" comment="" />
     <ignored path="apphelper.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
