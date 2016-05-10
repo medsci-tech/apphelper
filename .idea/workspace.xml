@@ -2,134 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="457c7184-8538-4240-b45b-3d85708073f7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/HTML/4.6.0,bd08c5afbc77123dbd4e9e026a723c450e9f844b,1.ser" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/URI/4.6.0,8d03c8ec0e84e7feb92afd4c0f1735841b5fdacf,1.ser" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3c74970.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3ca1ea6.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3e6b407.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3ea19e8.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3ed0eba.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3f090ac.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c3f39232.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c4e178e4.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c4f1ae52.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c4f4988e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c4f78aa6.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5055c1d.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c50838e4.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c50b0fef.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c50df257.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c51e852a.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c531230f.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5340228.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5461524.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5491e41.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c54c6a58.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5653f52.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5681bac.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5794905.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c57c2cb7.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c57eff69.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c58d6335.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c59123a7.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c59415f3.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5973157.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c59a170b.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5b0c242.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5b3ad05.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5b69a6b.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5ba035e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5bcefbb.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57304c5c094b7.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c527ed64.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c5e3d697.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c5f9459e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c5fd74ba.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c61f11e1.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c622e591.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c625e8b3.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c628e7db.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314c62bdb02.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57314cdc2494d.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5731509b5b0d9.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5731509c8fdf5.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5731509cbf075.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573151eaebf77.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573151ec3d2e6.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/apphelper.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067bde2b1a.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067bed6721.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067bef28dc.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067bf11770.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067bf2013e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067e855053.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067e995a35.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067e9a6ac1.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067e9b709e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573067e9c6b44.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730681748091.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730681851831.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730681863c30.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573068187895e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730681888e6e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306825b932c.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306826bb668.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306826d95df.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306826e99f8.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306847c259b.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306848d2530.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57306848eaf40.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730684908967.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730684918912.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/573068492784a.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730685b4b096.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730685d46ff5.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730685d5ae89.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730685d6de2e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730686914068.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730686a1bfe5.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/5730686a41cd3.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313df7611d1.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dfb4bd6f.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dfb77079.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dff2d724.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dff59c44.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dff761fc.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dff964e5.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313dffb706a.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313e3391df8.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313e35ce543.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f43e14f8.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f4411c24.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f4423650.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f46c7053.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f470f1fe.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f4725a32.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f473cdf9.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f47514cf.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f597f25e.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/57313f5cee703.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/debug/index.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/logs/app.log" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/runtime/logs/app.log.1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/common/controllers/CommonController.php" afterPath="$PROJECT_DIR$/api/common/controllers/CommonController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/common/controllers/Controller.php" afterPath="$PROJECT_DIR$/api/common/controllers/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/modules/v4/controllers/HospitalController.php" afterPath="$PROJECT_DIR$/api/modules/v4/controllers/HospitalController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/modules/v4/controllers/IndexController.php" afterPath="$PROJECT_DIR$/api/modules/v4/controllers/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/modules/v4/controllers/SiteController.php" afterPath="$PROJECT_DIR$/api/modules/v4/controllers/SiteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/controllers/ADController.php" afterPath="$PROJECT_DIR$/backend/controllers/ADController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/ad/_form.php" afterPath="$PROJECT_DIR$/backend/views/ad/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/ad/create.php" afterPath="$PROJECT_DIR$/backend/views/ad/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/ad/index.php" afterPath="$PROJECT_DIR$/backend/views/ad/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/models/AD.php" afterPath="$PROJECT_DIR$/common/models/AD.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="apphelper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -151,101 +24,7 @@
     <favorites_list name="apphelper" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="TreeController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/TreeController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/views/ad/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-              <folding>
-                <element signature="e#6#82#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HospitalController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/modules/v4/controllers/HospitalController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-263">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="a1.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/web/img/a1.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="a2.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/web/img/a2.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="a3.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/web/img/a3.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResourceClassController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/ResourceClassController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExcelController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/ExcelController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="easyTree.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/web/css/easyTree.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3540">
-              <caret line="118" column="21" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/views/resource-class/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
-              <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -470,18 +249,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1462241808246</updated>
-      <workItem from="1462866064775" duration="234000" />
+      <workItem from="1462866064775" duration="845000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234000" />
+    <option name="totallyTimeSpent" value="845000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1924" height="1048" extended-state="0" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1924" height="1048" extended-state="1" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20734341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20734341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -794,52 +573,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/web/css/easyTree.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3540">
-          <caret line="118" column="21" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/resource-class/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/ExcelController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/ResourceClassController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/TreeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/web/img/a2.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/web/img/a1.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -865,6 +599,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/ad/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
+          <folding>
+            <element signature="e#6#82#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/web/img/a1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/web/css/easyTree.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="118" column="21" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/ExcelController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/ResourceClassController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/modules/v4/controllers/HospitalController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-263">
@@ -873,13 +646,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/ad/index.php">
+    <entry file="file://$PROJECT_DIR$/backend/controllers/TreeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-          <folding>
-            <element signature="e#6#82#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/resource-class/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
