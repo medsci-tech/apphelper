@@ -14,22 +14,26 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="article-form">
+<div class="ad-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList(\common\models\Category::find()->select('title')->indexBy('id')->column()) ?>
+    <?= Html::dropDownList('attr_type',[0 => '内部资源', 1 => '外部链接'])  ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($model, 'cover')->widget('yidashi\webuploader\Webuploader') ?>
+    <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList([0 => '待审核', 1 => '正常']) ?>
+    <?= $form->field($model, 'imgurl')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sort')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '启用']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <input type="hidden" name="attr_from" id="attr_from">
+        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+        <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
