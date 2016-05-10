@@ -47,25 +47,52 @@ use dosamigos\fileupload\FileUpload;
 
 <?php
 $js = <<<JS
-    $(function() {
-      /*删除*/
-      $('#del').click(function() {
-        var cf = confirm("Press a button");
-        if(cf){
-            subActionForMamber('typeForm','del');
-        }else {
-            return false;
-        }
-      });
-      /*禁用*/
-       $('#disable').click(function() {
-        subActionForMamber('typeForm','disable');
-      });
-      /*启用*/
-       $('#enable').click(function() {
-        subActionForMamber('typeForm','enable');
-      });
+  /*删除*/
+  $('#del').click(function() {
+    swal({
+        title: "您确定要删除选中的信息吗",
+        text: "删除后将无法恢复，请谨慎操作！",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: '取消',
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "删除",
+        closeOnConfirm: false
+    }, function () {
+        subActionForMamber('typeForm','del');
+        swal("删除成功！", "您已经永久删除了信息。", "success");
     });
+  });
+  /*禁用*/
+   $('#disable').click(function() {
+       swal({
+            title: "您确定要禁用选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#f8ac59",
+            confirmButtonText: "禁用",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMamber('typeForm','disable');
+            swal("禁用成功！", "", "success");
+        });
+  });
+  /*启用*/
+   $('#enable').click(function() {
+        swal({
+            title: "您确定要启用选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#1ab394",
+            confirmButtonText: "启用",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMamber('typeForm','enable');
+            swal("启用成功！", "", "success");
+        });
+  });
     function subActionForMamber(formId,val) {
         $('#' + formId).val(val);
         $('#'+formId).submit();
