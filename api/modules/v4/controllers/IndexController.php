@@ -50,7 +50,7 @@ class IndexController extends \api\common\controllers\Controller
         $res=[];
         foreach($data as $k=>$v)
             $res[$k]=['rank_id'=>$k,'rank_name'=> $v];
-        $result = ['code' => '200','message'=>'职称列表','data'=>$res];
+        $result = ['code' => 200,'message'=>'职称列表','data'=>$res];
         return $result;
     }
     /**
@@ -67,10 +67,10 @@ class IndexController extends \api\common\controllers\Controller
         if(!$response = $model->changeNickname())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
@@ -87,10 +87,10 @@ class IndexController extends \api\common\controllers\Controller
         if(!$response = $model->changeUsername())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
@@ -107,10 +107,10 @@ class IndexController extends \api\common\controllers\Controller
         if(!$response = $model->changeRealname())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
 
