@@ -8,6 +8,7 @@
 
 namespace api\modules\v4\controllers;
 
+use backend\models\search\Member;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
@@ -50,7 +51,7 @@ class IndexController extends \api\common\controllers\Controller
         $res=[];
         foreach($data as $k=>$v)
             $res[$k]=['rank_id'=>$k,'rank_name'=> $v];
-        $result = ['code' => '200','message'=>'职称列表','data'=>$res];
+        $result = ['code' => 200,'message'=>'职称列表','data'=>$res];
         return $result;
     }
     /**
@@ -67,10 +68,10 @@ class IndexController extends \api\common\controllers\Controller
         if(!$response = $model->changeNickname())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
@@ -87,10 +88,10 @@ class IndexController extends \api\common\controllers\Controller
         if(!$response = $model->changeUsername())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
@@ -107,15 +108,21 @@ class IndexController extends \api\common\controllers\Controller
         if(!$response = $model->changeRealname())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
-
+    /**
+     * 完成注册提交
+     * @author by lxhui
+     * @version [2010-05-05]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
     public function actionList()
-    { echo'test141';exit;
+    {
         $query = Article::find();
         $provider = new ActiveDataProvider([
             'query' => $query,
@@ -134,27 +141,10 @@ class IndexController extends \api\common\controllers\Controller
             'stories' => $provider->getModels(),
         ];
     }
-    public function actionView($id = 0)
-    {
-        $article = Article::find()->where(['id' => $id])->with('data')->asArray()->one();
-        return $article;
-    }
+
     public function actionDelete($id)
     {
         echo(110);
     }
-    private function _getStatusCodeMessage($status)
-    {
-        $codes = Array(
-            200 => 'OK',
-            400 => 'Bad Request',
-            401 => 'Unauthorized',
-            402 => 'Payment Required',
-            403 => 'Forbidden',
-            404 => 'Not Found',
-            500 => 'Internal Server Error',
-            501 => 'Not Implemented',
-        );
-        return (isset($codes[$status])) ? $codes[$status] : '';
-    }
+
 }

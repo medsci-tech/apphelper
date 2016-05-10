@@ -30,13 +30,13 @@ class SiteController extends CommonController
         $model->load($this->params, '');
         if (!$model->signup()) {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
             return $result;
         }
         else
-            $data=['uid'=>(string)$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
+            $data=['uid'=>$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
 
-        $result = ['code' => '200','message'=>'注册成功!','data'=>$data];
+        $result = ['code' => 200,'message'=>'注册成功!','data'=>$data];
         return $result;
     }
 
@@ -54,10 +54,10 @@ class SiteController extends CommonController
         if(!$response = $model->login())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'登录成功','data'=>['uid'=>(string)$response->id,'access_token'=>$response->access_token]];
+            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token]];
         return $result;
     }
     public function actionLoginbk()
@@ -68,10 +68,10 @@ class SiteController extends CommonController
         {
             if($model->login())
             {
-                $result = ['code' => '200','message'=>'登录成功'];
+                $result = ['code' => 200,'message'=>'登录成功'];
             }
             else
-                $result = ['code' => '-1','message'=>'登录失败'];
+                $result = ['code' => -1,'message'=>'登录失败'];
         }
         return $result;
 
@@ -90,10 +90,10 @@ class SiteController extends CommonController
         if(!$response = $model->changePassword())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>['uid'=>(string)$response->id,'access_token'=>$response->access_token]];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token]];
         return $result;
     }
     /**
@@ -107,6 +107,18 @@ class SiteController extends CommonController
     {
         $username = $this->params['username'];
         return $this->sendCode($username);
+    }
+
+    // 临时返货token ,生成环境删除
+    public function actionView()
+    {
+        $result = Member::find()->where(['username' => $this->params])->asArray()->one();
+        if($result)
+            $result = ['code' => 200,'message'=>'用户信息','data'=>['username'=>$this->params['username'],'access_token'=>$result['access_token']]];
+        else
+            $result = ['code' => -1,'message'=>'获取失败!','data'=>null];
+        return $result;
+
     }
 
 }

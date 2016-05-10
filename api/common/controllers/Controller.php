@@ -1,6 +1,7 @@
 <?php
 
 namespace api\common\controllers;
+use api\common\models\Member;
 use yii\rest\ActiveController;
 use yii\web\Response;
 use Yii;
@@ -42,6 +43,9 @@ class Controller extends ActiveController
      */
     public function checkAccess($action, $model = null, $params = [])
     {
+        $uid = $this->params['uid'];
+        $access_token = $this->params['access_token'];
+        $result= Member::findIdentityByAccessToken($access_token);
         // 检查用户能否访问 $action 和 $model
         // 访问被拒绝应抛出ForbiddenHttpException
     }

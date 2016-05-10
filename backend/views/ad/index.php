@@ -8,9 +8,14 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+
+$this->title = '轮播图管理';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>添加</button>
+<div class="ad-index">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target ="#myModal"><span class="glyphicon-class"></span>添加</button>
+
 <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>修改</button>
 <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
 <div class="row">
@@ -30,6 +35,8 @@ use yii\widgets\ActiveForm;
         <img src="../img/a4.jpg"
              alt="" class="thumbnail">
     </div>
+
+
 </div>
 
 
@@ -39,11 +46,11 @@ use yii\widgets\ActiveForm;
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><label id="l_title">单位发布</label></h4>
+                <h4 class="modal-title"><label id="l_title">添加轮播图</label></h4>
             </div>
-<!--            --><?//=$this->render('create', [
-//                'model' => $model,
-//            ]);?>
+            <?=$this->render('create', [
+                'model' => $model,
+            ]);?>
         </div>
     </div>
 </div>

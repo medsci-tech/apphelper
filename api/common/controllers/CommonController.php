@@ -43,7 +43,7 @@ class CommonController extends ActiveController
         if(strlen($username) !=11 || !is_numeric($username))
         {
             $message = '请输入有效手机号!';
-            $result = ['code' => '200','message'=>$message,'data'=>[]];
+            $result = ['code' => 200,'message'=>$message,'data'=>[]];
             return $result;
         }
         else
@@ -51,7 +51,7 @@ class CommonController extends ActiveController
             if(Yii::$app->cache->get($username))
             {
                 $message = '验证码已经成功发出!';
-                $result = ['code' => '200','message'=>$message,'data'=>['verycode' => Yii::$app->cache->get($username)]];
+                $result = ['code' => 200,'message'=>$message,'data'=>['verycode' => Yii::$app->cache->get($username)]];
                 return $result;
             }
             $verycode = MessageSender::generateMessageVerify();
@@ -61,10 +61,10 @@ class CommonController extends ActiveController
             {
                 Yii::$app->cache->set($username,$verycode,60);// 缓存60s有效
                 $message = '验证码已经成功发出!';
-                $result = ['code' => '200','message'=>$message,'data'=>['verycode' => $verycode]];
+                $result = ['code' => 200,'message'=>$message,'data'=>['verycode' => $verycode]];
             }
             else
-                $result = ['code' => '200','message'=>'发送失败!请稍后再试!','data'=>[]];
+                $result = ['code' => 200,'message'=>'发送失败!请稍后再试!','data'=>[]];
 
             return $result;
         }
