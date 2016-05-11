@@ -9,10 +9,10 @@
 namespace backend\models\search;
 
 use yii\data\ActiveDataProvider;
-use common\models\Exercise as ExerciseModel;
+use common\models\Exam;
 use common\models\ExamClass;
 
-class Exercise extends ExerciseModel
+class ExamSearch extends Exam
 {
     public function rules()
     {
@@ -25,16 +25,13 @@ class Exercise extends ExerciseModel
     public function search($params)
     {
         $this->load($params);
-        $category = [];
-        $examClassFind = (new ExamClass())->getDataForWhere(['like', 'path',',' . $this->category . ',']);
-        foreach ($examClassFind as $val){
-            $category[] = $val['id'];
-        }
-        $query = ExerciseModel::find()->orderBy('id desc');
-        $query->andFilterWhere(['category'=> $category]);
+        $query = Exam::find()->orderBy('id desc');
         $query->andFilterWhere(['like', 'question', $this->question]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
         ]);
         if (!$this->validate()) {
             return $dataProvider;

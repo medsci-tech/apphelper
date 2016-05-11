@@ -19,14 +19,11 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/plugins/sweetalert/sweetalert.css',
+        
     ];
     public $js = [
         'js/jquery.min.js',
-        'js/plugins/treeview/bootstrap-treeview.js',
-        'js/city-picker.data.js',
-        'js/city-picker.js',
-        'js/city-picker-fun.js',
+        'js/plugins/city-picker/city-picker-fun.js',
     ];
     public $depends = [
 //        'yii\web\YiiAsset',

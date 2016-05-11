@@ -1,3 +1,5 @@
+document.write("<script src='/js/plugins/city-picker/city-picker.data.js'></script>");
+document.write("<script src='/js/plugins/city-picker/city-picker.js'></script>");
 /**
  * 编辑数据提交前获取地区数据
  * author zhaiyu
