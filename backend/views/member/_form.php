@@ -22,12 +22,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <label class="control-label">地区</label>
-        <?= $this->render('/region/index',[
-            'model' => $model,
-            'm' => 'Member',
-            'form' => $form,
-            'parentBomId' => 'updateModal',
-        ]);?>
+        <?= $this->render('/region/index');?>
     </div>
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
@@ -45,7 +40,7 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
     $('#updateModal #memberFormSubmit').click(function() {
-        regionDefaultValue();/*地区联动*/
+        getRegionValue('Member','tableForm');/*地区联动*/
         $('#updateModal #tableForm').submit();
     });
 JS;

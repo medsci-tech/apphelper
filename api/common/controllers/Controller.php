@@ -1,6 +1,7 @@
 <?php
 
 namespace api\common\controllers;
+use api\common\models\Member;
 use yii\rest\ActiveController;
 use yii\web\Response;
 use Yii;
@@ -42,8 +43,32 @@ class Controller extends ActiveController
      */
     public function checkAccess($action, $model = null, $params = [])
     {
-        // 检查用户能否访问 $action 和 $model
-        // 访问被拒绝应抛出ForbiddenHttpException
+        $uid = $this->params['uid'];
+        $access_token = $this->params['access_token'];
+        $data = ['uid'=>$uid,'access_token' => $access_token];
+        $mem = json_decode(Yii::$app->redis->get(Yii::$app->params['redisKey'][0].$uid),true);
+        $res = array_diff_assoc($mem,$data);
+        if($mem) // 授权认证失败
+        {
+            if($res)
+            {
+                $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
+                exit(json_encode($result));
+            }
+            else
+                return;
+        }
+        else
+        {
+            $model= Member::findIdentityByAccessToken($access_token);
+            if($model->id!=$uid)
+            {
+                $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
+                exit(json_encode($result));
+            }
+            else
+                Yii::$app->redis->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data),2592000); //一个月
+        }
     }
 
 }

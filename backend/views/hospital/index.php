@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\models\Region;
 use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
@@ -10,6 +9,8 @@ use yii\widgets\ActiveForm;
 
 $this->title = '单位';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['params'] = Yii::$app->params;
+backend\assets\AppAsset::register($this);
 ?>
 <p></p>
 <div class="hospital-index">
@@ -37,47 +38,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'id',
                     'name',
-                    [
-                        'attribute' => 'province_id',
-                        'value'=>
-                            function($model){
-                                $result = Region::findOne($model->province_id);
-                                return  $result->name;
-                            },
-                    ],
-                    [
-                        'attribute' => 'city_id',
-                        'value'=>
-                            function($model){
-                                $result = Region::findOne($model->city_id);
-                                return  $result->name;
-                            },
-                    ],
-                    [
-                        'attribute' => 'area_id',
-                        'value'=>
-                            function($model){
-                                $result = Region::findOne($model->area_id);
-                                return  $result->name;
-                            },
-                    ],
+                    'province',
+                    'city',
+                    'area',
                     'address',
                     [
                         'attribute' => 'status',
-                        'value'=>
-                            function($model){
-                                if($model->status == 1) {
-                                    return  '启用';
-                                } else {
-                                    return  '禁用';
-                                }
+                        'value' =>
+                            function ($model) {
+                                $result = $this->params['params']['statusOption'][$model->status];
+                                return $result ?? '';
                             },
                     ],
-                    // 'created_at',
-                    // 'updated_at',
-                    // 'status',
-                    // 'cover',
-
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template'=>'{view}  {update} {delete}',
@@ -91,6 +63,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 province_id="'.$model->province_id.'"
                                 city_id="'.$model->city_id.'"
                                 area_id="'.$model->area_id.'"
+                                province="'.$model->province.'"
+                                city="'.$model->city.'"
+                                area="'.$model->area.'"
                                  ></span>');
                             },
                         ]
@@ -108,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><label id="l_title">单位发布</label></h4>
+                <h4 class="modal-title"><label id="l_title">单位</label></h4>
             </div>
 <?=$this->render('create', [
     'model' => $model,
@@ -119,58 +94,42 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 $js=<<<JS
-$(document).ready(function(){
-    $('div').removeClass('container-fluid'); // 去除多余样式
 
-    $("#btn_add").click(function(){
-    var title = "单位发布";
-    document.getElementById('l_title').innerText = title;
-    $('#w2')[0].reset();
-    });
-
+    /*编辑初始化*/
     $("span[name='del']").click(function(){
     var id = $(this).attr('id');
     var name = $(this).attr('names');
     var address = $(this).attr('address');
-    var province_id = $(this).attr('province_id');
-    var city_id = $(this).attr('city_id');
-    var area_id = $(this).attr('area_id');
-    var title = "单位编辑";
-    /* 编辑初始化 */
-    console.info("1111");
+    
+    var title = "编辑";
     document.getElementById('l_title').innerText = title;
-    $('#id').val(id);
-    $('#name').val(name);
-    $('#address').val(address);
-    $('#province_id').val(province_id); // 标记下拉框一级区域的默认选项值
-    $('#city_id').val(city_id); // 标记下拉框二级区域的默认选项值
-    $('#area_id').val(area_id); // 标记下拉框三级区域的默认选项值
-    $('#w2').children().find("select[id='region-province_id']").val(province_id);
-
-    $('#w2').children().find("select[id='region-province_id']").trigger('change');
+    $('#hospital-id').val(id);
+    $('#hospitalName').val(name);
+    $('#hospital-address').val(address);
+   /*地区联动*/
+    var regionValue = {};
+    regionValue.province_id = $(this).attr('province_id');
+    regionValue.city_id = $(this).attr('city_id');
+    regionValue.area_id = $(this).attr('area_id');
+    regionValue.province = $(this).attr('province');
+    regionValue.city = $(this).attr('city');
+    regionValue.area = $(this).attr('area');
+    console.log(regionValue);
+    getRegionDefault(regionValue, 'tableForm');
     });
-
-    $("#btn_enable").click(function(){
-//    var keys = $('#w1').yiiGridView('getSelectedRows');
-//    subAction("typeForm","enable");
-    $("#typeForm").val("enable");
-    $("#modifyForm").submit();
-    });
-
-    $("#btn_disable").click(function(){
-//    var keys = $('#w1').yiiGridView('getSelectedRows');
-//    subAction("typeForm","disable");
-    console.info("btn_disable");
-    $("#typeForm").val("disable");
-    $("#modifyForm").submit();
-    });
-
-    function subAction(formId,val) {
-        console.info("subAction");
-        $("#" + formId).val(val);
-        $('#'+formId).submit();
-    }
-});
+    
+    /*添加初始化*/
+   $('#btn_add').click(function() {
+        var title = '添加';
+        document.getElementById('l_title').innerText = title;
+        var defaltData = ''; 
+        $('#hospital-id').val(defaltData);
+        $('#hospitalName').val(defaltData);
+        $('#hospital-address').val(defaltData);
+        /*地区联动*/
+        getRegionInit('tableForm');
+   });
+   
 JS;
 $this->registerJs($js);
 ?>

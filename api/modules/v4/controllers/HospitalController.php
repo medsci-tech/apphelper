@@ -25,14 +25,24 @@ class HospitalController extends \api\common\controllers\Controller
     }
     public function actionIndex()
     {
-        $pagesize = 2; // 默认每页记录数
+        if(!$this->params['province'])
+        {
+            $result = ['code' => -1,'message'=>'缺少省份!','data'=>null];
+            return $result;
+        }
+        $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $page = $page ? $page : 1;
         $offset=$pagesize*($page - 1); //计算记录偏移量
-        $data = Hospital::find()->select(['id as hospital_id','name'])->andWhere(['status' => 1]);
+        $data = Hospital::find()
+            ->select(['id as hospital_id','name'])
+            ->andWhere(['status' => 1])
+            ->andWhere(['like', 'province', $this->params['province']])
+            ->andFilterWhere(['like', 'city', $this->params['city']])
+            ->andFilterWhere(['like', 'area', $this->params['area']]);
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
-        $result = ['code' => '200','message'=>'药店列表!','data'=>$model];
+        $result = ['code' => 200,'message'=>'药店列表!','data'=>$model];
         return $result;
 
     }

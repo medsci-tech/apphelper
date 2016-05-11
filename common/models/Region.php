@@ -33,6 +33,20 @@ class Region extends \yii\db\ActiveRecord
         return ArrayHelper::map($model, 'id', 'name');
     }
 
+    /**
+     * @param $p province name
+     * @param $c city name
+     * @param $a care name
+     * @return array
+     */
+    public function getByName($p,$c=null,$a=null)
+    {
+        $model = Region::find()
+            ->andWhere(['like', 'name', $p])
+            ->orFilterWhere(['like', 'name', $c])
+            ->orFilterWhere(['like', 'name', $a])->asArray()->One();
+        return $model;
+    }
     //
 
     /**
