@@ -153,33 +153,11 @@ $js=<<<JS
         $('#formModal #exercise-keyword').val(keyword);
         $('#formModal #exercise-resolve').val(resolve);
         $('#formModal #exercise-status').val(status);
-        
         var checkType = 'radio';
         if(type == 2){
             checkType = 'checkbox';
         }
-        var optionHtml = '';
-        var i = 0;
-        var optionLength = Object.keys(option).length;
-        for(var key in option){
-            optionHtml += '<tr data-key="' + ( i + 1 ) + '">';
-            optionHtml += '    <td>' +key+ '</td>';
-            optionHtml += '    <td><input type="text" class="form-control" name="Exercise[option][]" value="' + option[key] + '"></td>';
-            optionHtml += '    <td><input type="' + checkType + '" ';
-            if(answer.match(key)){
-                optionHtml += 'checked="checked" ';
-            }
-            optionHtml += ' class="checkValue" name="Exercise[answer][]" value="' +key+ '"></td>';
-            optionHtml += '    <td>';
-            optionHtml += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
-            if(i == optionLength - 1){
-                optionHtml += '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
-            }
-            optionHtml += '    </td>';
-            optionHtml += '</tr>';
-            i++;
-        }
-        $('#optionListBody').html(optionHtml);
+        exerciseEditForMime('#optionListBody', option, answer, checkType);
     });
     /*添加题库初始化*/
     $("#createBtn").click(function(){
@@ -191,41 +169,7 @@ $js=<<<JS
         $('#formModal #exercise-keyword').val(defaltData);
         $('#formModal #exercise-resolve').val(defaltData);
         $('#formModal #exercise-status').val(1);
-         var trHtml = ''
-            + '<tr data-key="1">'
-            + '    <td>A</td>'
-            + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
-            + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="A"></td>'
-            + '    <td>'
-            + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
-            + '    </td>'
-            + '</tr>'
-            + '<tr data-key="2">'
-            + '    <td>B</td>'
-            + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
-            + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="B"></td>'
-            + '    <td>'
-            + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
-            + '    </td>'
-            + '</tr>'
-            + '<tr data-key="3">'
-            + '    <td>C</td>'
-            + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
-            + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="C"></td>'
-            + '    <td>'
-            + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
-            + '    </td>'
-            + '</tr>'
-            + '<tr data-key="4">'
-            + '    <td>D</td>'
-            + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
-            + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="D"></td>'
-            + '    <td>'
-            + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
-            + '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
-            + '    </td>'
-            + '</tr>';
-         $('#optionListBody').html(trHtml);
+        exerciseInitForMime('#optionListBody');
     });
 JS;
 $this->registerJs($js);
