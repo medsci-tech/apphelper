@@ -149,12 +149,7 @@ $(document).ready(function(){
         var hospital_id = $(this).attr('data-hospital_id');
         var rank_id = $(this).attr('data-rank_id');
         var status = $(this).attr('data-status');
-        var province_id = $(this).attr('data-province_id');
-        var city_id = $(this).attr('data-city_id');
-        var area_id = $(this).attr('data-area_id');
-        var province = $(this).attr('data-province');
-        var city = $(this).attr('data-city');
-        var area = $(this).attr('data-area');
+      
         /* 编辑初始化 */
         $('#updateModal #tableForm').attr('action','/member/update?id='+id);
         $('#updateModal #member-id').val(id);
@@ -166,21 +161,22 @@ $(document).ready(function(){
         $('#updateModal #member-rank_id').val(rank_id);
         $('#updateModal #member-status').val(status);
         /*地区联动*/
-        var pickerHtml = '';
-        if(province){
-                pickerHtml += '<span class="select-item" data-count="province" data-code="' +province_id+ '">' +province+ '</span>/';
-            if(city){
-                pickerHtml += '<span class="select-item" data-count="city" data-code="' +city_id+ '">' +city+ '</span>/';
-                if(area){
-                    pickerHtml += '<span class="select-item" data-count="district" data-code="' +area_id+ '">' +area+ '</span>';
-                }
-            }
-        var pickerspan = $('#updateModal #city-picker').next();
-        pickerspan.find('.placeholder').css('display','none');
-        pickerspan.find('.title').css('display','inline').html(pickerHtml);
-        }
+        var regionValue = {};
+        regionValue.province_id = $(this).attr('data-province_id');
+        regionValue.city_id = $(this).attr('data-city_id');
+        regionValue.area_id = $(this).attr('data-area_id');
+        regionValue.province = $(this).attr('data-province');
+        regionValue.city = $(this).attr('data-city');
+        regionValue.area = $(this).attr('data-area');
+        console.log(regionValue);
+        getRegionDefault(regionValue, 'tableForm');
     });
-
+    /*添加初始化*/
+   $('#btn_add').click(function() {
+        var defaltData = ''; 
+        /*地区联动*/
+        getRegionInit('tableForm');
+   });
 });
 JS;
 $this->registerJs($js);

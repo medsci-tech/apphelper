@@ -19,12 +19,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <label class="control-label">地区</label>
-        <?= $this->render('/region/index',[
-            'model' => $model,
-            'm' => 'Hospital',
-            'form' => $form,
-            'parentBomId' => 'myModal',
-        ]);?>
+        <?= $this->render('/region/index');?>
     </div>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
@@ -40,7 +35,7 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
     $('#myModal #hospitalFormSubmit').click(function() {
-        regionDefaultValue();/*地区联动*/
+        getRegionValue('Hospital','tableForm');/*地区联动*/
         $('#myModal #tableForm').submit();
     });
 JS;

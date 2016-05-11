@@ -213,18 +213,20 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
      * @param array $params additional parameters
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
      */
-    public function editProfile($id) {
-        $user = User::findIdentity($id);
-        if ($user) {
-            if ($this->validate()) {
-                echo(11);exit;
-            } else {
-                return false;
+    public function editProfile() {
+        if ($this->validate()) {
+            $this->province = $this->province;
+            $this->city = $this->city;
+            $this->area = $this->area;
+            $this->hospital_id = $this->hospital_id;
+            $this->rank_id = $this->rank_id;
+
+            if ($this->save()) {
+                return $this;
             }
-        } else {
-            $this->addError('username', '未找到该用户');
-            return false;
         }
+        return false;
+
     }
     /**
      * Logs in a user using the provided username and password.
