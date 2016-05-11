@@ -28,12 +28,7 @@ class ExerciseController extends BackendController
         if(isset($appYii->request->queryParams['Exercise']['category'])){
             $examClassFindOne = $examClass->getDataForWhere(['id' => $appYii->request->queryParams['Exercise']['category']]);
         }
-        $dataProvider = new ActiveDataProvider([
-            'query' => $search->search($appYii->request->queryParams)->query,
-            'pagination' => [
-                'pageSize' => $appYii->params['pageSize'],
-            ]
-        ]);
+        $dataProvider = $search->search($appYii->request->queryParams);
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,

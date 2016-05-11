@@ -23,24 +23,11 @@ class ExamController extends BackendController
     {
         $appYii = Yii::$app;
         $search = new ExamSearch();
-        $examClass = new ExamClass();
-        $recursionTree = $examClass->recursionTree();
-        $examClassFindOne = [];
-        if(isset($appYii->request->queryParams['Exercise']['category'])){
-            $examClassFindOne = $examClass->getDataForWhere(['id' => $appYii->request->queryParams['Exercise']['category']]);
-        }
-        $dataProvider = new ActiveDataProvider([
-            'query' => $search->search($appYii->request->queryParams)->query,
-            'pagination' => [
-                'pageSize' => $appYii->params['pageSize'],
-            ]
-        ]);
+        $dataProvider = $search->search($appYii->request->queryParams);
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'params' => $appYii->params,
-            'examClass' => json_encode($recursionTree),
-            'treeNavigateSelectedName' => $examClassFindOne[0]['name'] ?? '',
         ]);
     }
 

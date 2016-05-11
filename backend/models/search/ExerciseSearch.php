@@ -35,6 +35,9 @@ class ExerciseSearch extends Exercise
         $query->andFilterWhere(['like', 'question', $this->question]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
         ]);
         if (!$this->validate()) {
             return $dataProvider;

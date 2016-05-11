@@ -26,7 +26,7 @@ class Exam extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'path', 'grade', 'name', 'uid', 'sort', 'status'], 'required'],
+            [['type', 'name', 'minutes', 'exe_ids', 'uid', 'about', 'imgUrl', 'count', 'status', 'publish_status', 'recommend_status'], 'required'],
         ];
     }
 
@@ -37,15 +37,19 @@ class Exam extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'parent' => '父级',
-            'path' => '节点',
-            'grade' => '层级',
+            'type' => '类型',
             'name' => '名称',
+            'minutes' => '时间',
+            'exe_ids' => '题库',
             'uid' => '用户ID',
-            'sort' => '排序',
+            'about' => '简介',
+            'imgUrl' => '封面图',
+            'count' => '参与人数',
             'status' => '状态',
+            'publish_status' => '发布状态',
+            'recommend_status' => '推荐状态',
             'created_at' => '创建时间',
-            'updated_at' => '创建时间',
+            'publish_at' => '发布时间',
         ];
     }
 

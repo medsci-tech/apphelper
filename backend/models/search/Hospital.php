@@ -25,9 +25,7 @@ class Hospital extends HospitalModel
     public function search($params)
     {
         $query = HospitalModel::find()->orderBy('id desc');
-
         $this->load($params);
-//var_dump($params);exit;
         $where = [];
         if($this->province_id){
             $where['province_id'] = $this->province_id;
@@ -38,7 +36,6 @@ class Hospital extends HospitalModel
                 }
             }
         }
-
         $query = $query->andFilterWhere($where)
             ->andFilterWhere(['like', 'name', $this->name]);
 
