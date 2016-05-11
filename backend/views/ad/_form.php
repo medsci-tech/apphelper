@@ -14,13 +14,17 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ad-form">
 
-    <?php $form = ActiveForm::begin(); ?>
 
+<?php $form = ActiveForm::begin(['action' => ['ad/create'], 'method' => 'post', 'id' => 'tableForm']); ?>
+
+<div class="modal-body">
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= Html::dropDownList('attr_type',[0 => '内部资源', 1 => '外部链接'])  ?>
+    <div class="form-group">
+        <label class="control-label">资源类型</label>
+        <?= Html::dropDownList('attr_type', 0, [0 => '内部资源', 1 => '外部链接'], ['class' => 'form-control']) ?>
+    </div>
 
     <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
 
@@ -29,13 +33,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'sort')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '启用']) ?>
-
-    <div class="form-group">
-        <input type="hidden" name="attr_from" id="attr_from">
-        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-        <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+<div class="modal-footer">
+    <input type="hidden" name="attr_from" id="attr_from">
+    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+    <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
+
+

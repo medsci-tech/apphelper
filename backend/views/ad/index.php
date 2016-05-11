@@ -15,11 +15,13 @@ backend\assets\AppAsset::register($this);
 ?>
 
     <div class="ad-index">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal"><span
-                class="glyphicon-class"></span>添加
+        <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon-class"></span>添加
         </button>
 
-        <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>修改</button>
+        <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-edit"></span>修改
+        </button>
         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
         <div class="row">
             <div class="col-sm-6 col-md-4">
@@ -48,7 +50,7 @@ backend\assets\AppAsset::register($this);
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                                 class="sr-only">Close</span></button>
-                        <h4 class="modal-title"><label id="l_title">添加轮播图</label></h4>
+                        <h4 class="modal-title"><label id="l_title">添加</label></h4>
                     </div>
                     <?= $this->render('create', [
                         'model' => $model,
@@ -64,6 +66,16 @@ $js = <<<JS
         $('div.row img').click(function () {
             $("div.row img").css("border","1px solid #ddd");
             $(this).css("border","1px solid #3B9A2E");
+        });
+
+        $('#btnAdd').click(function () {
+            var title = '添加';
+            document.getElementById('l_title').innerText = title;
+        });
+
+        $('#btnEdit').click(function () {
+            var title = '编辑';
+            document.getElementById('l_title').innerText = title;
         });
 
 JS;
