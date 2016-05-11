@@ -2,20 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="457c7184-8538-4240-b45b-3d85708073f7" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3c74970.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3ca1ea6.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3e6b407.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3ea19e8.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3ed0eba.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3f090ac.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c3f39232.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c4e178e4.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c4f1ae52.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c4f4988e.data" afterPath="" />
-      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\57304c4f78aa6.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1b889f64.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1bc23d7c.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1bc7854d.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1becfc5f.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1bf15a58.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1bf52012.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1bf8adb1.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1bfc1e20.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1d6671b7.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a1d881831.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a70d7bce0.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a70f56246.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a7167e5d1.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a716c01d2.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a77524ea4.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a778200ae.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a7792810e.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a77f26a6c.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a7dbbccc4.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a7e027fc9.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a805188fa.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a8057ee7e.data" afterPath="" />
+      <change type="DELETED" beforePath="D:\GitHub\apphelper\runtime\debug\5731a881a4863.data" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runtime/logs/app.log" afterPath="$PROJECT_DIR$/runtime/logs/app.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runtime/debug/index.data" afterPath="$PROJECT_DIR$/runtime/debug/index.data" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/views/ad/index.php" afterPath="$PROJECT_DIR$/backend/views/ad/index.php" />
     </list>
     <ignored path="apphelper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,21 +64,11 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/views/ad/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.0" vertical-offset="1098" max-vertical-offset="1716">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state vertical-scroll-proportion="-32.64516" vertical-offset="0" max-vertical-offset="1320">
+              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="e#6#82#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/views/hospital/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16610739" vertical-offset="781" max-vertical-offset="3916">
-              <caret line="43" column="48" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="48" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -97,11 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/views/resource-class/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.1290324" vertical-offset="0" max-vertical-offset="1276">
-              <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.45812806" vertical-offset="337" max-vertical-offset="1276">
+              <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -121,6 +122,7 @@
         <option value="$PROJECT_DIR$/backend/web/js/easyTree.js" />
         <option value="$PROJECT_DIR$/backend/views/advertisement/index.php" />
         <option value="$PROJECT_DIR$/backend/views/ad/index.php" />
+        <option value="$PROJECT_DIR$/backend/views/hospital/index.php" />
       </list>
     </option>
   </component>
@@ -454,7 +456,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="2" width="1546" height="828" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -500,13 +502,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/backend/database/views/import/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="16.0" vertical-offset="0" max-vertical-offset="0">
@@ -841,28 +836,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/resource-class/index.php">
+    <entry file="file://$PROJECT_DIR$/backend/views/hospital/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1290324" vertical-offset="0" max-vertical-offset="1276">
-          <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/ad/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0" vertical-offset="1098" max-vertical-offset="1716">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5418719" vertical-offset="0" max-vertical-offset="1056">
+          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
           <folding>
-            <element signature="e#6#82#0#PHP" expanded="true" />
+            <element signature="e#85#106#0#PHP" expanded="true" />
+            <marker date="1462872326311" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1462872326311" expanded="true" signature="-1:-1" placeholder="/*...*/" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/hospital/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16610739" vertical-offset="781" max-vertical-offset="3916">
-          <caret line="43" column="48" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="48" />
+        <state vertical-scroll-proportion="5.352349" vertical-offset="0" max-vertical-offset="3344">
+          <caret line="145" column="6" selection-start-line="144" selection-start-column="0" selection-end-line="146" selection-end-column="2" />
+          <folding>
+            <element signature="e#7#28#0#PHP" expanded="true" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1462872326313" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/ad/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-32.64516" vertical-offset="0" max-vertical-offset="1320">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#82#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/resource-class/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45812806" vertical-offset="337" max-vertical-offset="1276">
+          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
           <folding />
         </state>
       </provider>
