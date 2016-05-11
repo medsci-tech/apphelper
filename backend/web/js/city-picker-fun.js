@@ -57,9 +57,12 @@ getRegionDefault = function (value,parentBom) {
                 pickerHtml += '/<span class="select-item" data-count="district" data-code="' + value.area_id + '">' + value.area + '</span>';
             }
         }
+        pickerSpan.find('.placeholder').css('display', 'none');
+        pickerSpan.find('.title').css('display', 'inline').html(pickerHtml);
+    }else {
+        pickerSpan.find('.placeholder').css('display','');
+        pickerSpan.find('.title').css('display','none').html(pickerHtml);
     }
-    pickerSpan.find('.placeholder').css('display', 'none');
-    pickerSpan.find('.title').css('display', 'inline').html(pickerHtml);
 };
 
 /**
