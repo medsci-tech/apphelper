@@ -20,7 +20,7 @@ class HospitalController extends \api\common\controllers\Controller
 
     protected function verbs(){
         return [
-            'index'=>['GET','POST'],
+            'index'=>['POST'],
         ];
     }
     public function actionIndex()
