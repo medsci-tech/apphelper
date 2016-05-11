@@ -138,13 +138,14 @@ class MemberController extends \api\common\controllers\Controller
     {
         $model = new $this->modelClass(['scenario' => 'setSex']);
         $model->load($this->params, '');
-        if(!$response = $model->changeSex())
+/*        if(!$response = $model->changeSex())
         {
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];*/
+        $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
 
