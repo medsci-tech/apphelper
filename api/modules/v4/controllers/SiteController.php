@@ -35,7 +35,7 @@ class SiteController extends CommonController
             return $result;
         }
         else
-            $data=['uid'=>$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
+            $data=['uid'=>$model->id,'username'=> $model->username,'access-token'=>$model->access_token];
 
         $result = ['code' => 200,'message'=>'注册成功!','data'=>$data];
         return $result;
@@ -58,7 +58,7 @@ class SiteController extends CommonController
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token]];
+            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access-token'=>$response->access_token]];
         return $result;
     }
     public function actionLoginbk()
@@ -94,7 +94,7 @@ class SiteController extends CommonController
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => 200,'message'=>'设置成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token]];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
