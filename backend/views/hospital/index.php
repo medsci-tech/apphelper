@@ -13,10 +13,8 @@ $this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
 ?>
 <p></p>
-<div class="hospital-index">
-    <div>
-        <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
-    </div>
+<div class="modal-body">
+    <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
     <div class="box box-success">
         <div class="box-body">
             <?php

@@ -35,7 +35,7 @@ $regionValue = '';
     $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => ['class' => 'form-inline','id'=>'searchForm'],
+        'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
     ]); ?>
 
     <?= $form->field($model, 'name') ?>
@@ -47,10 +47,7 @@ $regionValue = '';
     <?= Html::button('添加单位', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
     <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-primary']) ?>
     <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
-    <div class="error-summary hide"><ul></ul></div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
 
 <?php
