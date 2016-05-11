@@ -21,13 +21,13 @@ getRegionValue = function (m, parentBom) {
     var area_id = area.attr('data-code') ? area.attr('data-code') : '';
 
     var regionHtml = '';
-    regionHtml += '<input type="text" name="' + m + '[province_id]" value="' + province_id + '">';
-    regionHtml += '<input type="text" name="' + m + '[city_id]" value="' + city_id + '">';
-    regionHtml += '<input type="text" name="' + m + '[area_id]" value="' + area_id + '">';
+    regionHtml += '<input type="hidden" name="' + m + '[province_id]" value="' + province_id + '">';
+    regionHtml += '<input type="hidden" name="' + m + '[city_id]" value="' + city_id + '">';
+    regionHtml += '<input type="hidden" name="' + m + '[area_id]" value="' + area_id + '">';
 
-    regionHtml += '<input type="text" name="' + m + '[province]" value="' + province.text() + '">';
-    regionHtml += '<input type="text" name="' + m + '[city]" value="' + city.text() + '">';
-    regionHtml += '<input type="text" name="' + m + '[area]" value="' + area.text() + '">';
+    regionHtml += '<input type="hidden" name="' + m + '[province]" value="' + province.text() + '">';
+    regionHtml += '<input type="hidden" name="' + m + '[city]" value="' + city.text() + '">';
+    regionHtml += '<input type="hidden" name="' + m + '[area]" value="' + area.text() + '">';
 
     $(parentBom + '[data-toggle="city-picker-region"]').html(regionHtml);
     console.log(area);

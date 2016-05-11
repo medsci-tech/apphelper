@@ -12,6 +12,20 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
+/*地区联动搜索--不要删*/
+//$get = Yii::$app->request->get();
+$regionValue = '';
+//$getData = $get['Hospital'];
+//if(isset($getData['province'])){
+//    $regionValue .= $getData['province'];
+//    if(isset($getData['city'])){
+//        $regionValue .= '/' . $getData['city'];
+//        if(isset($getData['area'])){
+//            $regionValue .= '/' . $getData['area'];
+//        }
+//    }
+//}
+
 ?>
 
 <div class="hospital-search">
@@ -26,8 +40,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
     <div class="form-group">
-        <label class="control-label"></label>
-        <?= $this->render('/region/index');?>
+        <?= $this->render('/region/index',['regionValue'=>$regionValue]);?>
     </div>
     <?= Html::button('查询', ['id'=>'btn_search','class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
