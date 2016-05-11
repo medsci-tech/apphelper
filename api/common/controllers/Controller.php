@@ -48,9 +48,10 @@ class Controller extends ActiveController
         $access_token = $headers->get('access-token');
         $data = ['uid'=>$uid,'access_token' => $access_token];
         $mem = json_decode(Yii::$app->redis->get(Yii::$app->params['redisKey'][0].$uid),true);
-        $res = array_diff_assoc($mem,$data);
+
         if($mem) // 授权认证失败
         {
+            $res = array_diff_assoc($mem,$data);
             if($res)
             {
                 $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
@@ -62,13 +63,15 @@ class Controller extends ActiveController
         else
         {
             $model= Member::findIdentityByAccessToken($access_token);
+
             if($model->id!=$uid)
             {
                 $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
                 exit(json_encode($result));
             }
             else
-                Yii::$app->redis->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data),2592000); //一个月
+                Yii::$app->redis->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data));
+
         }
     }
 
