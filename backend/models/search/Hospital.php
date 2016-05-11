@@ -27,20 +27,25 @@ class Hospital extends HospitalModel
         $query = HospitalModel::find()->orderBy('id desc');
 
         $this->load($params);
+//var_dump($params);exit;
+        $where = [];
+        if($this->province_id){
+            $where['province_id'] = $this->province_id;
+            if($this->city_id){
+                $where['city_id'] = $this->city_id;
+                if($this->area_id){
+                    $where['area_id'] = $this->area_id;
+                }
+            }
+        }
 
-        $query = $query->andFilterWhere
-        (
-            [
-            'province_id' => $this->province_id,
-            'city_id' => $this->city_id,
-            'area_id' => $this->area_id,
-            ]
-        )->andFilterWhere(['like', 'name', $this->name]);
+        $query = $query->andFilterWhere($where)
+            ->andFilterWhere(['like', 'name', $this->name]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => \Yii::$app->params['pageSize'],
             ],
             'sort' => [
                 'defaultOrder' => [
@@ -49,12 +54,6 @@ class Hospital extends HospitalModel
                 ]
             ],
         ]);
-
-//            ->andFilterWhere(['like', 'category', $this->category])
-//            ->andFilterWhere(['like', 'author', $this->author])
-//            ->andFilterWhere(['like', 'cover', $this->cover]);
-
-
         return $dataProvider;
     }
 }

@@ -21,19 +21,15 @@ use yii\widgets\ActiveForm;
     $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => ['class' => 'form-inline'],
+        'options' => ['class' => 'form-inline','id'=>'searchForm'],
     ]); ?>
 
     <?= $form->field($model, 'name') ?>
     <div class="form-group">
         <label class="control-label"></label>
-        <?= $this->render('/region/index',[
-            'model' => $model,
-            'm' => 'Hospital',
-            'form' => $form,
-        ]);?>
+        <?= $this->render('/region/index');?>
     </div>
-    <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
+    <?= Html::button('查询', ['id'=>'btn_search','class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加单位', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
     <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-primary']) ?>
@@ -81,6 +77,11 @@ $js = <<<JS
         $("#" + formId).val(val);
         $('#'+formId).submit();
     }
+    
+    $('#btn_search').click(function() {
+        getRegionValue('Hospital','searchForm');/*地区联动*/
+        $(this).submit();
+    });
 JS;
 $this->registerJs($js);
 ?>

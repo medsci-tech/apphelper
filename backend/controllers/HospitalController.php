@@ -37,12 +37,7 @@ class HospitalController extends BackendController
     {
         $appYii = Yii::$app;
         $searchModel = new HospitalSearch();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $searchModel->search($appYii->request->queryParams)->query,
-            'pagination' => [
-                'pageSize' => $appYii->params['pageSize'],
-            ]
-        ]);
+        $dataProvider = $searchModel->search($appYii->request->queryParams);
         return $this->render('index', [
             'model' => new Hospital(),
             'searchModel' => $searchModel,
@@ -60,11 +55,7 @@ class HospitalController extends BackendController
 
     public function actionCreate()
     {
-
         $id = Yii::$app->request->post('Hospital')['id'];
-        var_dump($id);
-        var_dump(Yii::$app->request->post());
-//        exit;
         if($id) {
             $model = $this->findModel($id);
 

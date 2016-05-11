@@ -11,9 +11,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Hospital */
 
-$this->title = '添加单位';
 $this->params['breadcrumbs'][] = ['label' => '单位', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="hospital-create">
     <?= $this->render('_form', [
