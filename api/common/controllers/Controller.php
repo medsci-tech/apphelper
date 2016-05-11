@@ -44,7 +44,8 @@ class Controller extends ActiveController
     public function checkAccess($action, $model = null, $params = [])
     {
         $uid = $this->params['uid'];
-        $access_token = $this->params['access_token'];
+        $headers = Yii::$app->request->headers;
+        $access_token = $headers->get('access-token');
         $data = ['uid'=>$uid,'access_token' => $access_token];
         $mem = json_decode(Yii::$app->redis->get(Yii::$app->params['redisKey'][0].$uid),true);
         $res = array_diff_assoc($mem,$data);
