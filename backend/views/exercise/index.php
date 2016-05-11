@@ -17,8 +17,7 @@ use yii\widgets\ActiveForm;
 $this->title = '题库';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $params;
-
-
+backend\assets\AppAsset::register($this);
 ?>
 <!--树形视图--start-->
 <div id="treeView" class="col-lg-2 modal-body"></div>
@@ -120,7 +119,6 @@ $this->params['params'] = $params;
 
 <?php
 $js=<<<JS
-$(document).ready(function(){
     /*树形结构初始化*/
 	var initSelectableTree = function() {
 		return $('#treeView').treeview({
@@ -229,7 +227,6 @@ $(document).ready(function(){
             + '</tr>';
          $('#optionListBody').html(trHtml);
     });
-});
 JS;
 $this->registerJs($js);
 ?>
