@@ -27,6 +27,9 @@ class Member extends MemberModel
         $query = MemberModel::find()->orderBy('id desc');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
         ]);
         $this->load($params);
         if (!$this->validate()) {

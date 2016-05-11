@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\models\search\ExamSearch;
 use common\models\Exercise;
 use common\models\ExamClass;
+use common\models\Exam;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
@@ -20,25 +22,12 @@ class ExamController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $search = new \backend\models\search\Exercise();
-        $examClass = new ExamClass();
-        $recursionTree = $examClass->recursionTree();
-        $examClassFindOne = [];
-        if(isset($appYii->request->queryParams['Exercise']['category'])){
-            $examClassFindOne = $examClass->getDataForWhere(['id' => $appYii->request->queryParams['Exercise']['category']]);
-        }
-        $dataProvider = new ActiveDataProvider([
-            'query' => $search->search($appYii->request->queryParams)->query,
-            'pagination' => [
-                'pageSize' => $appYii->params['pageSize'],
-            ]
-        ]);
+        $search = new ExamSearch();
+        $dataProvider = $search->search($appYii->request->queryParams);
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'params' => $appYii->params,
-            'examClass' => json_encode($recursionTree),
-            'treeNavigateSelectedName' => $examClassFindOne[0]['name'] ?? '',
         ]);
     }
 
