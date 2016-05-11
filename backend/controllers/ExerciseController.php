@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use backend\models\search\ExerciseSearch;
+use backend\models\search\Exercise as ExerciseSearch;
 use common\models\Exercise;
 use common\models\ExamClass;
 use Yii;
