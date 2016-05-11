@@ -9,10 +9,10 @@
 namespace backend\models\search;
 
 use yii\data\ActiveDataProvider;
-use common\models\Exam;
+use common\models\Exam as ExamModel;
 use common\models\ExamClass;
 
-class ExamSearch extends Exam
+class Exam extends ExamModel
 {
     public function rules()
     {
@@ -25,7 +25,7 @@ class ExamSearch extends Exam
     public function search($params)
     {
         $this->load($params);
-        $query = Exam::find()->orderBy('id desc');
+        $query = ExamModel::find()->orderBy('id desc');
         $query->andFilterWhere(['like', 'question', $this->question]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
