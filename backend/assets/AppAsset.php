@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/jquery.min.js',
         'js/plugins/city-picker/city-picker-fun.js',
+        'js/jquery-common-mime-fun.js',
     ];
     public $depends = [
 //        'yii\web\YiiAsset',

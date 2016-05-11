@@ -87,26 +87,7 @@ $js = <<<JS
 $(function() {
     /*删除题库选项*/
     $('#optionListBody').on('click','.delThisOption',function() {
-        var optionListCount = $('#optionListBody').find('tr').length;
-        if(optionListCount > 1){
-            var parentTr = $(this).parent().parent();
-            var nextTr = parentTr.nextAll('tr');
-            var addHtmlLength = $(this).next('a').length;
-            if(addHtmlLength){
-                var addHtml = ' <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
-                parentTr.prev('tr').find('td').last().append(addHtml);
-            }
-            for (var i = 0; i < parentTr.nextAll('tr').length; i++){
-                var thisTr = $(parentTr.nextAll('tr')[i]);
-                var thisTd = thisTr.find('td');
-                var datakey = parseInt(thisTr.attr('data-key'));
-                var thisLatter = String.fromCharCode(63 + datakey);
-                thisTr.attr('data-key',datakey - 1);
-                thisTd.eq(0).text(thisLatter);
-                thisTd.find('.checkValue').val(thisLatter);
-            }
-            parentTr.remove();
-        }
+        delThisRowOptionForMime('#optionListBody',this);
     });
     /*添加题库选项*/
     $('#optionListBody').on('click','.addNextOption',function() {
@@ -133,7 +114,6 @@ $(function() {
     });
     /*题目单选多选切换*/
     $('#exercise-type').change(function() {
-    console.log($(this).val());
         var checkValue = $('#optionListBody').find('.checkValue');
         if(1 == $(this).val()){
             checkValue.attr('type','radio');
