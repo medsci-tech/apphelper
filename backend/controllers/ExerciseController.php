@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\search\ExerciseSearch;
 use common\models\Exercise;
 use common\models\ExamClass;
 use Yii;
@@ -20,7 +21,7 @@ class ExerciseController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $search = new \backend\models\search\Exercise();
+        $search = new ExerciseSearch();
         $examClass = new ExamClass();
         $recursionTree = $examClass->recursionTree();
         $examClassFindOne = [];

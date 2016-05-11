@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\models\search\ExamSearch;
 use common\models\Exercise;
 use common\models\ExamClass;
+use common\models\Exam;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
@@ -20,7 +22,7 @@ class ExamController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $search = new \backend\models\search\Exercise();
+        $search = new ExamSearch();
         $examClass = new ExamClass();
         $recursionTree = $examClass->recursionTree();
         $examClassFindOne = [];
