@@ -147,5 +147,10 @@ class IndexController extends \api\common\controllers\Controller
     {
         echo(110);
     }
+    public function actionTest()
+    {
 
+        Yii::$app->cache->set('test1', 'haha..', 2592000);
+        echo Yii::$app->cache->get('test1');exit;
+    }
 }

@@ -59,10 +59,10 @@ class MemberController extends \api\common\controllers\Controller
         if(!$response = $model->changeNickname())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
@@ -79,10 +79,10 @@ class MemberController extends \api\common\controllers\Controller
         if(!$response = $model->changeUsername())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
     /**
@@ -99,10 +99,93 @@ class MemberController extends \api\common\controllers\Controller
         if(!$response = $model->changeRealname())
         {
             $message = array_values($model->getFirstErrors())[0];
-            $result = ['code' => '-1','message'=>$message,'data'=>null];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => '200','message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+        return $result;
+    }
+
+    /**
+     * 设置性别
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionSex()
+    {
+        $model = new $this->modelClass(['scenario' => 'setSex']);
+        $model->load($this->params, '');
+        if(!$response = $model->changeSex())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+        return $result;
+    }
+
+    /**
+     * 设置地区
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionRegion()
+    {
+        $model = new $this->modelClass(['scenario' => 'setSex']);
+        $model->load($this->params, '');
+        if(!$response = $model->changeSex())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+        return $result;
+    }
+
+    /**
+     * 设置药店名称
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionHospital()
+    {
+        $model = new $this->modelClass(['scenario' => 'setHospital']);
+        $model->load($this->params, '');
+        if(!$response = $model->changeHospital())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+        return $result;
+    }
+    /**
+     * 设置职称
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionRank()
+    {
+        $model = new $this->modelClass(['scenario' => 'setRank']);
+        $model->load($this->params, '');
+        if(!$response = $model->changeRank())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
 

@@ -47,7 +47,7 @@ class Controller extends ActiveController
         $headers = Yii::$app->request->headers;
         $access_token = $headers->get('access-token');
         $data = ['uid'=>$uid,'access_token' => $access_token];
-        $mem = json_decode(Yii::$app->redis->get(Yii::$app->params['redisKey'][0].$uid),true);
+        $mem = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$uid),true);
 
         if($mem) // 授权认证失败
         {
@@ -70,7 +70,7 @@ class Controller extends ActiveController
                 exit(json_encode($result));
             }
             else
-                Yii::$app->redis->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data));
+                Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data),2592000);
 
         }
     }
