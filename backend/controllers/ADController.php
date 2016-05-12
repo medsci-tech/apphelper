@@ -31,11 +31,35 @@ class AdController extends BackendController
 
     public function actionIndex()
     {
-        return $this->render('index',['model' => new AD(),]);
+        $strHtml = $this->getHtmlImage();
+        return $this->render('index',[
+            'model' => new AD(),
+            'strHtml' => $strHtml,
+        ]);
     }
 
     public function actionCreate()
     {
 
+    }
+
+    protected function getHtmlImage()
+    {
+        $strHtml = "";
+        $allAD = AD::find()
+            ->orderBy('id')
+            ->all();
+
+        foreach($allAD as $ad)
+        {
+            $strHtml = $strHtml." <div class='col-sm-6 col-md-4'>
+                <img src='".$ad->imgurl."' class='thumbnail'
+                aid='".$ad->id."' sort='".$ad->sort."
+                links='".$ad->linkurl."'  status ='".$ad->status."'
+                attr_id='".$ad->attr_id."' attr_from ='".$ad->attr_from."'
+                '></div> ";
+        }
+
+        return $strHtml;
     }
 }
