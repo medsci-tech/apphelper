@@ -24,7 +24,6 @@ class Exam extends ExamModel
     {
         $this->load($params);
         $query = ExamModel::find()->orderBy('id desc');
-        $query->andFilterWhere(['like', 'name', $this->name]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -34,6 +33,7 @@ class Exam extends ExamModel
         if (!$this->validate()) {
             return $dataProvider;
         }
+        $query->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
 }

@@ -27,16 +27,19 @@ use yii\widgets\ActiveForm;
     <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
-    <?= Html::a('启用', 'javascript:void(0);', ['class' => 'btn btn-primary','id'=> 'enable']) ?>
-    <?= Html::a('禁用', 'javascript:void(0);', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
-    <?= Html::a('批量删除', 'javascript:void(0);', ['class' => 'btn btn-danger', 'id'=> 'del']) ?>
+    <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
+    <?= Html::button('禁用', ['class' => 'btn btn-warning','data-toggle'=> 'disable']) ?>
+    <?= Html::button('发布', ['class' => 'btn btn-info','data-toggle'=> 'isPub']) ?>
+    <?= Html::button('取消发布', ['class' => 'btn btn-warning','data-toggle'=> 'noPub']) ?>
+    <?= Html::button('推荐', ['class' => 'btn btn-info','data-toggle'=> 'isRec']) ?>
+    <?= Html::button('取消推荐', ['class' => 'btn btn-warning','data-toggle'=> 'noRec']) ?>
+    <?= Html::button('批量删除', ['class' => 'btn btn-danger', 'id'=> 'del']) ?>
     <?php ActiveForm::end(); ?>
 
 <?php
 $js = <<<JS
-    $(function() {
-      /*删除*/
-      $('#del').click(function() {
+    /*删除*/
+    $('#del').click(function() {
         swal({
             title: "您确定要删除选中的信息吗",
             text: "删除后将无法恢复，请谨慎操作！",
@@ -44,49 +47,103 @@ $js = <<<JS
             showCancelButton: true,
             cancelButtonText: '取消',
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "删除",
+            confirmButtonText: "确定",
             closeOnConfirm: false
         }, function () {
-            subActionForMamber('typeForm','del');
-            swal("删除成功！", "您已经永久删除了信息。", "success");
+            subActionForMime('#typeForm','del');
+            swal("已删除！", "您已经永久删除了信息。", "success");
         });
-      });
-      /*禁用*/
-       $('#disable').click(function() {
-           swal({
-                title: "您确定要禁用选中的信息吗",
-                type: "warning",
-                showCancelButton: true,
-                cancelButtonText: '取消',
-                confirmButtonColor: "#f8ac59",
-                confirmButtonText: "禁用",
-                closeOnConfirm: false
-            }, function () {
-                subActionForMamber('typeForm','disable');
-                swal("禁用成功！", "", "success");
-            });
-      });
-      /*启用*/
-       $('#enable').click(function() {
-            swal({
-                title: "您确定要启用选中的信息吗",
-                type: "warning",
-                showCancelButton: true,
-                cancelButtonText: '取消',
-                confirmButtonColor: "#1ab394",
-                confirmButtonText: "启用",
-                closeOnConfirm: false
-            }, function () {
-                subActionForMamber('typeForm','enable');
-                swal("启用成功！", "", "success");
-            });
-       
-      });
     });
-    function subActionForMamber(formId,val) {
-        $('#' + formId).val(val);
-        $('#'+formId).submit();
-    }
+    /*启用*/
+    $('[data-toggle="enable"]').click(function() {
+        swal({
+            title: "您确定要启用选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#23c6c8",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','enable');
+            swal("已启用！", "", "success");
+        });
+    });
+    /*禁用*/
+    $('[data-toggle="disable"]').click(function() {
+        swal({
+            title: "您确定要禁用选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#f8ac59",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','disable');
+            swal("已禁用！", "", "success");
+        });
+    });
+    /*发布*/
+    $('[data-toggle="isPub"]').click(function() {
+        swal({
+            title: "您确定要发布选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#23c6c8",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','isPub');
+            swal("已发布！", "", "success");
+        });
+    });
+    /*取消发布*/
+    $('[data-toggle="noPub"]').click(function() {
+        swal({
+            title: "您确定要取消发布选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#f8ac59",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','noPub');
+            swal("已取消发布！", "", "success");
+        });
+    });
+    /*推荐*/
+    $('[data-toggle="isRec"]').click(function() {
+        swal({
+            title: "您确定要推荐选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#23c6c8",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','isRec');
+            swal("已推荐！", "", "success");
+        });
+    });
+    /*取消推荐*/
+    $('[data-toggle="noRec"]').click(function() {
+        swal({
+            title: "您确定要取消推荐选中的信息吗",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#f8ac59",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','noRec');
+            swal("已取消推荐！", "", "success");
+        });
+    });
 JS;
 $this->registerJs($js);
 

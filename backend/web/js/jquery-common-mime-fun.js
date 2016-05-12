@@ -111,3 +111,18 @@ delThisRowOptionForMime = function (bom, asThis) {
         parentTr.remove();
     }
 };
+
+/**
+ * 禁用启用等按钮的提交操作
+ * @param formId
+ * @param val
+ */
+subActionForMime = function (formId,val) {
+    $(formId).val(val);
+    $(formId).submit();
+};
+
+
+verifyCheckedForMime = function () {
+    
+};
