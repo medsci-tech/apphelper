@@ -45,6 +45,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function scenarios() {
         $scenarios = parent::scenarios();
         $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
+        $scenarios['next'] = ['uid', 'nickname', 'sex', 'province', 'city', 'area','hospital_id','rank_id']; // 注册下一步
         $scenarios['login'] = ['username', 'password']; // 登录
         $scenarios['setPassword'] = ['username','verycode','password', 'passwordRepeat']; // 设置密码
         $scenarios['setNickname'] = ['uid', 'nickname']; // 修改昵称
@@ -93,14 +94,13 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['nickname'], 'string', 'max' => 20,'message' => '昵称不能超过20个字符!'],
             [['real_name'], 'required', 'message' => '真实姓名不能为空!', 'on' => 'setRealname'],
             [['sex'], 'required', 'message' => '性别不能为空!', 'on' => 'setSex'],
-            [['hospital_id'], 'required','message' => '药店不能为空!', 'on' => 'setHospital'],
-            [['rank_id'], 'required','message' => '职称不能为空!', 'on' => 'setRank'],
-            [['province'], 'required','message' => '省份不能为空!', 'on' => 'setRegion'],
+            [['hospital_id'], 'required','message' => '药店不能为空!', 'on' => ['setHospital','next']],
+            [['rank_id'], 'required','message' => '职称不能为空!', 'on' => ['setRank','next']],
+            [['province'], 'required','message' => '省份不能为空!', 'on' => ['setRegion','next']],
             [['province', 'city', 'area'], 'string'],
 
             /* 注册下一步 */
             [['sex','province','hospital_id','rank_id'], 'required', 'on' => 'next'],
-            [['hospital_id', 'rank_id'], 'integer','message' => '药店或职称不能为空!', 'on' => 'next'],
             ['sex', 'in', 'range' => ['男','女'], 'on' => ['next','setSex']],
             [['city', 'area'], 'default', 'on' => ['next','setRegion']],// 若 "city" 和 "area" 为空，则设为 null
 
@@ -225,15 +225,22 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function editProfile() {
         if ($this->validate()) {
-            $this->province = $this->province;
-            $this->city = $this->city;
-            $this->area = $this->area;
-            $this->hospital_id = $this->hospital_id;
-            $this->rank_id = $this->rank_id;
-
-            if ($this->save()) {
-                return $this;
-            }
+            $regionModel = new Region();
+            $data = [
+                'nickname'=>$this->nickname,
+                'sex'=>$this->sex,
+                'province'=>$this->province,
+                'city'=>$this->city,
+                'area'=>$this->area,
+                'hospital_id'=>$this->hospital_id,
+                'rank_id'=>$this->rank_id,
+            ];
+            $region = $regionModel->getByName($this->province,$this->city,$this->area);
+            $data['province_id'] = $region[0]['code'];
+            $data['city_id'] = $region[1]['code'] ?? '';
+            $data['area_id'] = $region[2]['code'] ?? '';
+            $user = $this->updateAll($data,'id=:id',array(':id'=>$this->uid));
+            return true;
         }
         return false;
 
@@ -246,6 +253,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function login()
     {
         if ($this->validate()) {
+            /* 更新tocken */
+            $this->_user->access_token = Yii::$app->security->generateRandomString();
+            $this->updateAll(['access_token'=>$this->_user->access_token],'id=:id',array(':id'=>$this->_user->id));
             return $this->_user;
         } else {
             return false;
@@ -350,8 +360,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         ];
         $region = $regionModel->getByName($this->province,$this->city,$this->area);
         $data['province_id'] = $region[0]['code'];
-        $data['city_id'] = $region[1]['code'] ?? 0;
-        $data['area_id'] = $region[2]['code'] ?? 0;
+        $data['city_id'] = $region[1]['code'] ?? '';
+        $data['area_id'] = $region[2]['code'] ?? '';
         $user = $this->updateAll($data,'id=:id',array(':id'=>$this->uid));
         return true;
     }
