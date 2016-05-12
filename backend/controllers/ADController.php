@@ -33,4 +33,9 @@ class AdController extends BackendController
     {
         return $this->render('index',['model' => new AD(),]);
     }
+
+    public function actionCreate()
+    {
+
+    }
 }
