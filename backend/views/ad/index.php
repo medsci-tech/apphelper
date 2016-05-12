@@ -13,17 +13,6 @@ $this->title = '轮播图管理';
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
 ?>
-    <style>
-        .img_selected {
-            display: block;
-            padding: 4px;
-            margin-bottom: 20px;
-            line-height: 1.42857143;
-            background-color: #fff;
-            border: 1px solid #1095EF;
-            border-radius: 4px;
-        }
-    </style>
 
     <div class="ad-index">
         <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">

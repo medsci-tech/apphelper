@@ -18,6 +18,7 @@ class AdminPlusAsset extends AssetBundle
         'css/animate.min.css',
         'css/style.min862f.css?v=4.1.0',
         'css/plugins/sweetalert/sweetalert.css',
+        '/css/bootstrap-table.min.css',
     ];
     public $js = [
         'js/bootstrap.min.js?v=3.3.6',
@@ -29,6 +30,7 @@ class AdminPlusAsset extends AssetBundle
         'js/contabs.min.js',
         'js/plugins/pace/pace.min.js',
         'js/plugins/sweetalert/sweetalert.min.js',
+        '/js/bootstrap-table.min.js',
     ];
     public $depends = [
 /*        'rmrevin\yii\fontawesome\AssetBundle',
