@@ -27,7 +27,7 @@ backend\assets\AppAsset::register($this);
 
     <div class="ad-index">
         <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon-class"></span>添加
+            <span class="glyphicon-class glyphicon-plus"></span>添加
         </button>
 
         <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
@@ -36,11 +36,11 @@ backend\assets\AppAsset::register($this);
         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
         <div class="row">
             <div class="col-sm-6 col-md-4">
-                <img src="../img/a1.jpg"
+                <img src="../img/a1.jpg" attr="1"
                      alt="" class="thumbnail">
             </div>
             <div class="col-sm-6 col-md-4">
-                <img src="../img/a2.jpg"
+                <img src="../img/a2.jpg" attr="2"
                      alt="" class="thumbnail">
             </div>
             <div class="col-sm-6 col-md-4">
@@ -77,16 +77,18 @@ $js = <<<JS
         $('div.row img').click(function () {
             $("div.row img").css("border","1px solid #ddd");
             $(this).css("border","1px solid #3B9A2E");
+            var attr = $(this).attr('attr');
+            alert(attr);
         });
 
         $('#btnAdd').click(function () {
             var title = '添加';
-            document.getElementById('l_title').innerText = title;
+            $("#l_title").html(title);
         });
 
         $('#btnEdit').click(function () {
             var title = '编辑';
-            document.getElementById('l_title').innerText = title;
+            $("#l_title").html(title);
         });
 
 JS;
