@@ -8,12 +8,14 @@
 
 namespace api\modules\v4\controllers;
 
+use common\models\Hospital;
 use Yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\QueryParamAuth;
 use yii\web\Response;
 use yii\base\InvalidConfigException;
+use api\common\models\member;
 class MemberController extends \api\common\controllers\Controller
 {
     public $modelClass = 'api\common\models\Member';
@@ -34,15 +36,31 @@ class MemberController extends \api\common\controllers\Controller
             'realname'=>['POST'],
         ];
     }
+    /**
+     * 个人设置首页
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
     public function actionIndex()
     {
-        $topStories = Article::find()->orderBy(['view' => SORT_DESC])->limit(5)->asArray()->all();
-        $stories = Article::find()->orderBy(['created_at' => SORT_DESC, 'title' => SORT_ASC])->limit(10)->asArray()->all();
-        return [
-            'date' => date('Ymd'),
-            'stories' => $stories,
-            'top_stories' => $topStories
-        ];
+        $model = new $this->modelClass();
+        $data = $model::find()->select('avatar,nickname,username,real_name,sex,province,city,area,hospital_id,rank_id')->where(['id'=>$this->params['uid']])->asArray()->One();
+        $data['rank_name']=Yii::$app->params['member']['rank'][$data['rank_id']];
+        if($data['hospital_id'])
+        {
+            $hospital = Hospital::findOne($data['hospital_id']);
+            $data['hospital_name'] = $hospital->name;
+        }
+        else
+            $data['hospital_name'] = '';
+
+        unset($data['hospital_id'],$data['rank_id']);
+
+        $result = ['code' => 200,'message'=>'个人信息','data'=>$data];
+        return $result;
+
     }
 
     /**
