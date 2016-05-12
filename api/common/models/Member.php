@@ -3,6 +3,7 @@
 namespace api\common\models;
 
 use backend\models\User;
+use common\models\Region;
 use Yii;
 use yii\web\IdentityInterface;
 use yii\base\Model;
@@ -52,6 +53,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $scenarios['setSex'] = ['uid', 'sex']; // 修改性别
         $scenarios['setHospital'] = ['uid', 'hospital_id']; // 修改单位
         $scenarios['setRank'] = ['uid', 'rank_id']; // 修改职称
+        $scenarios['setRegion'] = ['uid','province', 'city','area']; // 修改区域
         return $scenarios;
     }
 
@@ -93,12 +95,14 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['sex'], 'required', 'message' => '性别不能为空!', 'on' => 'setSex'],
             [['hospital_id'], 'required','message' => '药店不能为空!', 'on' => 'setHospital'],
             [['rank_id'], 'required','message' => '职称不能为空!', 'on' => 'setRank'],
+            [['province'], 'required','message' => '省份不能为空!', 'on' => 'setRegion'],
+            [['province', 'city', 'area'], 'string'],
 
             /* 注册下一步 */
             [['sex','province','hospital_id','rank_id'], 'required', 'on' => 'next'],
             [['hospital_id', 'rank_id'], 'integer','message' => '药店或职称不能为空!', 'on' => 'next'],
             ['sex', 'in', 'range' => ['男','女'], 'on' => ['next','setSex']],
-            [['city', 'area'], 'default', 'on' => 'next'],// 若 "city" 和 "area" 为空，则设为 null
+            [['city', 'area'], 'default', 'on' => ['next','setRegion']],// 若 "city" 和 "area" 为空，则设为 null
 
         ];
     }
@@ -287,11 +291,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->nickname= $this->nickname;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $user = $this->updateAll(['nickname'=>$this->nickname],'id=:id',array(':id'=>$this->uid));
+        return true;
     }
 
     /**
@@ -303,11 +304,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->real_name= $this->real_name;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $user = $this->updateAll(['real_name'=>$this->real_name],'id=:id',array(':id'=>$this->uid));
+        return true;
     }
 
     /**
@@ -319,11 +317,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->username= $this->username;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $user = $this->updateAll(['username'=>$this->username],'id=:id',array(':id'=>$this->uid));
+        return true;
     }
     /**
      * Resets sex
@@ -334,11 +329,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->sex= $this->sex;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $user = $this->updateAll(['sex'=>$this->sex],'id=:id',array(':id'=>$this->uid));
+        return true;
     }
 
     /**
@@ -350,11 +342,18 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->sex= $this->sex;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $regionModel = new Region();
+        $data = [
+            'province'=>$this->province,
+            'city'=>$this->city,
+            'area'=>$this->area
+        ];
+        $region = $regionModel->getByName($this->province,$this->city,$this->area);
+        $data['province_id'] = $region[0]['code'];
+        $data['city_id'] = $region[1]['code'] ?? 0;
+        $data['area_id'] = $region[2]['code'] ?? 0;
+        $user = $this->updateAll($data,'id=:id',array(':id'=>$this->uid));
+        return true;
     }
     /**
      * Resets hospital
@@ -365,11 +364,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->hospital_id= $this->hospital_id;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $user = $this->updateAll(['hospital_id'=>$this->hospital_id],'id=:id',array(':id'=>$this->uid));
+        return true;
     }
     /**
      * Resets hospital
@@ -380,11 +376,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = $this->findByUid($this->uid);
-        $user->rank_id= $this->rank_id;
-        if ($user->save(false)) {
-            return $user;
-        }
+        $user = $this->updateAll(['rank_id'=>$this->rank_id],'id=:id',array(':id'=>$this->uid));
+        return true;
     }
 
 
