@@ -30,6 +30,7 @@ class ComposerStaticInita298cd43fbeb32b98979785afb3fd535
         ),
         'c' => 
         array (
+            'crazyfd\\qiniu\\' => 14,
             'cebe\\markdown\\' => 14,
         ),
         'F' => 
@@ -78,6 +79,10 @@ class ComposerStaticInita298cd43fbeb32b98979785afb3fd535
         'dosamigos\\fileupload\\' => 
         array (
             0 => __DIR__ . '/..' . '/2amigos/yii2-file-upload-widget/src',
+        ),
+        'crazyfd\\qiniu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/crazyfd/yii2-qiniu',
         ),
         'cebe\\markdown\\' => 
         array (
