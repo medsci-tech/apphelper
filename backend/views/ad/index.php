@@ -12,11 +12,11 @@ use yii\widgets\ActiveForm;
 $this->title = '轮播图管理';
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
+$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/hplus');
 ?>
-
     <div class="ad-index">
         <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon-class glyphicon-plus"></span>添加
+            <span class="glyphicon glyphicon-plus"></span>添加
         </button>
 
         <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
@@ -58,6 +58,91 @@ backend\assets\AppAsset::register($this);
                 </div>
             </div>
         </div>
+        <div class="modal inmodal" id="myModal_1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><label id="l_title">添加</label></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label">资源类型：
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="optionsRadiosinline" id="optionsRadios3"
+                                           value="option1" checked> 培训
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="optionsRadiosinline" id="optionsRadios4"
+                                           value="option2"> 试卷
+                                </label>
+                            </label>
+                            <label class="control-label">资源名称：
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-btn"> <button type="button" class="btn btn-primary">搜索
+                                        </button>
+                                    </span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="">
+                            <table
+                                data-toggle="table"
+                                data-height="250"
+                            >
+                                <thead>
+                                <tr>
+                                    <th class="col-md-9">资源名</th>
+                                    <th class="col-md-3">资源类型</th>
+                                </tr>
+                                </thead>
+                                </tbody>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训wy课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>培训课程</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="attr_from" id="attr_from">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 <?php
@@ -79,6 +164,7 @@ $js = <<<JS
             var title = '编辑';
             $("#l_title").html(title);
         });
+
 
 JS;
 $this->registerJs($js);

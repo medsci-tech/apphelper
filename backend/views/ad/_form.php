@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
-        <button type="button" class="btn btn-primary">选择资源</button>
+        <button type="button" data-toggle="modal" data-target="#myModal_1" class="btn btn-primary">选择资源</button>
     </div>
     <div class="form-group">
         <?= $form->field($model, 'imgurl')->textInput(['maxlength' => true]) ?>
@@ -43,6 +43,7 @@ use yii\widgets\ActiveForm;
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
 </div>
+
 
 <?php ActiveForm::end(); ?>
 
