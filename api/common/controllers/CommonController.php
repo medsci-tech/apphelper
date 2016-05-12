@@ -39,7 +39,6 @@ class CommonController extends ActiveController
      */
     public function sendCode($username=null)
     {
-        if(!$username) return false;
         if(strlen($username) !=11 || !is_numeric($username))
         {
             $message = '请输入有效手机号!';

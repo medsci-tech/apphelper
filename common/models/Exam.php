@@ -59,28 +59,16 @@ class Exam extends ActiveRecord
         return $scenarios;
     }
 
-    public function getDataForWhere($where = []){
-        $where['status'] = 1;
-        $examClass = ExamClass::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
-        return $examClass;
+    public function saveData($where = [], $data = []){
+        $exam = Exam::find()->where($where)->all();
+        foreach ($exam as $val){
+            foreach ($data as $k => $v){
+                $val->$k = $v;
+            }
+            $val->save(false);
+        }
     }
 
-    /*树形结构*/
-    public function recursionTree($parent = 0){
-        $column = [];
-        $model = $this->getDataForWhere(['parent' => $parent]);
-        if(is_array($model)){
-            foreach ($model as $key => $val){
-                $column[$key]['id'] = $val['id'];
-                $column[$key]['text'] = $val['name'];
-                $column[$key]['nodes'] = $this->recursionTree($val['id']);
-                if(empty($column[$key]['nodes'])){
-                    unset($column[$key]['nodes']);
-                }
-            }
-        }
-        return $column;
-    }
 
 
 }

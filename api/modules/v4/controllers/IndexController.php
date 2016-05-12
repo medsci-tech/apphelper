@@ -128,7 +128,6 @@ class IndexController extends \api\common\controllers\Controller
         $p ='湖北';        $c ='武汉';
         $regModel = new Region();
         $res = $regModel->getByName($p,$c);
-        print_r($res);exit;
 
         $model = new $this->modelClass(['scenario' => 'next']);
         $model->load($this->params, '');

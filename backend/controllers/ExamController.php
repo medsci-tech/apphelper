@@ -3,12 +3,9 @@
 namespace backend\controllers;
 
 use backend\models\search\Exam as ExamSearch;
-use common\models\Exercise;
-use common\models\ExamClass;
 use common\models\Exam;
 use Yii;
 use yii\web\NotFoundHttpException;
-use yii\data\ActiveDataProvider;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -36,28 +33,28 @@ class ExamController extends BackendController
         $appYii = Yii::$app;
         if(isset($appYii->request->get()['id'])){
             $id = $appYii->request->get()['id'];
-            $exercise = $this->findModel($id);
-            if(empty($exercise)){
-                $exercise = new Exercise();
+            $model = $this->findModel($id);
+            if(empty($model)){
+                $model = new Exam();
             }
         }else{
-            $exercise = new Exercise();
+            $model = new Exam();
         }
-        $exercise->load($appYii->request->post());
-        $isValid = $exercise->validate();
+        $model->load($appYii->request->post());
+        $isValid = $model->validate();
         if ($isValid) {
             $optionArray = [];
-            foreach ($exercise->option as $key => $val){
+            foreach ($model->option as $key => $val){
                 $optionArray[chr(65 + $key)] = $val;
             }
-            $exercise->option = serialize($optionArray);
-            $exercise->answer = implode(',', $exercise->answer);
-            if(isset($exercise->id)){
-                $exercise->update_at = time();
+            $model->option = serialize($optionArray);
+            $model->answer = implode(',', $model->answer);
+            if(isset($model->id)){
+                $model->update_at = time();
             }else{
-                $exercise->created_at = time();
+                $model->created_at = time();
             }
-            $result = $exercise->save(false);
+            $result = $model->save(false);
             if($result){
                 $return = [200,'success'];
             }else{
@@ -76,25 +73,29 @@ class ExamController extends BackendController
         $params = $appYii->request->post();
         $id = $appYii->request->get('id');
         if(isset($params['selection'])) {
-            if ('disable' == $params['type']) {
-                /*禁用*/
-                foreach ($params['selection'] as $key => $val) {
-                    $member = $this->findModel($val);
-                    $member->status = 0;
-                    $member->save(false);
-                }
-            } elseif ('enable' == $params['type']) {
-                /*启用*/
-                foreach ($params['selection'] as $key => $val) {
-                    $member = $this->findModel($val);
-                    $member->status = 1;
-                    $member->save(false);
-                }
-            } elseif ('del' == $params['type']) {
+            if ('del' == $params['type']) {
                 /*删除*/
                 foreach ($params['selection'] as $key => $val) {
                     $this->findModel($val)->delete();
                 }
+            }elseif ('enable' == $params['type']) {
+                /*启用*/
+                (new Exam())->saveData(['id' => $params['selection']], ['status' => 1]);
+            } elseif ('disable' == $params['type']) {
+                /*禁用*/
+                (new Exam())->saveData(['id' => $params['selection']], ['status' => 0]);
+            } elseif ('isPub' == $params['type']) {
+                /*发布*/
+                (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 1]);
+            } elseif ('noPub' == $params['type']) {
+                /*取消发布*/
+                (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 0]);
+            } elseif ('isRec' == $params['type']) {
+                /*推荐*/
+                (new Exam())->saveData(['id' => $params['selection']], ['recommend_status' => 1]);
+            } elseif ('noRec' == $params['type']) {
+                /*取消推荐*/
+                (new Exam())->saveData(['id' => $params['selection']], ['recommend_status' => 0]);
             }
         }elseif($id){
             $this->findModel($id)->delete();
@@ -109,7 +110,7 @@ class ExamController extends BackendController
      */
     protected function findModel($id)
     {
-        if (($model = Exercise::findOne($id)) !== null) {
+        if (($model = Exam::findOne($id)) !== null) {
             return $model;
         } else {
             return false;

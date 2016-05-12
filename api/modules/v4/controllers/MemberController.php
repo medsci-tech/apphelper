@@ -54,7 +54,7 @@ class MemberController extends \api\common\controllers\Controller
             $data['hospital_name'] = $hospital->name;
         }
         else
-            $data['hospital_name'] = '';
+            $data['hospital_name'] = null;
 
         unset($data['hospital_id'],$data['rank_id']);
 
@@ -63,6 +63,27 @@ class MemberController extends \api\common\controllers\Controller
 
     }
 
+
+    /**
+     * 设置注册下一步
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionNext()
+    {
+        $model = new $this->modelClass(['scenario' => 'next']);
+        $model->load($this->params, '');
+        if(!$response = $model->editProfile())
+        {
+            $message = array_values($model->getFirstErrors())[0];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
+        }
+        else
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+        return $result;
+    }
     /**
      * 设置昵称
      * @author by lxhui
@@ -154,16 +175,16 @@ class MemberController extends \api\common\controllers\Controller
      */
     public function actionRegion()
     {
-        $model = new $this->modelClass(['scenario' => 'setSex']);
+        $model = new $this->modelClass(['scenario' => 'setRegion']);
         $model->load($this->params, '');
-/*        if(!$response = $model->changeSex())
+        if(!$response = $model->changeRegion())
         {
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => 200,'message'=>'设置成功','data'=>null];*/
-        $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+            $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+
         return $result;
     }
 
