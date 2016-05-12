@@ -54,7 +54,7 @@ class MemberController extends \api\common\controllers\Controller
             $data['hospital_name'] = $hospital->name;
         }
         else
-            $data['hospital_name'] = '';
+            $data['hospital_name'] = null;
 
         unset($data['hospital_id'],$data['rank_id']);
 
