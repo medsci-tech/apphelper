@@ -44,7 +44,7 @@ class Region extends \yii\db\ActiveRecord
         $model = Region::find()
             ->andWhere(['like', 'name', $p])
             ->orFilterWhere(['like', 'name', $c])
-            ->orFilterWhere(['like', 'name', $a])->asArray()->One();
+            ->orFilterWhere(['like', 'name', $a])->asArray()->All();
         return $model;
     }
     //
