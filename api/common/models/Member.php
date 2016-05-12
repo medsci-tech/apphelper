@@ -49,6 +49,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $scenarios['setNickname'] = ['uid', 'nickname']; // 修改昵称
         $scenarios['setUsername'] = ['uid', 'username','verycode']; // 修改用户手机号
         $scenarios['setRealname'] = ['uid', 'real_name']; // 修改真实姓名
+        $scenarios['setSex'] = ['uid', 'sex']; // 修改性别
+        $scenarios['setHospital'] = ['uid', 'hospital_id']; // 修改单位
+        $scenarios['setRank'] = ['uid', 'rank_id']; // 修改职称
         return $scenarios;
     }
 
@@ -83,15 +86,18 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password', 'message' => '两次密码不一致!', 'on' => 'setPassword'],
 
             /* 个人资料相关 */
-            [['uid'], 'required', 'message' => 'uid不能为空!', 'on' => ['setNickname','setRealname','next']],
+            [['uid'], 'required', 'message' => 'uid不能为空!', 'on' => ['setNickname','setRealname','next','sexSex']],
             [[ 'nickname'], 'required', 'message' => '昵称不能为空!', 'on' => ['setNickname','next']],
             [['nickname'], 'string', 'max' => 20,'message' => '昵称不能超过20个字符!'],
             [['real_name'], 'required', 'message' => '真实姓名不能为空!', 'on' => 'setRealname'],
+            [['sex'], 'required', 'message' => '性别不能为空!', 'on' => 'setSex'],
+            [['hospital_id'], 'required','message' => '药店不能为空!', 'on' => 'setHospital'],
+            [['rank_id'], 'required','message' => '职称不能为空!', 'on' => 'setRank'],
 
             /* 注册下一步 */
             [['sex','province','hospital_id','rank_id'], 'required', 'on' => 'next'],
             [['hospital_id', 'rank_id'], 'integer','message' => '药店或职称不能为空!', 'on' => 'next'],
-            ['sex', 'in', 'range' => ['男','女'], 'on' => 'next'],
+            ['sex', 'in', 'range' => ['男','女'], 'on' => ['next','setSex']],
             [['city', 'area'], 'default', 'on' => 'next'],// 若 "city" 和 "area" 为空，则设为 null
 
         ];
@@ -317,6 +323,76 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         $user->username= $this->username;
         if ($user->save(false)) {
             return $user;
+        }
+    }
+    /**
+     * Resets sex
+     * @return boolean if password was reset.
+     */
+    public function changeSex()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->sex= $this->sex;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
+
+    /**
+     * Resets province city area
+     * @return boolean if password was reset.
+     */
+    public function changeRegion()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->sex= $this->sex;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
+    /**
+     * Resets hospital
+     * @return boolean if password was reset.
+     */
+    public function changeHospital()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->hospital_id= $this->hospital_id;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
+    /**
+     * Resets hospital
+     * @return boolean if password was reset.
+     */
+    public function changeRank()
+    {
+        if ( !$this->validate()) {
+            return false;
+        }
+        $user = $this->findByUid($this->uid);
+        $user->rank_id= $this->rank_id;
+        if ($user->save(false)) {
+            return $user;
+        }
+    }
+
+
+    public function afterSave1($insert)
+    {
+        parent::afterSave($insert);
+        if ($this->getScenario() === 'userCreates') {
+            // FIXME: TODO: WIP, TBD
         }
     }
 
