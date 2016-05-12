@@ -253,6 +253,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
     public function login()
     {
         if ($this->validate()) {
+            /* 更新tocken */
+            $this->_user->access_token = Yii::$app->security->generateRandomString();
+            $this->updateAll(['access_token'=>$this->_user->access_token],'id=:id',array(':id'=>$this->_user->id));
             return $this->_user;
         } else {
             return false;
