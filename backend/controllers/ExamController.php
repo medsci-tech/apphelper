@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use backend\models\search\ExamSearch;
+use backend\models\search\Exam as ExamSearch;
 use common\models\Exercise;
 use common\models\ExamClass;
 use common\models\Exam;
