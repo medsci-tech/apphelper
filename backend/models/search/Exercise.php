@@ -32,7 +32,7 @@ class Exercise extends ExerciseModel
                 $category[] = $val['id'];
             }
         }
-        $query = ExerciseModel::find()->orderBy('id desc');
+        $query = ExerciseModel::find();
         $query->andFilterWhere(['category'=> $category]);
         $query->andFilterWhere(['like', 'question', $this->question]);
         $dataProvider = new ActiveDataProvider([
