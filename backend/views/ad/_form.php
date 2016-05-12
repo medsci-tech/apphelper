@@ -26,10 +26,14 @@ use yii\widgets\ActiveForm;
         <?= Html::dropDownList('attr_type', 0, [0 => '内部资源', 1 => '外部链接'], ['class' => 'form-control']) ?>
     </div>
 
-    <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'imgurl')->textInput(['maxlength' => true]) ?>
-
+    <div class="form-group">
+        <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
+        <button type="button" class="btn btn-primary">选择资源</button>
+    </div>
+    <div class="form-group">
+        <?= $form->field($model, 'imgurl')->textInput(['maxlength' => true]) ?>
+        <button type="button" class="btn btn-primary">上传图片</button>
+    </div>
     <?= $form->field($model, 'sort')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '启用']) ?>
