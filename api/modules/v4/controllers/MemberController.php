@@ -45,7 +45,8 @@ class MemberController extends \api\common\controllers\Controller
      */
     public function actionIndex()
     {
-        $data = Member::find()->select('avatar,nickname,username,real_name,sex,province,city,area,hospital_id,rank_id')->where(['id'=>$this->params['uid']])->asArray()->One();
+        $model = new $this->modelClass();
+        $data = $model::find()->select('avatar,nickname,username,real_name,sex,province,city,area,hospital_id,rank_id')->where(['id'=>$this->params['uid']])->asArray()->One();
         $data['rank_name']=Yii::$app->params['member']['rank'][$data['rank_id']];
         if($data['hospital_id'])
         {
