@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
         'options' => ['class' => 'form-inline navbar-btn'],
     ]); ?>
 
-    <?= $form->field($model, 'question') ?>
+    <?= $form->field($model, 'name') ?>
     <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
