@@ -18,15 +18,17 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
 
 
 
-    <div class="ad-index">
-        <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon glyphicon-plus"></span>添加
-        </button>
+    <div class="modal-body">
+        <div class="navbar-btn">
+            <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-plus"></span>添加
+            </button>
 
-        <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon glyphicon-edit"></span>修改
-        </button>
-        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
+            <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-edit"></span>修改
+            </button>
+            <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
+        </div>
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <img src="../img/a1.jpg" attr="1"
@@ -75,8 +77,6 @@ $js = <<<JS
         $('#btnAdd').click(function () {
             var title = '添加';
             $("#l_title").html(title);
-
-            $("div.fixed-table-container").css({'padding-bottom': '36px'});
         });
 
         $('#btnEdit').click(function () {
@@ -88,7 +88,7 @@ $js = <<<JS
               type: 2,
               title: '选择资源',
               shadeClose: false,
-              shade: 0.8,
+              shade: 0.3,
               closeBtn:1,
               area: ['600px', '90%'],
               content: '/ad/resource', //iframe的url
