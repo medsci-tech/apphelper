@@ -87,7 +87,7 @@ $js = <<<JS
 $(function() {
     /*删除题库选项*/
     $('#optionListBody').on('click','.delThisOption',function() {
-        delThisRowOptionForMime('#optionListBody',this);
+        delThisRowOptionForMime('#optionListBody', this, 1);
     });
     /*添加题库选项*/
     $('#optionListBody').on('click','.addNextOption',function() {
