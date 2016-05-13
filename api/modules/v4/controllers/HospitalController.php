@@ -25,7 +25,8 @@ class HospitalController extends \api\common\controllers\Controller
     }
     public function actionIndex()
     {
-        if(!$this->params['province'])
+        $province = $this->params['province'] ?? '';
+        if(!$province)
         {
             $result = ['code' => -1,'message'=>'缺少省份!','data'=>null];
             return $result;
