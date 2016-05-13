@@ -38,8 +38,8 @@ use yii\widgets\ActiveForm;
         data-height="350">
         <thead>
         <tr>
-            <th data-width="80%">资源名</th>
-            <th>资源类型</th>
+            <th data-width="10%">ID</th>
+            <th>资源名</th>
         </tr>
         </thead>
         </tbody>
