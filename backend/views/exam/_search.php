@@ -40,6 +40,12 @@ use yii\widgets\ActiveForm;
 $js = <<<JS
     /*删除*/
     $('#del').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要删除选中的信息吗",
             text: "删除后将无法恢复，请谨慎操作！",
@@ -56,6 +62,12 @@ $js = <<<JS
     });
     /*启用*/
     $('[data-toggle="enable"]').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要启用选中的信息吗",
             type: "warning",
@@ -71,6 +83,12 @@ $js = <<<JS
     });
     /*禁用*/
     $('[data-toggle="disable"]').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要禁用选中的信息吗",
             type: "warning",
@@ -86,6 +104,12 @@ $js = <<<JS
     });
     /*发布*/
     $('[data-toggle="isPub"]').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要发布选中的信息吗",
             type: "warning",
@@ -101,6 +125,12 @@ $js = <<<JS
     });
     /*取消发布*/
     $('[data-toggle="noPub"]').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要取消发布选中的信息吗",
             type: "warning",
@@ -116,6 +146,12 @@ $js = <<<JS
     });
     /*推荐*/
     $('[data-toggle="isRec"]').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要推荐选中的信息吗",
             type: "warning",
@@ -131,6 +167,12 @@ $js = <<<JS
     });
     /*取消推荐*/
     $('[data-toggle="noRec"]').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要取消推荐选中的信息吗",
             type: "warning",

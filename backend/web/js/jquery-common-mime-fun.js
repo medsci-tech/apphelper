@@ -4,17 +4,15 @@
  * startDate 20160511
  * updateDate 20160511
  */
-
+console.log('jq-common-mime');
 /**
  * 试题管理-题库编辑试题-初始化选项
- * @param bom string | eq:'#div'
+ * @param element string | eq:'#div'
  * @param option json | eq:{A: "1", B: "2", C: "4"}
  * @param answer string | eq:'A,B,C'
  * @param checkType string | eq:'radio'
  */
-exerciseEditForMime = function (bom, option, answer, checkType) {
-    console.log(option);
-    console.log(answer);
+exerciseEditForMime = function (element, option, answer, checkType) {
     var html = '';
     var i = 0;
     var optionLength = Object.keys(option).length;
@@ -37,17 +35,17 @@ exerciseEditForMime = function (bom, option, answer, checkType) {
             html += '</tr>';
             i++;
         }
-        $(bom).html(html);
+        $(element).html(html);
     }else {
-        exerciseInitForMime(bom);
+        exerciseInitForMime(element);
     }
 };
 
 /**
  * 试题管理-题库添加试题-初始化选项-默认四个选项
- * @param bom string | eq:'#div'
+ * @param element string | eg:'#div'
  */
-exerciseInitForMime = function (bom) {
+exerciseInitForMime = function (element) {
     var html = ''
         + '<tr data-key="1">'
         + '    <td>A</td>'
@@ -82,18 +80,18 @@ exerciseInitForMime = function (bom) {
         + '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
         + '    </td>'
         + '</tr>';
-    $(bom).html(html);
+    $(element).html(html);
 };
 
 /**
  * 删除所在的行(tr)-仅适用于table
- * @param bom
+ * @param element string | eg:'#div'
  * @param asThis
  */
-delThisRowOptionForMime = function (bom, asThis) {
-    if($(bom).find('tr').length > 1){
+delThisRowOptionForMime = function (element, asThis) {
+    if($(element).find('tr').length > 1){
         var parentTr = $(asThis).parent().parent();
-        var nextTr = parentTr.nextAll('tr');
+        // var nextTr = parentTr.nextAll('tr');
         var addHtmlLength = $(asThis).next('a').length;
         if(addHtmlLength){
             var addHtml = ' <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
@@ -102,9 +100,9 @@ delThisRowOptionForMime = function (bom, asThis) {
         for (var i = 0; i < parentTr.nextAll('tr').length; i++){
             var thisTr = $(parentTr.nextAll('tr')[i]);
             var thisTd = thisTr.find('td');
-            var datakey = parseInt(thisTr.attr('data-key'));
-            var thisLatter = String.fromCharCode(63 + datakey);
-            thisTr.attr('data-key',datakey - 1);
+            var dataKey = parseInt(thisTr.attr('data-key'));
+            var thisLatter = String.fromCharCode(63 + dataKey);
+            thisTr.attr('data-key',dataKey - 1);
             thisTd.eq(0).text(thisLatter);
             thisTd.find('.checkValue').val(thisLatter);
         }
@@ -114,15 +112,31 @@ delThisRowOptionForMime = function (bom, asThis) {
 
 /**
  * 禁用启用等按钮的提交操作
- * @param formId
+ * @param element string | eg:'#div'
  * @param val
  */
-subActionForMime = function (formId,val) {
-    $(formId).val(val);
-    $(formId).submit();
+subActionForMime = function (element,val) {
+    $(element).val(val);
+    $(element).submit();
 };
 
-
-verifyCheckedForMime = function () {
-    
+/**
+ * 判断多选框是否有勾选，有勾选返回true，没有则弹窗提示并返回false
+ * @param check array
+ * @returns {boolean}
+ */
+verifyCheckedForMime = function (check) {
+    var checked = 0;
+    for(var i =0; i < check.length; i++){
+        if(check[i].checked == true){
+            checked++;
+        }
+    }
+    console.log(checked);
+    if(0 == checked){
+        swal('未选择','请勾选需要操作的信息');
+        return false;
+    }else {
+        return true;
+    }
 };

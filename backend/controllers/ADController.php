@@ -43,6 +43,12 @@ class AdController extends BackendController
 
     }
 
+
+    public  function actionResource()
+    {
+        return $this->render('resource');
+    }
+
     protected function getHtmlImage()
     {
         $strHtml = "";
@@ -62,4 +68,5 @@ class AdController extends BackendController
 
         return $strHtml;
     }
+
 }
