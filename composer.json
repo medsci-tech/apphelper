@@ -14,12 +14,14 @@
     },
     "minimum-stability": "stable",
     "require": {
+    	"crazyfd/yii2-qiniu": "dev-master",
         "phpoffice/phpexcel": "dev-develop",
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "2amigos/yii2-file-upload-widget": "~1.0"
+        "2amigos/yii2-file-upload-widget": "~1.0",
+        "qiniu/php-sdk": "^7.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

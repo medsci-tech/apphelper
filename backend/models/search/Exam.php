@@ -23,7 +23,7 @@ class Exam extends ExamModel
     public function search($params)
     {
         $this->load($params);
-        $query = ExamModel::find()->orderBy('id desc');
+        $query = ExamModel::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
