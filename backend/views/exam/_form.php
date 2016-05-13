@@ -9,15 +9,13 @@ use yii\grid\GridView;
 /* @var $form yii\widgets\ActiveForm */
 //var_dump($model->id);exit;
 ?>
-
-<div class="modal-body">
-
-    <?php
-    $form = ActiveForm::begin([
+<?php
+$form = ActiveForm::begin([
     'action' => ['form'],
     'method' => 'post',
     'options' => ['id' => 'tableForm'],
-    ]); ?>
+]); ?>
+<div class="modal-body">
     <?= $form->field($model, 'type')->dropDownList(Yii::$app->params['exam']['type']) ?>
     <?= $form->field($model, 'name')->textInput() ?>
     <?= $form->field($model, 'minutes')->textInput() ?>
@@ -37,19 +35,16 @@ use yii\grid\GridView;
             <tbody id="optionListBody">
             </tbody>
         </table>
+        <button type="button" class="btn btn-info btn-sm">添加</button>
     </div>
-
     <?= $form->field($model, 'about')->textarea() ?>
-
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+</div>
+<?php ActiveForm::end(); ?>
 
 <?php
 $js = <<<JS
@@ -59,7 +54,7 @@ $js = <<<JS
     });
     /*添加试题*/
     $('#optionListBody').on('click','.addNextOption',function() {
-
+        console.log('add exercise');
     });
 JS;
 $this->registerJs($js);
