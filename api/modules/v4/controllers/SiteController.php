@@ -59,7 +59,12 @@ class SiteController extends CommonController
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
+        {
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$response->id); // 清除历史缓存
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$response->id,json_encode(['uid'=>$response->id,'access_token' => $response->access_token]),2592000);
             $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token]];
+        }
+
         return $result;
     }
     public function actionLoginbk()
