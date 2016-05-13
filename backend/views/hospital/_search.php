@@ -55,7 +55,7 @@ $js = <<<JS
     /*启用*/
     $("#btn_enable").click(function(){
         /*判断是否有选中*/
-        var check = $('#w1').find('input[name="selection[]"]');
+        var check = $('#w0').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
@@ -76,7 +76,7 @@ $js = <<<JS
     /*禁用*/
     $("#btn_disable").click(function(){
         /*判断是否有选中*/
-        var check = $('#w1').find('input[name="selection[]"]');
+        var check = $('#w0').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
