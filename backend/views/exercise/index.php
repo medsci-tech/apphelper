@@ -118,6 +118,7 @@ backend\assets\AppAsset::register($this);
 </div>
 
 <?php
+$formUrl = \yii\helpers\Url::toRoute('form');
 $js=<<<JS
     /*树形结构初始化*/
 	var initSelectableTree = function() {
@@ -146,7 +147,7 @@ $js=<<<JS
         var resolve = $(this).attr('data-resolve');
         var status = $(this).attr('data-status');
         /* 编辑初始化 */
-        $('#formModal #tableForm').attr('action','/exercise/form?id='+id);
+        $('#formModal #tableForm').attr('action','$formUrl?id='+id);
         $('#formModal #exercise-type').val(type);
         $('#formModal #exercise-category').val(category);
         $('#formModal #exercise-question').val(question);
@@ -162,7 +163,7 @@ $js=<<<JS
     /*添加题库初始化*/
     $("#createBtn").click(function(){
         var defaltData = ''; 
-        $('#formModal #tableForm').attr('action','/exercise/form');
+        $('#formModal #tableForm').attr('action','$formUrl');
         $('#formModal #exercise-type').val(1);
         $('#formModal #exercise-category').val(defaltData);
         $('#formModal #exercise-question').val(defaltData);
