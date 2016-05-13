@@ -7,15 +7,13 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="modal-body">
-
-    <?php
-    $form = ActiveForm::begin([
+<?php
+$form = ActiveForm::begin([
     'action' => ['create'],
     'method' => 'post',
     'options' => ['id' => 'tableForm'],
-    ]); ?>
+]); ?>
+<div class="modal-body">
     <?= $form->field($model, 'real_name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
@@ -27,16 +25,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'hospital_id')->dropDownList(\common\models\Hospital::find()->select('name')->indexBy('id')->column()) ?>
     <?= $form->field($model, 'rank_id')->dropDownList(Yii::$app->params['member']['rank']) ?>
-
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
-
-    <div class="form-group">
-        <?= Html::a('确定','javascript:;', ['class' => 'btn btn-primary', 'id' => 'memberFormSubmit']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+    <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'memberFormSubmit']) ?>
+</div>
+<?php ActiveForm::end(); ?>
+
 <?php
 $js = <<<JS
     $('#updateModal #memberFormSubmit').click(function() {
