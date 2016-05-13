@@ -54,6 +54,12 @@ $regionValue = '';
 $js = <<<JS
     /*启用*/
     $("#btn_enable").click(function(){
+        /*判断是否有选中*/
+        var check = $('#w0').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要启用选中的信息吗",
             type: "warning",
@@ -63,12 +69,18 @@ $js = <<<JS
             confirmButtonText: "启用",
             closeOnConfirm: false
         }, function () {
-            subAction('typeForm','enable');
+            subActionForMime('#typeForm','enable');
             swal("启用成功！", "", "success");
         });
     });
     /*禁用*/
     $("#btn_disable").click(function(){
+        /*判断是否有选中*/
+        var check = $('#w0').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
          swal({
             title: "您确定要禁用选中的信息吗",
             type: "warning",
@@ -78,15 +90,10 @@ $js = <<<JS
             confirmButtonText: "禁用",
             closeOnConfirm: false
         }, function () {
-            subAction('typeForm','disable');
+            subActionForMime('#typeForm','disable');
             swal("禁用成功！", "", "success");
         });
     });
-
-    function subAction(formId,val) {
-        $("#" + formId).val(val);
-        $('#'+formId).submit();
-    }
     
     $('#btn_search').click(function() {
         getRegionValue('Hospital','searchForm');/*地区联动*/
