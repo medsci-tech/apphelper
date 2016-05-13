@@ -48,23 +48,35 @@ use dosamigos\fileupload\FileUpload;
 <?php
 $js = <<<JS
   /*删除*/
-  $('#del').click(function() {
-    swal({
-        title: "您确定要删除选中的信息吗",
-        text: "删除后将无法恢复，请谨慎操作！",
-        type: "warning",
-        showCancelButton: true,
-        cancelButtonText: '取消',
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "删除",
-        closeOnConfirm: false
-    }, function () {
-        subActionForMamber('typeForm','del');
-        swal("删除成功！", "您已经永久删除了信息。", "success");
+    $('#del').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
+        swal({
+            title: "您确定要删除选中的信息吗",
+            text: "删除后将无法恢复，请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: '取消',
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "删除",
+            closeOnConfirm: false
+        }, function () {
+            subActionForMime('#typeForm','del');
+            swal("删除成功！", "您已经永久删除了信息。", "success");
+        });
     });
-  });
   /*禁用*/
    $('#disable').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
        swal({
             title: "您确定要禁用选中的信息吗",
             type: "warning",
@@ -74,12 +86,18 @@ $js = <<<JS
             confirmButtonText: "禁用",
             closeOnConfirm: false
         }, function () {
-            subActionForMamber('typeForm','disable');
+            subActionForMime('#typeForm','disable');
             swal("禁用成功！", "", "success");
         });
   });
   /*启用*/
    $('#enable').click(function() {
+        /*判断是否有选中*/
+        var check = $('#w1').find('input[name="selection[]"]');
+        var verifyChecked = verifyCheckedForMime(check);
+        if(false == verifyChecked){
+            return false;
+        }
         swal({
             title: "您确定要启用选中的信息吗",
             type: "warning",
@@ -89,14 +107,10 @@ $js = <<<JS
             confirmButtonText: "启用",
             closeOnConfirm: false
         }, function () {
-            subActionForMamber('typeForm','enable');
+            subActionForMime('#typeForm','enable');
             swal("启用成功！", "", "success");
         });
   });
-    function subActionForMamber(formId,val) {
-        $('#' + formId).val(val);
-        $('#'+formId).submit();
-    }
 JS;
 $this->registerJs($js);
 ?>
