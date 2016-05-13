@@ -111,7 +111,7 @@ class SiteController extends CommonController
         return $this->sendCode($username);
     }
 
-    // 临时返货token ,生成环境删除
+    // 临时返回token ,生成环境删除
     public function actionView()
     {
         $result = Member::find()->where(['username' => $this->params])->asArray()->one();
@@ -123,23 +123,4 @@ class SiteController extends CommonController
 
     }
 
-    public function actionTest()
-    {
-        $headers = Yii::$app->request->headers;
-        $accept = $headers->get('access-token');
-        $result = ['code' => -1,'message'=>'测试tocken!','data'=>['access_token'=>$accept]];
-        return $result;
-
-    }
-    public function actionUpload()
-    {
-        $ak = 'OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-';
-        $sk = 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T';
-        $domain = 'http://api.test.ohmate.com.cn';
-        $qiniu = new Qiniu($ak, $sk,$domain, 'mdup');
-        $key = time();
-        $qiniu->uploadFile($_FILES['tmp_name'],$key);
-        $url = $qiniu->getLink($key);
-
-    }
 }
