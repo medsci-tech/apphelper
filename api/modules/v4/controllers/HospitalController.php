@@ -43,7 +43,8 @@ class HospitalController extends \api\common\controllers\Controller
             ->andFilterWhere(['like', 'area', $this->params['area'] ?? '']);
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
-        $result = ['code' => 200,'message'=>'药店列表!','data'=>$model];
+        $total_page = ceil($data->count()/$pagesize);
+        $result = ['code' => 200,'message'=>'药店列表!','data'=>$model,'isLastPage' => $page==$total_page ? true : false];
         return $result;
 
     }

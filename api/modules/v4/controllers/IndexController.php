@@ -53,7 +53,7 @@ class IndexController extends \api\common\controllers\Controller
         $res=[];
         foreach($data as $k=>$v)
             $res[$k]=['rank_id'=>$k,'rank_name'=> $v];
-        $result = ['code' => 200,'message'=>'职称列表','data'=>$res];
+        $result = ['code' => 200,'message'=>'职称列表','data'=>$res,'isLastPage'=>true];
         return $result;
     }
     /**
