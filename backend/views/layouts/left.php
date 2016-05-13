@@ -60,6 +60,9 @@
                 <a class="J_menuItem" href="/hospital/index"><i class="fa fa-columns"></i> <span class="nav-label">单位管理</span></a>
             </li>
             <li>
+                <a class="J_menuItem" href="/ad/index"><i class="fa fa-desktop"></i> <span class="nav-label">轮播图管理</span></a>
+            </li>
+            <li>
                 <a href="#">
                     <i class="fa fa fa-bar-chart-o"></i>
                     <span class="nav-label">统计图表</span>
@@ -106,7 +109,7 @@
                 <ul class="nav nav-second-level">
                     <li><a class="J_menuItem" href="resource-class/index">培训分类</a>
                     </li>
-                    <li><a class="J_menuItem" href="form_validate.html">开题分类</a>
+                    <li><a class="J_menuItem" href="exam-class/index">开题分类</a>
                     </li>
                 </ul>
             </li>
