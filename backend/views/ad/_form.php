@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
-        <button type="button" data-toggle="modal" data-target="#myModal_1" class="btn btn-primary">选择资源</button>
+        <button type="button" data-toggle="modal" class="btn btn-primary" id="select">选择资源</button>
     </div>
     <div class="form-group">
         <?= $form->field($model, 'imgurl')->textInput(['maxlength' => true]) ?>

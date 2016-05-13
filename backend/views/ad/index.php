@@ -62,113 +62,6 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
                 </div>
             </div>
         </div>
-        <div class="modal inmodal" id="myModal_1" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content animated bounceInRight">
-                    <div class="modal-header">
-                        <button type="button" class="close"
-                                data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">
-                            资源
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="control-label">资源类型：
-                                <label class="checkbox-inline">
-                                    <input type="radio" name="optionsRadiosinline" id="optionsRadios3"
-                                           value="option1" checked> 培训
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="radio" name="optionsRadiosinline" id="optionsRadios4"
-                                           value="option2"> 试卷
-                                </label>
-                            </label>
-                            <label class="control-label">资源名称：
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary">搜索
-                                            </button>
-                                        </span>
-                                </div>
-                            </label>
-                        </div>
-                        <table
-                            data-toggle="table"
-                            data-height="350">
-                            <thead>
-                            <tr>
-                                <th class="col-md-9">资源名</th>
-                                <th class="col-md-3">资源类型</th>
-                            </tr>
-                            </thead>
-                            </tbody>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训wy课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>培训课程</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">关闭
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                            提交更改
-                        </button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-
-    </div>
 <?php
 $js = <<<JS
 
@@ -189,6 +82,18 @@ $js = <<<JS
         $('#btnEdit').click(function () {
             var title = '编辑';
             $("#l_title").html(title);
+        });
+        $('#select').click(function(){
+            layer.open({
+              type: 2,
+              title: '选择资源',
+              shadeClose: false,
+              shade: 0.8,
+              closeBtn:1,
+              area: ['600px', '90%'],
+              content: '/ad/resource', //iframe的url
+
+            });
         });
 
 
