@@ -48,7 +48,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
 
 
         <!-- 弹出曾部分 -->
-        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="overflow:auto">
             <div class="modal-dialog">
                 <div class="modal-content animated bounceInRight">
                     <div class="modal-header">
@@ -62,17 +62,17 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="myModal_1" tabindex="-1" role="dialog"
+        <div class="modal inmodal" id="myModal_1" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content animated bounceInRight">
                     <div class="modal-header">
                         <button type="button" class="close"
                                 data-dismiss="modal" aria-hidden="true">
                             &times;
                         </button>
                         <h4 class="modal-title" id="myModalLabel">
-                            模态框（Modal）标题
+                            资源
                         </h4>
                     </div>
                     <div class="modal-body">

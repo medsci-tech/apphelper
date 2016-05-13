@@ -46,7 +46,6 @@ backend\assets\AppAsset::register($this);
                             return ['value' => $model->id];
                         }
                     ],
-                    ['class' => 'yii\grid\SerialColumn'],
                     'id',
                     [
                         'attribute' => 'type',

@@ -23,7 +23,7 @@ class ClassQuestion extends ClassQuestionModel
 
     public function search($params)
     {
-        $query = ClassQuestionModel::find()->orderBy('id desc');
+        $query = ClassQuestionModel::find();
 
         $this->load($params);
 

@@ -24,7 +24,7 @@ class Guide extends GuideModel
 
     public function search($params)
     {
-        $query = GuideModel::find()->orderBy('id desc');
+        $query = GuideModel::find();
 
         $this->load($params);
 

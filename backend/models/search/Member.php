@@ -24,7 +24,7 @@ class Member extends MemberModel
 
     public function search($params)
     {
-        $query = MemberModel::find()->orderBy('id desc');
+        $query = MemberModel::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
