@@ -43,7 +43,7 @@ class Controller extends ActiveController
      */
     public function checkAccess($action, $model = null, $params = [])
     {
-        $uid = $this->params['uid'];
+        $uid = $this->params['uid'] ?? 0;
         $headers = Yii::$app->request->headers;
         $access_token = $headers->get('access-token');
         if(!$uid || !$access_token)
