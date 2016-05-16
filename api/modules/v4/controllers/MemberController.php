@@ -56,8 +56,6 @@ class MemberController extends \api\common\controllers\Controller
         else
             $data['hospital_name'] = null;
 
-        unset($data['hospital_id'],$data['rank_id']);
-
         $result = ['code' => 200,'message'=>'个人信息','data'=>$data];
         return $result;
 
