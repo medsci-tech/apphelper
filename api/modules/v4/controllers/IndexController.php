@@ -42,7 +42,7 @@ class IndexController extends \api\common\controllers\Controller
             ['id'=>'345','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药66','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'题目总数','labelValue'=>'34','type'=> 'exam'],
             ['id'=>'543','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
         ];
-        $result = ['code' => 200,'message'=>'推荐列表','data'=>array_values($data),'isLastPage'=>true];
+        $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>true,'list'=>$data]];
         return $result;
     }
 

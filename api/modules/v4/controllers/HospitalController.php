@@ -44,9 +44,11 @@ class HospitalController extends \api\common\controllers\Controller
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count()/$pagesize);
-        $result = ['code' => 200,'message'=>'药店列表!','data'=>$model,'isLastPage' => $page==$total_page ? true : false];
+        $result = ['code' => 200,'message'=>'药店列表!','data'=>['isLastPage'=>$total_page ? true : false,'list'=>$model]];
         return $result;
 
     }
 
 }
+
+
