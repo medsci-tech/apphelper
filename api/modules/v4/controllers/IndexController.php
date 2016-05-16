@@ -31,7 +31,6 @@ class IndexController extends \api\common\controllers\Controller
     public function actionIndex()
     {
         $data=[
-            'isLastPage'=> true,
             ['id'=>'101','classname'=> '疾病','title'=> '普安药店员工收银服务指导说明','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
             ['id'=>'102','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药2','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'题目总数','labelValue'=>'56','type'=> 'exam'],
             ['id'=>'103','classname'=> '产品','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'http://qiuniu.up.com/13.jpg','labelName'=>'参与人数','labelValue'=>'99','type'=> 'article'],
@@ -42,9 +41,8 @@ class IndexController extends \api\common\controllers\Controller
             ['id'=>'345','classname'=> '药店','title'=> '缺铁性贫血及推荐用药55','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
             ['id'=>'345','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药66','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'题目总数','labelValue'=>'34','type'=> 'exam'],
             ['id'=>'543','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
-
         ];
-        $result = ['code' => 200,'message'=>'推荐列表','data'=>array_values($data)];
+        $result = ['code' => 200,'message'=>'推荐列表','data'=>array_values($data),'isLastPage'=>true];
         return $result;
     }
 
