@@ -94,7 +94,7 @@ $js = <<<JS
         var valOption = $('#wrap input[name="optionsResource"]:checked ').val();
         $("#type").val(valOption);
         console.log(valOption);
-        $("#table3  tr:not(:first)").empty("");
+        $("#table3  tr:not(:first)").html("");
     });
 JS;
 $this->registerJs($js);
