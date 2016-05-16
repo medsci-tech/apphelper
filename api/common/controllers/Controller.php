@@ -53,9 +53,16 @@ class Controller extends ActiveController
         }
         $data = ['uid'=>$uid,'access_token' => $access_token];
         $mem = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$uid),true);
-
         if($mem['uid'] && $mem['access_token'])
         {
+            /*  验证token 是否过期 */
+            if($access_token!=$mem['access_token'])
+            {
+                $result = ['code' => 0,'message'=>'tocken已过期!请重新登录!','data'=>null];
+                exit(json_encode($result));
+            }
+            $p = $mem['province']; //标记用户资料是否完善
+            unset($mem['province']);
             $res = array_diff_assoc($mem,$data);
             if($res)  // 授权认证失败
             {
@@ -63,19 +70,28 @@ class Controller extends ActiveController
                 exit(json_encode($result));
             }
             else
+            {
+/*                if(!$p)
+                {
+                    $result = ['code' => -2,'message'=>'资料尚未完善!','data'=>null];
+                    exit(json_encode($result));
+                }*/
                 return;
+            }
         }
         else
         {
             $model= Member::findIdentityByAccessToken($access_token);
             if($model->id!=$uid)
             {
-                $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
+                $result = ['code' => -1,'message'=>'tocken验证失败!','data'=>null];
                 exit(json_encode($result));
             }
             else
+            {
+                $data['province'] = $model->province;// 验证用户资料是否完善(省份未必填项即可验证)
                 Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data),2592000);
-
+            }
         }
     }
 

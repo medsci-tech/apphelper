@@ -1,7 +1,6 @@
 <?php
 namespace api\modules\v4\controllers;
 use api\common\controllers\CommonController;
-use api\common\models\LoginForm;
 use yii\web\Response;
 use api\common\models\member;
 use Yii;
@@ -36,7 +35,12 @@ class SiteController extends CommonController
             return $result;
         }
         else
+        {
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$model->id); // 清除历史缓存
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$model->id,json_encode(['uid'=>$model->id,'access_token' => $model->access_token]),2592000);
             $data=['uid'=>$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
+        }
+
 
         $result = ['code' => 200,'message'=>'注册成功!','data'=>$data];
         return $result;
@@ -59,25 +63,15 @@ class SiteController extends CommonController
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token]];
-        return $result;
-    }
-    public function actionLoginbk()
-    {
-        $model = new LoginForm();
-        $res = ['LoginForm' =>$this->params];
-        if ($model->load($res))
         {
-            if($model->login())
-            {
-                $result = ['code' => 200,'message'=>'登录成功'];
-            }
-            else
-                $result = ['code' => -1,'message'=>'登录失败'];
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$response->id); // 清除历史缓存
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$response->id,json_encode(['uid'=>$response->id,'access_token' => $response->access_token,'province' => $response->province]),2592000);
+            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token,'isComplete' =>$response->province ? true:false ]];
         }
-        return $result;
 
+        return $result;
     }
+
     /**
      * 设置密码
      * @author by lxhui
@@ -111,7 +105,7 @@ class SiteController extends CommonController
         return $this->sendCode($username);
     }
 
-    // 临时返货token ,生成环境删除
+    // 临时返回token ,生成环境删除
     public function actionView()
     {
         $result = Member::find()->where(['username' => $this->params])->asArray()->one();
@@ -123,23 +117,4 @@ class SiteController extends CommonController
 
     }
 
-    public function actionTest()
-    {
-        $headers = Yii::$app->request->headers;
-        $accept = $headers->get('access-token');
-        $result = ['code' => -1,'message'=>'测试tocken!','data'=>['access_token'=>$accept]];
-        return $result;
-
-    }
-    public function actionUpload()
-    {
-        $ak = 'OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-';
-        $sk = 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T';
-        $domain = 'http://api.test.ohmate.com.cn';
-        $qiniu = new Qiniu($ak, $sk,$domain, 'mdup');
-        $key = time();
-        $qiniu->uploadFile($_FILES['tmp_name'],$key);
-        $url = $qiniu->getLink($key);
-
-    }
 }

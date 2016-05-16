@@ -2,8 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\models\Region;
-use common\models\Hospital;
+use common\models\Exercise;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -88,9 +87,27 @@ backend\assets\AppAsset::register($this);
                         'template' => '{update}',//只需要展示删除和更新
                         'buttons' => [
                             'update'=> function ($url, $model, $key) {
+                                $exeIds = explode(',' , mb_substr($model->exe_ids, 1, -1));
+                                $exercise = Exercise::find()->andWhere(['id'=> $exeIds])->all();
+                                $exerciseArray = [];
+                                foreach ($exercise as $key => $val){
+                                    $exerciseArray[$key]['id'] = $val->id;
+                                    $exerciseArray[$key]['type'] = $val->type;
+                                    $exerciseArray[$key]['question'] = $val->question;
+                                    $exerciseArray[$key]['option'] = count(unserialize($val->option));
+                                    $exerciseArray[$key]['answer'] = $val->answer;
+                                }
+                                $exerciseData = json_encode($exerciseArray);
                                 return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
-                                data-id="'.$model->id.'"
-                                data-status="'.$model->status.'"
+                                data-id="' . $model->id . '"
+                                data-type="' . $model->type . '"
+                                data-name="' . $model->name . '"
+                                data-minutes="' . $model->minutes . '"
+                                data-publish_status="' . $model->publish_status . '"
+                                data-recommend_status="' . $model->recommend_status . '"
+                                data-about="' . $model->about . '"
+                                data-exercise=' . $exerciseData . '
+                                data-status="' . $model->status . '"
                                  ></span>');
                             },
                         ],
@@ -119,18 +136,45 @@ backend\assets\AppAsset::register($this);
 </div>
 
 <?php
+$formUrl = \yii\helpers\Url::toRoute('form');
 $js=<<<JS
-$(document).ready(function(){
-	
-    /*修改题库*/
+    /*修改试卷*/
     $("span[name='saveData']").click(function(){
-     
+        var id = $(this).attr('data-id');
+        var type = $(this).attr('data-type');
+        var name = $(this).attr('data-name');
+        var minutes = $(this).attr('data-minutes');
+        var publish_status = $(this).attr('data-publish_status');
+        var recommend_status = $(this).attr('data-recommend_status');
+        var about = $(this).attr('data-about');
+        var exercise = JSON.parse($(this).attr('data-exercise'));
+        var status = $(this).attr('data-status');
+        /* 编辑初始化 */
+        $('#formModal #tableForm').attr('action', '$formUrl?id='+id);
+        $('#formModal #exam-type').val(type);
+        $('#formModal #exam-name').val(name);
+        $('#formModal #exam-minutes').val(minutes);
+        $('#formModal #exam-publish_status').val(publish_status);
+        $('#formModal #exam-recommend_status').val(recommend_status);
+        $('#formModal #exam-about').val(about);
+        $('#formModal #exam-status').val(status);
+        examEditForMime($('#optionListBody'), exercise);
+        
     });
     /*添加题库初始化*/
     $("#createBtn").click(function(){
-       
+        /* 编辑初始化 */
+        var defaltData = ''; 
+        $('#formModal #tableForm').attr('action', '$formUrl');
+        $('#formModal #exam-type').val(0);
+        $('#formModal #exam-name').val(defaltData);
+        $('#formModal #exam-minutes').val(defaltData);
+        $('#formModal #exam-publish_status').val(defaltData);
+        $('#formModal #exam-recommend_status').val(defaltData);
+        $('#formModal #exam-about').val(defaltData);
+        $('#formModal #exam-status').val(1);
+        $('#optionListBody').html(defaltData);
     });
-});
 JS;
 $this->registerJs($js);
 ?>

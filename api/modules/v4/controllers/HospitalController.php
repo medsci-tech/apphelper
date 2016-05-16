@@ -38,14 +38,17 @@ class HospitalController extends \api\common\controllers\Controller
         $data = Hospital::find()
             ->select(['id as hospital_id','name'])
             ->andWhere(['status' => 1])
-            ->andWhere(['like', 'province', $this->params['province']])
+            ->andWhere(['like', 'province',$province])
             ->andFilterWhere(['like', 'city', $this->params['city'] ?? ''])
             ->andFilterWhere(['like', 'area', $this->params['area'] ?? '']);
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
-        $result = ['code' => 200,'message'=>'药店列表!','data'=>$model];
+        $total_page = ceil($data->count()/$pagesize);
+        $result = ['code' => 200,'message'=>'药店列表!','data'=>['isLastPage'=>$total_page ? true : false,'list'=>$model]];
         return $result;
 
     }
 
 }
+
+
