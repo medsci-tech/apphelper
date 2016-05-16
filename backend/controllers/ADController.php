@@ -64,8 +64,8 @@ class AdController extends BackendController
     public function actionFind()
     {
         $strHtml = '';
-        $params = Yii::$app->request->post();
-        if ('1' == $params['type']) {
+        $params = Yii::$app->request->get();
+        if ('1' == $params['optionsResource']) {
             if ($params['resource']) {
                 $allResource = Resource::find()->all();
             } else {
@@ -79,7 +79,7 @@ class AdController extends BackendController
             }
         }
 
-        if ('2' == $params['type']) {
+        if ('2' == $params['optionsResource']) {
             if ($params['resource']) {
                 $allExam = Exam::find()->all();
             } else {

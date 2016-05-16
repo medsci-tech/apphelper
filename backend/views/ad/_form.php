@@ -39,6 +39,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '启用']) ?>
 </div>
 <div class="modal-footer">
+    <input type="hidden" name="type" id="type">
+    <input type="hidden" name="attr_id" id="attr_id">
     <input type="hidden" name="attr_from" id="attr_from">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
