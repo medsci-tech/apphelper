@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = '考卷';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['params'] = $params;
+$this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
 ?>
 
@@ -45,7 +45,7 @@ backend\assets\AppAsset::register($this);
                             return ['value' => $model->id];
                         }
                     ],
-                    'id',
+                    ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute' => 'type',
                         'value' =>
@@ -90,12 +90,12 @@ backend\assets\AppAsset::register($this);
                                 $exeIds = explode(',' , mb_substr($model->exe_ids, 1, -1));
                                 $exercise = Exercise::find()->andWhere(['id'=> $exeIds])->all();
                                 $exerciseArray = [];
-                                foreach ($exercise as $key => $val){
-                                    $exerciseArray[$key]['id'] = $val->id;
-                                    $exerciseArray[$key]['type'] = $val->type;
-                                    $exerciseArray[$key]['question'] = $val->question;
-                                    $exerciseArray[$key]['option'] = count(unserialize($val->option));
-                                    $exerciseArray[$key]['answer'] = $val->answer;
+                                foreach ($exercise as $k => $val){
+                                    $exerciseArray[$k]['type'] = $this->params['params']['exercise']['type'][$val->type];
+                                    $exerciseArray[$k]['id'] = $val->id;
+                                    $exerciseArray[$k]['question'] = $val->question;
+                                    $exerciseArray[$k]['option'] = count(unserialize($val->option));
+                                    $exerciseArray[$k]['answer'] = $val->answer;
                                 }
                                 $exerciseData = json_encode($exerciseArray);
                                 return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
@@ -158,7 +158,8 @@ $js=<<<JS
         $('#formModal #exam-recommend_status').val(recommend_status);
         $('#formModal #exam-about').val(about);
         $('#formModal #exam-status').val(status);
-        examEditForMime($('#optionListBody'), exercise);
+        console.log(exercise);
+        examEditForMime($('#examListBody'), exercise);
         
     });
     /*添加题库初始化*/
@@ -173,7 +174,7 @@ $js=<<<JS
         $('#formModal #exam-recommend_status').val(defaltData);
         $('#formModal #exam-about').val(defaltData);
         $('#formModal #exam-status').val(1);
-        $('#optionListBody').html(defaltData);
+        $('#examListBody').html(defaltData);
     });
 JS;
 $this->registerJs($js);
