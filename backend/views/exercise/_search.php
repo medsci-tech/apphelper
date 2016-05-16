@@ -25,12 +25,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'question') ?>
     <?= $form->field($model, 'category')->hiddenInput()->label(false) ?>
-    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
+    <?php if(empty($examAddExerciseForGet)):?>
     <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
-    <?= Html::button('启用', ['class' => 'btn btn-primary','data-toggle'=> 'enable']) ?>
+    <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','data-toggle'=> 'disable']) ?>
     <?= Html::button('批量删除', ['class' => 'btn btn-danger', 'id'=> 'del']) ?>
+    <?php endif;?>
     <?php ActiveForm::end(); ?>
 </div>
 <?php

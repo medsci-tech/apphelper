@@ -43,15 +43,8 @@ class ExamController extends BackendController
         $model->load($appYii->request->post());
         $isValid = $model->validate();
         if ($isValid) {
-            $optionArray = [];
-            foreach ($model->option as $key => $val){
-                $optionArray[chr(65 + $key)] = $val;
-            }
-            $model->option = serialize($optionArray);
-            $model->answer = implode(',', $model->answer);
-            if(isset($model->id)){
-                $model->update_at = time();
-            }else{
+            $model->exe_ids = ',' . implode(',', $model->exe_ids) . ',';
+            if(!isset($model->id)){
                 $model->created_at = time();
             }
             $result = $model->save(false);
@@ -86,7 +79,7 @@ class ExamController extends BackendController
                 (new Exam())->saveData(['id' => $params['selection']], ['status' => 0]);
             } elseif ('isPub' == $params['type']) {
                 /*发布*/
-                (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 1]);
+                (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 1, 'publish_at' => time()]);
             } elseif ('noPub' == $params['type']) {
                 /*取消发布*/
                 (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 0]);

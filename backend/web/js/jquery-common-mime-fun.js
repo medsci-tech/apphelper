@@ -42,6 +42,29 @@ exerciseEditForMime = function (element, option, answer, checkType) {
 };
 
 /**
+ * 试卷管理-编辑试题-初始化选项
+ * @param asThis string | eq:[tbody#optionListBody, context: document, selector: "#optionListBody"]
+ * @param list array | eq:{A: "1", B: "2", C: "4"}
+ */
+examEditForMime = function (asThis, list) {
+    var html = '';
+    var listLen = list.length;
+    for(var i = 0; i < listLen; i++){
+        html += '<tr>';
+        html += '    <td><input type="hidden" name="Exam[exe_ids][]" value="' + list[i]['id'] + '"></td>';
+        html += '    <td>' + list[i]['type'] + '</td>';
+        html += '    <td>' + list[i]['question'] + '</td>';
+        html += '    <td>' + list[i]['option'] + '</td>';
+        html += '    <td>' + list[i]['answer'] + '</td>';
+        html += '    <td>';
+        html += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+        html += '    </td>';
+        html += '</tr>';
+    }
+    asThis.html(html);
+};
+
+/**
  * 试题管理-题库添加试题-初始化选项-默认四个选项
  * @param element string | eg:'#div'
  */
@@ -87,11 +110,14 @@ exerciseInitForMime = function (element) {
  * 删除所在的行(tr)-仅适用于table
  * @param element string | eg:'#div'
  * @param asThis
+ * @param retainNum int 保留项数
  */
-delThisRowOptionForMime = function (element, asThis) {
-    if($(element).find('tr').length > 1){
+delThisRowOptionForMime = function (element, asThis, retainNum) {
+    if(undefined == retainNum){
+        retainNum = 0;
+    }
+    if($(element).find('tr').length > retainNum){
         var parentTr = $(asThis).parent().parent();
-        // var nextTr = parentTr.nextAll('tr');
         var addHtmlLength = $(asThis).next('a').length;
         if(addHtmlLength){
             var addHtml = ' <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
@@ -132,7 +158,6 @@ verifyCheckedForMime = function (check) {
             checked++;
         }
     }
-    console.log(checked);
     if(0 == checked){
         swal('未选择','请勾选需要操作的信息');
         return false;

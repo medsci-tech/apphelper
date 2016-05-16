@@ -18,6 +18,8 @@ $this->title = '题库';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $params;
 backend\assets\AppAsset::register($this);
+/*根据get参数判断是否是考卷添加试题*/
+$examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
 ?>
 <!--树形视图--start-->
 <div id="treeView" class="col-lg-2 modal-body"></div>
@@ -26,7 +28,7 @@ backend\assets\AppAsset::register($this);
 <div class="modal-body col-lg-10">
     <div class="box box-success">
         <div class="box-body">
-            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?php echo $this->render('_search', ['model' => $searchModel, 'examAddExerciseForGet' => $examAddExerciseForGet]); ?>
         </div>
     </div>
     <div class="box box-success">
@@ -99,6 +101,9 @@ backend\assets\AppAsset::register($this);
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <?php if($examAddExerciseForGet):?>
+        <?= Html::button('移入', ['class' => 'btn-outline btn btn-success','data-toggle'=> 'layerCtrlParent']) ?>
+    <?php endif;?>
 </div>
 
 
@@ -118,6 +123,7 @@ backend\assets\AppAsset::register($this);
 </div>
 
 <?php
+$formUrl = \yii\helpers\Url::toRoute('form');
 $js=<<<JS
     /*树形结构初始化*/
 	var initSelectableTree = function() {
@@ -146,7 +152,7 @@ $js=<<<JS
         var resolve = $(this).attr('data-resolve');
         var status = $(this).attr('data-status');
         /* 编辑初始化 */
-        $('#formModal #tableForm').attr('action','/exercise/form?id='+id);
+        $('#formModal #tableForm').attr('action','$formUrl?id='+id);
         $('#formModal #exercise-type').val(type);
         $('#formModal #exercise-category').val(category);
         $('#formModal #exercise-question').val(question);
@@ -162,7 +168,7 @@ $js=<<<JS
     /*添加题库初始化*/
     $("#createBtn").click(function(){
         var defaltData = ''; 
-        $('#formModal #tableForm').attr('action','/exercise/form');
+        $('#formModal #tableForm').attr('action','$formUrl');
         $('#formModal #exercise-type').val(1);
         $('#formModal #exercise-category').val(defaltData);
         $('#formModal #exercise-question').val(defaltData);
@@ -170,6 +176,12 @@ $js=<<<JS
         $('#formModal #exercise-resolve').val(defaltData);
         $('#formModal #exercise-status').val(1);
         exerciseInitForMime('#optionListBody');
+    });
+    
+    $('[data-toggle="layerCtrlParent"]').on('click',function() {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.$('#add-exercise').text('我被改变了');
+        parent.layer.close(index);
     });
 JS;
 $this->registerJs($js);

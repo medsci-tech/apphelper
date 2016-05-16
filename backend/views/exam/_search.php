@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'name') ?>
-    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
     <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
