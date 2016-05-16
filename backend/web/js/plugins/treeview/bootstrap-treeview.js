@@ -1216,7 +1216,6 @@
 
 	/*表单查询方法--zhaiyu--20160503--start*/
 	Tree.prototype.selectedSubmitForm = function (id, options) {
-		console.log(options);
 		console.log(id);
 		if (options.onSubmitFormId && options.onSubmitInputValue){
 			$('#' + options.onSubmitInputValue).val(id);

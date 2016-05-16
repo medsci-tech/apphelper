@@ -35,7 +35,7 @@ $form = ActiveForm::begin([
             <tbody id="optionListBody">
             </tbody>
         </table>
-        <button type="button" class="btn btn-info btn-sm">添加</button>
+        <button id="add-exercise" type="button" class="btn btn-info btn-sm">添加</button>
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
@@ -53,8 +53,16 @@ $js = <<<JS
        delThisRowOptionForMime('#optionListBody',this);
     });
     /*添加试题*/
-    $('#optionListBody').on('click','.addNextOption',function() {
+    $('#add-exercise').click(function() {
         console.log('add exercise');
+        layer.open({
+            type: 2,
+            title: '添加试题',
+            area: ['800px', '600px'],
+            fix: false, //不固定
+            maxmin: true,
+            content: '/exercise/index?hiboyiamalayer=itisevident'
+        });
     });
 JS;
 $this->registerJs($js);
