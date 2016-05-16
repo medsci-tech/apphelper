@@ -31,6 +31,7 @@ class AdminPlusAsset extends AssetBundle
         'js/plugins/pace/pace.min.js',
         'js/plugins/sweetalert/sweetalert.min.js',
         '/js/bootstrap-table.min.js',
+        '/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js',
         '/js/jquery-common-mime-fun.js',
     ];
     public $depends = [
