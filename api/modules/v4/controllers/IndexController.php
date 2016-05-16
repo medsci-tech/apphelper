@@ -8,7 +8,6 @@
 
 namespace api\modules\v4\controllers;
 
-use backend\models\search\Member;
 use common\models\Region;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -44,6 +43,7 @@ class IndexController extends \api\common\controllers\Controller
             ['id'=>'543','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
         ];
         $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>true,'list'=>$data]];
+<<<<<<< HEAD
         return $result;
     }
     /**
@@ -142,18 +142,9 @@ class IndexController extends \api\common\controllers\Controller
         }
         else
             $result = ['code' => 200,'message'=>'设置成功','data'=>null];
+=======
+>>>>>>> 597b1d7b2150744a7cbda1c378356a53175559ad
         return $result;
-
     }
 
-    public function actionDelete($id)
-    {
-        echo(110);
-    }
-    public function actionTest()
-    {
-
-        Yii::$app->cache->set('test1', 'haha..', 2592000);
-        echo Yii::$app->cache->get('test1');exit;
-    }
 }
