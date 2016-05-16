@@ -66,7 +66,7 @@ class SiteController extends CommonController
         {
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$response->id); // 清除历史缓存
             Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$response->id,json_encode(['uid'=>$response->id,'access_token' => $response->access_token,'province' => $response->province]),2592000);
-            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token,'isComplete' =>$response->access_token ? true:false ]];
+            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'access_token'=>$response->access_token,'isComplete' =>$response->province ? true:false ]];
         }
 
         return $result;
