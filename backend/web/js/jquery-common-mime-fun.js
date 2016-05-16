@@ -51,9 +51,9 @@ examEditForMime = function (asThis, list) {
     var listLen = list.length;
     for(var i = 0; i < listLen; i++){
         html += '<tr>';
-        html += '    <td><input type="hidden" name="Exam[exe_ids][]" value="' + list[i]['id'] + '"></td>';
+        html += '    <td>' + (i + 1) + '<input type="hidden" name="Exam[exe_ids][]" value="' + list[i]['id'] + '"></td>';
         html += '    <td>' + list[i]['type'] + '</td>';
-        html += '    <td>' + list[i]['question'] + '</td>';
+        html += '    <td><a href="/exercise/view?id=' + list[i]['id'] + '">' + list[i]['question'] + '</a></td>';
         html += '    <td>' + list[i]['option'] + '</td>';
         html += '    <td>' + list[i]['answer'] + '</td>';
         html += '    <td>';

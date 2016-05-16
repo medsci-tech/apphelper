@@ -24,7 +24,6 @@ class ExamController extends BackendController
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
-            'params' => $appYii->params,
         ]);
     }
 
