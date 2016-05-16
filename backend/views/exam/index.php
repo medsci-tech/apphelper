@@ -45,7 +45,7 @@ backend\assets\AppAsset::register($this);
                             return ['value' => $model->id];
                         }
                     ],
-                    'id',
+                    ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute' => 'type',
                         'value' =>
@@ -92,6 +92,7 @@ backend\assets\AppAsset::register($this);
                                 $exerciseArray = [];
                                 foreach ($exercise as $k => $val){
                                     $exerciseArray[$k]['type'] = $this->params['params']['exercise']['type'][$val->type];
+                                    $exerciseArray[$k]['id'] = $val->id;
                                     $exerciseArray[$k]['question'] = $val->question;
                                     $exerciseArray[$k]['option'] = count(unserialize($val->option));
                                     $exerciseArray[$k]['answer'] = $val->answer;
@@ -157,7 +158,8 @@ $js=<<<JS
         $('#formModal #exam-recommend_status').val(recommend_status);
         $('#formModal #exam-about').val(about);
         $('#formModal #exam-status').val(status);
-        examEditForMime($('#optionListBody'), exercise);
+        console.log(exercise);
+        examEditForMime($('#examListBody'), exercise);
         
     });
     /*添加题库初始化*/
@@ -172,7 +174,7 @@ $js=<<<JS
         $('#formModal #exam-recommend_status').val(defaltData);
         $('#formModal #exam-about').val(defaltData);
         $('#formModal #exam-status').val(1);
-        $('#optionListBody').html(defaltData);
+        $('#examListBody').html(defaltData);
     });
 JS;
 $this->registerJs($js);

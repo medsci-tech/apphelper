@@ -123,4 +123,27 @@ class ExerciseController extends BackendController
         }
     }
 
+    /**
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $params = Yii::$app->params;
+        $model = $this->findModel($id);
+        $model->category = $model->category ? ExamClass::findOne($model->category)->name : '';
+        $option = unserialize($model->option);
+        $optionTemp = '';
+        if($option){
+            foreach ($option as $key => $val){
+                $optionTemp .= $key . ':' . $val . '; ';
+            }
+        }
+        $model->option = $optionTemp;
+        $model->type = $params['exercise']['type'][$model->type];
+        $model->status =  $params['statusOption'][$model->status];
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
 }
