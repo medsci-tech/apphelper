@@ -9,6 +9,8 @@
 namespace backend\controllers;
 
 use common\models\AD;
+use common\models\Exam;
+use common\models\Resource;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -46,7 +48,55 @@ class AdController extends BackendController
 
     public  function actionResource()
     {
-        return $this->render('resource');
+        $strHtml = '';
+        $allResource = Exam::find()->all();
+        foreach($allResource as $resource){
+            $strHtml = $strHtml."<tr>
+                    <td>".$resource->id."</td>
+                    <td>".$resource->about."</td>
+                    </tr>";
+        }
+        return $this->render('resource', [
+            'strHtml' => $strHtml
+        ]);
+    }
+
+    public function actionFind()
+    {
+        $strHtml = '';
+        $params = Yii::$app->request->post();
+        if ('1' == $params['type']) {
+            if ($params['resource']) {
+                $allResource = Resource::find()->all();
+            } else {
+                $allResource = Resource::find()->all();
+            }
+            foreach ($allResource as $resource) {
+                $strHtml = $strHtml . "<tr>
+                    <td>" . $resource->id . "</td>
+                    <td>" . $resource->title . "</td>
+                    </tr>";
+            }
+        }
+
+        if ('2' == $params['type']) {
+            if ($params['resource']) {
+                $allExam = Exam::find()->all();
+            } else {
+                $allExam = Exam::find()->all();
+            }
+            foreach ($allExam as $exam) {
+                $strHtml = $strHtml . "<tr>
+                    <td>" . $exam->id . "</td>
+                    <td>" . $exam->about . "</td>
+                    </tr>";
+            }
+        }
+
+
+        return $this->render('resource', [
+            'strHtml' => $strHtml
+        ]);
     }
 
     protected function getHtmlImage()

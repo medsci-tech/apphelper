@@ -30,22 +30,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
             <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <img src="../img/a1.jpg" attr="1"
-                     alt="" class="thumbnail">
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <img src="../img/a2.jpg" attr="2"
-                     alt="" class="thumbnail">
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <img src="../img/a3.jpg"
-                     alt="" class="thumbnail">
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <img src="../img/a4.jpg"
-                     alt="" class="thumbnail">
-            </div>
+            <?= $strHtml ?>
         </div>
 
 
@@ -70,8 +55,7 @@ $js = <<<JS
         $('div.row img').click(function () {
             $("div.row img").css("border","1px solid #ddd");
             $(this).css("border","1px solid #3B9A2E");
-            var attr = $(this).attr('attr');
-            alert(attr);
+            var aid = $(this).attr('aid');
         });
 
         $('#btnAdd').click(function () {
