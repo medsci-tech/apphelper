@@ -73,7 +73,7 @@ class Controller extends ActiveController
             {
                 if(!$p)
                 {
-                    $result = ['code' => -1,'message'=>'资料尚未完善!','data'=>null];
+                    $result = ['code' => -2,'message'=>'资料尚未完善!','data'=>null];
                     exit(json_encode($result));
                 }
                 return;
