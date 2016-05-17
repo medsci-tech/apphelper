@@ -57,7 +57,7 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
                         'value' =>
                             function ($model) {
                                 $result = $this->params['params']['exercise']['type'][$model->type];
-                                return $result ? $result : '';
+                                return $result ?? '';
                             },
                     ],
                     'question',
@@ -73,7 +73,7 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
                         'value' =>
                             function ($model) {
                                 $result = $this->params['params']['statusOption'][$model->status];
-                                return $result ? $result : '';
+                                return $result ?? '';
                             },
                     ],
                     [
@@ -179,8 +179,35 @@ $js=<<<JS
     });
     
     $('[data-toggle="layerCtrlParent"]').on('click',function() {
+        var check = $('#delForm').find('input[name="selection[]"]');
+        var parentHtml = parent.$('#formModal #examListBody');
+        var parentLastNum = $(parentHtml.html()).length;
+        if('' == parentHtml || undefined == parentHtml){
+            parentLastNum = 0;
+        }
+        var html = '';
+        for(var i =0; i < check.length; i++){
+            if(check[i].checked == true){
+                parentLastNum++;
+                var tdHtml = $(check[i]).parent().next().next();
+                html += '<tr>';
+                html += '    <td>' + parentLastNum + '<input type="hidden" name="Exam[exe_ids][]" value="' + $(check[i]).val() + '"></td>';
+                html += '    <td>' + tdHtml.html() + '</td>';
+                html += '    <td><a href="/exercise/view?id=' + $(check[i]).val() + '">' + tdHtml.next().html() + '</a></td>';
+                html += '    <td>' + tdHtml.next().next().html() + '</td>';
+                html += '    <td>' + tdHtml.next().next().next().html() + '</td>';
+                html += '    <td>';
+                html += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+                html += '    </td>';
+                html += '</tr>';
+            }
+        }
+        if('' == html){
+            swal('未选择','请勾选需要操作的信息');
+            return false;
+        }
+        parentHtml.append(html);
         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-        parent.$('#add-exercise').text('我被改变了');
         parent.layer.close(index);
     });
 JS;

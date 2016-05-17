@@ -24,7 +24,7 @@ $form = ActiveForm::begin([
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th>序号</th>
                     <th>类型</th>
                     <th>题目</th>
                     <th>选项</th>
@@ -32,7 +32,7 @@ $form = ActiveForm::begin([
                     <th>操作</th>
                 </tr>
             </thead>
-            <tbody id="optionListBody">
+            <tbody id="examListBody">
             </tbody>
         </table>
         <button id="add-exercise" type="button" class="btn btn-info btn-sm">添加</button>
@@ -49,12 +49,11 @@ $form = ActiveForm::begin([
 <?php
 $js = <<<JS
     /*删除试题*/
-    $('#optionListBody').on('click','.delThisOption',function() {
-       delThisRowOptionForMime('#optionListBody',this);
+    $('#examListBody').on('click','.delThisOption',function() {
+       delThisRowOptionForMime('#examListBody',this);
     });
     /*添加试题*/
     $('#add-exercise').click(function() {
-        console.log('add exercise');
         layer.open({
             type: 2,
             title: '添加试题',
