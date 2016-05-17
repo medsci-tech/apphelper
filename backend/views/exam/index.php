@@ -158,7 +158,6 @@ $js=<<<JS
         $('#formModal #exam-recommend_status').val(recommend_status);
         $('#formModal #exam-about').val(about);
         $('#formModal #exam-status').val(status);
-        console.log(exercise);
         examEditForMime($('#examListBody'), exercise);
         
     });
