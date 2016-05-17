@@ -21,6 +21,7 @@ class IndexController extends \api\common\controllers\Controller
     protected function verbs(){
         return [
             'index'=>['GET','POST'],
+            'ad'=>['POST'],
             'rank'=>['POST'],
             'reg'=>['POST'],
             'nickname'=>['POST'],
@@ -31,12 +32,12 @@ class IndexController extends \api\common\controllers\Controller
     public function actionAd()
     {
         $data=[
-            ['id'=>'101',,'title'=> '哇哈哈','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
-            ['id'=>'102','classname'=> '考卷','title'=> '梅里特色','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'题目总数','labelValue'=>'56','type'=> 'exam'],
-            ['id'=>'103','classname'=> '产品','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'99','type'=> 'article'],
-            ['id'=>'104','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'89','type'=> 'article'],
+            ['id'=>'101','title'=> '哇哈哈','imgurl'=>'http://a.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=7f8f3d8f222dd42a5f5c09af360b7783/b21bb051f81986189edf87624ded2e738ad4e6b8.jpg','type'=> 'article'],
+            ['id'=>'102','title'=> '梅里特色','imgurl'=>'http://a.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=3be2df5da11ea8d38a777c00a23a1c78/0dd7912397dda144a52c0454b5b7d0a20cf4862a.jpg','type'=> 'exam'],
+            ['id'=>'103','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=fc0c129c27a446237e9fad66ad125e38/4afbfbedab64034fe9deaae0a8c379310b551dc0.jpg','type'=> 'article'],
+            ['id'=>'104','title'=> '缺铁性贫血及推荐用药4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','type'=> 'article'],
         ];
-        $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>true,'list'=>$data]];
+        $result = ['code' => 200,'message'=>'轮播图','data'=>$data];
         return $result;
     }
     public function actionIndex()
