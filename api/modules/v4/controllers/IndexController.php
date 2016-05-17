@@ -31,16 +31,16 @@ class IndexController extends \api\common\controllers\Controller
     public function actionIndex()
     {
         $data=[
-            ['id'=>'101','classname'=> '疾病','title'=> '普安药店员工收银服务指导说明','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
-            ['id'=>'102','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药2','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'题目总数','labelValue'=>'56','type'=> 'exam'],
-            ['id'=>'103','classname'=> '产品','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'http://qiuniu.up.com/13.jpg','labelName'=>'参与人数','labelValue'=>'99','type'=> 'article'],
-            ['id'=>'104','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药4','imgurl'=>'http://qiuniu.up.com/22.jpg','labelName'=>'参与人数','labelValue'=>'89','type'=> 'article'],
-            ['id'=>'211','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药dd','imgurl'=>'http://qiuniu.up.com/34.jpg','labelName'=>'参与人数','labelValue'=>'67','type'=> 'article'],
-            ['id'=>'222','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药rre','imgurl'=>'http://qiuniu.up.com/34.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'exam'],
-            ['id'=>'223','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药78','imgurl'=>'http://qiuniu.up.com/3.jpg','labelName'=>'题目总数','labelValue'=>'22','type'=> 'article'],
-            ['id'=>'345','classname'=> '药店','title'=> '缺铁性贫血及推荐用药55','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
-            ['id'=>'345','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药66','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'题目总数','labelValue'=>'34','type'=> 'exam'],
-            ['id'=>'543','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'http://qiuniu.up.com/12.jpg','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
+            ['id'=>'101','classname'=> '疾病','title'=> '普安药店员工收银服务指导说明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
+            ['id'=>'102','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药2','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'题目总数','labelValue'=>'56','type'=> 'exam'],
+            ['id'=>'103','classname'=> '产品','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'99','type'=> 'article'],
+            ['id'=>'104','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'89','type'=> 'article'],
+            ['id'=>'211','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药dd','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'67','type'=> 'article'],
+            ['id'=>'222','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药rre','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110','type'=> 'exam'],
+            ['id'=>'223','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药78','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'题目总数','labelValue'=>'22','type'=> 'article'],
+            ['id'=>'345','classname'=> '药店','title'=> '缺铁性贫血及推荐用药55','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
+            ['id'=>'345','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药66','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'题目总数','labelValue'=>'34','type'=> 'exam'],
+            ['id'=>'543','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
         ];
         $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>true,'list'=>$data]];
         return $result;
