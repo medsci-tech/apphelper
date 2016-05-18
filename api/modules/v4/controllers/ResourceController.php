@@ -33,9 +33,9 @@ class ResourceController extends \api\common\controllers\Controller
     public function actionHospital()
     {
         $data=[
-            ['id'=>'101','title'=> '新手培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'50%'],
-            ['id'=>'102','title'=> '店员培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'40%'],
-            ['id'=>'103','title'=> '店长培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'70%'],
+            ['id'=>'101','title'=> '新手培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'50'],
+            ['id'=>'102','title'=> '店员培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'40'],
+            ['id'=>'103','title'=> '店长培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'70'],
         ];
         $result = ['code' => 200,'message'=>'药店列表','data'=>['isLastPage'=>true ,'list'=>$data]];
         return $result;

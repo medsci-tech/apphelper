@@ -39,22 +39,28 @@
     .article_details{
         color: #3e3e3e;
     }
+    img{
+        width: 100%;
+    }
 
 </style>
 <body>
-    <div class="article">
-        <div class="content">
-            <h2 class="article_title">农业兄弟</h2>
-            <div class="article_time">2015-04-12</div>
-            <div class="article_details">中国新农业营销策划第一团队
-
+<div class="article">
+    <div class="content">
+        <h2 class="article_title">农业兄弟</h2>
+        <div class="article_time">2015-04-12</div>
+        <div class="article_details">
+            <p>
+                中国新农业营销策划第一团队
                 三兄弟：
+                <img src="http://7xshr6.com1.z0.glb.clouddn.com/1%20(2).png">
                 同学情：同为黑土地之子，19年前大学校园共居一寝室，上学时候的梦想就是兄弟们能共同组建一个平台，彼此成就！毕业后虽天南海北，但从来没有忘却彼此共同成就的初心！
-
                 农业梦：2007年是一个春天，情聚梦聚北京，斗室之内唱着《大地的孩子》创办蓝狮农业品牌营销策划机构，甘苦自知，八年彼此支撑，将心植入服务二百余农企，携手搭建了从调研到执行，系统的品牌农业全案服务体系。
-
-                立品牌：讲策略，重营销，创意为心，指导执行，一切只为立起品牌新农业、新农人。</div>
+                <img src="http://7xshr6.com1.z0.glb.clouddn.com/1%20(2).png">
+                立品牌：讲策略，重营销，创意为心，指导执行，一切只为立起品牌新农业、新农人。
+            </p>
         </div>
     </div>
+</div>
 </body>
 </html>
