@@ -19,6 +19,7 @@ class AdminPlusAsset extends AssetBundle
         'css/style.min862f.css?v=4.1.0',
         'css/plugins/sweetalert/sweetalert.css',
         '/css/bootstrap-table.min.css',
+        'css/plugins/toastr/toastr.min.css',
     ];
     public $js = [
         'js/bootstrap.min.js?v=3.3.6',
@@ -33,6 +34,7 @@ class AdminPlusAsset extends AssetBundle
         '/js/bootstrap-table.min.js',
         '/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js',
         '/js/jquery-common-mime-fun.js',
+        'js/plugins/toastr/toastr.min.js',
     ];
     public $depends = [
 /*        'rmrevin\yii\fontawesome\AssetBundle',
