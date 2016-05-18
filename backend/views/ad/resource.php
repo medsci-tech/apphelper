@@ -51,7 +51,7 @@ backend\assets\AppAsset::register($this);
 <div class="modal-footer">
     <input type="hidden" name="type" id="type">
     <input type="hidden" name="attr_id" id="attr_id">
-    <input type="hidden" name="attr_from" id="attr_from">
+    <input type="hidden" name="attr_name" id="attr_name">
     <button id="btnClose" type="button" class="btn btn-white">关闭</button>
     <button id="btnConfirm" type="button" class="btn btn-primary">确定</button>
 </div>
@@ -69,25 +69,31 @@ $js = <<<JS
     });
 
     $("#btnConfirm").click(function() {
-
+        parent.$('#attr_name').val($("#attr_name").val());
+        parent.$('#attr_id').val($("#attr_id").val());
+        parent.$('#attr_from').val($("#type").val());
+        parent.layer.close(index);
     });
 
     $("#btnSearch").click(function() {
         $("#resourceForm").submit();
     });
 
-    $("#table3 tr").click(function () {
-        $("#table3 tr").css('background-color','white');
+    $("#table3 td").click(function () {
         var tdSeq = $(this).parent().find("td").index($(this));
         var trSeq = $(this).parent().parent().find("tr").index($(this).parent());
         var td1 = "#table3 tr:gt(0):eq("+trSeq+") td:eq(0)";
         var td2 = "#table3 tr:gt(0):eq("+trSeq+") td:eq(1)";
-        $(this).css('background-color','#B7B7AD');
-        $("#attr_id").val(td1);
-        $("#attr_from").val(td2);
+        $("#attr_id").val($(td1).text());
+        $("#attr_name").val($(td2).text());
         //var v1 = $(td1).text();
         //var v2 = $(td2).text();
         //alert("第" + (trSeq) + "行，第" + (tdSeq+1) + "列, "+v1+","+v2);
+    });
+
+    $("#table3 tr").click(function () {
+        $("#table3 tr").css('background-color','white');
+        $(this).css('background-color','#B7B7AD');
     });
 
     $('.radioItem').change(function(){

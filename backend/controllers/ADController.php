@@ -42,9 +42,54 @@ class AdController extends BackendController
 
     public function actionCreate()
     {
+        $params = Yii::$app->request->post();
+        if('add' == $params['mode']) {
+            $model = new AD();
+            if ($model->load(Yii::$app->request->post())) {
+                if (0 == $params['attr_type']) {
+                    $model->attr_id = $params['attr_id'];
+                    $model->attr_from = $params['attr_from'];
+                }
 
+                if (1 == $params['attr_type']) {
+                    $model->linkurl = $params['attr_name'];
+                }
+
+                if($model->save(false)) {
+                    return $this->redirect(['index']);
+                }
+            }
+        } else if('edit' == $params['mode']) {
+            $id = $params['aid'];
+            $model = $this->findModel($id);
+            if ($model->load(Yii::$app->request->post())) {
+                if (0 == $params['attr_type']) {
+                    $model->attr_id = $params['attr_id'];
+                    $model->attr_from = $params['attr_from'];
+                }
+
+                if (1 == $params['attr_type']) {
+                    $model->linkurl = $params['attr_name'];
+                }
+
+                if($model->save(false)) {
+                    return $this->redirect(['index']);
+                }
+            }
+        } else {
+            return $this->redirect(['index']);
+        }
     }
 
+
+    protected function findModel($id)
+    {
+        if (($model = AD::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
     public  function actionResource()
     {
@@ -110,10 +155,10 @@ class AdController extends BackendController
         {
             $strHtml = $strHtml." <div class='col-sm-6 col-md-4'>
                 <img src='".$ad->imgurl."' class='thumbnail'
-                aid='".$ad->id."' sort='".$ad->sort."
+                aid='".$ad->id."' sort='".$ad->sort."'
                 links='".$ad->linkurl."'  status ='".$ad->status."'
                 attr_id='".$ad->attr_id."' attr_from ='".$ad->attr_from."'
-                '></div> ";
+                atitle='".$ad->title."'></div> ";
         }
 
         return $strHtml;

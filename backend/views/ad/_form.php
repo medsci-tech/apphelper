@@ -23,11 +23,12 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <label class="control-label">资源类型</label>
-        <?= Html::dropDownList('attr_type', 0, [0 => '内部资源', 1 => '外部链接'], ['class' => 'form-control']) ?>
+        <?= Html::dropDownList('attr_type', 0, [0 => '内部资源', 1 => '外部链接'], ['id'=>'attr_type','class' => 'form-control']) ?>
     </div>
 
     <div class="form-group">
-        <?= $form->field($model, 'attr_id')->textInput(['maxlength' => true]) ?>
+        <label class="control-label">资源地址</label>
+        <input type="text" name="attr_name" id="attr_name" class="form-control">
         <button type="button" data-toggle="modal" class="btn btn-primary" id="select">选择资源</button>
     </div>
     <div class="form-group">
@@ -39,14 +40,31 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '启用']) ?>
 </div>
 <div class="modal-footer">
-    <input type="hidden" name="type" id="type">
+    <input type="hidden" name="aid" id="aid">
+    <input type="hidden" name="mode" id="mode">
     <input type="hidden" name="attr_id" id="attr_id">
     <input type="hidden" name="attr_from" id="attr_from">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
 </div>
 
-
 <?php ActiveForm::end(); ?>
+
+<?php
+$js = <<<JS
+    $('#attr_type').change(function(){
+        var valOptions= $("#attr_type  option:selected").text();
+        console.log(valOptions);
+        if(valOptions == '内部资源') {
+            $('#select').show();
+            $('#attr_name').val('');
+        } else {
+            $('#select').hide();
+            $('#attr_name').val('');
+        }
+    });
+JS;
+$this->registerJs($js);
+?>
 
 
