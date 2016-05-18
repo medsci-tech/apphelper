@@ -12,11 +12,6 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'aliases' => [
-        '@views' => dirname(__DIR__) . "/views/",
-        '@jsUrl' => Yii::$app->request->baseUrl."/js/",
-        '@cssUrl' => Yii::$app->request->baseUrl."/css/"
-    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
