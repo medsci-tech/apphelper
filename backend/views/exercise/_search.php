@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?php
     $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['index', 'hiboyiamalayer' => $examAddExerciseForGet],
         'method' => 'get',
         'options' => ['class' => 'form-inline navbar-btn'],
     ]); ?>

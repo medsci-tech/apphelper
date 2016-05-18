@@ -16,14 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('删除', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => '此操作不可恢复，你确定要删除吗？',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -40,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'rank_id',
             'created_at:datetime',
             'updated_at:datetime',
-            'status:boolean',
+            'status',
         ],
     ]) ?>
 
