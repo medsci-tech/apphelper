@@ -71,7 +71,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionView()
+    public function actionView($id)
     {
 
         return $this->render('view', [
