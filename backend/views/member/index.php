@@ -11,9 +11,10 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider  */
 /* @var $params */
 
+$yiiApp = Yii::$app;
 $this->title = '用户';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['params'] = Yii::$app->params;
+$this->params['params'] = $yiiApp->params;
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
@@ -137,9 +138,47 @@ backend\assets\AppAsset::register($this);
         </div>
     </div>
 <?php
-$js=<<<JS
-$(document).ready(function(){
 
+$getError = $yiiApp->getSession()->getFlash('error');
+$getSuccess = $yiiApp->getSession()->getFlash('success');
+$js=<<<JS
+    /*修改操作状态提示*/
+    if('$getError'){
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "4000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.error('$getError');
+    }else if('$getSuccess'){
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "4000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        toastr.success('$getSuccess');
+    }
+    
     $("span[name='saveData']").click(function(){
         var id = $(this).attr('data-id');
         var real_name = $(this).attr('data-real_name');
@@ -168,7 +207,6 @@ $(document).ready(function(){
         regionValue.province = $(this).attr('data-province');
         regionValue.city = $(this).attr('data-city');
         regionValue.area = $(this).attr('data-area');
-        console.log(regionValue);
         getRegionDefault(regionValue, 'tableForm');
     });
     /*添加初始化*/
@@ -177,7 +215,6 @@ $(document).ready(function(){
         /*地区联动*/
         getRegionInit('tableForm');
    });
-});
 JS;
 $this->registerJs($js);
 ?>
