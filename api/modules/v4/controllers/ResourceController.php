@@ -112,4 +112,18 @@ class ResourceController extends \api\common\controllers\Controller
         return $result;
     }
 
+
+    public function actionView()
+    {
+        $id=$this->params['id'];
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
+            return $result;
+        }
+        $wapUrl = 'http://wap.test.ohmate.com.cn/site/view/'.$id;
+        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl,'list'=>null]];
+        return $result;
+    }
+
 }
