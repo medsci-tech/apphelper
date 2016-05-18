@@ -66,14 +66,15 @@ class ExerciseController extends BackendController
             }
             $result = $exercise->save(false);
             if($result){
-                $return = [200,'success'];
+                $return = ['success','操作成功哦'];
             }else{
-                $return = [801,'save error'];
+                $return = ['error', '操作失败哦'];
             }
         }else{
-            $return = [802,'validate error'];
+            $return = ['error', '操作失败哦'];
         }
-        $this->ajaxReturn($return);
+        Yii::$app->getSession()->setFlash($return[0], $return[1]);
+        $this->redirect('index');
     }
 
 

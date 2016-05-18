@@ -34,12 +34,7 @@ class Hospital extends \yii\db\ActiveRecord
         return [
             [['name', 'address'], 'required'],
             [['province_id', 'city_id', 'area_id'], 'integer'],
-//            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-//            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INIT]],
-            [['province_id'], 'setProvince'],
-            [['city_id'], 'setCity'],
-            [['area_id'], 'setArea'],
-            [['name', 'address'], 'string', 'max' => 30],
+            [['name', 'address'], 'string', 'max' => 40],
             [['province', 'city', 'area'], 'string', 'max' => 255],
         ];
     }
@@ -60,36 +55,7 @@ class Hospital extends \yii\db\ActiveRecord
             'area' => '县区',
             'address' => '地址',
             'status' => '状态',
+            'created_at' => '创建时间',
         ];
-    }
-
-    public function setProvince()
-    {
-        $this->province = Region::find()->where(['id' => $this->province_id])->select('name')->scalar();
-    }
-
-    public function setCity()
-    {
-        $this->city = Region::find()->where(['id' => $this->city_id])->select('name')->scalar();
-    }
-
-    public function setArea()
-    {
-        $this->area = Region::find()->where(['id' => $this->area_id])->select('name')->scalar();
-    }
-
-    public function getProvince()
-    {
-        return $this->hasOne(Region::className(), ['id' => 'province_id']);
-    }
-
-    public function getCity()
-    {
-        return $this->hasOne(Region::className(), ['id' => 'city_id']);
-    }
-
-    public function getArea()
-    {
-        return $this->hasOne(Region::className(), ['id' => 'area_id']);
     }
 }

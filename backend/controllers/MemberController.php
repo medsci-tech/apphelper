@@ -103,13 +103,15 @@ class MemberController extends BackendController
                 $model->created_at = time();
                 $res = $model->save(false);
                 if($res && $model->signup()){
-                    return $this->redirect(['index']);
+                    $return = ['success','操作成功哦'];
                 }else{
-                    return $this->redirect(['create']);
+                    $return = ['error','操作失败哦'];
                 }
             }else{
-                return $this->redirect(['create']);
+                $return = ['success','操作失败哦'];
             }
+            Yii::$app->getSession()->setFlash($return[0], $return[1]);
+            $this->redirect('index');
         }else{
             return $this->render('create', [
                 'model' => $model,
@@ -134,13 +136,15 @@ class MemberController extends BackendController
                 $model->updated_at = time();
                 $res = $model->save(false);
                 if($res){
-                    return $this->redirect(['index']);
+                    $return = ['success','操作成功哦'];
                 }else{
-                    return $this->redirect(['update?id=' . $id]);
+                    $return = ['error','操作失败哦'];
                 }
             }else{
-                return $this->redirect(['update?id=' . $id]);
+                $return = ['success','操作失败哦'];
             }
+            Yii::$app->getSession()->setFlash($return[0], $return[1]);
+            $this->redirect('index');
         }else{
             return $this->render('update', [
                 'model' => $model,

@@ -12,19 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
-/*地区联动搜索--不要删*/
-//$get = Yii::$app->request->get();
-$regionValue = '';
-//$getData = $get['Hospital'];
-//if(isset($getData['province'])){
-//    $regionValue .= $getData['province'];
-//    if(isset($getData['city'])){
-//        $regionValue .= '/' . $getData['city'];
-//        if(isset($getData['area'])){
-//            $regionValue .= '/' . $getData['area'];
-//        }
-//    }
-//}
+
 
 ?>
 
@@ -40,12 +28,12 @@ $regionValue = '';
 
     <?= $form->field($model, 'name') ?>
     <div class="form-group">
-        <?= $this->render('/region/index',['regionValue'=>$regionValue]);?>
+        <?= $this->render('/region/index',['regionValue'=>'']);?>
     </div>
     <?= Html::button('查询', ['id'=>'btn_search','class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加单位', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
-    <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-primary']) ?>
+    <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-info']) ?>
     <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
     <?php ActiveForm::end(); ?>
 </div>
@@ -55,7 +43,7 @@ $js = <<<JS
     /*启用*/
     $("#btn_enable").click(function(){
         /*判断是否有选中*/
-        var check = $('#w0').find('input[name="selection[]"]');
+        var check = $('#modifyForm').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
@@ -76,7 +64,7 @@ $js = <<<JS
     /*禁用*/
     $("#btn_disable").click(function(){
         /*判断是否有选中*/
-        var check = $('#w0').find('input[name="selection[]"]');
+        var check = $('#modifyForm').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
