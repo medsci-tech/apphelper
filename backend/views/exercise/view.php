@@ -11,14 +11,13 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
-$referer = Yii::$app->request->referrer ?? 'index';
 ?>
 <div class="modal-body">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('返回', $referer, ['class' => 'btn btn-white']) ?>
+        <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -32,8 +31,8 @@ $referer = Yii::$app->request->referrer ?? 'index';
             'answer',
             'keyword',
             'resolve',
-            'status',
             'created_at:datetime',
+            'status',
         ],
     ]) ?>
 

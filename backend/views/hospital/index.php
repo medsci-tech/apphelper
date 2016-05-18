@@ -7,9 +7,10 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$yiiApp = Yii::$app;
 $this->title = '单位';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['params'] = Yii::$app->params;
+$this->params['params'] = $yiiApp->params;
 backend\assets\AppAsset::register($this);
 ?>
 <p></p>
@@ -50,11 +51,11 @@ backend\assets\AppAsset::register($this);
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template'=>'{view}  {update} {delete}',
+                        'template'=>'{view}  {update}',
                         'header' => '操作',
                         'buttons'=>[
                             'update'=> function ($url, $model, $key) {
-                                return Html::a('<span name="del" class="glyphicon glyphicon-pencil" data-target="#myModal" data-toggle="modal"
+                                return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#myModal" data-toggle="modal"
                                 names="'.$model->name.'"
                                 address="'.$model->address.'"
                                 id="'.$model->id.'"
@@ -83,7 +84,7 @@ backend\assets\AppAsset::register($this);
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title"><label id="l_title">单位</label></h4>
             </div>
-<?=$this->render('create', [
+<?=$this->render('form', [
     'model' => $model,
 ]);?>
         </div>
@@ -91,39 +92,60 @@ backend\assets\AppAsset::register($this);
 </div>
 </div>
 <?php
+$formUrl = \yii\helpers\Url::toRoute('form');
+$getError = $yiiApp->getSession()->getFlash('error');
+$getSuccess = $yiiApp->getSession()->getFlash('success');
 $js=<<<JS
-
-    /*编辑初始化*/
-    $("span[name='del']").click(function(){
-    var id = $(this).attr('id');
-    var name = $(this).attr('names');
-    var address = $(this).attr('address');
+    /*修改操作状态提示*/
+    if('$getError' || '$getSuccess'){
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+        }
+    }
+    if('$getError'){
+        toastr.error('$getError');
+    }else if('$getSuccess'){
+        toastr.success('$getSuccess');
+    }
     
-    var title = "编辑";
-    document.getElementById('l_title').innerText = title;
-    $('#hospital-id').val(id);
-    $('#hospitalName').val(name);
-    $('#hospital-address').val(address);
-   /*地区联动*/
-    var regionValue = {};
-    regionValue.province_id = $(this).attr('province_id');
-    regionValue.city_id = $(this).attr('city_id');
-    regionValue.area_id = $(this).attr('area_id');
-    regionValue.province = $(this).attr('province');
-    regionValue.city = $(this).attr('city');
-    regionValue.area = $(this).attr('area');
-    console.log(regionValue);
-    getRegionDefault(regionValue, 'tableForm');
+    /*编辑初始化*/
+    $("span[name='saveData']").click(function(){
+        var id = $(this).attr('id');
+        var name = $(this).attr('names');
+        var address = $(this).attr('address');
+        
+        $('#hospital-id').val(id);
+        $('#hospitalName').val(name);
+        $('#hospital-address').val(address);
+        $('#myModal #tableForm').attr('action', '$formUrl?id='+id);
+       /*地区联动*/
+        var regionValue = {};
+        regionValue.province_id = $(this).attr('province_id');
+        regionValue.city_id = $(this).attr('city_id');
+        regionValue.area_id = $(this).attr('area_id');
+        regionValue.province = $(this).attr('province');
+        regionValue.city = $(this).attr('city');
+        regionValue.area = $(this).attr('area');
+        getRegionDefault(regionValue, 'tableForm');
     });
     
     /*添加初始化*/
    $('#btn_add').click(function() {
-        var title = '添加';
-        document.getElementById('l_title').innerText = title;
         var defaltData = ''; 
         $('#hospital-id').val(defaltData);
         $('#hospitalName').val(defaltData);
         $('#hospital-address').val(defaltData);
+        $('#myModal #tableForm').attr('action', '$formUrl');
         /*地区联动*/
         getRegionInit('tableForm');
    });
