@@ -8,11 +8,13 @@ use Yii;
 class Controller extends ActiveController
 {
     public $params;
+    public $uid;
     public function behaviors()
     {
         $behaviors = parent::behaviors();
         $params = Yii::$app->getRequest()->getBodyParams();
         $this->params  = $params;
+        $this->uid = $this->params['uid'];
         $behaviors['contentNegotiator']['formats'] = '';
         $behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSON;
         $this->checkAccess($action=null, $model = null, $params = []);
