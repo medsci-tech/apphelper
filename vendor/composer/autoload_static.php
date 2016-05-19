@@ -24,6 +24,10 @@ class ComposerStaticInita298cd43fbeb32b98979785afb3fd535
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
+        'k' => 
+        array (
+            'kucha\\ueditor\\' => 14,
+        ),
         'd' => 
         array (
             'dosamigos\\gallery\\' => 18,
@@ -76,6 +80,10 @@ class ComposerStaticInita298cd43fbeb32b98979785afb3fd535
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'kucha\\ueditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kucha/ueditor',
         ),
         'dosamigos\\gallery\\' => 
         array (
