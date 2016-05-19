@@ -52,21 +52,48 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
 <?php
 $js = <<<JS
 
+            var aid;
+            var imgUrl;
+            var sort;
+            var linkUrl;
+            var status;
+            var attr_id;
+            var attr_from;
+            var titles;
         $('div.row img').click(function () {
             $("div.row img").css("border","1px solid #ddd");
             $(this).css("border","1px solid #3B9A2E");
-            var aid = $(this).attr('aid');
+            aid = $(this).attr('aid');
+            imgUrl = $(this).attr('src');
+            sort = $(this).attr('sort');
+            linkUrl = $(this).attr('links');
+            status = $(this).attr('status');
+            attr_id = $(this).attr('attr_id');
+            attr_from = $(this).attr('attr_from');
+            titles = $(this).attr('atitle');
+
         });
 
         $('#btnAdd').click(function () {
             var title = '添加';
             $("#l_title").html(title);
+            $("#mode").val('add');
         });
 
         $('#btnEdit').click(function () {
             var title = '编辑';
             $("#l_title").html(title);
+            $("#mode").val('edit');
+
+            $("#aid").val(aid);
+            $("#ad-sort").val(sort);
+            $("#ad-imgurl").val(imgUrl);
+            $("#ad-status").val(status);
+            $("#ad-title").val(titles);
+            $("#attr_id").val(attr_id);
+            $("#attr_from").val(attr_from);
         });
+
         $('#select').click(function(){
             layer.open({
               type: 2,
