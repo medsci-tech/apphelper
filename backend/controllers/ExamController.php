@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\search\Exam as ExamSearch;
 use common\models\Exam;
+use common\models\ExamLevel;
 use Yii;
 use yii\web\NotFoundHttpException;
 
