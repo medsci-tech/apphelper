@@ -109,6 +109,8 @@
                 <ul class="nav nav-second-level">
                     <li><a class="J_menuItem" href="resource-class/index">培训分类</a>
                     </li>
+                    <li><a class="J_menuItem" href="resource-class/custom">自定义分类</a>
+                    </li>
                     <li><a class="J_menuItem" href="exam-class/index">开题分类</a>
                     </li>
                 </ul>

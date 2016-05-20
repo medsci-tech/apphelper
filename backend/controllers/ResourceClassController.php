@@ -32,13 +32,23 @@ class ResourceClassController extends BackendController
      */
     public function actionIndex()
     {
-        $strHtml = $this->getTreeMenu();
+        $type = 0;
+        $strHtml = $this->getTreeMenu($type);
 //        print($strHtml);
         return $this->render('index', [
             'strHtml' => $strHtml,
         ]);
     }
 
+    public function actionCustom()
+    {
+        $type = 1;
+        $strHtml = $this->getTreeMenu($type);
+//        print($strHtml);
+        return $this->render('index', [
+            'strHtml' => $strHtml,
+        ]);
+    }
 
     /**
      * Deletes an existing Article model.
@@ -74,11 +84,11 @@ class ResourceClassController extends BackendController
         }
     }
 
-    protected function getTreeMenu()
+    protected function getTreeMenu($type)
     {
         $strHtml = "<ul>";
         $parents = ResourceClass::find()
-            ->where(['grade' => 1])
+            ->where(['grade' => 1, 'attr_type' => $type])
             ->orderBy('id')
             ->all();
 
