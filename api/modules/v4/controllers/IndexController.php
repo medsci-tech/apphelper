@@ -33,6 +33,7 @@ class IndexController extends \api\common\controllers\Controller
     public function actionAd()
     {
         $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][1]); //获取缓存
+        $data = json_decode($data,true);
         if(!$data)
         {
             /* 查询数据库 */
@@ -40,14 +41,14 @@ class IndexController extends \api\common\controllers\Controller
             $data = $model::find()
                 ->select('id,title,linkurl,imgurl')
                 ->where(['status' => 1])
+                ->asArray()
                 ->all();
-            $result = ['code' => 200, 'message' => '轮播图', 'data' => $data];
             Yii::$app->cache->set(Yii::$app->params['redisKey'][1],json_encode($data),2592000);
         }
         else { // 存在缓存值
             $data = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][1]), true);
-            $result = ['code' => 200, 'message' => '轮播图', 'data' => $data];
         }
+        $result = ['code' => 200, 'message' => '轮播图', 'data' => $data];
         return $result;
     }
     public function actionIndex()
