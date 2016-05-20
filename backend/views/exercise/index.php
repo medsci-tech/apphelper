@@ -13,13 +13,13 @@ use yii\widgets\ActiveForm;
 /* @var $examClass */
 /* @var $dataProvider */
 /* @var $params */
-
+$yiiApp = Yii::$app;
 $this->title = '题库';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $params;
+$this->params['hiboyiamalayer'] = $yiiApp->request->get()['hiboyiamalayer'] ?? '';
 backend\assets\AppAsset::register($this);
 /*根据get参数判断是否是考卷添加试题*/
-$examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
 ?>
 <!--树形视图--start-->
 <div id="treeView" class="col-lg-2 modal-body"></div>
@@ -28,7 +28,7 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
 <div class="modal-body col-lg-10">
     <div class="box box-success">
         <div class="box-body">
-            <?php echo $this->render('_search', ['model' => $searchModel, 'examAddExerciseForGet' => $examAddExerciseForGet]); ?>
+            <?php echo $this->render('_search', ['model' => $searchModel, 'examAddExerciseForGet' => $this->params['hiboyiamalayer']]); ?>
         </div>
     </div>
     <div class="box box-success">
@@ -82,7 +82,9 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
                         'template' => '{update}',//只需要展示删除和更新
                         'buttons' => [
                             'update'=> function ($url, $model, $key) {
-                                return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
+                                $aHtml = '';
+                                if(empty($this->params['hiboyiamalayer'])){
+                                    $aHtml = '<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
                                 data-id="'.$model->id.'"
                                 data-type="'.$model->type.'"
                                 data-category="'.$model->category.'"
@@ -92,7 +94,9 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
                                 data-keyword="'.$model->keyword.'"
                                 data-resolve="'.$model->resolve.'"
                                 data-status="'.$model->status.'"
-                                 ></span>');
+                                 ></span>';
+                                }
+                                return Html::a($aHtml);
                             },
                         ],
                     ],
@@ -101,7 +105,7 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-    <?php if($examAddExerciseForGet):?>
+    <?php if($this->params['hiboyiamalayer']):?>
         <?= Html::button('移入', ['class' => 'btn-outline btn btn-success','data-toggle'=> 'layerCtrlParent']) ?>
     <?php endif;?>
 </div>
@@ -124,7 +128,31 @@ $examAddExerciseForGet = Yii::$app->request->get()['hiboyiamalayer'] ?? '';
 
 <?php
 $formUrl = \yii\helpers\Url::toRoute('form');
+$getError = $yiiApp->getSession()->getFlash('error');
+$getSuccess = $yiiApp->getSession()->getFlash('success');
 $js=<<<JS
+    /*修改操作状态提示*/
+    if('$getError' || '$getSuccess'){
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+        }
+    }
+    if('$getError'){
+        toastr.error('$getError');
+    }else if('$getSuccess'){
+        toastr.success('$getSuccess');
+    }
+    
     /*树形结构初始化*/
 	var initSelectableTree = function() {
 		return $('#treeView').treeview({

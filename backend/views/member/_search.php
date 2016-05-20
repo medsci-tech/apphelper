@@ -28,16 +28,16 @@ use dosamigos\fileupload\FileUpload;
     <?= $form->field($model, 'real_name') ?>
     <?= $form->field($model, 'hospital_id')->dropDownList(array_flip(array_merge(['全部' => ''], array_flip(\common\models\Hospital::find()->select('name')->indexBy('id')->column())))) ?>
 
+    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加用户', ['id'=>'btn_add', 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#myModal']) ?>
     <?= FileUpload::widget([
         'model' => $uploadModel,
         'attribute' => 'file',
         'url' => ['index'],
     ]);?>
-    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
-    <?= Html::a('导出','export', ['class' => 'btn btn-info']) ?>
-    <?= Html::button('启用', ['class' => 'btn btn-primary','id'=> 'enable']) ?>
+    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
+    <?= Html::button('启用', ['class' => 'btn btn-info','id'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
     <?= Html::button('批量删除', [
         'class' => 'btn btn-danger',

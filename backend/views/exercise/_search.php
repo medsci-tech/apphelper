@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?php
     $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => ['index', 'hiboyiamalayer' => $examAddExerciseForGet],
         'method' => 'get',
         'options' => ['class' => 'form-inline navbar-btn'],
     ]); ?>
@@ -40,7 +40,7 @@ $js = <<<JS
     /*删除*/
     $('#del').click(function() {
         /*判断是否有选中*/
-        var check = $('#w1').find('input[name="selection[]"]');
+        var check = $('#delForm').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
@@ -62,7 +62,7 @@ $js = <<<JS
     /*禁用*/
     $('[data-toggle="disable"]').click(function() {
         /*判断是否有选中*/
-        var check = $('#w1').find('input[name="selection[]"]');
+        var check = $('#delForm').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
@@ -83,7 +83,7 @@ $js = <<<JS
     /*启用*/
     $('[data-toggle="enable"]').click(function() {
         /*判断是否有选中*/
-        var check = $('#w1').find('input[name="selection[]"]');
+        var check = $('#delForm').find('input[name="selection[]"]');
         var verifyChecked = verifyCheckedForMime(check);
         if(false == verifyChecked){
             return false;
