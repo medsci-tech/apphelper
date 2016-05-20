@@ -15,6 +15,7 @@ class SiteController extends CommonController
             'send'=>['POST'],
             'login'=>['POST'],
             'forget'=>['POST'],
+            'info'=>['POST'],
         ];
     }
 
@@ -116,5 +117,19 @@ class SiteController extends CommonController
         return $result;
 
     }
-
+    /**
+     * 功能介绍
+     * @author by lxhui
+     * @version [2010-03-02]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionInfo()
+    {
+        $data = [
+            ['msg'=>'本次升级改进了很多UI']
+        ];
+        $result = ['code' => 200,'message' =>'功能介绍','data' =>$data];
+        return $result;
+    }
 }
