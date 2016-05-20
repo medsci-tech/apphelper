@@ -27,7 +27,7 @@ class AD extends \yii\db\ActiveRecord
         return [
             [['created_at', 'attr_id', 'attr_from', 'status'], 'integer'],
             [['title'], 'string', 'max' => 20],
-            [['imgurl'], 'string', 'max' => 50],
+            [['imgurl'], 'string', 'max' => 150],
         ];
     }
 
@@ -46,4 +46,19 @@ class AD extends \yii\db\ActiveRecord
             'status' => '是否启用',
         ];
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if(Yii::$app->cache->exists(Yii::$app->params['redisKey'][1])) {
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][1]);
+        }
+//        if($insert) {
+//            //这里是新增数据
+//        } else {
+//            //这里是更新数据
+//        }
+    }
+
 }
