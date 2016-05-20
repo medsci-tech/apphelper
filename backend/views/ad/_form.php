@@ -27,8 +27,10 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group">
-        <label class="control-label">资源地址</label>
-        <input type="text" name="attr_name" id="attr_name" class="form-control">
+        <div class="form-group">
+            <label class="control-label">资源地址</label>
+            <input type="text" name="attr_name" id="attr_name" class="form-control">
+        </div>
         <button type="button" data-toggle="modal" class="btn btn-primary" id="select">选择资源</button>
     </div>
     <div class="form-group">
