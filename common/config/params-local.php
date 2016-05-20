@@ -1,6 +1,5 @@
 <?php
 return [
-
     /*通用状态选项*/
     'statusOption' => [
         '1' => '启用',
@@ -47,5 +46,12 @@ return [
             '0' => '自定义',
             '1' => '随机',
         ],
+    ],
+    /*七牛配置项*/
+    'qiniu' => [
+        'bucket' => 'apphelper-images',
+        'domain' => 'o7f6z4jud.bkt.clouddn.com',
+        'accessKey' => 'OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-',
+        'secretKey' => 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T',
     ],
 ];
