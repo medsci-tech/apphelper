@@ -39,7 +39,7 @@ class IndexController extends \api\common\controllers\Controller
             /* 查询数据库 */
             $model = new AD();
             $data = $model::find()
-                ->select('id,title,linkurl,imgurl')
+                ->select(['id','title','linkurl','imgurl',"if(attr_from>1,'exam',IF(attr_from>0,'article',null))AS type",])
                 ->where(['status' => 1])
                 ->asArray()
                 ->all();
