@@ -56,9 +56,11 @@ class AdController extends BackendController
                 }
 
                 if($model->save(false)) {
+
                     return $this->redirect(['index']);
                 }
             }
+
         } else if('edit' == $params['mode']) {
             $id = $params['aid'];
             $model = $this->findModel($id);
@@ -91,7 +93,7 @@ class AdController extends BackendController
         }
     }
 
-    public  function actionResource()
+    public function actionResource()
     {
         $strHtml = '';
         $allResource = Exam::find()->all();
@@ -112,7 +114,9 @@ class AdController extends BackendController
         $params = Yii::$app->request->get();
         if ('1' == $params['optionsResource']) {
             if ($params['resource']) {
-                $allResource = Resource::find()->all();
+                $allResource = Resource::find()
+                    ->andFilterWhere(['like', 'title', $params['resource']])
+                    ->all();
             } else {
                 $allResource = Resource::find()->all();
             }
@@ -126,7 +130,9 @@ class AdController extends BackendController
 
         if ('2' == $params['optionsResource']) {
             if ($params['resource']) {
-                $allExam = Exam::find()->all();
+                $allExam = Exam::find()
+                    ->andFilterWhere(['like', 'about', $params['resource']])
+                    ->all();
             } else {
                 $allExam = Exam::find()->all();
             }
