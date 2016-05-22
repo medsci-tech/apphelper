@@ -7,13 +7,12 @@
  */
 
 namespace api\modules\v4\controllers;
-
-use common\models\Region;
+use common\models\{Resource,ResourceClass};
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\Response;
 use common\components\Helper;
 use yii\base\InvalidConfigException;
+use yii\data\Pagination;
 class CollectionController extends \api\common\controllers\Controller
 {
     public $modelClass = 'api\common\models\Collection';
@@ -25,7 +24,7 @@ class CollectionController extends \api\common\controllers\Controller
         ];
     }
     
-        /**
+    /**
      * 收藏列表
      * @author by lxhui
      * @version [2010-05-05]
@@ -34,38 +33,46 @@ class CollectionController extends \api\common\controllers\Controller
      */
     public function actionIndex()
     {
+        $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
-        if($page<2)
-            $isLastPage = false;
-        else
-            $isLastPage= true;
-        if($page<2)
-            $data=[
-                ['id'=>'101','classname'=> '疾病','title'=> '普安药店员工收银服务指导说明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'2110'],
-                ['id'=>'102','classname'=> '产品','title'=> '缺铁性贫血及推荐用药2','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'524546'],
-                ['id'=>'103','classname'=> '产品','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'45678'],
-                ['id'=>'104','classname'=> '产品','title'=> '缺铁性贫血及推荐用药4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'5660',],
-                ['id'=>'211','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药dd','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'67'],
-                ['id'=>'222','classname'=> '产品','title'=> '缺铁性贫血及推荐用药rre','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-                ['id'=>'223','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药78','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'22'],
-                ['id'=>'345','classname'=> '产品','title'=> '缺铁性贫血及推荐用药55','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-                ['id'=>'345','classname'=> '疾病','title'=> '缺铁性贫血及推荐用药66','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'34'],
-                ['id'=>'543','classname'=> '产品','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-            ];
-        else
-            $data=[
-                ['id'=>'201','classname'=> '产品','title'=> '普安药店员工收银服务22明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'34'],
-                ['id'=>'202','classname'=> '产品','title'=> '缺铁性贫血及推荐用dsfds2','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'5655'],
-                ['id'=>'203','classname'=> '产品','title'=> '缺铁性贫血及推dadas药3','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'44443'],
-                ['id'=>'204','classname'=> '疾病','title'=> '缺铁性贫血及推fdsfd4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'85569',],
-                ['id'=>'311','classname'=> '疾病','title'=> '缺铁性贫血及fdsfddd','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'455664'],
-                ['id'=>'322','classname'=> '产品','title'=> '缺铁性贫血及fdfdsfds78','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'2222'],
-                ['id'=>'345','classname'=> '产品','title'=> '测试啊as','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-                ['id'=>'445','classname'=> '产品','title'=> '测试菜单是是','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'4455'],
-                ['id'=>'443','classname'=> '产品','title'=> '123333324443哈哈哈','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'43'],
-            ];
-
-        $result = ['code' => 200,'message'=>'收藏列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
+        $page = $page ? $page : 1;
+        $offset=$pagesize*($page - 1); //计算记录偏移量
+        $model = new $this->modelClass();
+        $result = $model::find()
+            ->select(['rid'])
+            ->andWhere(['uid' => $this->uid]);    
+        $pages = new Pagination(['totalCount' =>$result->count(), 'pageSize' => $pagesize]);
+        $results = $result->offset($offset)->limit($pages->limit)->asArray()->all();
+        $total_page = ceil($result->count()/$pagesize);
+        if($results)
+        {
+            $rids = ArrayHelper::getColumn($results, 'rid'); // 关联资源id 
+            $rids_str = implode(',', $rids);           
+            // 用原生 SQL 语句检索(yii2 ORM不支持field排序)
+            $sql = "SELECT id,rid,title,imgurl,views FROM ".Resource::tableName()." where id in($rids_str) order by field(id,$rids_str)";
+            $data = Resource::findBySql($sql)->asArray()->all();           
+            $rids_2 = ArrayHelper::getColumn($data, 'rid'); // 关联资源分类id  
+            $rids_str2 = implode(',', $rids_2);   
+            $sql = "SELECT id,parent FROM ".ResourceClass::tableName()." where id in($rids_str2) order by field(id,$rids_str2)";
+            $resource_class = ResourceClass::findBySql($sql)->asArray()->all(); 
+            foreach($resource_class as &$val)
+            {
+                $val['classname']= constant("CLASSNAME")[$val['parent']];
+                unset($val['parent']);
+            }  
+            /* 组合信息列表 */
+            $count= count($data);
+            for($i=0;$i<$count;$i++)
+            {
+                $data[$i]['labelName']='参与人数';
+                $data[$i]['labelValue']=$data[$i]['views'];
+                $data[$i]+=$resource_class[$i];
+                unset($data[$i]['rid'],$data[$i]['views']);
+            }
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][6],json_encode($data),2592000);
+        }   
+    
+        $result = ['code' => 200,'message'=>'收藏列表','data'=>['isLastPage'=>$page>=$total_page ? true : false ,'list'=>$data]];
         return $result;
     }
     /**
@@ -96,6 +103,4 @@ class CollectionController extends \api\common\controllers\Controller
             return $result;  
         }
     }
-
-
 }
