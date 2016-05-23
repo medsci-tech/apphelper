@@ -16,6 +16,9 @@ use yii\filters\auth\QueryParamAuth;
 use yii\web\Response;
 use yii\base\InvalidConfigException;
 use api\common\models\member;
+use Qiniu\Auth;
+// 引入上传类
+use Qiniu\Storage\UploadManager;
 class MemberController extends \api\common\controllers\Controller
 {
     public $modelClass = 'api\common\models\Member';
@@ -237,7 +240,49 @@ class MemberController extends \api\common\controllers\Controller
             $result = ['code' => 200,'message'=>'设置成功','data'=>null];
         return $result;
     }
-
+     /**
+     * 表单上传基础参数
+     * @author by lxhui
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */  
+    public function actionToken()
+    {
+        $accessKey = Yii::$app->params['qiniu']['accessKey'];
+        $secretKey = Yii::$app->params['qiniu']['secretKey'];      
+        $bucket = Yii::$app->params['qiniu']['bucket']; // 要上传的空间
+        $domain = Yii::$app->params['qiniu']['domain']; // 七牛返回的域名
+        // 构建鉴权对象
+        $auth = new Auth($accessKey, $secretKey);
+        // 生成上传 Token
+        $token = $auth->uploadToken($bucket);
+        $key = 'images/user/'.time().'.jpg'; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
+        $result = ['code' => 200,'message'=>'token表单上传','data'=>['token'=>$token,'key'=>$key]];
+        return $result; 
+    }
+      /**
+     * 表单上传基础参数
+     * @author by lxhui
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */  
+    public function actionUpload()
+    {
+        $avatar = $this->params['avatar'];
+        $avatar='http://googlr.com';
+        if(!$avatar)
+        {
+            $result = ['code' => -1,'message'=>'无效的文件','data'=>null];
+            return $result; 
+        }
+        $avatar = Yii::$app->params['qiniu']['domain'].'/'.$avatar; // 完整地址
+        $model=new $this->modelClass();
+        $model->updateAll(['avatar'=>$avatar],'id=:id',array(':id'=>$this->uid));
+        $result = ['code' => 200,'message'=>'上传成功','data'=>['avatar'=>$avatar]];
+        return $result; 
+    }
     public function actionList()
     { echo'test141';exit;
         $query = Article::find();
@@ -281,4 +326,6 @@ class MemberController extends \api\common\controllers\Controller
         );
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
+    
+    
 }

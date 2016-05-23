@@ -42,7 +42,6 @@ class SiteController extends CommonController
             $data=['uid'=>$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
         }
 
-
         $result = ['code' => 200,'message'=>'注册成功!','data'=>$data];
         return $result;
     }
