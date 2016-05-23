@@ -30,9 +30,6 @@ class Exam extends ExamModel
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
         ]);
-        if (!$this->validate()) {
-            return $dataProvider;
-        }
         $query->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
