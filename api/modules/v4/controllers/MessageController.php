@@ -24,9 +24,16 @@ class MessageController extends \api\common\controllers\Controller
     {
         return [
             'index' => ['POST'],
+            'warn' => ['POST'],
         ];
     }
-
+    /**
+     * 消息列表
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
     public function actionIndex()
     {
 
@@ -43,7 +50,21 @@ class MessageController extends \api\common\controllers\Controller
         $total_page = ceil($data->count() / $pagesize);
         $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $model]];
         return $result;
-
+    }
+    
+    /**
+     * 消息提醒
+     * @author by lxhui
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionWarn()
+    {
+        $model = new $this->modelClass();
+        $count = $model::find()->where(['uid'=>$this->uid,'isread'=>0])->count();
+        $result = ['code' => 200, 'message' => '消息提醒!', 'data' => ['count' => $count]];
+        return $result;
     }
 
 }
