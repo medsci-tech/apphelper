@@ -7,3 +7,4 @@ runtime/logs/app.log
 .idea
 /api/modules/v4/controllers/Site1Controller.php
 /nbproject/private/
+/frontend/controllers/TestController.php
