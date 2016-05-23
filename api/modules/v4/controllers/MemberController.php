@@ -270,8 +270,7 @@ class MemberController extends \api\common\controllers\Controller
      */  
     public function actionUpload()
     {
-        $avatar = $this->params['avatar'];
-        $avatar='http://googlr.com';
+        $avatar = $this->params['avatar'] ?? '';
         if(!$avatar)
         {
             $result = ['code' => -1,'message'=>'无效的文件','data'=>null];
