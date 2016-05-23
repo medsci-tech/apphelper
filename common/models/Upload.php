@@ -55,11 +55,10 @@ class Upload extends Model
      * @return array
      */
     public function image($uploadPath){
-        $month = date('Ym');
         $second = date('YmdHis');
         $suffix = mb_substr($this->file->name, (mb_strripos($this->file->name, '.') + 1));
         if(in_array($suffix,['png', 'jpg', 'gif'])){
-            $filePath = $uploadPath .'/examImg/' . $month .'/';
+            $filePath = $uploadPath .'/examImg/';
             if(!file_exists($filePath)){
                 @mkdir($filePath);
                 @touch($filePath . 'index.html');
@@ -68,7 +67,10 @@ class Upload extends Model
             if ($this->validate()) {
                 $res = $this->file->saveAs($fileName);
                 if($res){
-                    $return = ['code'=>200,'msg'=>'上传成功哦','data'=>['tName' => $this->file->name, 'saveName' => '/uploads/examImg/' . $month . '/' . $second . '.' . $suffix]];
+                    $return = ['code'=>200,'msg'=>'上传成功哦','data'=>[
+                        'path' => $filePath,
+                        'name' => $second . '.' . $suffix,
+                    ]];
                 }else{
                     $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
                 }
