@@ -39,7 +39,7 @@ class Exam extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'type' => '类型',
             'name' => '名称',
-            'minutes' => '时间',
+            'minutes' => '时长',
             'exe_ids' => '题库',
             'uid' => '用户ID',
             'about' => '简介',
