@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 //var_dump($model->id);exit;
+$appYii = Yii::$app;
 ?>
 <?php
 $form = ActiveForm::begin([
@@ -20,7 +21,7 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'name')->textInput() ?>
     <?= $form->field($model, 'minutes')->textInput() ?>
     <div class="form-group">
-        <label class="control-label"></label>
+        <label class="control-label">封面图</label>
         <?= $this->render('/webuploader/index',[
             'name' => 'Exam[imgUrl]',
         ]);?>
@@ -45,7 +46,40 @@ $form = ActiveForm::begin([
         <button id="add-exercise" type="button" class="btn btn-info btn-sm">添加</button>
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
-    <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
+    <div class="form-group field-exercise-category required">
+        <label class="control-label" for="exercise-category">评分规则</label>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th width="25%" >级别</th>
+                <th width="15%" >条件</th>
+                <th width="20%" >正确率</th>
+                <th width="25%" >评分</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="optionListBody">
+            <tr>
+                <td>
+                    <input type="hidden" name="ExamLevel[id][]" value="">
+                    <input type="text" class="form-control" name="ExamLevel[option][]" value="">
+                </td>
+                <td>
+                    <?= Html::dropDownList('ExamLevel[condition][]', '', $appYii->params['examLevel']['condition'], ['class' => 'form-control']) ?>
+                </td>
+                <td>
+                    <?= Html::dropDownList('ExamLevel[rate][]', '', $appYii->params['examLevel']['rate'], ['class' => 'form-control']) ?>
+                </td>
+                <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>
+                <td>
+                    <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
+                    <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <?= $form->field($model, 'status')->dropDownList($appYii->params['statusOption']) ?>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
