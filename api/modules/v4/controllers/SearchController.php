@@ -68,11 +68,7 @@ class SearchController extends \api\common\controllers\Controller
     public function actionRemind()
     {
         $keyword= $this->params['keyword'] ?? ''; // 当前页码
-        if(!$keyword)
-        {
-            $result = ['code' => -1,'message'=>'关键词不能为空!','data'=>null];
-            return $result;  
-        }
+       
         $data=[
            ['keyword'=>'甲状腺'],
            ['keyword'=>'糖凝胶囊'],
