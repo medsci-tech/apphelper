@@ -1,7 +1,12 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lxhui
+ * Date: 16-1-28
+ * Time: 下午6:40
+ */
 namespace api\modules\v4\controllers;
 use api\common\controllers\CommonController;
-use yii\web\Response;
 use api\common\models\member;
 use Yii;
 use crazyfd\qiniu\Qiniu;
@@ -66,7 +71,19 @@ class SiteController extends CommonController
         {
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$response->id); // 清除历史缓存
             Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$response->id,json_encode(['uid'=>$response->id,'access_token' => $response->access_token,'province' => $response->province]),2592000);
-            $result = ['code' => 200,'message'=>'登录成功','data'=>['uid'=>$response->id,'nickname'=>$response->oldAttributes['nickname'],'avatar'=>$response->oldAttributes['avatar'],'rank_name'=>yii::$app->params['member']['rank'][$response->rank_id],'access_token'=>$response->access_token,'isComplete' =>$response->province ? true:false ]];
+            $result = [
+                'code' => 200,
+                'message'=>'登录成功',
+                'data'=>
+                    [
+                    'uid'=>$response->id,
+                    'nickname'=>$response->oldAttributes['nickname'],
+                    'avatar'=>$response->oldAttributes['avatar'],
+                    'rank_name'=>yii::$app->params['member']['rank'][$response->rank_id],
+                    'access_token'=>$response->access_token,
+                    'isComplete' =>$response->province ? true:false
+                    ]
+                ];
         }
 
         return $result;
