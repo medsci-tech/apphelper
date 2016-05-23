@@ -35,6 +35,7 @@ class AdminPlusAsset extends AssetBundle
         '/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js',
         '/js/jquery-common-mime-fun.js',
         'js/plugins/toastr/toastr.min.js',
+        'js/plugins/webuploader/jquery.ajaxupload.js',
     ];
     public $depends = [
 /*        'rmrevin\yii\fontawesome\AssetBundle',
