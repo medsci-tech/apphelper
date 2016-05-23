@@ -111,7 +111,40 @@ class ResourceController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
         return $result;
     }
+    public function actionNav()
+    {
+        $page = $this->params['page'] ?? 1; // 当前页码
+        if($page<2)
+            $isLastPage = false;
+        else
+            $isLastPage= true;
+        if($page<2)
+            $data=[
+                ['id'=>'101','name'=> '第一阶段','times'=>'30分钟'],
+                ['id'=>'102','name'=> '第二阶段','times'=>'20分钟'],
+                ['id'=>'103','name'=> '第三阶段','times'=>'2小时'],
+                ['id'=>'104','name'=> '第四阶段','times'=>'4天'],
+                ['id'=>'211','name'=> '第五阶段','times'=>'30分钟'],
+                ['id'=>'211','name'=> '第6阶段','times'=>'30分钟'],
+                ['id'=>'213','name'=> '第7阶段','times'=>'30分钟'],
+                ['id'=>'215','name'=> '第8阶段','times'=>'30分钟'],
+                ['id'=>'567','name'=> '第9阶段','times'=>'30分钟'],
+                ['id'=>'453','name'=> '第10阶段','times'=>'30分钟'],
+                ];
+        else
+            $data=[
+                ['id'=>'401','name'=> '第10阶段','times'=>'30分钟'],
+                ['id'=>'402','name'=> '第11阶段','times'=>'20分钟'],
+                ['id'=>'403','name'=> '第12阶段','times'=>'2小时'],
+                ['id'=>'404','name'=> '第13阶段','times'=>'4天'],
+                ['id'=>'411','name'=> '第14阶段','times'=>'30分钟'],
+                ['id'=>'444','name'=> '第15阶段','times'=>'30分钟'],
+            ];
 
+        $result = ['code' => 200,'message'=>'栏目列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
+        return $result;
+        
+    }
 
     public function actionView()
     {
