@@ -19,7 +19,13 @@ $form = ActiveForm::begin([
     <?= $form->field($model, 'type')->dropDownList(Yii::$app->params['exam']['type']) ?>
     <?= $form->field($model, 'name')->textInput() ?>
     <?= $form->field($model, 'minutes')->textInput() ?>
-    <?= $form->field($model, 'imgUrl')->textInput() ?>
+    <div class="form-group">
+        <label class="control-label"></label>
+        <?= $this->render('/webuploader/index',[
+            'name' => 'Exam[imgUrl]',
+        ]);?>
+        <div class="help-block"></div>
+    </div>
     <div class="form-group">
         <label class="control-label">试题</label>
         <table class="table table-striped table-bordered">
