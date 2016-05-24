@@ -32,7 +32,6 @@ class PraiseController extends \api\common\controllers\Controller
         {
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => -1,'message'=>$message,'data'=>null];
-            return $result;
         }
         else
             $result = ['code' => 200,'message'=>'点赞成功!','data'=>null];

@@ -17,10 +17,18 @@ class SearchController extends \api\common\controllers\Controller
 
     protected function verbs(){
         return [
-            'index'=>['POST'],
-          
+            'index'=>['POST'],      
+            'remind'=>['POST'],   
         ];
     }
+    
+    /**
+     * 搜索列表
+     * @author by lxhui
+     * @version [2010-05-23]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */  
     public function actionIndex()
     {
         $keyword= $this->params['keyword'] ?? ''; // 当前页码
@@ -63,17 +71,42 @@ class SearchController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'搜索列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
         return $result;
     }
-
+     /**
+     * 提醒关键词
+     * @author by lxhui
+     * @version [2010-05-23]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */  
     public function actionRemind()
     {
         $keyword= $this->params['keyword'] ?? ''; // 当前页码
-       
+        if($keyword)
+        {
+            $model= new $this->modelClass();
+            $results =$model
+                ->find()
+                ->select(['title'])
+                ->orderBy(['publish_time' => SORT_DESC])
+                ->where(['like', 'title', $keyword])
+                ->andWhere(['status'=>1,'publish_status'=>1])
+                ->limit(5)
+                ->asArray()->all();
+            $data = ArrayHelper::getColumn($results, 'title');
+            if($data)
+            {
+                foreach($data as $k=>$v)
+                    $data[$k]=['keyword'=> $v];  
+            }
+            else
+              $data =null;  
+        }
+        
         $data=[
            ['keyword'=>'甲状腺'],
            ['keyword'=>'糖凝胶囊'],
            ['keyword'=>'胰岛素'],
-          ];
-       
+          ];  // 临时测试   
         $result = ['code' => 200,'message'=>'关键词提醒','data'=>$data];
         return $result;
     }
