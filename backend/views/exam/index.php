@@ -183,7 +183,7 @@ $js=<<<JS
         $('#formModal #exam-about').val(about);
         $('#formModal #exam-status').val(status);
         examEditForMime($('#examListBody'), exercise);
-        
+        uploadResultInit();
     });
     /*添加题库初始化*/
     $("#createBtn").click(function(){
@@ -198,7 +198,15 @@ $js=<<<JS
         $('#formModal #exam-about').val(defaltData);
         $('#formModal #exam-status').val(1);
         $('#examListBody').html(defaltData);
+        uploadResultInit();
     });
+    
+	function uploadResultInit() {
+		$('#upload-progressbar').css('width', 0);
+        $('#upload-progressbar').find('span').text('');
+        $('[data-toggle="upload-progressInput"]').val('');
+        $('[data-toggle="upload-saveInput"]').val('');
+	}
 JS;
 $this->registerJs($js);
 ?>
