@@ -16,7 +16,7 @@ class ExamLevel extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%exam_class}}';
+        return '{{%exam_level}}';
     }
 
     /**
@@ -25,7 +25,7 @@ class ExamLevel extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'path', 'grade', 'name', 'uid', 'sort', 'status'], 'required'],
+            [['level', 'condition', 'rate', 'remark', 'exam_id'], 'required'],
         ];
     }
 
@@ -36,46 +36,25 @@ class ExamLevel extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'parent' => '父级',
-            'path' => '节点',
-            'grade' => '层级',
-            'name' => '名称',
-            'uid' => '用户ID',
-            'sort' => '排序',
-            'status' => '状态',
-            'created_at' => '创建时间',
-            'updated_at' => '创建时间',
+            'level' => '级别',
+            'condition' => '条件',
+            'rate' => '正确率',
+            'remark' => '评分',
         ];
     }
 
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        return $scenarios;
-    }
-
     public function getDataForWhere($where = []){
-        $where['status'] = 1;
-        $examClass = ExamClass::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
+        $examClass = ExamClass::find()->where($where)->orderBy(['rate' => SORT_DESC])->asArray()->all();
         return $examClass;
     }
 
-    /*树形结构*/
-    public function recursionTree($parent = 0){
-        $column = [];
-        $model = $this->getDataForWhere(['parent' => $parent]);
-        if(is_array($model)){
-            foreach ($model as $key => $val){
-                $column[$key]['id'] = $val['id'];
-                $column[$key]['text'] = $val['name'];
-                $column[$key]['nodes'] = $this->recursionTree($val['id']);
-                if(empty($column[$key]['nodes'])){
-                    unset($column[$key]['nodes']);
-                }
+    public function saveData($where = [], $data = []){
+        $exam = Exam::find()->where($where)->all();
+        foreach ($exam as $val){
+            foreach ($data as $k => $v){
+                $val->$k = $v;
             }
+            $val->save(false);
         }
-        return $column;
     }
-
-
 }

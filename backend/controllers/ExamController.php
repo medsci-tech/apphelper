@@ -40,7 +40,7 @@ class ExamController extends BackendController
         }else{
             $model = new Exam();
         }
-        $model->load($appYii->request->post());
+        $model->load(['Exam' => $appYii->request->post()['Exam']]);
         $isValid = $model->validate();
         if ($isValid) {
             $model->exe_ids = ',' . implode(',', $model->exe_ids) . ',';
@@ -49,6 +49,23 @@ class ExamController extends BackendController
             }
             $result = $model->save(false);
             if($result){
+                $examLevelModel = new ExamLevel();
+                $examLevelRequest = $appYii->request->post()['ExamLevel'];
+                if(is_array($examLevelRequest)){
+                    $examLevelData = [];
+                    foreach ($examLevelRequest as $key => $val){
+                        foreach ($val as $k => $v){
+                            $examLevelData[$k][$key] = $v;
+                            $examLevelData[$k]['exam_id'] = $model->id;
+                        }
+                    }
+                    if(is_array($examLevelData)){
+                        foreach ($examLevelData as $key => $val){
+                            $examLevelModel->load(['ExamLevel' => $val]);
+                            $examLevelModel->save(false);
+                        }
+                    }
+                }
                 $return = ['success', '操作成功哦'];
             }else{
                 $return = ['error', '操作失败哦'];
