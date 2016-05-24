@@ -63,8 +63,8 @@ class Controller extends ActiveController
                 $result = ['code' => 0,'message'=>'tocken已过期!请重新登录!','data'=>null];
                 exit(json_encode($result));
             }
-            $p = $mem['province']; //标记用户资料是否完善
-            unset($mem['province']);
+            $p = $mem['province'] ?? ''; //标记用户资料是否完善
+            @unset($mem['province']);
             $res = array_diff_assoc($mem,$data);
             if($res)  // 授权认证失败
             {

@@ -39,6 +39,4 @@ class PraiseController extends \api\common\controllers\Controller
         return $result;
     }
 
-    
-
 }

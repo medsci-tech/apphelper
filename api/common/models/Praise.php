@@ -55,5 +55,12 @@ class Praise extends \yii\db\ActiveRecord
         $this->save();
         return true;
     }
+    
+    public function afterSave($insert)
+    {
+        parent::afterSave($insert);
+        /* 更新评论点赞数 */
+       
+    }
 }
 
