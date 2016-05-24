@@ -59,8 +59,8 @@ $form = ActiveForm::begin([
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody id="optionListBody">
-            <tr>
+            <tbody id="examLevelListBody">
+            <tr data-key="1">
                 <td>
                     <input type="hidden" name="ExamLevel[id][]" value="">
                     <input type="text" class="form-control" name="ExamLevel[option][]" value="">
@@ -92,7 +92,7 @@ $form = ActiveForm::begin([
 $js = <<<JS
     /*删除试题*/
     $('#examListBody').on('click','.delThisOption',function() {
-       delThisRowOptionForMime('#examListBody',this);
+       delThisRowOptionForMime('#examListBody', this, 0, 2);
     });
     /*添加试题*/
     $('#add-exercise').click(function() {
@@ -105,6 +105,12 @@ $js = <<<JS
             content: '/exercise/index?hiboyiamalayer=itisevident'
         });
     });
+    /*删除评分规则*/
+    $('#examLevelListBody').on('click','.delThisOption',function() {
+       delThisRowOptionForMime('#examLevelListBody',this, 0, 3);
+    });
+    
+
 JS;
 $this->registerJs($js);
 ?>

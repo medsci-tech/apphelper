@@ -218,9 +218,9 @@ $js=<<<JS
             if(check[i].checked == true){
                 parentLastNum++;
                 var tdHtml = $(check[i]).parent().next().next();
-                html += '<tr>';
-                html += '    <td>' + parentLastNum + '<input type="hidden" name="Exam[exe_ids][]" value="' + $(check[i]).val() + '"></td>';
-                html += '    <td>' + tdHtml.html() + '</td>';
+                html += '<tr data-key="' + parentLastNum + '">';
+                html += '    <td>' + parentLastNum + '</td>';
+                html += '    <td>' + tdHtml.html() + '<input type="hidden" name="Exam[exe_ids][]" value="' + $(check[i]).val() + '"></td>';
                 html += '    <td><a href="/exercise/view?id=' + $(check[i]).val() + '">' + tdHtml.next().html() + '</a></td>';
                 html += '    <td>' + tdHtml.next().next().html() + '</td>';
                 html += '    <td>' + tdHtml.next().next().next().html() + '</td>';
