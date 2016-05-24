@@ -45,11 +45,11 @@ class Controller extends ActiveController
      */
     public function checkAccess($action, $model = null, $params = [])
     {
-        $uid = $this->params['uid'] ?? 0;
+        $uid = $this->uid ?? 0;
         $headers = Yii::$app->request->headers;
         $access_token = $headers->get('access-token');
         if(!$uid || !$access_token)
-        {
+        {    
             $result = ['code' => -1,'message'=>'无效的uid和tocken访问验证!','data'=>null];
             exit(json_encode($result));
         }
@@ -63,8 +63,6 @@ class Controller extends ActiveController
                 $result = ['code' => 0,'message'=>'tocken已过期!请重新登录!','data'=>null];
                 exit(json_encode($result));
             }
-            if(isset($mem['province']))
-                unset($mem['province']);
             $res = array_diff_assoc($mem,$data);
             if($res)  // 授权认证失败
             {

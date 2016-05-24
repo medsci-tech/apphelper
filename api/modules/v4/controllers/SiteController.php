@@ -7,7 +7,6 @@
  */
 namespace api\modules\v4\controllers;
 use api\common\controllers\CommonController;
-use api\common\models\member;
 use Yii;
 use crazyfd\qiniu\Qiniu;
 class SiteController extends CommonController
@@ -70,7 +69,7 @@ class SiteController extends CommonController
         else
         {
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$response->id); // 清除历史缓存
-            Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$response->id,json_encode(['uid'=>$response->id,'access_token' => $response->access_token,'province' => $response->province]),2592000);
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$response->id,json_encode(['uid'=>$response->id,'access_token' => $response->access_token]),2592000);
             $result = [
                 'code' => 200,
                 'message'=>'登录成功',
@@ -125,7 +124,8 @@ class SiteController extends CommonController
     // 临时返回token ,生成环境删除
     public function actionView()
     {
-        $result = Member::find()->where(['username' => $this->params])->asArray()->one();
+        $model = new $this->modelClass();
+        $result = $model::find()->where(['username' => $this->params])->asArray()->one();
         if($result)
             $result = ['code' => 200,'message'=>'用户信息','data'=>['username'=>$this->params['username'],'access_token'=>$result['access_token']]];
         else
