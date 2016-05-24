@@ -106,6 +106,7 @@ backend\assets\AppAsset::register($this);
                                 $examLevel = ExamLevel::find()->andWhere(['exam_id'=> $model->id])->all();
                                 $examLevelArray = [];
                                 foreach ($examLevel as $k => $val){
+                                    $examLevelArray[$k]['id'] = $val->id;
                                     $examLevelArray[$k]['condition'] = $val->condition;
                                     $examLevelArray[$k]['rate'] = $val->rate;
                                     $examLevelArray[$k]['level'] = $val->level;
@@ -230,6 +231,7 @@ $js=<<<JS
 	examLevelEditForMime = function (asThis, list, conditionExamLevel, rateExamLevel) {
         var html = '';
         var listLen = list.length;
+        console.log(list);
         for(var i = 0; i < listLen; i++){
             html += '<tr data-key="' + ( i + 1 ) + '">';
             html += '    <td>';
