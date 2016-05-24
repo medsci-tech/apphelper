@@ -258,7 +258,7 @@ class MemberController extends \api\common\controllers\Controller
         // 生成上传 Token
         $token = $auth->uploadToken($bucket);
         $key = 'images/user/'.time().'.jpg'; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
-        $result = ['code' => 200,'message'=>'token表单上传','data'=>['token'=>$token,'key'=>$key]];
+        $result = ['code' => 200,'message'=>'token表单上传','data'=>['token'=>$token,'domain'=>$domain,'key'=>$key]];
         return $result; 
     }
       /**
