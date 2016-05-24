@@ -70,7 +70,7 @@ class CollectionController extends \api\common\controllers\Controller
             Yii::$app->cache->set(Yii::$app->params['redisKey'][6],json_encode($data),2592000);
         }   
     
-        $result = ['code' => 200,'message'=>'收藏列表','data'=>['isLastPage'=>$page>=$total_page ? true : false ,'list'=>$data]];
+        $result = ['code' => 200,'message'=>'收藏列表','data'=>['isLastPage'=>$page>=$total_page ? true : false ,'list'=>$data ?? null]];
         return $result;
     }
     /**
