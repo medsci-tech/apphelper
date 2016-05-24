@@ -8,15 +8,17 @@
 
 namespace api\modules\v4\controllers;
 
-use common\models\Region;
+use common\models\ResourceClass;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use common\components\Helper;
 use yii\base\InvalidConfigException;
+use yii\data\Pagination;
+
 class ResourceController extends \api\common\controllers\Controller
 {
-    public $modelClass = 'api\common\models\Member';
+    public $modelClass = 'api\common\models\ResourceClass';
 
     protected function verbs(){
         return [
@@ -32,12 +34,31 @@ class ResourceController extends \api\common\controllers\Controller
 
     public function actionHospital()
     {
-        $data=[
-            ['id'=>'101','title'=> '新手培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'50'],
-            ['id'=>'102','title'=> '店员培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'40'],
-            ['id'=>'103','title'=> '店长培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'70'],
-        ];
-        $result = ['code' => 200,'message'=>'药店列表','data'=>['isLastPage'=>true ,'list'=>$data]];
+        $pagesize = 10; // 默认每页记录数
+        $page = $this->params['page'] ?? 1; // 当前页码
+        $page = $page ? $page : 1;
+        $offset = $pagesize * ($page - 1); //计算记录偏移量
+        $model = new ResourceClass();
+        $data = $model::find()
+            ->select('id,name')
+            ->where(['parent' => 0, 'attr_type' => 0, 'status' => 1]);
+        $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
+        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $total_page = ceil($data->count() / $pagesize);
+
+        $array = array();
+        $progress = 5;
+        foreach ($model as $resource) {
+            $progress = $progress + 5;
+            $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => $progress);
+            array_push($array, $row);
+        }
+//        $data=[
+//            ['id'=>'101','title'=> '新手培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'50'],
+//            ['id'=>'102','title'=> '店员培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'40'],
+//            ['id'=>'103','title'=> '店长培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'70'],
+//        ];
+        $result = ['code' => 200,'message'=>'药店列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
         return $result;
     }
 
