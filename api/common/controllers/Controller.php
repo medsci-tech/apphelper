@@ -70,14 +70,7 @@ class Controller extends ActiveController
                 exit(json_encode($result));
             }
             else
-            {
-/*                if(!$p)
-                {
-                    $result = ['code' => -2,'message'=>'资料尚未完善!','data'=>null];
-                    exit(json_encode($result));
-                }*/
                 return;
-            }
         }
         else
         {
@@ -87,11 +80,9 @@ class Controller extends ActiveController
                 $result = ['code' => -1,'message'=>'tocken验证失败!','data'=>null];
                 exit(json_encode($result));
             }
-            else
-            {
-                $data['province'] = $model->province;// 验证用户资料是否完善(省份未必填项即可验证)
+            else  
                 Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data),2592000);
-            }
+  
         }
     }
 
