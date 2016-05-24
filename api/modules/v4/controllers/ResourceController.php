@@ -9,6 +9,7 @@
 namespace api\modules\v4\controllers;
 
 use common\models\ResourceClass;
+use common\models\Resource;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
@@ -60,6 +61,42 @@ class ResourceController extends \api\common\controllers\Controller
 //        ];
         $result = ['code' => 200,'message'=>'药店列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
         return $result;
+    }
+
+    public function actionChildhosp()
+    {
+        $pagesize = 10; // 默认每页记录数
+        $page = $this->params['page'] ?? 1; // 当前页码
+        $page = $page ? $page : 1;
+        $offset = $pagesize * ($page - 1); //计算记录偏移量
+        $rid = $this->params['rid'];
+
+
+        $resourceClass = new ResourceClass();
+        $rsModel = $resourceClass::find()
+            ->select('id')
+            ->where(['parent' => $rid, 'status'=>1])
+            ->asArray()
+            ->all();
+
+//        print_r(array_column($rsModel,'id'));
+        $model = new Resource();
+        $data = $model::find()
+            ->select('id,title,views,imgurl')
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
+            ->orderBy(['publish_time'=>SORT_DESC]);
+
+        $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
+        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $total_page = ceil($data->count() / $pagesize);
+
+        $name = $resourceClass::find()
+            ->where(['id' => $rid])
+            ->one();
+
+        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$model]];
+        return $result;
+
     }
 
     public function actionProduct()
