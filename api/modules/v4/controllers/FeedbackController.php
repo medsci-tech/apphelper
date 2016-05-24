@@ -35,7 +35,6 @@ class FeedbackController extends \api\common\controllers\Controller
      */  
     public function actionSave()
     {
-
         $imageList = $this->params['imageList'] ?? '';
         $content = $this->params['content'] ?? '';
         if(!$imageList || !$content)

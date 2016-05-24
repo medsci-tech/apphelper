@@ -10,7 +10,6 @@ namespace api\modules\v4\controllers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use common\components\Helper;
 use yii\base\InvalidConfigException;
 class SearchController extends \api\common\controllers\Controller
 {

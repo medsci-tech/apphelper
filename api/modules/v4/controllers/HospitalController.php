@@ -23,6 +23,13 @@ class HospitalController extends \api\common\controllers\Controller
             'index'=>['POST'],
         ];
     }
+    /**
+     * 单位列表
+     * @author by lxhui
+     * @version [2010-05-11]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
     public function actionIndex()
     {
         $province = $this->params['province'] ?? '';
