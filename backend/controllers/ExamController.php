@@ -47,6 +47,9 @@ class ExamController extends BackendController
             if(!isset($model->id)){
                 $model->created_at = time();
             }
+            if($appYii->request->post()['Exam']['imgUrl']){
+                $model->imgUrl = $appYii->request->post()['Exam']['imgUrl'];
+            }
             $result = $model->save(false);
             if($result){
                 $examLevelModel = new ExamLevel();

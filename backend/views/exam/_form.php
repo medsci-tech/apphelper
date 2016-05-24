@@ -24,6 +24,7 @@ $form = ActiveForm::begin([
         <label class="control-label">封面图</label>
         <?= $this->render('/webuploader/index',[
             'name' => 'Exam[imgUrl]',
+            'imgMaxSize' => 2097152,/*文件限制2M*/
         ]);?>
         <div class="help-block"></div>
     </div>
