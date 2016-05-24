@@ -100,7 +100,7 @@ class ExamController extends BackendController
                 (new Exam())->saveData(['id' => $params['selection']], ['status' => 0]);
             } elseif ('isPub' == $params['type']) {
                 /*发布*/
-                (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 1, 'publish_at' => time()]);
+                (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 1, 'publish_time' => time()]);
             } elseif ('noPub' == $params['type']) {
                 /*取消发布*/
                 (new Exam())->saveData(['id' => $params['selection']], ['publish_status' => 0]);
