@@ -91,7 +91,7 @@ backend\assets\AppAsset::register($this);
                         'template' => '{update}',//只需要展示删除和更新
                         'buttons' => [
                             'update'=> function ($url, $model, $key) {
-                                $exeIds = explode(',' , mb_substr($model->exe_ids, 1, -1));
+                                $exeIds = explode(',' , $model->exe_ids);
                                 $exercise = Exercise::find()->andWhere(['id'=> $exeIds])->all();
                                 $exerciseArray = [];
                                 foreach ($exercise as $k => $val){

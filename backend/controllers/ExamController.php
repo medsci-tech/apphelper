@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\search\Exam as ExamSearch;
 use common\models\Exam;
+use common\models\ExamClass;
 use common\models\ExamLevel;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -43,7 +44,7 @@ class ExamController extends BackendController
         $model->load(['Exam' => $appYii->request->post()['Exam']]);
         $isValid = $model->validate();
         if ($isValid) {
-            $model->exe_ids = ',' . implode(',', $model->exe_ids) . ',';
+            $model->exe_ids = implode(',', $model->exe_ids);
             if(!isset($model->id)){
                 $model->created_at = time();
             }
@@ -66,12 +67,18 @@ class ExamController extends BackendController
                     }
                     if(is_array($examLevelData)){
                         foreach ($examLevelData as $key => $val){
+                            if($val['id']){
+                                $examLevelModel = ExamLevel::findOne($val['id']);
+                            }else{
+                                $examLevelModel = new ExamLevel();
+                            }
                             $examLevelModel->load(['ExamLevel' => $val]);
                             $examLevelModel->save(false);
+                            $examLevelDel[] = $examLevelModel->id;
                         }
                     }
                 }
-                $examLevelModel->find()->where(['and', 'exam_id=' . $model->id, ['not in', 'id', $examLevelDel]])->all();
+                $examLevelModel->deleteAll(['and', 'exam_id=' . $model->id, ['not in', 'id', $examLevelDel]]);
 
                 $return = ['success', '操作成功哦'];
             }else{
