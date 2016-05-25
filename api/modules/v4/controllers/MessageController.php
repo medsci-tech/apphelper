@@ -12,7 +12,6 @@ use api\common\models\Hospital;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\swiftmailer\Message;
-use yii\web\Response;
 use yii\base\InvalidConfigException;
 use yii\data\Pagination;
 

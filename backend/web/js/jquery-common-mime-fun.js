@@ -50,9 +50,9 @@ examEditForMime = function (asThis, list) {
     var html = '';
     var listLen = list.length;
     for(var i = 0; i < listLen; i++){
-        html += '<tr>';
-        html += '    <td>' + (i + 1) + '<input type="hidden" name="Exam[exe_ids][]" value="' + list[i]['id'] + '"></td>';
-        html += '    <td>' + list[i]['type'] + '</td>';
+        html += '<tr data-key="' + ( i + 1 ) + '">';
+        html += '    <td>' + (i + 1) + '</td>';
+        html += '    <td>' + list[i]['type'] + '<input type="hidden" name="Exam[exe_ids][]" value="' + list[i]['id'] + '"></td>';
         html += '    <td><a href="/exercise/view?id=' + list[i]['id'] + '">' + list[i]['question'] + '</a></td>';
         html += '    <td>' + list[i]['option'] + '</td>';
         html += '    <td>' + list[i]['answer'] + '</td>';
@@ -111,10 +111,14 @@ exerciseInitForMime = function (element) {
  * @param element string | eg:'#div'
  * @param asThis
  * @param retainNum int 保留项数
+ * @param type int 1,字母序号 2，数字序号 3，无序号
  */
-delThisRowOptionForMime = function (element, asThis, retainNum) {
+delThisRowOptionForMime = function (element, asThis, retainNum, type) {
     if(undefined == retainNum){
         retainNum = 0;
+    }
+    if(undefined == type){
+        type = 1;
     }
     if($(element).find('tr').length > retainNum){
         var parentTr = $(asThis).parent().parent();
@@ -127,10 +131,15 @@ delThisRowOptionForMime = function (element, asThis, retainNum) {
             var thisTr = $(parentTr.nextAll('tr')[i]);
             var thisTd = thisTr.find('td');
             var dataKey = parseInt(thisTr.attr('data-key'));
-            var thisLatter = String.fromCharCode(63 + dataKey);
+            var order;
+            if(1 == type){
+                order = String.fromCharCode(63 + dataKey);
+                thisTd.find('.checkValue').val(order);
+                thisTd.eq(0).text(order);
+            }else if(2 == type){
+                thisTd.eq(0).text(dataKey - 1);
+            }
             thisTr.attr('data-key',dataKey - 1);
-            thisTd.eq(0).text(thisLatter);
-            thisTd.find('.checkValue').val(thisLatter);
         }
         parentTr.remove();
     }
@@ -165,3 +174,5 @@ verifyCheckedForMime = function (check) {
         return true;
     }
 };
+
+

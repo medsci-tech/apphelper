@@ -4,9 +4,9 @@ namespace frontend\controllers;
 use yii\web\Controller;
 use Yii;
 use yii\web\NotFoundHttpException;
-//use Qiniu\Auth;
+use Qiniu\Auth;
 // 引入上传类
-//use Qiniu\Storage\UploadManager;
+use Qiniu\Storage\UploadManager;
 use crazyfd\qiniu\Qiniu;
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -20,12 +20,18 @@ class TestController extends Controller
      */
     public function actionIndex()
     {
-//        $qiniu = new Qiniu('OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-', 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T','http://api.dev', $bucket);
-//        $key = time();
-//        $qiniu->uploadFile($_FILES['tmp_name'],$key);
-//        $url = $qiniu->getLink($key);
+        $accessKey =Yii::$app->params['qiniu']['accessKey'];
+        $secretKey = Yii::$app->params['qiniu']['secretKey'];      
+        $bucket = Yii::$app->params['qiniu']['bucket']; // 要上传的空间
+        $domain = Yii::$app->params['qiniu']['domain']; // 七牛返回的域名
+        // 构建鉴权对象
+        $auth = new Auth($accessKey, $secretKey);
+        // 生成上传 Token
+        $token = $auth->uploadToken($bucket);
+        $key = 'images/user/'.time().'.jpg'; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
         return $this->render('index', [
-
+            'token'=> $token,
+            'key'=> $key
         ]);
     }
     public function actionUpload()

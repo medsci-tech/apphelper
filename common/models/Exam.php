@@ -13,14 +13,6 @@ use yii\data\ActiveDataProvider;
 class Exam extends ActiveRecord
 {
     /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%exam}}';
-    }
-
-    /**
      * @return array
      */
     public function rules()
@@ -49,7 +41,7 @@ class Exam extends ActiveRecord
             'publish_status' => '发布状态',
             'recommend_status' => '推荐状态',
             'created_at' => '创建时间',
-            'publish_at' => '发布时间',
+            'publish_time' => '发布时间',
         ];
     }
 

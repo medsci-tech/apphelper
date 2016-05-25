@@ -1,12 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+use api\common\models\Resource_view_log;
 use Yii;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use common\models\Resource;
+use api\common\models\Resourceviewlog;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -73,11 +71,26 @@ class SiteController extends Controller
      */
     public function actionView($id)
     {
+        $m = Resource::findOne($id);
+        $log = Resourceviewlog::find()->select(['uid','rid'])->all();
+
+        Resource::updateAll(['views'=>$m->views+1],'id=:id',array(':id'=>$id));//阅读量+1
+        $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][2].$id); //获取缓存
+        $data  = json_decode($data,true);
+        if(!$data)
+        {
+            /* 查询数据库 */
+            $data = Resource::find()
+                ->select(['title','content','views'])
+                ->where(['id' => $id])
+                ->asArray()
+                ->one();
+            Yii::$app->cache->set(json_encode(Yii::$app->params['redisKey'][2].$id),2592000);
+        }
 
         return $this->render('view', [
-            'id' => $id,
+            'data' => $data,
         ]);
-        return $this->render('view');
     }
 
 }

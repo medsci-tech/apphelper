@@ -1,10 +1,10 @@
 <?php
-
 namespace api\common\controllers;
-use api\common\models\Member;
 use yii\rest\ActiveController;
 use yii\web\Response;
 use Yii;
+use api\common\models\{Member,Resource,ResourceClass};
+use yii\helpers\ArrayHelper;
 class Controller extends ActiveController
 {
     public $params;
@@ -45,11 +45,11 @@ class Controller extends ActiveController
      */
     public function checkAccess($action, $model = null, $params = [])
     {
-        $uid = $this->params['uid'] ?? 0;
+        $uid = $this->uid ?? 0;
         $headers = Yii::$app->request->headers;
         $access_token = $headers->get('access-token');
         if(!$uid || !$access_token)
-        {
+        {    
             $result = ['code' => -1,'message'=>'无效的uid和tocken访问验证!','data'=>null];
             exit(json_encode($result));
         }
@@ -63,8 +63,6 @@ class Controller extends ActiveController
                 $result = ['code' => 0,'message'=>'tocken已过期!请重新登录!','data'=>null];
                 exit(json_encode($result));
             }
-            $p = $mem['province']; //标记用户资料是否完善
-            unset($mem['province']);
             $res = array_diff_assoc($mem,$data);
             if($res)  // 授权认证失败
             {
@@ -72,14 +70,7 @@ class Controller extends ActiveController
                 exit(json_encode($result));
             }
             else
-            {
-/*                if(!$p)
-                {
-                    $result = ['code' => -2,'message'=>'资料尚未完善!','data'=>null];
-                    exit(json_encode($result));
-                }*/
                 return;
-            }
         }
         else
         {
@@ -89,12 +80,44 @@ class Controller extends ActiveController
                 $result = ['code' => -1,'message'=>'tocken验证失败!','data'=>null];
                 exit(json_encode($result));
             }
-            else
-            {
-                $data['province'] = $model->province;// 验证用户资料是否完善(省份未必填项即可验证)
+            else  
                 Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$uid,json_encode($data),2592000);
-            }
+  
         }
+    }
+     /**
+     * 获取资源所属关联是属性数据
+     * author lxhui
+     * This method should be overridden to check whether the current user has the privilege
+     * to run the specified action against the specified data model.
+     * If the user does not have access, a ForbiddenHttpException should be thrown.
+     * 本方法应被覆盖来检查当前用户是否有权限执行指定的操作访问指定的数据模型
+     * 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
+    protected function getData($results=[])
+    {
+        $rids = ArrayHelper::getColumn($results, 'rid'); // 关联资源id 
+        $rids_str = implode(',', $rids);   
+        // 用原生 SQL 语句检索(yii2 ORM不支持field排序)
+        $sql = "SELECT id,rid,title,imgurl,views FROM ".Resource::tableName()." where id in($rids_str) order by field(id,$rids_str)";
+        $data = Resource::findBySql($sql)->asArray()->all();   
+
+        $rids_2 = ArrayHelper::getColumn($data, 'rid'); // 关联资源分类id  
+        $rids_str2 = implode(',', $rids_2);   
+        $sql = "SELECT id,parent FROM ".ResourceClass::tableName()." where id in($rids_str2) order by field(id,$rids_str2)";
+        $resource_class = ResourceClass::findBySql($sql)->asArray()->all();         
+        $resource_class = ArrayHelper::map($resource_class, 'id', 'parent');
+
+        /* 组合信息列表 */
+        $count= count($data); 
+        for($i=0;$i<$count;$i++)
+        {  
+            $data[$i]['labelName']='参与人数';
+            $data[$i]['labelValue']=$data[$i]['views'];
+            $data[$i]['classname']=constant("CLASSNAME")[$resource_class[$data[$i]['rid']]];
+            unset($data[$i]['rid'],$data[$i]['views']);
+        }  
+       return $data;
     }
 
 }

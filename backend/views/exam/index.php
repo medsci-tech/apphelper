@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Exercise;
+use common\models\ExamLevel;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -12,10 +13,13 @@ use yii\widgets\ActiveForm;
 /* @var $examClass */
 /* @var $dataProvider */
 /* @var $params */
-$yiiApp = Yii::$app;
+$appYii = Yii::$app;
 $this->title = '考卷';
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['params'] = $yiiApp->params;
+$this->params['params'] = $appYii->params;
+
+$conditionExamLevel = json_encode($appYii->params['examLevel']['condition']);
+$rateExamLevel = json_encode($appYii->params['examLevel']['rate']);
 backend\assets\AppAsset::register($this);
 ?>
 
@@ -64,7 +68,7 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'publish_at',
+                    'publish_time',
                     [
                         'attribute' => 'status',
                         'value' =>
@@ -98,6 +102,17 @@ backend\assets\AppAsset::register($this);
                                     $exerciseArray[$k]['answer'] = $val->answer;
                                 }
                                 $exerciseData = json_encode($exerciseArray);
+
+                                $examLevel = ExamLevel::find()->andWhere(['exam_id'=> $model->id])->all();
+                                $examLevelArray = [];
+                                foreach ($examLevel as $k => $val){
+                                    $examLevelArray[$k]['id'] = $val->id;
+                                    $examLevelArray[$k]['condition'] = $val->condition;
+                                    $examLevelArray[$k]['rate'] = $val->rate;
+                                    $examLevelArray[$k]['level'] = $val->level;
+                                    $examLevelArray[$k]['remark'] = $val->remark;
+                                }
+                                $examLevelData = json_encode($examLevelArray);
                                 return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
                                 data-id="' . $model->id . '"
                                 data-type="' . $model->type . '"
@@ -107,6 +122,7 @@ backend\assets\AppAsset::register($this);
                                 data-recommend_status="' . $model->recommend_status . '"
                                 data-about="' . $model->about . '"
                                 data-exercise=' . $exerciseData . '
+                                data-examLevel=' . $examLevelData . '
                                 data-status="' . $model->status . '"
                                  ></span>');
                             },
@@ -137,9 +153,12 @@ backend\assets\AppAsset::register($this);
 
 <?php
 $formUrl = \yii\helpers\Url::toRoute('form');
-$getError = $yiiApp->getSession()->getFlash('error');
-$getSuccess = $yiiApp->getSession()->getFlash('success');
+$getError = $appYii->getSession()->getFlash('error');
+$getSuccess = $appYii->getSession()->getFlash('success');
+
 $js=<<<JS
+    var conditionExamLevel = $conditionExamLevel;
+    var rateExamLevel = $rateExamLevel;
     /*修改操作状态提示*/
     if('$getError' || '$getSuccess'){
         toastr.options = {
@@ -172,6 +191,7 @@ $js=<<<JS
         var recommend_status = $(this).attr('data-recommend_status');
         var about = $(this).attr('data-about');
         var exercise = JSON.parse($(this).attr('data-exercise'));
+        var examLevelList = JSON.parse($(this).attr('data-examLevel'));
         var status = $(this).attr('data-status');
         /* 编辑初始化 */
         $('#formModal #tableForm').attr('action', '$formUrl?id='+id);
@@ -183,11 +203,11 @@ $js=<<<JS
         $('#formModal #exam-about').val(about);
         $('#formModal #exam-status').val(status);
         examEditForMime($('#examListBody'), exercise);
+        examLevelEditForMime($('#examLevelListBody'), examLevelList, conditionExamLevel, rateExamLevel);
         uploadResultInit();
     });
     /*添加题库初始化*/
     $("#createBtn").click(function(){
-        /* 编辑初始化 */
         var defaltData = ''; 
         $('#formModal #tableForm').attr('action', '$formUrl');
         $('#formModal #exam-type').val(0);
@@ -207,6 +227,47 @@ $js=<<<JS
         $('[data-toggle="upload-progressInput"]').val('');
         $('[data-toggle="upload-saveInput"]').val('');
 	}
+	
+	examLevelEditForMime = function (asThis, list, conditionExamLevel, rateExamLevel) {
+        var html = '';
+        var listLen = list.length;
+        console.log(list);
+        for(var i = 0; i < listLen; i++){
+            html += '<tr data-key="' + ( i + 1 ) + '">';
+            html += '    <td>';
+            html += '    <input type="hidden" name="ExamLevel[id][]" value="' + list[i]['id'] + '">';
+            html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="' + list[i]['level'] + '">';
+            html += '    </td>';
+            html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+            for(var j in conditionExamLevel){
+                html += '<option ';
+               if(j == list[i]['condition']){
+                html += 'selected="selected"';
+               }
+               html += '>' + conditionExamLevel[j] + '</option>';
+            }
+            html += '    </select></td>';
+            html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+            for(var j in rateExamLevel){
+                html += '<option ';
+              if(j == list[i]['rate']){
+                html += 'selected="selected"';
+              }
+               html += '>' + rateExamLevel[j] + '</option>';
+            }
+            html += '    </select></td>';
+            html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value="' + list[i]['remark'] + '"></td>';
+            html += '    <td>';
+            html += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+            if(i == listLen - 1){
+                html += '  <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+            }
+            html += '    </td>';
+            html += '</tr>';
+        }
+        asThis.html(html);
+    };
+    
 JS;
 $this->registerJs($js);
 ?>
