@@ -8,6 +8,8 @@
 
 namespace api\modules\v4\controllers;
 use Yii;
+use api\common\models\{Member,Resource,ResourceClass};
+use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
 use yii\data\Pagination;
 class CollectionController extends \api\common\controllers\Controller
@@ -37,11 +39,30 @@ class CollectionController extends \api\common\controllers\Controller
             ->select(['rid'])
             ->andWhere(['uid' => $this->uid]);    
         $pages = new Pagination(['totalCount' =>$result->count(), 'pageSize' => $pagesize]);
-        $results = $result->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $result->offset($offset)->limit($pages->limit)->OrderBy(['id' =>SORT_DESC])->asArray()->all();
         $total_page = ceil($result->count()/$pagesize);
         if($results)
         {
-            $data = $this->getData($results);
+            $rids = ArrayHelper::getColumn($results, 'rid'); // 关联资源id 
+            $rids_str = implode(',', $rids);   
+            // 用原生 SQL 语句检索(yii2 ORM不支持field排序)
+            $sql = "SELECT id,rid,title,imgurl,views FROM ".Resource::tableName()." where id in($rids_str) order by field(id,$rids_str)";
+            $data = Resource::findBySql($sql)->asArray()->all();   
+
+            $rids_2 = ArrayHelper::getColumn($data, 'rid'); // 关联资源分类id  
+            $rids_str2 = implode(',', $rids_2);   
+            $sql = "SELECT id,parent FROM ".ResourceClass::tableName()." where id in($rids_str2) order by field(id,$rids_str2)";
+            $resource_class = ResourceClass::findBySql($sql)->asArray()->all();         
+            $resource_class = ArrayHelper::map($resource_class, 'id', 'parent');
+            /* 组合信息列表 */
+            $count= count($data); 
+            for($i=0;$i<$count;$i++)
+            {  
+                $data[$i]['labelName']='参与人数';
+                $data[$i]['labelValue']=$data[$i]['views'];
+                $data[$i]['classname']=constant("CLASSNAME")[$resource_class[$data[$i]['rid']]];
+                unset($data[$i]['rid'],$data[$i]['views']);
+            }  
             //Yii::$app->cache->set(Yii::$app->params['redisKey'][6],json_encode($data),2592000); 
         }
         $result = ['code' => 200,'message'=>'收藏列表','data'=>['isLastPage'=>$page>=$total_page ? true : false ,'list'=>$data ?? null]];
