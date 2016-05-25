@@ -21,13 +21,13 @@ class TreeController {
     private $arr;//待处理数组
     private $icon;//添加符号
     private $ret = array();//返回数组
-    private $nbsp = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    private $nbsp = '&nbsp;&nbsp;';
 
-    public function __construct($data, $iconArr)
+    public function __construct($data, $icon)
     {
         $this->arr = $data;
-        if($iconArr)
-            $this->icon = $iconArr;
+        if($icon)
+            $this->icon = $icon;
     }
 
     /**
@@ -98,28 +98,17 @@ class TreeController {
      */
     public function get_tree($id, $name, $pid = 0, $add = ''){
         $children = $this->get_child($id, $name, $pid);
-        $number = 1;
         if($children){
-            $count = count($children);
             foreach($children as $child){
                 if($this->icon){
-                    $j = $k = '';
-                    if($number == $count){
-                        $j = $this->icon[2];
-                    }else{
-                        $j = $this->icon[1];
-                        $k = $add ? $this->icon[0] : '';
-                    }
-                    $space = $add ? $add.$j : '';//空格字符串
+                    $space = $add ? $add : '';//空格字符串
                     $child['name'] = $space . $child['name'];
                     $this->ret[] = $child;
-                    $nbsp = $this->nbsp;
-                    $this->get_tree($id, $name, $child['id'], $add.$k.$nbsp);
+                    $this->get_tree($id, $name, $child['id'], $add.$this->icon);
                 }else{
                     $this->ret[] = $child;
                     $this->get_tree($id, $name, $child['id']);
                 }
-                $number++;
             }
         }
         return $this->change_key($this->ret, $id, $name, 1);

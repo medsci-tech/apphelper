@@ -91,7 +91,7 @@ backend\assets\AppAsset::register($this);
                         'template' => '{update}',//只需要展示删除和更新
                         'buttons' => [
                             'update'=> function ($url, $model, $key) {
-                                $exeIds = explode(',' , mb_substr($model->exe_ids, 1, -1));
+                                $exeIds = explode(',' , $model->exe_ids);
                                 $exercise = Exercise::find()->andWhere(['id'=> $exeIds])->all();
                                 $exerciseArray = [];
                                 foreach ($exercise as $k => $val){
@@ -146,6 +146,7 @@ backend\assets\AppAsset::register($this);
             </div>
             <?= $this->render('_form', [
                 'model' => $searchModel,
+                'examClassTree' => $examClassTree,
             ]); ?>
         </div>
     </div>
@@ -218,6 +219,7 @@ $js=<<<JS
         $('#formModal #exam-about').val(defaltData);
         $('#formModal #exam-status').val(1);
         $('#examListBody').html(defaltData);
+        examLevelInitForMime('#examLevelListBody', conditionExamLevel, rateExamLevel);
         uploadResultInit();
     });
     
@@ -231,42 +233,131 @@ $js=<<<JS
 	examLevelEditForMime = function (asThis, list, conditionExamLevel, rateExamLevel) {
         var html = '';
         var listLen = list.length;
-        console.log(list);
-        for(var i = 0; i < listLen; i++){
-            html += '<tr data-key="' + ( i + 1 ) + '">';
-            html += '    <td>';
-            html += '    <input type="hidden" name="ExamLevel[id][]" value="' + list[i]['id'] + '">';
-            html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="' + list[i]['level'] + '">';
-            html += '    </td>';
-            html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
-            for(var j in conditionExamLevel){
-                html += '<option ';
-               if(j == list[i]['condition']){
-                html += 'selected="selected"';
-               }
-               html += '>' + conditionExamLevel[j] + '</option>';
+        if(listLen > 0){
+            for(var i = 0; i < listLen; i++){
+                html += '<tr data-key="' + ( i + 1 ) + '">';
+                html += '    <td>';
+                html += '    <input type="hidden" name="ExamLevel[id][]" value="' + list[i]['id'] + '">';
+                html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="' + list[i]['level'] + '">';
+                html += '    </td>';
+                html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+                for(var j in conditionExamLevel){
+                    html += '<option ';
+                   if(j == list[i]['condition']){
+                    html += 'selected="selected"';
+                   }
+                   html += ' value="' + j + '">' + conditionExamLevel[j] + '</option>';
+                }
+                html += '    </select></td>';
+                html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+                for(var j in rateExamLevel){
+                    html += '<option ';
+                  if(j == list[i]['rate']){
+                    html += 'selected="selected"';
+                  }
+                   html += ' value="' + j + '">' + rateExamLevel[j] + '</option>';
+                }
+                html += '    </select></td>';
+                html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value="' + list[i]['remark'] + '"></td>';
+                html += '    <td>';
+                html += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+                if(i == listLen - 1){
+                    html += '  <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+                }
+                html += '    </td>';
+                html += '</tr>';
             }
-            html += '    </select></td>';
-            html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
-            for(var j in rateExamLevel){
-                html += '<option ';
-              if(j == list[i]['rate']){
-                html += 'selected="selected"';
-              }
-               html += '>' + rateExamLevel[j] + '</option>';
-            }
-            html += '    </select></td>';
-            html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value="' + list[i]['remark'] + '"></td>';
-            html += '    <td>';
-            html += '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
-            if(i == listLen - 1){
-                html += '  <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
-            }
-            html += '    </td>';
-            html += '</tr>';
+            asThis.html(html);
+        }else {
+            examLevelInitForMime('#examLevelListBody', conditionExamLevel, rateExamLevel);
         }
-        asThis.html(html);
     };
+    
+    examLevelInitForMime = function (element, conditionExamLevel, rateExamLevel) {
+        var html = '';
+        html += '<tr data-key="1">';
+        html += '    <td>';
+        html += '    <input type="hidden" name="ExamLevel[id][]" value="">';
+        html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="">';
+        html += '    </td>';
+        html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+        for(var j in conditionExamLevel){
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+        for(var j in rateExamLevel){
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
+        html += '    <td>';
+        html += '       <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+        html += '    </td>';
+        html += '</tr>';
+        html += '<tr data-key="2">';
+        html += '    <td>';
+        html += '    <input type="hidden" name="ExamLevel[id][]" value="">';
+        html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="">';
+        html += '    </td>';
+        html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+        for(var j in conditionExamLevel){
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+        for(var j in rateExamLevel){
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
+        html += '    <td>';
+        html += '       <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+        html += '    </td>';
+        html += '</tr>';
+        html += '<tr data-key="3">';
+        html += '    <td>';
+        html += '    <input type="hidden" name="ExamLevel[id][]" value="">';
+        html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="">';
+        html += '    </td>';
+        html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+        for(var j in conditionExamLevel){
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+        for(var j in rateExamLevel){
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
+        html += '    <td>';
+        html += '       <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+        html += '    </td>';
+        html += '</tr>';
+        html += '<tr data-key="4">';
+        html += '    <td>';
+        html += '    <input type="hidden" name="ExamLevel[id][]" value="">';
+        html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="">';
+        html += '    </td>';
+        html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+        for(var j in conditionExamLevel){
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+        for(var j in rateExamLevel){
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
+        html += '    <td>';
+        html += '       <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+        html += '       <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+        html += '    </td>';
+        html += '</tr>';
+        $(element).html(html);
+    }
     
 JS;
 $this->registerJs($js);
