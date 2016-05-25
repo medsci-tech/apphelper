@@ -7,13 +7,9 @@
  */
 
 namespace api\modules\v4\controllers;
-
-use common\models\ResourceClass;
-use common\models\Resource;
+use api\common\models\{Resource, ResourceClass,ResourceViewLog,ResourceStudyLog};
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\Response;
-use common\components\Helper;
 use yii\base\InvalidConfigException;
 use yii\data\Pagination;
 
@@ -32,7 +28,12 @@ class ResourceController extends \api\common\controllers\Controller
             'realname'=>['POST'],
         ];
     }
-
+    /**
+     * 药店列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionHospital()
     {
         $pagesize = 10; // 默认每页记录数
@@ -98,7 +99,12 @@ class ResourceController extends \api\common\controllers\Controller
         return $result;
 
     }
-
+    /**
+     * 产品列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionProduct()
     {
         $page = $this->params['page'] ?? 1; // 当前页码
@@ -136,7 +142,12 @@ class ResourceController extends \api\common\controllers\Controller
         return $result;
     }
 
-
+    /**
+     * 疾病列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionSickness()
     {
         $page = $this->params['page'] ?? 1; // 当前页码
@@ -169,6 +180,12 @@ class ResourceController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
         return $result;
     }
+    /**
+     * 侧边栏目
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionNav()
     {
         $page = $this->params['page'] ?? 1; // 当前页码
@@ -203,18 +220,71 @@ class ResourceController extends \api\common\controllers\Controller
         return $result;
         
     }
-
+    /**
+     * 嵌入式详情页
+     * @author by lxhui
+     * @version [2010-05-25]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionView()
     {
         $id=$this->params['id'];
-        $uid=$this->params['uid'];
+        $uid=$this->uid;
         if(!$id)
         {
             $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
             return $result;
         }
+        /* 记录该用户访问资源 */
+        $viewModel = new ResourceViewLog();
+        $res = $viewModel->find()->where(['uid'=>$this->uid,'rid'=>$id])->one();
+        if(!$res)
+        {
+            $viewModel->uid= $this->uid;
+            $viewModel->rid= $id;
+            $viewModel->created_at= time();
+            $viewModel->save();
+           /* 更新资源访问量 */
+            $model =  Resource::findOne($id);
+            $model->views += 1;
+            $model->save();
+        }
+        /* 记录该用户学习资源的记录 */
+        $studyModel = new ResourceStudyLog();
+        $studyModel->uid= $this->uid;
+        $studyModel->rid= $id;
+        $studyModel->start_time= time();
+        $studyModel->save();
+               
         $wapUrl = 'http://wap.test.ohmate.com.cn/site/view/'.$id;
         $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl,'list'=>null]];
+        return $result;
+    }
+    
+    /**
+     * 统计资源最后离开的时间
+     * @author by lxhui
+     * @version [2010-05-25]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
+    public function actionLeave()
+    {
+        $id=$this->params['id'];
+        $uid=$this->uid;
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
+            return $result;
+        }
+        /* 记录该用户学习资源的记录 */
+        $studyModel = new ResourceStudyLog();
+        $studyModel->uid= $this->uid;
+        $studyModel->rid= $id;
+        $studyModel->end_time= time();
+        $studyModel->save();
+        $result = ['code' => 200,'message'=>'离开资源','data'=>null];
         return $result;
     }
 
