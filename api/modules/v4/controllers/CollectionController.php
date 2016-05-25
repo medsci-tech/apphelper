@@ -7,10 +7,7 @@
  */
 
 namespace api\modules\v4\controllers;
-use common\models\{Resource,ResourceClass};
 use Yii;
-use yii\helpers\ArrayHelper;
-use common\components\Helper;
 use yii\base\InvalidConfigException;
 use yii\data\Pagination;
 class CollectionController extends \api\common\controllers\Controller
@@ -44,32 +41,9 @@ class CollectionController extends \api\common\controllers\Controller
         $total_page = ceil($result->count()/$pagesize);
         if($results)
         {
-            $rids = ArrayHelper::getColumn($results, 'rid'); // 关联资源id 
-            $rids_str = implode(',', $rids);           
-            // 用原生 SQL 语句检索(yii2 ORM不支持field排序)
-            $sql = "SELECT id,rid,title,imgurl,views FROM ".Resource::tableName()." where id in($rids_str) order by field(id,$rids_str)";
-            $data = Resource::findBySql($sql)->asArray()->all();           
-            $rids_2 = ArrayHelper::getColumn($data, 'rid'); // 关联资源分类id  
-            $rids_str2 = implode(',', $rids_2);   
-            $sql = "SELECT id,parent FROM ".ResourceClass::tableName()." where id in($rids_str2) order by field(id,$rids_str2)";
-            $resource_class = ResourceClass::findBySql($sql)->asArray()->all(); 
-            foreach($resource_class as &$val)
-            {
-                $val['classname']= constant("CLASSNAME")[$val['parent']];
-                unset($val['parent']);
-            }  
-            /* 组合信息列表 */
-            $count= count($data);
-            for($i=0;$i<$count;$i++)
-            {
-                $data[$i]['labelName']='参与人数';
-                $data[$i]['labelValue']=$data[$i]['views'];
-                $data[$i]+=$resource_class[$i];
-                unset($data[$i]['rid'],$data[$i]['views']);
-            }
-            Yii::$app->cache->set(Yii::$app->params['redisKey'][6],json_encode($data),2592000);
-        }   
-    
+            $data = $this->getData($results);
+            //Yii::$app->cache->set(Yii::$app->params['redisKey'][6],json_encode($data),2592000); 
+        }
         $result = ['code' => 200,'message'=>'收藏列表','data'=>['isLastPage'=>$page>=$total_page ? true : false ,'list'=>$data ?? null]];
         return $result;
     }
@@ -83,6 +57,11 @@ class CollectionController extends \api\common\controllers\Controller
     public function actionAdd()
     {
         $id = $this->params['id'];
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少收藏对象id!','data'=>null];
+            return $result;   
+        }
         $where=['uid'=>$this->uid,'rid'=>$id,'type'=>1];
         $model = new $this->modelClass();
         $result =$model::find($where)->where($where)->one();
