@@ -77,8 +77,7 @@ class SearchController extends \api\common\controllers\Controller
         }
         $data = array_merge($resources,$exams);   
         ArrayHelper::multisort($data, ['publish_time'], [SORT_DESC]);
-   
-        
+         
         $total_page = ceil(count($data)/$pagesize); // 总页数    
         $data = array_slice($data,$offset,$pagesize);
         
