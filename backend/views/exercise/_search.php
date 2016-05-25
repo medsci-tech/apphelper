@@ -12,13 +12,14 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
+$examAddExerciseSatus = $examAddExerciseForGet ? 1 : '';
 ?>
 
 <div class="hospital-search">
 
     <?php
     $form = ActiveForm::begin([
-        'action' => ['index', 'hiboyiamalayer' => $examAddExerciseForGet],
+        'action' => ['index', 'hiboyiamalayer' => $examAddExerciseForGet,'Exercise[status]' => $examAddExerciseSatus],
         'method' => 'get',
         'options' => ['class' => 'form-inline navbar-btn'],
     ]); ?>

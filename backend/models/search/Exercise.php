@@ -17,7 +17,7 @@ class Exercise extends ExerciseModel
     public function rules()
     {
         return [
-            [['category'], 'integer'],
+            [['category','status'], 'integer'],
             [['question'], 'string'],
         ];
     }
@@ -34,6 +34,7 @@ class Exercise extends ExerciseModel
         }
         $query = ExerciseModel::find();
         $query->andFilterWhere(['category'=> $category]);
+        $query->andFilterWhere(['status' => $this->status]);
         $query->andFilterWhere(['like', 'question', $this->question]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

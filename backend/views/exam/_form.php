@@ -48,7 +48,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="form-group" data-toggle="random-exam">
         <label class="control-label">考题目录</label>
-        <select class="form-control" name="exercise-class" id="exercise-class">
+        <select class="form-control" name="Exam[exercise-class]" id="exercise-class">
             <?php
                 echo '<option value="0">全部</option>';
             foreach ($examClassTree as $key => $val){
@@ -59,7 +59,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="form-group" data-toggle="random-exam">
         <label class="control-label">出题个数</label>
-        <input name="exercise-count" type="text" class="form-control">
+        <input name="Exam[exercise-count]" type="text" class="form-control">
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
     <div class="form-group field-exercise-category required">
@@ -105,7 +105,7 @@ $js = <<<JS
             area: ['800px', '600px'],
             fix: false, //不固定
             maxmin: true,
-            content: '/exercise/index?hiboyiamalayer=itisevident'
+            content: '/exercise/index?status=1&hiboyiamalayer=itisevident'
         });
     });
     /*删除评分规则*/
