@@ -47,7 +47,19 @@ $form = ActiveForm::begin([
         <button id="add-exercise" type="button" class="btn btn-info btn-sm">添加</button>
     </div>
     <div class="form-group" data-toggle="random-exam">
-
+        <label class="control-label">考题目录</label>
+        <select class="form-control" name="exercise-class" id="exercise-class">
+            <?php
+                echo '<option value="0">全部</option>';
+            foreach ($examClassTree as $key => $val){
+                echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
+            }
+            ?>
+        </select>
+    </div>
+    <div class="form-group" data-toggle="random-exam">
+        <label class="control-label">出题个数</label>
+        <input name="exercise-count" type="text" class="form-control">
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
     <div class="form-group field-exercise-category required">
@@ -76,6 +88,11 @@ $form = ActiveForm::begin([
 
 <?php
 $js = <<<JS
+    
+    /*默认自定义出题*/
+    $('[data-toggle="random-exam"]').hide();
+    $('[data-toggle="custom-exam"]').show();
+    
     /*删除试题*/
     $('#examListBody').on('click','.delThisOption',function() {
        delThisRowOptionForMime('#examListBody', this, 0, 2);
@@ -107,12 +124,12 @@ $js = <<<JS
         html += '    </td>';
         html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
         for(var j in conditionExamLevel){
-            html += '<option>' + conditionExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
         for(var j in rateExamLevel){
-            html += '<option>' + rateExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
@@ -127,7 +144,15 @@ $js = <<<JS
     
     $('#exam-type').change(function() {
         var checkValue = $(this).val();
-        
+        if(0 == checkValue){
+            /*自定义出题*/
+            $('[data-toggle="random-exam"]').hide();
+            $('[data-toggle="custom-exam"]').show();
+        }else if(1 == checkValue){
+            /*随机出题*/
+            $('[data-toggle="random-exam"]').show();
+            $('[data-toggle="custom-exam"]').hide();
+        }
         console.log(checkValue);
     })
 

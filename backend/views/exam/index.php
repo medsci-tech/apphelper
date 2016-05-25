@@ -146,6 +146,7 @@ backend\assets\AppAsset::register($this);
             </div>
             <?= $this->render('_form', [
                 'model' => $searchModel,
+                'examClassTree' => $examClassTree,
             ]); ?>
         </div>
     </div>
@@ -245,7 +246,7 @@ $js=<<<JS
                    if(j == list[i]['condition']){
                     html += 'selected="selected"';
                    }
-                   html += '>' + conditionExamLevel[j] + '</option>';
+                   html += ' value="' + j + '">' + conditionExamLevel[j] + '</option>';
                 }
                 html += '    </select></td>';
                 html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
@@ -254,7 +255,7 @@ $js=<<<JS
                   if(j == list[i]['rate']){
                     html += 'selected="selected"';
                   }
-                   html += '>' + rateExamLevel[j] + '</option>';
+                   html += ' value="' + j + '">' + rateExamLevel[j] + '</option>';
                 }
                 html += '    </select></td>';
                 html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value="' + list[i]['remark'] + '"></td>';
@@ -281,12 +282,12 @@ $js=<<<JS
         html += '    </td>';
         html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
         for(var j in conditionExamLevel){
-            html += '<option>' + conditionExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
         for(var j in rateExamLevel){
-            html += '<option>' + rateExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
@@ -301,12 +302,12 @@ $js=<<<JS
         html += '    </td>';
         html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
         for(var j in conditionExamLevel){
-            html += '<option>' + conditionExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
         for(var j in rateExamLevel){
-            html += '<option>' + rateExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
@@ -321,12 +322,12 @@ $js=<<<JS
         html += '    </td>';
         html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
         for(var j in conditionExamLevel){
-            html += '<option>' + conditionExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
         for(var j in rateExamLevel){
-            html += '<option>' + rateExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
@@ -341,12 +342,12 @@ $js=<<<JS
         html += '    </td>';
         html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
         for(var j in conditionExamLevel){
-            html += '<option>' + conditionExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
         for(var j in rateExamLevel){
-            html += '<option>' + rateExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';

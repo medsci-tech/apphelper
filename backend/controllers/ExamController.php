@@ -21,11 +21,16 @@ class ExamController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
+        $examClassModel = new ExamClass();
+        $examClassData = $examClassModel->getDataForWhere();
+        $tree = new TreeController($examClassData, '|-');
+        $examClassTree = $tree->get_tree('id', 'name');
         $search = new ExamSearch();
         $dataProvider = $search->search($appYii->request->queryParams);
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
+            'examClassTree' => $examClassTree,
         ]);
     }
 
