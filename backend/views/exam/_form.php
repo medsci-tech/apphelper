@@ -17,7 +17,16 @@ $form = ActiveForm::begin([
     'options' => ['id' => 'tableForm'],
 ]); ?>
 <div class="modal-body">
-    <?= $form->field($model, 'type')->dropDownList(Yii::$app->params['exam']['type']) ?>
+    <div class="form-group">
+        <label class="control-label">考题目录</label>
+        <select class="form-control" name="Exam[type]" data-toggle="exam-type">
+            <?php
+            foreach ($appYii->params['exam']['type'] as $key => $val){
+                echo '<option value="' . $key . '">' . $val . '</option>';
+            }
+            ?>
+        </select>
+    </div>
     <?= $form->field($model, 'name')->textInput() ?>
     <?= $form->field($model, 'minutes')->textInput() ?>
     <div class="form-group">
@@ -50,7 +59,7 @@ $form = ActiveForm::begin([
         <label class="control-label">考题目录</label>
         <select class="form-control" name="Exam[exercise-class]" id="exercise-class">
             <?php
-                echo '<option value="0">全部</option>';
+                echo '<option selected="selected" value="">全部</option>';
             foreach ($examClassTree as $key => $val){
                 echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
             }
@@ -142,7 +151,7 @@ $js = <<<JS
         $(this).remove();
     });
     
-    $('#exam-type').change(function() {
+    $('[data-toggle="exam-type"]').change(function() {
         var checkValue = $(this).val();
         if(0 == checkValue){
             /*自定义出题*/
