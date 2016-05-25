@@ -149,6 +149,7 @@ class ResourceController extends \api\common\controllers\Controller
     public function actionView()
     {
         $id=$this->params['id'];
+        $uid=$this->params['uid'];
         if(!$id)
         {
             $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
