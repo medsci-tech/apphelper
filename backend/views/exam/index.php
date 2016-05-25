@@ -68,7 +68,7 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'publish_at',
+                    'publish_time',
                     [
                         'attribute' => 'status',
                         'value' =>

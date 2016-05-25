@@ -1,15 +1,13 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: yidashi
+ * User: lxhui
  * Date: 16-1-28
  * Time: 下午6:40
  */
 
 namespace api\modules\v4\controllers;
-
-use common\models\AD;
-use common\models\Region;
+use api\common\models\{Ad, Resource,Exam};
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
@@ -30,10 +28,17 @@ class IndexController extends \api\common\controllers\Controller
             'realname'=>['POST'],
         ];
     }
+    /**
+     * 轮播图列表
+     * @author by lxhui
+     * @version [2010-05-05]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
     public function actionAd()
     {
         $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][1]); //获取缓存
-        $data = json_decode($data,true);
+        $data = json_decode($data,true); 
         if(!$data)
         {
             /* 查询数据库 */
@@ -41,18 +46,30 @@ class IndexController extends \api\common\controllers\Controller
             $data = $model::find()
                 ->select(['id','title','linkurl','imgurl',"if(attr_from>1,'exam',IF(attr_from>0,'article',null))AS type",])
                 ->where(['status' => 1])
+                ->orderBy(['created_at' => SORT_DESC, 'sort' => SORT_DESC])
                 ->asArray()
                 ->all();
             Yii::$app->cache->set(Yii::$app->params['redisKey'][1],json_encode($data),2592000);
         }
-        else { // 存在缓存值
-            $data = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][1]), true);
-        }
         $result = ['code' => 200, 'message' => '轮播图', 'data' => $data];
         return $result;
-    }
+    } 
+    /**
+     * App首页
+     * @author by lxhui
+     * @version [2010-05-24]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
     public function actionIndex()
     {
+        $resources = $exams =[];
+        $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1];
+        $orderBy= [ 'publish_time' => SORT_DESC, 'created_at' => SORT_DESC];
+        $resources = Resource::find()->select(['id','title','imgurl','views'])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
+        $exams = Exam::find()->select(['id','name as title','imgurl',"LENGTH(exe_ids) - LENGTH( REPLACE(exe_ids,',','')) as total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
+        $results = array_merge($resources,$exams);
+       
         $data=[
             ['id'=>'101','classname'=> '疾病','title'=> '普安药店员工收银服务指导说明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110','type'=> 'article'],
             ['id'=>'102','classname'=> '考卷','title'=> '缺铁性贫血及推荐用药2','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'题目总数','labelValue'=>'56','type'=> 'exam'],

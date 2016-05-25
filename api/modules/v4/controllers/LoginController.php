@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: lxhui
+ * Date: 16-1-28
+ * Time: 下午6:40
+ */
 namespace api\modules\v4\controllers;
 use common\logic\Article;
 use yii\rest\Controller;
