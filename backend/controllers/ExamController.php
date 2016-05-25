@@ -48,8 +48,8 @@ class ExamController extends BackendController
             if(!isset($model->id)){
                 $model->created_at = time();
             }
-            if($appYii->request->post()['Exam']['imgUrl']){
-                $model->imgUrl = $appYii->request->post()['Exam']['imgUrl'];
+            if($appYii->request->post()['Exam']['imgurl']){
+                $model->imgurl = $appYii->request->post()['Exam']['imgurl'];
             }
             $result = $model->save(false);
             if($result){

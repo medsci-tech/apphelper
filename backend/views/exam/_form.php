@@ -23,12 +23,12 @@ $form = ActiveForm::begin([
     <div class="form-group">
         <label class="control-label">封面图</label>
         <?= $this->render('/webuploader/index',[
-            'name' => 'Exam[imgUrl]',
+            'name' => 'Exam[imgurl]',
             'imgMaxSize' => 2097152,/*文件限制2M*/
         ]);?>
         <div class="help-block"></div>
     </div>
-    <div class="form-group">
+    <div class="form-group" data-toggle="custom-exam">
         <label class="control-label">试题</label>
         <table class="table table-striped table-bordered">
             <thead>
@@ -45,6 +45,9 @@ $form = ActiveForm::begin([
             </tbody>
         </table>
         <button id="add-exercise" type="button" class="btn btn-info btn-sm">添加</button>
+    </div>
+    <div class="form-group" data-toggle="random-exam">
+
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
     <div class="form-group field-exercise-category required">
@@ -90,7 +93,7 @@ $js = <<<JS
     });
     /*删除评分规则*/
     $('#examLevelListBody').on('click','.delThisOption',function() {
-       delThisRowOptionForMime('#examLevelListBody',this, 0, 3);
+       delThisRowOptionForMime('#examLevelListBody',this, 1, 3);
     });
     /*添加评分规则*/
     $('#examLevelListBody').on('click','.addNextOption',function() {
@@ -122,6 +125,11 @@ $js = <<<JS
         $(this).remove();
     });
     
+    $('#exam-type').change(function() {
+        var checkValue = $(this).val();
+        
+        console.log(checkValue);
+    })
 
 JS;
 $this->registerJs($js);

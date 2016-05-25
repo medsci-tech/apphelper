@@ -238,6 +238,48 @@ $js=<<<JS
         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
         parent.layer.close(index);
     });
+    
+/**
+ * 试题管理-题库添加试题-初始化选项-默认四个选项
+ * @param element string | eg:'#div'
+ */
+exerciseInitForMime = function (element) {
+    var html = ''
+        + '<tr data-key="1">'
+        + '    <td>A</td>'
+        + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
+        + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="A"></td>'
+        + '    <td>'
+        + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
+        + '    </td>'
+        + '</tr>'
+        + '<tr data-key="2">'
+        + '    <td>B</td>'
+        + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
+        + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="B"></td>'
+        + '    <td>'
+        + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
+        + '    </td>'
+        + '</tr>'
+        + '<tr data-key="3">'
+        + '    <td>C</td>'
+        + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
+        + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="C"></td>'
+        + '    <td>'
+        + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
+        + '    </td>'
+        + '</tr>'
+        + '<tr data-key="4">'
+        + '    <td>D</td>'
+        + '    <td><input type="text" class="form-control" name="Exercise[option][]" value=""></td>'
+        + '    <td><input type="radio" class="checkValue" name="Exercise[answer][]" value="D"></td>'
+        + '    <td>'
+        + '        <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>'
+        + '        <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>'
+        + '    </td>'
+        + '</tr>';
+    $(element).html(html);
+};
 JS;
 $this->registerJs($js);
 ?>
