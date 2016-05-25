@@ -53,9 +53,11 @@ class ExamController extends BackendController
             $result = $model->save(false);
             if($result){
                 $examLevelModel = new ExamLevel();
+                $examLevelDel = [];
                 $examLevelRequest = $appYii->request->post()['ExamLevel'];
                 if(is_array($examLevelRequest)){
                     $examLevelData = [];
+                    $examLevelDel = $examLevelRequest['id'];
                     foreach ($examLevelRequest as $key => $val){
                         foreach ($val as $k => $v){
                             $examLevelData[$k][$key] = $v;
@@ -69,6 +71,8 @@ class ExamController extends BackendController
                         }
                     }
                 }
+                $examLevelModel->find()->where(['and', 'exam_id=' . $model->id, ['not in', 'id', $examLevelDel]])->all();
+
                 $return = ['success', '操作成功哦'];
             }else{
                 $return = ['error', '操作失败哦'];
