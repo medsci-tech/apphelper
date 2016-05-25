@@ -9,7 +9,7 @@ namespace api\common\models;
 use Yii;
 use yii\db\Query;
 use yii\helpers\Html;
-class Resourceviewlog extends \yii\db\ActiveRecord
+class ResourceViewLog extends \yii\db\ActiveRecord
 {
 
 
