@@ -59,24 +59,7 @@ $form = ActiveForm::begin([
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody id="optionListBody">
-            <tr>
-                <td>
-                    <input type="hidden" name="ExamLevel[id][]" value="">
-                    <input type="text" class="form-control" name="ExamLevel[option][]" value="">
-                </td>
-                <td>
-                    <?= Html::dropDownList('ExamLevel[condition][]', '', $appYii->params['examLevel']['condition'], ['class' => 'form-control']) ?>
-                </td>
-                <td>
-                    <?= Html::dropDownList('ExamLevel[rate][]', '', $appYii->params['examLevel']['rate'], ['class' => 'form-control']) ?>
-                </td>
-                <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>
-                <td>
-                    <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>
-                    <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                </td>
-            </tr>
+            <tbody id="examLevelListBody">
             </tbody>
         </table>
     </div>
@@ -92,7 +75,7 @@ $form = ActiveForm::begin([
 $js = <<<JS
     /*删除试题*/
     $('#examListBody').on('click','.delThisOption',function() {
-       delThisRowOptionForMime('#examListBody',this);
+       delThisRowOptionForMime('#examListBody', this, 0, 2);
     });
     /*添加试题*/
     $('#add-exercise').click(function() {
@@ -105,6 +88,41 @@ $js = <<<JS
             content: '/exercise/index?hiboyiamalayer=itisevident'
         });
     });
+    /*删除评分规则*/
+    $('#examLevelListBody').on('click','.delThisOption',function() {
+       delThisRowOptionForMime('#examLevelListBody',this, 0, 3);
+    });
+    /*添加评分规则*/
+    $('#examLevelListBody').on('click','.addNextOption',function() {
+       var thisTr = $(this).parent().parent();
+        var datakey = parseInt(thisTr.attr('data-key'));
+        var html = '';
+        html += '<tr data-key="' + ( datakey + 1 ) + '">';
+        html += '    <td>';
+        html += '    <input type="hidden" name="ExamLevel[id][]" value="">';
+        html += '    <input type="text" class="form-control" name="ExamLevel[level][]" value="">';
+        html += '    </td>';
+        html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
+        for(var j in conditionExamLevel){
+            html += '<option>' + conditionExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
+        for(var j in rateExamLevel){
+            html += '<option>' + rateExamLevel[j] + '</option>';
+        }
+        html += '    </select></td>';
+        html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
+        html += '    <td>';
+        html += '       <a href="javascript:void(0);" class="delThisOption"><span class="glyphicon glyphicon-minus-sign"></span></a>';
+        html += '       <a href="javascript:void(0);" class="addNextOption"><span class="glyphicon glyphicon-plus-sign"></span></a>';
+        html += '    </td>';
+        html += '</tr>';
+        thisTr.after(html);
+        $(this).remove();
+    });
+    
+
 JS;
 $this->registerJs($js);
 ?>
