@@ -81,7 +81,7 @@ class SearchController extends \api\common\controllers\Controller
         $total_page = ceil(count($data)/$pagesize); // 总页数    
         $data = array_slice($data,$offset,$pagesize);
         
-        $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>$page>=$total_page ? true : false,'list'=>$data]];
+        $result = ['code' => 200,'message'=>'搜索列表','data'=>['isLastPage'=>$page>=$total_page ? true : false,'list'=>$data]];
         return $result;
        
     }
