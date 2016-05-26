@@ -17,18 +17,27 @@ $form = ActiveForm::begin([
     'options' => ['id' => 'tableForm'],
 ]); ?>
 <div class="modal-body">
-    <?= $form->field($model, 'type')->dropDownList(Yii::$app->params['exam']['type']) ?>
+    <div class="form-group">
+        <label class="control-label">考题目录</label>
+        <select class="form-control" name="Exam[type]" data-toggle="exam-type">
+            <?php
+            foreach ($appYii->params['exam']['type'] as $key => $val){
+                echo '<option value="' . $key . '">' . $val . '</option>';
+            }
+            ?>
+        </select>
+    </div>
     <?= $form->field($model, 'name')->textInput() ?>
     <?= $form->field($model, 'minutes')->textInput() ?>
     <div class="form-group">
         <label class="control-label">封面图</label>
         <?= $this->render('/webuploader/index',[
-            'name' => 'Exam[imgUrl]',
+            'name' => 'Exam[imgurl]',
             'imgMaxSize' => 2097152,/*文件限制2M*/
         ]);?>
         <div class="help-block"></div>
     </div>
-    <div class="form-group">
+    <div class="form-group" data-toggle="custom-exam">
         <label class="control-label">试题</label>
         <table class="table table-striped table-bordered">
             <thead>
@@ -45,6 +54,21 @@ $form = ActiveForm::begin([
             </tbody>
         </table>
         <button id="add-exercise" type="button" class="btn btn-info btn-sm">添加</button>
+    </div>
+    <div class="form-group" data-toggle="random-exam">
+        <label class="control-label">考题目录</label>
+        <select class="form-control" name="Exam[exercise-class]" id="exercise-class">
+            <?php
+                echo '<option selected="selected" value="">全部</option>';
+            foreach ($examClassTree as $key => $val){
+                echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
+            }
+            ?>
+        </select>
+    </div>
+    <div class="form-group" data-toggle="random-exam">
+        <label class="control-label">出题个数</label>
+        <input name="Exam[exercise-count]" type="text" class="form-control">
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
     <div class="form-group field-exercise-category required">
@@ -73,6 +97,11 @@ $form = ActiveForm::begin([
 
 <?php
 $js = <<<JS
+    
+    /*默认自定义出题*/
+    $('[data-toggle="random-exam"]').hide();
+    $('[data-toggle="custom-exam"]').show();
+    
     /*删除试题*/
     $('#examListBody').on('click','.delThisOption',function() {
        delThisRowOptionForMime('#examListBody', this, 0, 2);
@@ -85,12 +114,12 @@ $js = <<<JS
             area: ['800px', '600px'],
             fix: false, //不固定
             maxmin: true,
-            content: '/exercise/index?hiboyiamalayer=itisevident'
+            content: '/exercise/index?status=1&hiboyiamalayer=itisevident'
         });
     });
     /*删除评分规则*/
     $('#examLevelListBody').on('click','.delThisOption',function() {
-       delThisRowOptionForMime('#examLevelListBody',this, 0, 3);
+       delThisRowOptionForMime('#examLevelListBody',this, 1, 3);
     });
     /*添加评分规则*/
     $('#examLevelListBody').on('click','.addNextOption',function() {
@@ -104,12 +133,12 @@ $js = <<<JS
         html += '    </td>';
         html += '    <td><select class="form-control" name="ExamLevel[condition][]">';
         for(var j in conditionExamLevel){
-            html += '<option>' + conditionExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + conditionExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><select class="form-control" name="ExamLevel[rate][]">';
         for(var j in rateExamLevel){
-            html += '<option>' + rateExamLevel[j] + '</option>';
+            html += '<option value="' + j + '">' + rateExamLevel[j] + '</option>';
         }
         html += '    </select></td>';
         html += '    <td><input type="text" class="form-control" name="ExamLevel[remark][]" value=""></td>';
@@ -122,6 +151,19 @@ $js = <<<JS
         $(this).remove();
     });
     
+    $('[data-toggle="exam-type"]').change(function() {
+        var checkValue = $(this).val();
+        if(0 == checkValue){
+            /*自定义出题*/
+            $('[data-toggle="random-exam"]').hide();
+            $('[data-toggle="custom-exam"]').show();
+        }else if(1 == checkValue){
+            /*随机出题*/
+            $('[data-toggle="random-exam"]').show();
+            $('[data-toggle="custom-exam"]').hide();
+        }
+        console.log(checkValue);
+    })
 
 JS;
 $this->registerJs($js);

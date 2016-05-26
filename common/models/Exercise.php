@@ -56,7 +56,11 @@ class Exercise extends ActiveRecord
         return $scenarios;
     }
 
-
+    public function getDataForWhere($where = []){
+        $where['status'] = 1;
+        $examClass = $this::find()->where($where)->asArray()->all();
+        return $examClass;
+    }
   
 
 
