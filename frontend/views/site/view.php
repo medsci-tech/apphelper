@@ -47,7 +47,6 @@
 <body>
 <div class="article">
     <div class="content">
-        <h2 class="article_title"><?= $data["title"] ?></h2>
         <div class="article_time">发布时间：<?= $data['publish_time'] ?></div>
         <div class="article_details"><?= $data['content'] ?></div>
     </div>

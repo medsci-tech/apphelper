@@ -66,6 +66,7 @@ class IndexController extends \api\common\controllers\Controller
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset=$pagesize*($page - 1); //计算记录偏移量
         $data = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][3]),true);// 从缓存获取数据
+
         if(!$data)
         {
             $resources = $exams =[];
