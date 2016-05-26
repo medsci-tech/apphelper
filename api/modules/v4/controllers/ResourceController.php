@@ -80,7 +80,6 @@ class ResourceController extends \api\common\controllers\Controller
             ->asArray()
             ->all();
 
-//        print_r(array_column($rsModel,'id'));
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
@@ -90,16 +89,6 @@ class ResourceController extends \api\common\controllers\Controller
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
         $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
-
-<<<<<<< HEAD
-        $array = array();
-=======
-//        $array = array();
-//        foreach ($model as $resource) {
-//            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
-//            array_push($array, $row);
-//        }
->>>>>>> 0be08a52b2e1e5923632969a0acb6cf511e6c79c
 
         foreach ($results as &$val) {
             $val['labelName']='参与人数';
