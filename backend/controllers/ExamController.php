@@ -16,16 +16,13 @@ use yii\web\NotFoundHttpException;
 class ExamController extends BackendController
 {
 
-    /**
-     *
-     */
     public function actionIndex()
     {
         $appYii = Yii::$app;
         $examClassModel = new ExamClass();
         $examClassData = $examClassModel->getDataForWhere();
         $tree = new TreeController($examClassData, '&nbsp;|-&nbsp;');
-        $examClassTree = $tree->get_tree('id', 'name');
+        $examClassTree = $tree->get_tree('id', 'name');//获取试题分类的树形结构
         $search = new ExamSearch();
         $dataProvider = $search->search($appYii->request->queryParams);
         return $this->render('index', [
@@ -39,20 +36,23 @@ class ExamController extends BackendController
     {
         $appYii = Yii::$app;
         if(isset($appYii->request->get()['id'])){
+            //有id修改
             $id = $appYii->request->get()['id'];
             $model = $this->findModel($id);
             if(empty($model)){
                 $model = new Exam();
             }
         }else{
+            //无id添加
             $model = new Exam();
         }
         $model->load(['Exam' => $appYii->request->post()['Exam']]);
         $isValid = $model->validate();
         if ($isValid) {
             if(1 == $appYii->request->post()['Exam']['type']){
-                $exerciseClass = $appYii->request->post()['Exam']['exercise-class'];
-                $exerciseCount = $appYii->request->post()['Exam']['exercise-count'];
+                /*type=1随机分配试题*/
+                $exerciseClass = $appYii->request->post()['Exam']['exercise-class'];//自定义分配试题类别
+                $exerciseCount = $appYii->request->post()['Exam']['exercise-count'];//自定义分配试题题数
                 $examClassModel = new ExamClass();
                 if($exerciseClass){
                     $examClassList = $examClassModel->getDataForWhere(['like', 'path', ',' . $exerciseClass . ',']);
@@ -60,13 +60,16 @@ class ExamController extends BackendController
                     $examClassList = $examClassModel->getDataForWhere();
                 }
                 $examClassListId = [];
+                /*获取选中类别及其子类别*/
                 foreach ($examClassList as $key => $val){
                     $examClassListId[] = $val['id'];
                 }
                 $exerciseModel = new Exercise;
-                $exerciseList = $exerciseModel->getDataForWhere(['category' => $examClassListId]);
+                $exerciseList = $exerciseModel->getDataForWhere(['category' => $examClassListId]);//相关类别下试题列表
                 $exam_id = [];
+                /*如果 相关类别下试题题数 大于或等于 自定义分配试题题数 随机选择相关类别下的题目，否则选择关类别下所有试题*/
                 if(count($exerciseList) >= $exerciseCount){
+                    shuffle($exerciseList);//打乱试题列表顺序
                     for ($i = 0; $i < $exerciseCount; $i++){
                         $exam_id[] = $exerciseList[$i]['id'];
                     }
@@ -77,6 +80,7 @@ class ExamController extends BackendController
                 }
                 $model->exe_ids = implode(',', $exam_id);
             }else{
+                /*type=0自定义分配试题*/
                 $model->exe_ids = implode(',', $model->exe_ids);
             }
             if(!isset($model->id)){
@@ -102,9 +106,9 @@ class ExamController extends BackendController
                     if(is_array($examLevelData)){
                         foreach ($examLevelData as $key => $val){
                             if($val['id']){
-                                $examLevelModel = ExamLevel::findOne($val['id']);
+                                $examLevelModel = ExamLevel::findOne($val['id']);//有id修改
                             }else{
-                                $examLevelModel = new ExamLevel();
+                                $examLevelModel = new ExamLevel();//无id添加
                             }
                             $examLevelModel->load(['ExamLevel' => $val]);
                             $examLevelModel->save(false);
@@ -112,7 +116,7 @@ class ExamController extends BackendController
                         }
                     }
                 }
-                $examLevelModel->deleteAll(['and', 'exam_id=' . $model->id, ['not in', 'id', $examLevelDel]]);
+                $examLevelModel->deleteAll(['and', 'exam_id=' . $model->id, ['not in', 'id', $examLevelDel]]);//删除评分规则
 
                 $return = ['success', '操作成功哦'];
             }else{
