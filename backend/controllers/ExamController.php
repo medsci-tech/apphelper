@@ -19,10 +19,12 @@ class ExamController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
+        /*获取试题分类的树形结构*/
         $examClassModel = new ExamClass();
         $examClassData = $examClassModel->getDataForWhere();
         $tree = new TreeController($examClassData, '&nbsp;|-&nbsp;');
-        $examClassTree = $tree->get_tree('id', 'name');//获取试题分类的树形结构
+        $examClassTree = $tree->get_tree('id', 'name');
+        /*查询试卷*/
         $search = new ExamSearch();
         $dataProvider = $search->search($appYii->request->queryParams);
         return $this->render('index', [

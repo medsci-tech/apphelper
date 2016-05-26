@@ -114,7 +114,7 @@ $js = <<<JS
             area: ['800px', '600px'],
             fix: false, //不固定
             maxmin: true,
-            content: '/exercise/index?status=1&hiboyiamalayer=itisevident'
+            content: '/exercise/index?Exercise[status]=1&hiboyiamalayer=itisevident'
         });
     });
     /*删除评分规则*/
