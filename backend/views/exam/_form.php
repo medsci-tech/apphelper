@@ -57,7 +57,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="form-group" data-toggle="random-exam">
         <label class="control-label">考题目录</label>
-        <select class="form-control" name="Exam[exercise-class]" id="exercise-class">
+        <select class="form-control" name="Exam[exercise-class]">
             <?php
                 echo '<option selected="selected" value="">全部</option>';
             foreach ($examClassTree as $key => $val){
@@ -114,7 +114,7 @@ $js = <<<JS
             area: ['800px', '600px'],
             fix: false, //不固定
             maxmin: true,
-            content: '/exercise/index?status=1&hiboyiamalayer=itisevident'
+            content: '/exercise/index?Exercise[status]=1&hiboyiamalayer=itisevident'
         });
     });
     /*删除评分规则*/
@@ -162,7 +162,6 @@ $js = <<<JS
             $('[data-toggle="random-exam"]').show();
             $('[data-toggle="custom-exam"]').hide();
         }
-        console.log(checkValue);
     })
 
 JS;
