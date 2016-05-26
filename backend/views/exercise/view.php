@@ -31,7 +31,10 @@ use yii\widgets\DetailView;
             'answer',
             'keyword',
             'resolve',
-            'created_at:datetime',
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:Y-m-d'],
+            ],
             'status',
         ],
     ]) ?>
