@@ -32,7 +32,6 @@ class CollectionController extends \api\common\controllers\Controller
     {
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
-        $page = $page ? $page : 1;
         $offset=$pagesize*($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
         $result = $model::find()
