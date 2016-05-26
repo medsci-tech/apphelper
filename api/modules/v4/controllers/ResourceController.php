@@ -59,7 +59,12 @@ class ResourceController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'药店列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
         return $result;
     }
-
+    /**
+     * 分类列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionChildhosp()
     {
         $pagesize = 10; // 默认每页记录数
@@ -67,7 +72,6 @@ class ResourceController extends \api\common\controllers\Controller
         $page = $page ? $page : 1;
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $rid = $this->params['rid'];
-
 
         $resourceClass = new ResourceClass();
         $rsModel = $resourceClass::find()
@@ -120,7 +124,6 @@ class ResourceController extends \api\common\controllers\Controller
             ->where(['name' => '产品', 'status'=>1])
             ->one();
 
-        print_r($rsModel);
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
@@ -128,18 +131,17 @@ class ResourceController extends \api\common\controllers\Controller
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
-        print_r($model);
-
-        $array = array();
-        foreach ($model as $resource) {
-            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
-            array_push($array, $row);
+        foreach ($results as &$val) {
+            $val['labelName']='参与人数';
+            $val['labelValue']=$val['views'];
+            $val['type']= 'article';
+            unset($val['views']);
         }
 
-        $result = ['code' => 200,'message'=>'产品列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
+        $result = ['code' => 200,'message'=>'产品列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$results]];
         return $result;
     }
 
@@ -169,16 +171,17 @@ class ResourceController extends \api\common\controllers\Controller
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
-        $array = array();
-        foreach ($model as $resource) {
-            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
-            array_push($array, $row);
+        foreach ($results as &$val) {
+            $val['labelName']='参与人数';
+            $val['labelValue']=$val['views'];
+            $val['type']= 'article';
+            unset($val['views']);
         }
 
-        $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
+        $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$results]];
         return $result;
     }
 
