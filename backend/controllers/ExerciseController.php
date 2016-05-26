@@ -29,12 +29,24 @@ class ExerciseController extends BackendController
             $examClassFindOne = $examClass->getDataForWhere(['id' => $appYii->request->queryParams['Exercise']['category']]);
         }
         $dataProvider = $search->search($appYii->request->queryParams);
+
+        /*获取试题分类的树形结构*/
+        $examClassData = $examClass->getDataForWhere();
+        $tree = new TreeController($examClassData, ' |- ');
+        $examClassTree = $tree->get_tree('id', 'name');
+        if($examClassTree){
+            $examClassTreeAr = [];
+            foreach ($examClassTree as $key => $val){
+                $examClassTreeAr[$val['id']] = $val['name'];
+            }
+        }
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'params' => $appYii->params,
             'examClass' => json_encode($recursionTree),
             'treeNavigateSelectedName' => $examClassFindOne[0]['name'] ?? '',
+            'examClassTree' => $examClassTreeAr,
         ]);
     }
 

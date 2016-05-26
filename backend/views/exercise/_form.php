@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
+/* @var $examClassTree  */
 /* @var $form yii\widgets\ActiveForm */
 //var_dump($model->id);exit;
 ?>
@@ -16,7 +17,7 @@ $form = ActiveForm::begin([
 ]); ?>
 <div class="modal-body">
     <?= $form->field($model, 'type')->dropDownList(Yii::$app->params['exercise']['type']) ?>
-    <?= $form->field($model, 'category')->textInput() ?>
+    <?= $form->field($model, 'category')->dropDownList($examClassTree) ?>
     <?= $form->field($model, 'question')->textInput() ?>
     <div class="form-group field-exercise-category required">
         <label class="control-label" for="exercise-category">类别</label>

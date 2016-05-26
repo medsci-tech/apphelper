@@ -121,6 +121,7 @@ backend\assets\AppAsset::register($this);
             </div>
             <?= $this->render('_form', [
                 'model' => $searchModel,
+                'examClassTree' => $examClassTree,
             ]); ?>
         </div>
     </div>
