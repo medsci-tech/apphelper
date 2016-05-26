@@ -88,20 +88,23 @@ class ResourceController extends \api\common\controllers\Controller
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
         $array = array();
-        foreach ($model as $resource) {
-            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
-            array_push($array, $row);
+
+        foreach ($results as &$val) {
+            $val['labelName']='参与人数';
+            $val['labelValue']=$val['views'];
+            $val['type']= 'article';
+            unset($val['views']);
         }
 
         $name = $resourceClass::find()
             ->where(['id' => $rid])
             ->one();
 
-        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
+        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$results]];
         return $result;
 
     }
