@@ -7,13 +7,9 @@
  */
 
 namespace api\modules\v4\controllers;
-
-use common\models\ResourceClass;
-use common\models\Resource;
+use api\common\models\{Resource, ResourceClass,ResourceViewLog,ResourceStudyLog};
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\web\Response;
-use common\components\Helper;
 use yii\base\InvalidConfigException;
 use yii\data\Pagination;
 
@@ -32,7 +28,12 @@ class ResourceController extends \api\common\controllers\Controller
             'realname'=>['POST'],
         ];
     }
-
+    /**
+     * 药店列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionHospital()
     {
         $pagesize = 10; // 默认每页记录数
@@ -54,15 +55,16 @@ class ResourceController extends \api\common\controllers\Controller
             $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => $progress);
             array_push($array, $row);
         }
-//        $data=[
-//            ['id'=>'101','title'=> '新手培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'50'],
-//            ['id'=>'102','title'=> '店员培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'40'],
-//            ['id'=>'103','title'=> '店长培训','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','progress'=>'70'],
-//        ];
+
         $result = ['code' => 200,'message'=>'药店列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
         return $result;
     }
-
+    /**
+     * 分类列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionChildhosp()
     {
         $pagesize = 10; // 默认每页记录数
@@ -70,7 +72,6 @@ class ResourceController extends \api\common\controllers\Controller
         $page = $page ? $page : 1;
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $rid = $this->params['rid'];
-
 
         $resourceClass = new ResourceClass();
         $rsModel = $resourceClass::find()
@@ -90,15 +91,26 @@ class ResourceController extends \api\common\controllers\Controller
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
+        $array = array();
+        foreach ($model as $resource) {
+            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
+            array_push($array, $row);
+        }
+
         $name = $resourceClass::find()
             ->where(['id' => $rid])
             ->one();
 
-        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$model]];
+        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
         return $result;
 
     }
-
+    /**
+     * 产品列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionProduct()
     {
         $pagesize = 10; // 默认每页记录数
@@ -110,55 +122,35 @@ class ResourceController extends \api\common\controllers\Controller
         $rsModel = $resourceClass::find()
             ->select('id')
             ->where(['name' => '产品', 'status'=>1])
-            ->asArray()
-            ->all();
+            ->one();
 
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>$rsModel->id])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
-//        $page = $this->params['page'] ?? 1; // 当前页码
-//        if($page<2)
-//            $isLastPage = false;
-//        else
-//            $isLastPage= true;
-//        if($page<2)
-//            $data=[
-//                ['id'=>'101','title'=> '普安药店员工收银服务指导说明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'2110'],
-//                ['id'=>'102','title'=> '缺铁性贫血及推荐用药2','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'524546'],
-//                ['id'=>'103','title'=> '缺铁性贫血及推荐用药3','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'45678'],
-//                ['id'=>'104','title'=> '缺铁性贫血及推荐用药4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'5660',],
-//                ['id'=>'211','title'=> '缺铁性贫血及推荐用药dd','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'67'],
-//                ['id'=>'222','title'=> '缺铁性贫血及推荐用药rre','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//                ['id'=>'223','title'=> '缺铁性贫血及推荐用药78','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'22'],
-//                ['id'=>'345','title'=> '缺铁性贫血及推荐用药55','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//                ['id'=>'345','title'=> '缺铁性贫血及推荐用药66','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'34'],
-//                ['id'=>'543','title'=> '缺铁性贫血及推荐用药77','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//            ];
-//        else
-//            $data=[
-//                ['id'=>'201','title'=> '普安药店员工收银服务22明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'34'],
-//                ['id'=>'202','title'=> '缺铁性贫血及推荐用dsfds2','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'5655'],
-//                ['id'=>'203','title'=> '缺铁性贫血及推dadas药3','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'44443'],
-//                ['id'=>'204','title'=> '缺铁性贫血及推fdsfd4','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'85569',],
-//                ['id'=>'311','title'=> '缺铁性贫血及fdsfddd','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'455664'],
-//                ['id'=>'322','title'=> '缺铁性贫血及fdfdsfds78','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'2222'],
-//                ['id'=>'345','title'=> '测试啊as','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//                ['id'=>'445','title'=> '测试菜单是是','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'4455'],
-//                ['id'=>'443','title'=> '123333324443哈哈哈','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'43'],
-//            ];
+        foreach ($results as &$val) {
+            $val['labelName']='参与人数';
+            $val['labelValue']=$val['views'];
+            $val['type']= 'article';
+            unset($val['views']);
+        }
 
-        $result = ['code' => 200,'message'=>'产品列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$model]];
+        $result = ['code' => 200,'message'=>'产品列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$results]];
         return $result;
     }
 
-
+    /**
+     * 疾病列表
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionSickness()
     {
         $pagesize = 10; // 默认每页记录数
@@ -170,47 +162,26 @@ class ResourceController extends \api\common\controllers\Controller
         $rsModel = $resourceClass::find()
             ->select('id')
             ->where(['name' => '疾病', 'status'=>1])
-            ->asArray()
-            ->all();
+            ->one();
 
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>$rsModel->id])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
-//        $page = $this->params['page'] ?? 1; // 当前页码
-//        if($page<2)
-//            $isLastPage = false;
-//        else
-//            $isLastPage= true;
-//        if($page<2)
-//            $data=[
-//                ['id'=>'101','title'=> '尿毒症的危险','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'2110'],
-//                ['id'=>'102','title'=> '尿毒症的危险22','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'524546'],
-//                ['id'=>'103','title'=> '尿毒症的危险333','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'45678'],
-//                ['id'=>'104','title'=> '尿毒症的危险55','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'5660',],
-//                ['id'=>'211','title'=> '尿毒症的危险777','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'67'],
-//                ['id'=>'222','title'=> '尿毒症的危险888','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//                ['id'=>'223','title'=> '尿毒症的危险883','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'22'],
-//                ['id'=>'345','title'=> '尿毒症的危险909','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//                ['id'=>'345','title'=> '尿毒症的危险12323','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'34'],
-//                ['id'=>'543','title'=> '尿毒症的危险56433','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'110'],
-//            ];
-//        else
-//            $data=[
-//                ['id'=>'201','title'=> '普安药店员工收银服务22明','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'34'],
-//                ['id'=>'202','title'=> '尿毒症的危险56433','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'5655'],
-//                ['id'=>'203','title'=> '尿毒症的危险5643322','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'44443'],
-//                ['id'=>'204','title'=> '尿毒症的危险4444','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'85569',],
-//                ['id'=>'311','title'=> '尿毒症的危险32221','imgurl'=>'https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=474172776,701640655&fm=96&s=1728FE05065359C6069C39F1030050B0','labelName'=>'参与人数','labelValue'=>'455664'],
-//            ];
-//
-//        $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
-        $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$model]];
+
+        foreach ($results as &$val) {
+            $val['labelName']='参与人数';
+            $val['labelValue']=$val['views'];
+            $val['type']= 'article';
+            unset($val['views']);
+        }
+
+        $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$results]];
         return $result;
     }
 
@@ -248,18 +219,71 @@ class ResourceController extends \api\common\controllers\Controller
         return $result;
         
     }
-
+    /**
+     * 嵌入式详情页
+     * @author by lxhui
+     * @version [2010-05-25]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
     public function actionView()
     {
         $id=$this->params['id'];
-        $uid=$this->params['uid'];
+        $uid=$this->uid;
         if(!$id)
         {
             $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
             return $result;
         }
+        /* 记录该用户访问资源 */
+        $viewModel = new ResourceViewLog();
+        $res = $viewModel->find()->where(['uid'=>$this->uid,'rid'=>$id])->one();
+        if(!$res)
+        {
+            $viewModel->uid= $this->uid;
+            $viewModel->rid= $id;
+            $viewModel->created_at= time();
+            $viewModel->save();
+           /* 更新资源访问量 */
+            $model =  Resource::findOne($id);
+            $model->views += 1;
+            $model->save();
+        }
+               
         $wapUrl = 'http://wap.test.ohmate.com.cn/site/view/'.$id;
-        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl,'list'=>null]];
+        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl]];
+        return $result;
+    }
+    
+    /**
+     * 统计资源最后离开的时间
+     * @author by lxhui
+     * @version [2010-05-25]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
+    public function actionLeave()
+    {
+        $id=$this->params['id'];
+        $times=$this->params['times']; //停留时间
+        $uid=$this->uid;
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
+            return $result;
+        }
+        if(!$times)
+        {
+            $result = ['code' => -1,'message'=>'缺少访问时间!','data'=>null];
+            return $result;
+        }
+        /* 记录该用户学习资源的记录 */
+        $studyModel = new ResourceStudyLog();
+        $studyModel->uid= $this->uid;
+        $studyModel->rid= $id;
+        $studyModel->times= $times;
+        $studyModel->save();
+        $result = ['code' => 200,'message'=>'离开资源','data'=>null];
         return $result;
     }
 

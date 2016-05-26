@@ -77,12 +77,11 @@ class SearchController extends \api\common\controllers\Controller
         }
         $data = array_merge($resources,$exams);   
         ArrayHelper::multisort($data, ['publish_time'], [SORT_DESC]);
-   
-        
+         
         $total_page = ceil(count($data)/$pagesize); // 总页数    
         $data = array_slice($data,$offset,$pagesize);
         
-        $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>$page>=$total_page ? true : false,'list'=>$data]];
+        $result = ['code' => 200,'message'=>'搜索列表','data'=>['isLastPage'=>$page>=$total_page ? true : false,'list'=>$data]];
         return $result;
        
     }

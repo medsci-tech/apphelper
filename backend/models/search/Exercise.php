@@ -42,9 +42,6 @@ class Exercise extends ExerciseModel
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
         ]);
-        if (!$this->validate()) {
-            return $dataProvider;
-        }
         return $dataProvider;
     }
 }
