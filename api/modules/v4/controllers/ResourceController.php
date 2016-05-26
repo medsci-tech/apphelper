@@ -305,17 +305,23 @@ class ResourceController extends \api\common\controllers\Controller
     public function actionLeave()
     {
         $id=$this->params['id'];
+        $times=$this->params['times']; //停留时间
         $uid=$this->uid;
         if(!$id)
         {
             $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
             return $result;
         }
+        if(!$times)
+        {
+            $result = ['code' => -1,'message'=>'缺少访问时间!','data'=>null];
+            return $result;
+        }
         /* 记录该用户学习资源的记录 */
         $studyModel = new ResourceStudyLog();
         $studyModel->uid= $this->uid;
         $studyModel->rid= $id;
-        $studyModel->end_time= time();
+        $studyModel->times= $times;
         $studyModel->save();
         $result = ['code' => 200,'message'=>'离开资源','data'=>null];
         return $result;
