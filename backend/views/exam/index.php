@@ -68,7 +68,10 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'publish_time',
+                    [
+                        'attribute' => 'publish_time',
+                        'format' => ['date', 'php:Y-m-d'],
+                    ],
                     [
                         'attribute' => 'status',
                         'value' =>
