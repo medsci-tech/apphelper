@@ -91,7 +91,15 @@ class ResourceController extends \api\common\controllers\Controller
         $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
+<<<<<<< HEAD
         $array = array();
+=======
+//        $array = array();
+//        foreach ($model as $resource) {
+//            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
+//            array_push($array, $row);
+//        }
+>>>>>>> 0be08a52b2e1e5923632969a0acb6cf511e6c79c
 
         foreach ($results as &$val) {
             $val['labelName']='参与人数';
@@ -124,13 +132,14 @@ class ResourceController extends \api\common\controllers\Controller
         $resourceClass = new ResourceClass();
         $rsModel = $resourceClass::find()
             ->select('id')
-            ->where(['name' => '产品', 'status'=>1])
-            ->one();
+            ->where(['parent' => 14, 'status'=>1])
+            ->asArray()
+            ->all();
 
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>$rsModel->id])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
@@ -164,13 +173,14 @@ class ResourceController extends \api\common\controllers\Controller
         $resourceClass = new ResourceClass();
         $rsModel = $resourceClass::find()
             ->select('id')
-            ->where(['name' => '疾病', 'status'=>1])
-            ->one();
+            ->where(['parent' => 15, 'status'=>1])
+            ->asArray()
+            ->all();
 
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>$rsModel->id])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
