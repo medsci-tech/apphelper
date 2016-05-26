@@ -17,16 +17,7 @@ $form = ActiveForm::begin([
     'options' => ['id' => 'tableForm'],
 ]); ?>
 <div class="modal-body">
-    <div class="form-group">
-        <label class="control-label">考题目录</label>
-        <select class="form-control" name="Exam[type]" data-toggle="exam-type">
-            <?php
-            foreach ($appYii->params['exam']['type'] as $key => $val){
-                echo '<option value="' . $key . '">' . $val . '</option>';
-            }
-            ?>
-        </select>
-    </div>
+    <?= $form->field($model, 'type')->dropDownList($appYii->params['exam']['type'],['data-toggle' => 'exam-type']) ?>
     <?= $form->field($model, 'name')->textInput() ?>
     <?= $form->field($model, 'minutes')->textInput() ?>
     <div class="form-group">
