@@ -23,6 +23,23 @@ class Resource extends ResourceModel
 
     public function search($params)
     {
-
+        $this->load($params);
+        $category = [];
+        $examClassFind = ResourceClass::find()->andFilterWhere(['like', 'path', ',' . $this->rid . ','])->asArray()->all();
+        if(count($examClassFind) > 0){
+            foreach ($examClassFind as $val){
+                $category[] = $val['id'];
+            }
+        }
+        $query = ResourceModel::find();
+        $query->andFilterWhere(['rid'=> $category]);
+        $query->andFilterWhere(['like', 'title', $this->title]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $dataProvider;
     }
 }
