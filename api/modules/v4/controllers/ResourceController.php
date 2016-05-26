@@ -88,20 +88,27 @@ class ResourceController extends \api\common\controllers\Controller
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $results = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
-        $array = array();
-        foreach ($model as $resource) {
-            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
-            array_push($array, $row);
+//        $array = array();
+//        foreach ($model as $resource) {
+//            $row = array('id' => $resource['id'], 'title' => $resource['title'], 'views' => $resource['views'], 'imgurl' => $resource['imgurl'], 'type'=>"article");
+//            array_push($array, $row);
+//        }
+
+        foreach ($results as &$val) {
+            $val['labelName']='参与人数';
+            $val['labelValue']=$val['views'];
+            $val['type']= 'article';
+            unset($val['views']);
         }
 
         $name = $resourceClass::find()
             ->where(['id' => $rid])
             ->one();
 
-        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
+        $result = ['code' => 200,'message'=>$name->name,'data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$results]];
         return $result;
 
     }
@@ -121,13 +128,14 @@ class ResourceController extends \api\common\controllers\Controller
         $resourceClass = new ResourceClass();
         $rsModel = $resourceClass::find()
             ->select('id')
-            ->where(['name' => '产品', 'status'=>1])
-            ->one();
+            ->where(['parent' => 14, 'status'=>1])
+            ->asArray()
+            ->all();
 
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>$rsModel->id])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
@@ -161,13 +169,14 @@ class ResourceController extends \api\common\controllers\Controller
         $resourceClass = new ResourceClass();
         $rsModel = $resourceClass::find()
             ->select('id')
-            ->where(['name' => '疾病', 'status'=>1])
-            ->one();
+            ->where(['parent' => 15, 'status'=>1])
+            ->asArray()
+            ->all();
 
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>$rsModel->id])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
