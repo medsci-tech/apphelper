@@ -174,16 +174,7 @@ class ResourceController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'疾病列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$model]];
         return $result;
     }
-<<<<<<< HEAD
-    /**
-     * 侧边栏目
-     * @version [2010-05-21]
-     * @param array $params additional parameters
-     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
-     */ 
-=======
 
->>>>>>> 1bdf01c55ea6966c4c96310a92a4d5ad144c4c0d
     public function actionNav()
     {
         $page = $this->params['page'] ?? 1; // 当前页码
@@ -248,15 +239,9 @@ class ResourceController extends \api\common\controllers\Controller
             $model->views += 1;
             $model->save();
         }
-        /* 记录该用户学习资源的记录 */
-        $studyModel = new ResourceStudyLog();
-        $studyModel->uid= $this->uid;
-        $studyModel->rid= $id;
-        $studyModel->start_time= time();
-        $studyModel->save();
                
         $wapUrl = 'http://wap.test.ohmate.com.cn/site/view/'.$id;
-        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl,'list'=>null]];
+        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl]];
         return $result;
     }
     
@@ -270,17 +255,23 @@ class ResourceController extends \api\common\controllers\Controller
     public function actionLeave()
     {
         $id=$this->params['id'];
+        $times=$this->params['times']; //停留时间
         $uid=$this->uid;
         if(!$id)
         {
             $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
             return $result;
         }
+        if(!$times)
+        {
+            $result = ['code' => -1,'message'=>'缺少访问时间!','data'=>null];
+            return $result;
+        }
         /* 记录该用户学习资源的记录 */
         $studyModel = new ResourceStudyLog();
         $studyModel->uid= $this->uid;
         $studyModel->rid= $id;
-        $studyModel->end_time= time();
+        $studyModel->times= $times;
         $studyModel->save();
         $result = ['code' => 200,'message'=>'离开资源','data'=>null];
         return $result;
