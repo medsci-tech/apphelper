@@ -60,6 +60,7 @@ class CollectionController extends \api\common\controllers\Controller
                 $data[$i]['labelName']='参与人数';
                 $data[$i]['labelValue']=$data[$i]['views'];
                 $data[$i]['classname']=constant("CLASSNAME")[$resource_class[$data[$i]['rid']]];
+                $data[$i]['type']='article';
                 unset($data[$i]['rid'],$data[$i]['views']);
             }  
             //Yii::$app->cache->set(Yii::$app->params['redisKey'][6],json_encode($data),2592000); 
