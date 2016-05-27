@@ -43,7 +43,7 @@ class MessageController extends \api\common\controllers\Controller
         $model = new $this->modelClass();
         $data = $model::find()
             ->select('link_id,title,type');
-           // ->where(['uid'=>$this->params['uid']]);
+           // ->where(['uid'=>$this->uid]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);

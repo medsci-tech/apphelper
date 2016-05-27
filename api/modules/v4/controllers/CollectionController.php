@@ -35,8 +35,8 @@ class CollectionController extends \api\common\controllers\Controller
         $offset=$pagesize*($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
         $result = $model::find()
-            ->select(['rid'])
-            ->andWhere(['uid' => $this->uid]);    
+            ->select(['rid']);
+           // ->andWhere(['uid' => $this->uid]); // 临时屏蔽   
         $pages = new Pagination(['totalCount' =>$result->count(), 'pageSize' => $pagesize]);
         $results = $result->offset($offset)->limit($pages->limit)->OrderBy(['id' =>SORT_DESC])->asArray()->all();
         $total_page = ceil($result->count()/$pagesize);
