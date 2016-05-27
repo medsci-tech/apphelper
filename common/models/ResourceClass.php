@@ -30,19 +30,15 @@ class ResourceClass extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['status', 'parent', 'grade', 'uid', 'attr_type'], 'integer'],
+            [['status', 'parent', 'grade', 'uid', 'attr_type', 'sort'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INIT]],
-//            [['category_id'], 'setCategory'],
             [['name'], 'string', 'max' => 50],
             [['path'], 'string', 'max' => 20],
         ];
     }
 
-//    public function setCategory($attribute, $params)
-//    {
-//        $this->category = Category::find()->where(['id' => $this->category_id])->select('title')->scalar();
-//    }
+
     /**
      * {@inheritdoc}
      */
@@ -58,20 +54,28 @@ class ResourceClass extends \yii\db\ActiveRecord
             'category' => '分类',
         ];
     }
-    /**
-     * {@inheritdoc}
-     */
-//    public function behaviors()
-//    {
-//        return [
-//            TimestampBehavior::className(),
-//            PushBehavior::className(),
-//            AfterFindArticleBehavior::className(),
-//        ];
-//    }
 
-//    public function getData()
-//    {
-//        return $this->hasOne(ArticleData::className(), ['id' => 'id']);
-//    }
+
+    public function getDataForWhere($where = []){
+        $where['status'] = 1;
+        $examClass = ExamClass::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
+        return $examClass;
+    }
+
+    /*树形结构*/
+    public function recursionTree($parent = 0, $where = []){
+        $column = [];
+        $model = $this->getDataForWhere(['parent' => $parent]);
+        if(is_array($model)){
+            foreach ($model as $key => $val){
+                $column[$key]['id'] = $val['id'];
+                $column[$key]['text'] = $val['name'];
+                $column[$key]['nodes'] = $this->recursionTree($val['id'], $where = []);
+                if(empty($column[$key]['nodes'])){
+                    unset($column[$key]['nodes']);
+                }
+            }
+        }
+        return $column;
+    }
 }

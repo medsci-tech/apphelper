@@ -79,7 +79,7 @@ backend\assets\AppAsset::register($this);
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',
-                        'template' => '{update}',//只需要展示删除和更新
+                        'template' => '{view} {update}',//只需要展示删除和更新
                         'buttons' => [
                             'update'=> function ($url, $model, $key) {
                                 $aHtml = '';
