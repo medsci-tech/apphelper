@@ -87,4 +87,8 @@ class ResourceController extends BackendController
 
     }
 
+    public function actionPharmacy()
+    {
+        echo '药店培训';
+    }
 }
