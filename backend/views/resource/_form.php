@@ -31,10 +31,3 @@ $form = ActiveForm::begin([
 </div>
 <?php ActiveForm::end(); ?>
 
-<?php
-$js = <<<JS
-
-
-JS;
-$this->registerJs($js);
-?>

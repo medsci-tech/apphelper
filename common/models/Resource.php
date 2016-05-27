@@ -72,7 +72,7 @@ class Resource extends ActiveRecord {
      * @param array $data
      */
     public function saveData($where = [], $data = []){
-        $exam = Exam::find()->where($where)->all();
+        $exam = $this::find()->where($where)->all();
         foreach ($exam as $val){
             foreach ($data as $k => $v){
                 $val->$k = $v;

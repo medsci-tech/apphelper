@@ -76,7 +76,7 @@ class ResourceController extends \api\common\controllers\Controller
                 ->all();
 
             $hour = $time[0]['hours'];
-            print_r($time);
+//            print_r($time);
 
             $z = new ResourceStudyLog();
             $study = $z::find()
@@ -85,10 +85,10 @@ class ResourceController extends \api\common\controllers\Controller
                 ->asArray()
                 ->all();
 
-            print_r($study);
+//            print_r($study);
             $progress = $study[0]['studyTime']/1000/60/$hour;
 
-            $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => $progress);
+            $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => intval($progress));
             array_push($array, $row);
         }
 
