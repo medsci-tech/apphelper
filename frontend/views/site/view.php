@@ -53,3 +53,25 @@
 </div>
 </body>
 </html>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    var imgList = $('img');
+    var imgArray = [];
+    for(var i = 0; i < imgList.length; i++){
+        imgList.eq(i).attr('data-position',i);
+        imgArray[i] = imgList.eq(i).attr('src');
+    }
+    $('img').click(function(){
+        var position = $(this).attr('data-position');
+        var jsonString = {
+              "imageList": imgArray,
+              "position": position
+        };
+        showImage(jsonString);
+    });
+});
+    function showImage(jsonString) {
+       Client.showImage(jsonString);
+    }
+</script>
