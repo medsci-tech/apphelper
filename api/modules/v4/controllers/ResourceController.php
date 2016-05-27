@@ -45,13 +45,49 @@ class ResourceController extends \api\common\controllers\Controller
             ->select('id,name')
             ->where(['parent' => 0, 'attr_type' => 0, 'status' => 1]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $rs = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
+//        print_r($rs);
         $array = array();
-        $progress = 5;
-        foreach ($model as $resource) {
-            $progress = $progress + 5;
+        $progress = 0;
+        foreach ($rs as $resource) {
+
+            $x = new ResourceClass();
+            $rsClass = $x::find()
+                ->select('id')
+                ->where(['parent' => $resource['id'], 'status'=>1])
+                ->asArray()
+                ->all();
+
+//            print_r($rsClass);
+
+            $y = new Resource();
+            $time = $y::find()
+                ->select('SUM(hour) AS hours')
+                ->where(['status' => 1, 'publish_status' => 1, 'rid'=>array_column($rsClass,'id')])
+                ->asArray()
+                ->all();
+
+            $class = $y::find()
+                ->select('id')
+                ->where(['status' => 1, 'publish_status' => 1, 'rid'=>array_column($rsClass,'id')])
+                ->asArray()
+                ->all();
+
+            $hour = $time[0]['hours'];
+            print_r($time);
+
+            $z = new ResourceStudyLog();
+            $study = $z::find()
+                ->select('SUM(times) AS studyTime')
+                ->where(['rid'=>array_column($class,'id')])
+                ->asArray()
+                ->all();
+
+            print_r($study);
+            $progress = $study[0]['studyTime']/1000/60/$hour;
+
             $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => $progress);
             array_push($array, $row);
         }
@@ -73,17 +109,10 @@ class ResourceController extends \api\common\controllers\Controller
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $rid = $this->params['rid'];
 
-        $resourceClass = new ResourceClass();
-        $rsModel = $resourceClass::find()
-            ->select('id')
-            ->where(['parent' => $rid, 'status'=>1])
-            ->asArray()
-            ->all();
-
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=> $rid])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
@@ -97,7 +126,7 @@ class ResourceController extends \api\common\controllers\Controller
             unset($val['views']);
         }
 
-        $name = $resourceClass::find()
+        $name = ResourceClass::find()
             ->where(['id' => $rid])
             ->one();
 
@@ -189,35 +218,37 @@ class ResourceController extends \api\common\controllers\Controller
 
     public function actionNav()
     {
+        $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
-        if($page<2)
-            $isLastPage = false;
-        else
-            $isLastPage= true;
-        if($page<2)
-            $data=[
-                ['id'=>'101','name'=> '第一阶段','times'=>'30分钟'],
-                ['id'=>'102','name'=> '第二阶段','times'=>'20分钟'],
-                ['id'=>'103','name'=> '第三阶段','times'=>'2小时'],
-                ['id'=>'104','name'=> '第四阶段','times'=>'4天'],
-                ['id'=>'211','name'=> '第五阶段','times'=>'30分钟'],
-                ['id'=>'211','name'=> '第6阶段','times'=>'30分钟'],
-                ['id'=>'213','name'=> '第7阶段','times'=>'30分钟'],
-                ['id'=>'215','name'=> '第8阶段','times'=>'30分钟'],
-                ['id'=>'567','name'=> '第9阶段','times'=>'30分钟'],
-                ['id'=>'453','name'=> '第10阶段','times'=>'30分钟'],
-                ];
-        else
-            $data=[
-                ['id'=>'401','name'=> '第10阶段','times'=>'30分钟'],
-                ['id'=>'402','name'=> '第11阶段','times'=>'20分钟'],
-                ['id'=>'403','name'=> '第12阶段','times'=>'2小时'],
-                ['id'=>'404','name'=> '第13阶段','times'=>'4天'],
-                ['id'=>'411','name'=> '第14阶段','times'=>'30分钟'],
-                ['id'=>'444','name'=> '第15阶段','times'=>'30分钟'],
-            ];
+        $page = $page ? $page : 1;
+        $offset = $pagesize * ($page - 1); //计算记录偏移量
+        $rid = $this->params['rid'];
 
-        $result = ['code' => 200,'message'=>'栏目列表','data'=>['isLastPage'=>$isLastPage ,'list'=>$data]];
+        $resourceClass = new ResourceClass();
+        $data = $resourceClass::find()
+            ->select('id,name')
+            ->where(['parent' => $rid, 'status'=>1]);
+
+        $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
+        $rsModel = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $total_page = ceil($data->count() / $pagesize);
+
+        $array = array();
+        foreach ($rsModel as $rs) {
+            $model = new Resource();
+            $resources = $model::find()
+                ->select('SUM(hour) AS hours')
+                ->where(['status' => 1, 'publish_status' => 1, 'rid' => $rs['id']])
+                ->asArray()
+                ->all();
+
+            $hour = $resources[0]['hours'];
+
+            $row = array('id' => $rs['id'], 'name' => $rs['name'], 'time' => $hour);
+            array_push($array, $row);
+        }
+
+        $result = ['code' => 200,'message'=>'栏目列表','data'=>['isLastPage'=>$page >= $total_page ? true : false ,'list'=>$array]];
         return $result;
         
     }

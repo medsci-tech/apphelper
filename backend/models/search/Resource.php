@@ -18,6 +18,7 @@ class Resource extends ResourceModel
     {
         return [
             [['title'], 'string'],
+            [['rid'], 'integer'],
         ];
     }
 
