@@ -39,7 +39,7 @@ backend\assets\AppAsset::register($this);
             $form = ActiveForm::begin([
                 'action' => ['delete'],
                 'method' => 'post',
-                'options' => ['class' => 'form-inline', 'id' => 'delForm'],
+                'options' => ['class' => 'form-inline', 'id' => 'changeStatus'],
             ]); ?>
             <?= Html::input('hidden', 'type', 'enable', ['id' => 'typeForm']); ?>
             <?= GridView::widget([
@@ -67,7 +67,7 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'recommend_status',
                         'value' =>
                             function ($model) {
-                                $result = $this->params['params']['recStatusOption'][$model->status];
+                                $result = $this->params['params']['recStatusOption'][$model->recommend_status];
                                 return $result ?? '';
                             },
                     ],
@@ -75,7 +75,7 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'publish_status',
                         'value' =>
                             function ($model) {
-                                $result = $this->params['params']['pubStatusOption'][$model->status];
+                                $result = $this->params['params']['pubStatusOption'][$model->publish_status];
                                 return $result ?? '';
                             },
                     ],
