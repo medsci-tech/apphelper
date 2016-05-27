@@ -88,7 +88,7 @@ class ResourceController extends \api\common\controllers\Controller
             print_r($study);
             $progress = $study[0]['studyTime']/1000/60/$hour;
 
-            $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => $progress);
+            $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => intval($progress));
             array_push($array, $row);
         }
 
