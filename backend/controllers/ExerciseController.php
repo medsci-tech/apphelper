@@ -34,8 +34,8 @@ class ExerciseController extends BackendController
         $examClassData = $examClass->getDataForWhere();
         $tree = new TreeController($examClassData, ' |- ');
         $examClassTree = $tree->get_tree('id', 'name');
+        $examClassTreeAr = [];
         if($examClassTree){
-            $examClassTreeAr = [];
             foreach ($examClassTree as $key => $val){
                 $examClassTreeAr[$val['id']] = $val['name'];
             }
