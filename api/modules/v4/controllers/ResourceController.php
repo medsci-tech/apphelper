@@ -45,13 +45,49 @@ class ResourceController extends \api\common\controllers\Controller
             ->select('id,name')
             ->where(['parent' => 0, 'attr_type' => 0, 'status' => 1]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
+        $rs = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
+//        print_r($rs);
         $array = array();
-        $progress = 5;
-        foreach ($model as $resource) {
-            $progress = $progress + 5;
+        $progress = 0;
+        foreach ($rs as $resource) {
+
+            $x = new ResourceClass();
+            $rsClass = $x::find()
+                ->select('id')
+                ->where(['parent' => $resource['id'], 'status'=>1])
+                ->asArray()
+                ->all();
+
+//            print_r($rsClass);
+
+            $y = new Resource();
+            $time = $y::find()
+                ->select('SUM(hour) AS hours')
+                ->where(['status' => 1, 'publish_status' => 1, 'rid'=>array_column($rsClass,'id')])
+                ->asArray()
+                ->all();
+
+            $class = $y::find()
+                ->select('id')
+                ->where(['status' => 1, 'publish_status' => 1, 'rid'=>array_column($rsClass,'id')])
+                ->asArray()
+                ->all();
+
+            $hour = $time[0]['hours'];
+            print_r($time);
+
+            $z = new ResourceStudyLog();
+            $study = $z::find()
+                ->select('SUM(times) AS studyTime')
+                ->where(['rid'=>array_column($class,'id')])
+                ->asArray()
+                ->all();
+
+            print_r($study);
+            $progress = $study[0]['studyTime']/1000/60/$hour;
+
             $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => $progress);
             array_push($array, $row);
         }
@@ -73,17 +109,10 @@ class ResourceController extends \api\common\controllers\Controller
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $rid = $this->params['rid'];
 
-        $resourceClass = new ResourceClass();
-        $rsModel = $resourceClass::find()
-            ->select('id')
-            ->where(['parent' => $rid, 'status'=>1])
-            ->asArray()
-            ->all();
-
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
-            ->where(['status'=>1,'publish_status'=>1,'rid'=>array_column($rsModel,'id')])
+            ->where(['status'=>1,'publish_status'=>1,'rid'=> $rid])
             ->orderBy(['publish_time'=>SORT_DESC]);
 
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
@@ -97,7 +126,7 @@ class ResourceController extends \api\common\controllers\Controller
             unset($val['views']);
         }
 
-        $name = $resourceClass::find()
+        $name = ResourceClass::find()
             ->where(['id' => $rid])
             ->one();
 
