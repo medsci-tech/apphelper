@@ -221,7 +221,7 @@ class IndexController extends \api\common\controllers\Controller
      */
     public function actionVersion()
     {
-        $result = ['code' => 200,'message'=>'版本升级提醒','data'=>['lastVersion'=>'4.1','download'=>'http://baidu.com/updown/893.apk','isUpdate'=>true,'isCompel'=>true]];
+        $result = ['code' => 200,'message'=>'版本升级提醒','data'=>['lastVersion'=>'4.0','download'=>'http://baidu.com/updown/893.apk','isUpdate'=>false,'isCompel'=>false]];
         return $result;
     }
 
