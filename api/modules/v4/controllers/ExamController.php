@@ -7,7 +7,7 @@
  */
 
 namespace api\modules\v4\controllers;
-use api\common\models\{Exam,ExamLog,ExamLevel};
+use api\common\models\{Exam,ExamLog,ExamLevel,Exercise};
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
@@ -18,7 +18,8 @@ class ExamController extends \api\common\controllers\Controller
     protected function verbs(){
         return [
             'index'=>['POST'],
-            'add'=>['POST'],
+            'info'=>['POST'],
+            'list'=>['POST'],
         ];
     }
     
@@ -68,5 +69,65 @@ class ExamController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'试卷列表','data'=>['isLastPage'=>$page>=$total_page ? true : false ,'list'=>$data]];
         return $result;
     }   
+    
+    /**
+     * 试卷介绍
+     * @author by lxhui
+     * @version [2010-05-25]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionInfo()
+    {
+        $id= $this->params['id'] ?? '';
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少试卷对象id!','data'=>null];
+            return $result;  
+        }
+        $data = Exam::find()->select(['name','minutes',"LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')) as total",'about'])->where(['id'=>$id])->asArray()->one();
+        $examLevel = ExamLevel::find()->select(['level'])->where(['exam_id'=>$id])->asArray()->all();
+        $levels = ArrayHelper::getColumn($examLevel, 'level');
+        if($levels)
+            $levels = implode('/',$levels);
+        $data['levels']=$levels;
+        $data['id']=$id;
+        $result = ['code' => 200,'message'=>'试卷详情','data'=>$data];
+        return $result;
+    }
+    
+     /**
+     * 试卷答题列表
+     * @author by lxhui
+     * @version [2010-05-25]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionList()
+    {
+        $id= $this->params['id'] ?? '';
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少试卷对象id!','data'=>null];
+            return $result;  
+        }
+        /* 记录开始答题时间 */
+        $examlog = new ExamLog();
+        $examlog->exa_id =$id;
+        $examlog->uid =$this->uid;
+        $examlog->start_time = time();
+        $examlog->save();
+        
+        $data = Exam::find()->select(['exe_ids'])->where(['id'=>$id])->asArray()->one();
+        if($data['exe_ids'])
+            $exe_ids = explode (',', $data['exe_ids']);
+        
+        $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids])->asArray()->all();
+        foreach($data as &$val)
+            $val['option'] = unserialize($val['option']);
+
+        $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
+        return $result;
+    }
 
 }
