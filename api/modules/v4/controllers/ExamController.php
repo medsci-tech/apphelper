@@ -143,7 +143,7 @@ class ExamController extends \api\common\controllers\Controller
         /* 处理提交试卷 */
         $optionList= $this->params['optionList'];
         //更新试卷提交状态
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50']];
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50','level'=>'高级学霸']];
         return $result;
     
     }
