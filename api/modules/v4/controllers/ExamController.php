@@ -20,9 +20,9 @@ class ExamController extends \api\common\controllers\Controller
             'index'=>['POST'],
             'info'=>['POST'],
             'list'=>['POST'],
+            'submit'=>['POST'],
         ];
-    }
-    
+    }   
     /**
      * 试卷列表
      * @author by lxhui
@@ -79,12 +79,7 @@ class ExamController extends \api\common\controllers\Controller
      */
     public function actionInfo()
     {
-        $id= $this->params['id'] ?? '';
-        if(!$id)
-        {
-            $result = ['code' => -1,'message'=>'缺少试卷对象id!','data'=>null];
-            return $result;  
-        }
+        $id = self::checkId();
         $data = Exam::find()->select(['name','minutes',"LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')) as total",'about'])->where(['id'=>$id])->asArray()->one();
         $examLevel = ExamLevel::find()->select(['level'])->where(['exam_id'=>$id])->asArray()->all();
         $levels = ArrayHelper::getColumn($examLevel, 'level');
@@ -105,12 +100,7 @@ class ExamController extends \api\common\controllers\Controller
      */
     public function actionList()
     {
-        $id= $this->params['id'] ?? '';
-        if(!$id)
-        {
-            $result = ['code' => -1,'message'=>'缺少试卷对象id!','data'=>null];
-            return $result;  
-        }
+        $id = self::checkId();
         /* 记录开始答题时间 */
         $examlog = new ExamLog();
         $examlog->exa_id =$id;
@@ -128,6 +118,69 @@ class ExamController extends \api\common\controllers\Controller
 
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
         return $result;
+    }
+    
+    /**
+     * 试卷提交
+     * @author by lxhui
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionSubmit()
+    {  
+        $id = self::checkId();
+        $data = Exam::find()->select(['exe_ids','minutes'])->where(['id'=>$id])->asArray()->one();
+        $max =$data['minutes']*60; //考试时间转秒
+       /* 检查考试时间是否过期 */
+        $lastModel = self::history($id);
+        $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
+        if($timeLeft>$max) // 如果已经过期
+        {
+            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
+            return $result;
+        }
+        /* 处理提交试卷 */
+        $optionList= $this->params['optionList'];
+        //更新试卷提交状态
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50']];
+        return $result;
+    
+    }
+    
+    
+    /**
+     * 最后未提交的历史试卷
+     * @author by lxhui
+     * @param $id 试卷id
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function history($id)
+    {
+        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0])->OrderBy(['id'=>SORT_DESC])->one();
+        if($model)
+            ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
+        
+        return $model;
+    }
+    /**
+     * 检查试卷id
+     * @author by lxhui
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function checkId()
+    {
+        $id= $this->params['id'] ?? '';
+        if(!$id)
+        {   
+            $result = ['code' => -1,'message'=>'缺少试卷对象id!','data'=>null];
+            echo(json_encode($result));exit;
+        }
+        return $id;      
     }
 
 }
