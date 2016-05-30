@@ -21,6 +21,7 @@ class ExamController extends \api\common\controllers\Controller
             'info'=>['POST'],
             'list'=>['POST'],
             'submit'=>['POST'],
+            'analyze'=>['POST'],
         ];
     }   
     /**
@@ -51,7 +52,7 @@ class ExamController extends \api\common\controllers\Controller
                 if($log['status']==1)
                 {
                     $val['labelName']='历史最佳';
-                    $val['labelValue']= $log['level'];
+                    $val['labelValue']= '学霸';
                 }
                 else
                   $val['labelName']=$val['labelValue']=null;  
@@ -101,12 +102,6 @@ class ExamController extends \api\common\controllers\Controller
     public function actionList()
     {
         $id = self::checkId();
-        /* 记录开始答题时间 */
-        $examlog = new ExamLog();
-        $examlog->exa_id =$id;
-        $examlog->uid =$this->uid;
-        $examlog->start_time = time();
-        $examlog->save();
         /* 获取缓存试题列表 */
         $data = self::getExerciseById($id);
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
@@ -125,44 +120,87 @@ class ExamController extends \api\common\controllers\Controller
         $id = self::checkId();
         $data = Exam::find()->select(['exe_ids','minutes'])->where(['id'=>$id])->asArray()->one();
         $max =$data['minutes']*60; //考试时间转秒
-       /* 检查考试时间是否过期（考试进度会存在时间误差） */
-//        $lastModel = self::history($id);
-//        $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
-//        if($timeLeft>$max) // 如果已经过期
-//        {
-//            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
-//            return $result;
-//        }
+        $times = $this->params['times'] ?? 0; // 考试总耗时
+        if(!$times)
+        {
+            $result = ['code' => -1,'message'=>'无法统计考试时间!','data'=>null];
+            return $result; 
+        }
+       /* 检查考试时间是否过期 */
+        if($times>$max)
+        {
+            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
+            return $result;
+        }
         /* 处理提交试卷 */
-        $optionList= $this->params['optionList'];
-        $choose ='';
-        foreach($optionList as $key=> $val)
-        {
-            $choose.=implode(',',$val); // 所有答题  
-            /* 统计正确回答题目 */
-        }
-        if(!$choose)
-        {
-            $result = ['code' => -1,'message'=>'不允许提交空白试卷!','data'=>null];
-            return $result;         
-        }
         $exe_ids = explode (',', $data['exe_ids']); //题库id集合
         $examlist = self::getExerciseById($id); // 获取试卷所有题目
         $examlist = ArrayHelper::map($examlist, 'id', 'answer');
-
-        //更新试卷提交状态
-        $model = self::history($id);
+        $exam_total = substr_count($data['exe_ids'],',')+1; //题目总数
+ 
+        $optionList= $this->params['optionList'];
+        $i=0; // 答题正确数
+        foreach($optionList as $key=> $val)
+        {
+            $answer = implode(',',$val); 
+            if($answer==$examlist[$key])
+                $i++; //统计正确回答题目
+        }
+        /* 保存考试记录 */
+        $model = new ExamLog();
+        $model->exa_id =$id;
         $model->status =1;
+        $model->uid =$this->uid;
         $model->answer_ids = serialize($optionList);
+        $model->answers =$i;
+        $model->start_time =time()-$times;
         $model->end_time =time();
-        //$model->save();
-         
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50','level'=>'高级学霸']];
-        return $result;
-    
+        $model->save();
+        /* 根据成绩计算等级 */
+        $rate = intval($i/$exam_total)*100; //正确率     
+        $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
+        $mins = intval( $times / 60 ); //分钟
+        $secs = $times % 60; //秒
+        $times = $mins.':'.$secs;
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'level'=>$level]];
+        return $result; 
     } 
+    
+        /**
+     * 试卷提交
+     * @author by lxhui
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionAnalyze()
+    {  
+        $id = self::checkId();
+        /* 查找用户下的最新历史考试记录 */
+        $historyData = self::history($id);
+        $answers = unserialize($historyData['answer_ids']); // 用户答题记录
+        /* 获取缓存试题列表 */
+        $data = self::getExerciseById($id);
+        $data = ArrayHelper::index($data, 'id');
+        foreach($data as $key=>&$val)
+        { 
+            if($answers[$key])
+                $answer = implode(',',$answers[$key]);
+            else
+                $answer=null;
+            if($val['answer']==$answer)  // 答题正确时
+                $val['isRight'] = true;
+            else
+                $val['isRight'] = false;          
+            $val['donswer'] = $answer;
+        }
+        
+        $comment = ['nickname' =>'哇哈哈','avatar'=>'http://1.jpg','title'=>'你好吗'];
+        $result = ['code' => 200,'message'=>'试题解析!','data'=>['list'=>$data,'comment'=>$comment]];
+        return $result; 
+    }
     /**
-     * 最后未提交的历史试卷
+     * 最后提交的历史试卷
      * @author by lxhui
      * @param $id 试卷id
      * @version [2010-05-29]
@@ -171,11 +209,14 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function history($id)
     {
-        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0])->OrderBy(['id'=>SORT_DESC])->one();
-        if($model)
-            ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
-        
-        return $model;
+        $key = Yii::$app->params['redisKey'][5].$id.'_'.$this->uid;
+        $data = json_decode($key,true);
+        if(!$data)
+        {
+            $data = ExamLog::find()->where(['uid'=>$this->uid,'status'=>1])->OrderBy(['id'=>SORT_DESC])->asArray()->one();
+            Yii::$app->cache->set($key,json_encode($data),2592000);   
+        }
+        return $data;
     }
     /**
      * 检查试卷id
@@ -219,6 +260,42 @@ class ExamController extends \api\common\controllers\Controller
             Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表          
         } 
         return $data;      
+    }
+    
+    /**
+     * 根据试卷id返回试卷所有等级
+     * @author by lxhui
+     * @param $id 试卷id
+     * @param $rate 正确答题率
+     * @param $total 题目总数
+     * @version [2010-05-30]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function getLevel($id,$rate=0,$total=1)
+    {
+        $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();
+        foreach($result as &$data)
+        {
+            switch ($data['condition'])
+            {
+                case 0: // 等于
+                  if($rate==$data['rate'])
+                      $level = $data['level'];
+                  break;
+                case 1://大于等于
+                    if($rate>=$data['rate'])
+                        $level = $data['level'];
+                  break;
+                case -1:// 小于
+                    if($rate<$data['rate'])
+                        $level = $data['level'];
+                  break;
+                default:
+                    $level = '未定义';           
+            }
+        }
+        return $level;
     }
 
 }

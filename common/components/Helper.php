@@ -112,5 +112,32 @@ class Helper {
         else
             return true;
     }
+    /**
+     * 计算时间差
+     * @author by lxhui
+     * @param $begin_time 起始时间
+     * @param $end_time 结束时间
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public static function  timediff( $begin_time, $end_time )
+    {
+        if ( $begin_time < $end_time ) {
+            $starttime = $begin_time;
+            $endtime = $end_time;
+        } else {
+            $starttime = $end_time;
+            $endtime = $begin_time;
+        }
+        $timediff = $endtime - $starttime;
+        $days = intval( $timediff / 86400 );
+        $remain = $timediff % 86400;
+        $hours = intval( $remain / 3600 );
+        $remain = $remain % 3600;
+        $mins = intval( $remain / 60 );
+        $secs = $remain % 60;
+        $res = array( "day" => $days, "hour" => $hours, "min" => $mins, "sec" => $secs );
+        return $res;
+    }
 
 }
