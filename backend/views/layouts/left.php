@@ -40,18 +40,9 @@
                     <li>
                         <a class="J_menuItem" href="member/index" data-index="0">用户管理</a>
                     </li>
-                    <li>
-                        <a class="J_menuItem" href="/admin/assignment/index" data-index="0">管理员管理</a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/admin/menu/index">菜单管理</a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/admin/role/index">角色管理</a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/admin/route/index">路由管理</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a class="J_menuItem" href="/admin/assignment/index" data-index="0">管理员管理</a>-->
+<!--                    </li>-->
 
                 </ul>
 
