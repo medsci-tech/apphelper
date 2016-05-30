@@ -55,7 +55,7 @@ class Upload extends Model
      * @return array
      */
     public function image($uploadPath){
-        $second = date('YmdHis');
+        $name = date('YmdHis') . rand(1000,9999);
         $suffix = mb_substr($this->file->name, (mb_strripos($this->file->name, '.') + 1));
         if(in_array($suffix,['png', 'jpg', 'gif'])){
             $filePath = $uploadPath .'/examImg/';
@@ -63,13 +63,13 @@ class Upload extends Model
                 @mkdir($filePath);
                 @touch($filePath . 'index.html');
             }
-            $fileName = $filePath . $second . '.' . $suffix;
+            $fileName = $filePath . $name . '.' . $suffix;
             if ($this->validate()) {
                 $res = $this->file->saveAs($fileName);
                 if($res){
                     $return = ['code'=>200,'msg'=>'上传成功哦','data'=>[
                         'path' => $filePath,
-                        'name' => $second . '.' . $suffix,
+                        'name' => $name . '.' . $suffix,
                     ]];
                 }else{
                     $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];

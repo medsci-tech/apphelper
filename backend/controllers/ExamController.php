@@ -83,7 +83,7 @@ class ExamController extends BackendController
                 $model->exe_ids = implode(',', $exam_id);
             }else{
                 /*type=0自定义分配试题*/
-                $model->exe_ids = implode(',', $model->exe_ids);
+                $model->exe_ids = implode(',', array_unique($model->exe_ids));
             }
             if(!isset($model->id)){
                 $model->created_at = time();

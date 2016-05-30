@@ -62,5 +62,25 @@ class BackendController extends Controller
         exit($data);
     }
 
+    /**
+     * 获取目录的树形结构
+     * @author zhaiyu
+     * @startDate 20160530
+     * @upDate 20160530
+     * @param $directoryStructureData
+     * @return array
+     */
+    public function TreeList($directoryStructureData){
+        $tree = new TreeController($directoryStructureData, ' |- ');
+        $directoryStructureTree = $tree->get_tree('id', 'name');
+        $directoryStructureList = [];
+        if($directoryStructureTree){
+            foreach ($directoryStructureTree as $key => $val){
+                $directoryStructureList[$val['id']] = $val['name'];
+            }
+        }
+        return $directoryStructureList;
+    }
+
 }
 
