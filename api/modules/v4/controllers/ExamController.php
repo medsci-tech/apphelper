@@ -107,15 +107,8 @@ class ExamController extends \api\common\controllers\Controller
         $examlog->uid =$this->uid;
         $examlog->start_time = time();
         $examlog->save();
-        
-        $data = Exam::find()->select(['exe_ids'])->where(['id'=>$id])->asArray()->one();
-        if($data['exe_ids'])
-            $exe_ids = explode (',', $data['exe_ids']);
-        
-        $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids])->asArray()->all();
-        foreach($data as &$val)
-            $val['option'] = unserialize($val['option']);
-
+        /* 获取缓存试题列表 */
+        $data = self::getExerciseById($id);
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
         return $result;
     }
@@ -142,12 +135,27 @@ class ExamController extends \api\common\controllers\Controller
 //        }
         /* 处理提交试卷 */
         $optionList= $this->params['optionList'];
+        $choose ='';
+        foreach($optionList as $key=> $val)
+        {
+            $choose.=implode(',',$val); // 所有答题  
+            /* 统计正确回答题目 */
+        }
+        if(!$choose)
+        {
+            $result = ['code' => -1,'message'=>'不允许提交空白试卷!','data'=>null];
+            return $result;         
+        }
+        $exe_ids = explode (',', $data['exe_ids']); //题库id集合
+        $examlist = self::getExerciseById($id); // 获取试卷所有题目
+        $examlist = ArrayHelper::map($examlist, 'id', 'answer');
+
         //更新试卷提交状态
         $model = self::history($id);
-   
         $model->status =1;
+        $model->answer_ids = serialize($optionList);
         $model->end_time =time();
-        $model->save();
+        //$model->save();
          
         $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50','level'=>'高级学霸']];
         return $result;
@@ -185,6 +193,32 @@ class ExamController extends \api\common\controllers\Controller
             echo(json_encode($result));exit;
         }
         return $id;      
+    }
+    
+    /**
+     * 根据试卷id返回所有题目列表
+     * @author by lxhui
+     * @param $id 
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function getExerciseById($id)
+    {
+        $data = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id),true);
+        if(!$data)
+        {
+            $data = Exam::find()->select(['exe_ids'])->where(['id'=>$id])->asArray()->one();
+            if($data['exe_ids'])
+                $exe_ids = explode (',', $data['exe_ids']);
+
+            $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids])->asArray()->all();
+            foreach($data as &$val)
+                $val['option'] = unserialize($val['option']);
+
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表          
+        } 
+        return $data;      
     }
 
 }
