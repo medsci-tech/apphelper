@@ -132,17 +132,23 @@ class ExamController extends \api\common\controllers\Controller
         $id = self::checkId();
         $data = Exam::find()->select(['exe_ids','minutes'])->where(['id'=>$id])->asArray()->one();
         $max =$data['minutes']*60; //考试时间转秒
-       /* 检查考试时间是否过期 */
-        $lastModel = self::history($id);
-        $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
-        if($timeLeft>$max) // 如果已经过期
-        {
-            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
-            return $result;
-        }
+       /* 检查考试时间是否过期（考试进度会存在时间误差） */
+//        $lastModel = self::history($id);
+//        $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
+//        if($timeLeft>$max) // 如果已经过期
+//        {
+//            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
+//            return $result;
+//        }
         /* 处理提交试卷 */
         $optionList= $this->params['optionList'];
         //更新试卷提交状态
+        $model = self::history($id);
+   
+        $model->status =1;
+        $model->end_time =time();
+        $model->save();
+         
         $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50','level'=>'高级学霸']];
         return $result;
     

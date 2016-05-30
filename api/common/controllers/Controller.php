@@ -52,7 +52,7 @@ class Controller extends ActiveController
             exit(json_encode($result));
         }      
         $data = ['uid'=>$uid,'access_token' => $access_token];
-        $mem = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$uid),true);  
+        $mem = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$uid),true);
         if($mem['uid'] && $mem['access_token'])
         {
             /*  验证token 是否过期 */
