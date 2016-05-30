@@ -146,9 +146,7 @@ class ExamController extends \api\common\controllers\Controller
         $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>'20:50','level'=>'高级学霸']];
         return $result;
     
-    }
-    
-    
+    } 
     /**
      * 最后未提交的历史试卷
      * @author by lxhui

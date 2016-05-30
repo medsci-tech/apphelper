@@ -50,9 +50,9 @@ class Controller extends ActiveController
         {    
             $result = ['code' => -1,'message'=>'无效的uid和tocken访问验证!','data'=>null];
             exit(json_encode($result));
-        }
+        }      
         $data = ['uid'=>$uid,'access_token' => $access_token];
-        $mem = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$uid),true);
+        $mem = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$uid),true);  
         if($mem['uid'] && $mem['access_token'])
         {
             /*  验证token 是否过期 */
@@ -62,6 +62,7 @@ class Controller extends ActiveController
                 exit(json_encode($result));
             }
             $res = array_diff_assoc($mem,$data);
+    
             if($res)  // 授权认证失败
             {
                 $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];

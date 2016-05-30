@@ -41,11 +41,9 @@ class SiteController extends CommonController
         }
         else
         {
-            Yii::$app->cache->delete(Yii::$app->params['redisKey'][0].$model->id); // 清除历史缓存
             Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$model->id,json_encode(['uid'=>$model->id,'access_token' => $model->access_token]),2592000);
             $data=['uid'=>$model->id,'username'=> $model->username,'access_token'=>$model->access_token];
         }
-
         $result = ['code' => 200,'message'=>'注册成功!','data'=>$data];
         return $result;
     }
