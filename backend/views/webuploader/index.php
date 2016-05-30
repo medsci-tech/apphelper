@@ -5,9 +5,11 @@
  * Date: 2016/5/19
  * Time: 16:32
  */
+//自定义参数
 $modelName = $name ?? '';
 $imgMaxSize = $imgMaxSize ?? 2097152;
 $proBarMaxWidth = $proBarWidth ?? 200;
+$uploadUrl = $uploadUrl ?? '/upload/img';
 
 ?>
 
@@ -31,7 +33,7 @@ $js = <<<JS
 	var probar = $('#upload-progressbar');
 	var progressbarMaxWidth = $proBarMaxWidth;
 	$('#upload-promptzone').ajaxUploadPrompt({
-		url : '/upload/img',
+		url : '$uploadUrl',
 		beforeSend : function(e,f) {
 		    if(f.files[0].size > $imgMaxSize){
                 uploadResultError('文件不能超过' + '$formatterSize');
