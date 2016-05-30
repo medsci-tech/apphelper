@@ -222,13 +222,6 @@ $js=<<<JS
         examLevelInitForMime('#examLevelListBody', conditionExamLevel, rateExamLevel);
         uploadResultInit();
     });
-    
-	function uploadResultInit() {
-		$('#upload-progressbar').css('width', 0);
-        $('#upload-progressbar').find('span').text('');
-        $('[data-toggle="upload-progressInput"]').val('');
-        $('[data-toggle="upload-saveInput"]').val('');
-	}
 	
 	examLevelEditForMime = function (asThis, list, conditionExamLevel, rateExamLevel) {
         var html = '';

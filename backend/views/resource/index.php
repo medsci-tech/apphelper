@@ -11,7 +11,6 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $treeNavigateSelectedName; */
 /* @var $directoryStructureSearch */
-/* @var $directoryStructureData */
 /* @var $dataProvider */
 /* @var $params */
 $yiiApp = Yii::$app;
@@ -93,15 +92,7 @@ backend\assets\AppAsset::register($this);
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',
                         'template' => '{update}',//只需要展示删除和更新
-                        'buttons' => [
-                            'update'=> function ($url, $model, $key) {
-                                $aHtml = '<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
-                            data-id="'.$model->id.'"
-                            data-status="'.$model->status.'"
-                             ></span>';
-                                return Html::a($aHtml);
-                            },
-                        ],
+
                     ],
                 ],
             ]); ?>
@@ -110,25 +101,7 @@ backend\assets\AppAsset::register($this);
     </div>
 </div>
 
-
-<!-- 弹出层 -->
-<div class="modal inmodal" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">添加</h4>
-            </div>
-            <?= $this->render('_form', [
-                'model' => $searchModel,
-                'directoryStructureData' => $directoryStructureData,
-            ]); ?>
-        </div>
-    </div>
-</div>
-
 <?php
-$formUrl = \yii\helpers\Url::toRoute('form');
 $getError = $yiiApp->getSession()->getFlash('error');
 $getSuccess = $yiiApp->getSession()->getFlash('success');
 $js=<<<JS
@@ -168,27 +141,6 @@ $js=<<<JS
 		return selectableTree.treeview('search', [ '$treeNavigateSelectedName', { ignoreCase: false, exactMatch: false } ]);
 	};
 	var selectableNodes = findSelectableNodes();
-	
-    /*修改题库*/
-    $("span[name='saveData']").click(function(){
-        var id = $(this).attr('data-id');
-        var status = $(this).attr('data-status');
-        
-        $('#formModal #tableForm').attr('action','$formUrl?id='+id);
-        $('#formModal #resource-status').val(status);
-        
-    });
-    /*添加题库初始化*/
-    $("#createBtn").click(function(){
-        var defaltData = ''; 
-        $('#formModal #tableForm').attr('action','$formUrl');
-        $('#formModal #resource-type').val(1);
-        $('#formModal #resource-category').val(defaltData);
-        $('#formModal #resource-question').val(defaltData);
-        $('#formModal #resource-keyword').val(defaltData);
-        $('#formModal #resource-resolve').val(defaltData);
-        $('#formModal #resource-status').val(1);
-    });
 
 JS;
 $this->registerJs($js);

@@ -276,6 +276,8 @@
                             }
                             $(selected).remove();
                             $(dangerAlert).remove();
+                            $("#type").val('delete');
+                            $("#option").submit();
                         });
                     }
                 });

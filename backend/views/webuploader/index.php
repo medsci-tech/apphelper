@@ -5,16 +5,18 @@
  * Date: 2016/5/19
  * Time: 16:32
  */
+//自定义参数
 $modelName = $name ?? '';
 $imgMaxSize = $imgMaxSize ?? 2097152;
 $proBarMaxWidth = $proBarWidth ?? 200;
+$uploadPath = $uploadPath ?? 'images/exam';
 
 ?>
 
 <div class="form-inline">
     <div class="form-group">
-        <input readonly type="text" class="form-control" data-toggle="upload-progressInput">
-        <input type="hidden" data-toggle="upload-saveInput" name="<?php echo $modelName;?>">
+        <input readonly id="txt_show" type="text" class="form-control" data-toggle="upload-progressInput">
+        <input id="txt_value" type="hidden" data-toggle="upload-saveInput" name="<?php echo $modelName;?>">
     </div>
     <button id="upload-promptzone" type="button" class="btn btn-warning">上传</button>
     <div class="form-group progress">
@@ -31,7 +33,7 @@ $js = <<<JS
 	var probar = $('#upload-progressbar');
 	var progressbarMaxWidth = $proBarMaxWidth;
 	$('#upload-promptzone').ajaxUploadPrompt({
-		url : '/upload/img',
+		url : '/upload/img?path=$uploadPath',
 		beforeSend : function(e,f) {
 		    if(f.files[0].size > $imgMaxSize){
                 uploadResultError('文件不能超过' + '$formatterSize');

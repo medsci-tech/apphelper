@@ -34,31 +34,79 @@ class ResourceController extends BackendController
         $search = new ResourceSearch();
         $dataProvider = $search->search($appYii->request->queryParams);
 
-        /*获取目录的树形结构*/
-        $directoryStructureData = $directoryStructureModel->getDataForWhere();
-        $tree = new TreeController($directoryStructureData, ' |- ');
-        $directoryStructureTree = $tree->get_tree('id', 'name');
-        $directoryStructureData = [];
-        if($directoryStructureTree){
-            foreach ($directoryStructureTree as $key => $val){
-                $directoryStructureData[$val['id']] = $val['name'];
-            }
-        }
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
             'directoryStructureSearch' => json_encode($directoryStructureSearch),
             'treeNavigateSelectedName' => $treeNavigateSelected[0]['name'] ?? '',
-            'directoryStructureData' => $directoryStructureData,
         ]);
 
     }
 
     public function actionForm()
     {
-
+        $post = Yii::$app->request->post();
+        if(isset($post['Resource']['id'])){
+            //有id修改
+            $id = $post['Resource']['id'];
+            $model = $this->findModel($id);
+            if(empty($model)){
+                $model = new Resource();
+            }
+        }else{
+            //无id添加
+            $model = new Resource();
+        }
+        $model->load($post);
+        $isValid = $model->validate();
+        if ($isValid) {
+            if(!isset($model->id)){
+                $model->created_at = time();
+            }
+            if($post['Resource']['imgurl']){
+                $model->imgurl = $post['Resource']['imgurl'];
+            }
+            $result = $model->save(false);
+            if($result){
+                $return = ['success', '操作成功哦'];
+            }else{
+                $return = ['error', '操作失败哦'];
+            }
+        }else{
+            $return = ['error', '操作失败哦'];
+        }
+        Yii::$app->getSession()->setFlash($return[0], $return[1]);
+        $this->redirect('index');
     }
 
+    public function actionCreate()
+    {
+        $model = new Resource();
+        /*获取目录的树形结构*/
+        $directoryStructureData = (new ResourceClass())->getDataForWhere();
+        $directoryStructureList = $this->TreeList($directoryStructureData);
+        return $this->render('create', [
+            'model' => $model,
+            'directoryStructureList' => $directoryStructureList,
+        ]);
+    }
+    public function actionUpdate($id)
+    {
+        $appYii = Yii::$app;
+        $referrer = $appYii->request->referrer ?? 'index';//跳转地址
+        if($id){
+            $model = $this->findModel($id);
+            /*获取目录的树形结构*/
+            $directoryStructureData = (new ResourceClass())->getDataForWhere();
+            $directoryStructureList = $this->TreeList($directoryStructureData);
+            return $this->render('update', [
+                'model' => $model,
+                'directoryStructureList' => $directoryStructureList,
+            ]);
+        }else{
+            $this->redirect($referrer);
+        }
+    }
 
     public function actionDelete()
     {
@@ -118,8 +166,27 @@ class ResourceController extends BackendController
 
     }
 
+    /**
+     * 编辑初始化查询数据
+     * @param $id
+     */
+    public function actionFind($id)
+    {
+        if($id){
+            $result = Resource::find()->where(['id' => $id])->asArray()->one();
+            if($result){
+                $return = [200,'',$result];
+            }else{
+                $return = [801];
+            }
+        }else{
+            $return = [802];
+        }
+        $this->ajaxReturn($return);
+    }
+
     public function actionPharmacy()
     {
-        echo '药店培训';
+        echo '药店培训首页';
     }
 }
