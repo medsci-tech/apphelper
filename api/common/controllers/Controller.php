@@ -61,8 +61,7 @@ class Controller extends ActiveController
                 $result = ['code' => 0,'message'=>'tocken已过期!请重新登录!','data'=>null];
                 exit(json_encode($result));
             }
-            $res = array_diff_assoc($mem,$data);
-    
+            $res = array_diff_assoc($mem,$data);    
             if($res)  // 授权认证失败
             {
                 $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
@@ -73,7 +72,7 @@ class Controller extends ActiveController
         }
         else
         {
-            $model= Member::findIdentityByAccessToken($access_token);
+            $model= \api\common\models\Member::findIdentityByAccessToken($access_token);
             if($model->id!=$uid)
             {
                 $result = ['code' => -1,'message'=>'tocken验证失败!','data'=>null];
