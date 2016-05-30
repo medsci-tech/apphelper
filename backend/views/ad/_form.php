@@ -34,8 +34,13 @@ use yii\widgets\ActiveForm;
         <button type="button" data-toggle="modal" class="btn btn-primary" id="select">选择资源</button>
     </div>
     <div class="form-group">
-        <?= $form->field($model, 'imgurl')->textInput(['maxlength' => true]) ?>
-        <button type="button" class="btn btn-primary">上传图片</button>
+        <label class="control-label">图片地址</label>
+        <?= $this->render('/webuploader/index',[
+            'name' => 'AD[imgurl]',
+            'imgMaxSize' => 2097152,/*文件限制2M*/
+            'uploadPath' => 'image/advertisement'
+        ]);?>
+        <div class="help-block"></div>
     </div>
     <?= $form->field($model, 'sort')->textInput(['maxlength' => true]) ?>
 

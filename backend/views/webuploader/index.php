@@ -15,8 +15,8 @@ $uploadPath = $uploadPath ?? 'images/exam';
 
 <div class="form-inline">
     <div class="form-group">
-        <input readonly type="text" class="form-control" data-toggle="upload-progressInput">
-        <input type="hidden" data-toggle="upload-saveInput" name="<?php echo $modelName;?>">
+        <input readonly id="txt_show" type="text" class="form-control" data-toggle="upload-progressInput">
+        <input id="txt_value" type="hidden" data-toggle="upload-saveInput" name="<?php echo $modelName;?>">
     </div>
     <button id="upload-promptzone" type="button" class="btn btn-warning">上传</button>
     <div class="form-group progress">
