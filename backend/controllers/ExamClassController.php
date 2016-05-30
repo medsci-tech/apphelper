@@ -220,6 +220,9 @@ class ExamClassController extends BackendController
                 }
             }
             return $this->redirect(['index']);
+        } else if('delete' == $params['type']) {
+
+            return $this->redirect(['index']);
         } else{
             return $this->redirect(['index']);
         }

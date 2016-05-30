@@ -78,6 +78,15 @@ class AdController extends BackendController
                     return $this->redirect(['index']);
                 }
             }
+        } else if('delete' == $params['mode']) {
+            $id = $params['aid'];
+            $model = $this->findModel($id);
+            print_r($model);
+            if($model)
+            {
+                $model->delete();
+            }
+            return $this->redirect(['index']);
         } else {
             return $this->redirect(['index']);
         }

@@ -27,7 +27,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
             <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
                 <span class="glyphicon glyphicon-edit"></span>修改
             </button>
-            <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
+            <button id="btnDelete" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
         </div>
         <div class="row">
             <?= $strHtml ?>
@@ -78,6 +78,15 @@ $js = <<<JS
             var title = '添加';
             $("#l_title").html(title);
             $("#mode").val('add');
+
+            $("#aid").val('');
+            $("#ad-sort").val('');
+            $("#txt_show").val('');
+            $("#txt_value").val('');
+            $("#ad-status").val('');
+            $("#ad-title").val('');
+            $("#attr_id").val('');
+            $("#attr_from").val('');
         });
 
         $('#btnEdit').click(function () {
@@ -87,11 +96,19 @@ $js = <<<JS
 
             $("#aid").val(aid);
             $("#ad-sort").val(sort);
-            $("#ad-imgurl").val(imgUrl);
+            $("#txt_show").val(imgUrl);
+            $("#txt_value").val(imgUrl);
             $("#ad-status").val(status);
             $("#ad-title").val(titles);
             $("#attr_id").val(attr_id);
             $("#attr_from").val(attr_from);
+        });
+
+        $('#btnDelete').click(function () {
+            $("#mode").val('delete');
+            $("#tableForm").submit();
+
+            $("#aid").val(aid);
         });
 
         $('#select').click(function(){
