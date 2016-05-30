@@ -29,7 +29,7 @@ $form = ActiveForm::begin([
         ]);?>
         <div class="help-block"></div>
     </div>
-    <?= $form->field($model, 'content')->textarea() ?>
+    <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 </div>
 <div class="modal-footer">
