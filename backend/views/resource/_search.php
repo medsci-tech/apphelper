@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'rid')->hiddenInput()->label(false) ?>
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
-    <?= Html::button('添加', ['class' => 'btn btn-success animation_select','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
+    <?= Html::a('添加', 'create', ['class' => 'btn btn-success']) ?>
     <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','data-toggle'=> 'disable']) ?>
     <?= Html::button('发布', ['class' => 'btn btn-info','data-toggle'=> 'isPub']) ?>
