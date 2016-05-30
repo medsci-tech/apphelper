@@ -118,8 +118,27 @@ class ResourceController extends BackendController
 
     }
 
+    /**
+     * 编辑初始化查询数据
+     * @param $id
+     */
+    public function actionFind($id)
+    {
+        if($id){
+            $result = Resource::find()->where(['id' => $id])->asArray()->one();
+            if($result){
+                $return = [200,'',$result];
+            }else{
+                $return = [801];
+            }
+        }else{
+            $return = [802];
+        }
+        $this->ajaxReturn($return);
+    }
+
     public function actionPharmacy()
     {
-        echo '药店培训';
+        echo '药店培训首页';
     }
 }

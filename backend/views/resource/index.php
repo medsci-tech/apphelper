@@ -97,8 +97,13 @@ backend\assets\AppAsset::register($this);
                             'update'=> function ($url, $model, $key) {
                                 $aHtml = '<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#formModal" data-toggle="modal"
                             data-id="'.$model->id.'"
+                            data-title="'.$model->title.'"
+                            data-rid="'.$model->rid.'"
+                            data-author="'.$model->author.'"
+                            data-rids="'.$model->rids.'"
+                            data-keyword="'.$model->keyword.'"
                             data-status="'.$model->status.'"
-                             ></span>';
+                             ></span><div class="hidden" data-toggle="data-content">'.$model->content.'</div>';
                                 return Html::a($aHtml);
                             },
                         ],
@@ -129,6 +134,7 @@ backend\assets\AppAsset::register($this);
 
 <?php
 $formUrl = \yii\helpers\Url::toRoute('form');
+$findUrl = \yii\helpers\Url::toRoute('find');
 $getError = $yiiApp->getSession()->getFlash('error');
 $getSuccess = $yiiApp->getSession()->getFlash('success');
 $js=<<<JS
@@ -172,9 +178,21 @@ $js=<<<JS
     /*修改题库*/
     $("span[name='saveData']").click(function(){
         var id = $(this).attr('data-id');
+        var title = $(this).attr('data-title');
+        var rid = $(this).attr('data-rid');
+        var author = $(this).attr('data-author');
+        var rids = $(this).attr('data-rids');
+        var keyword = $(this).attr('data-keyword');
+        var content = $(this).next('[data-toggle="data-content"]').html();
         var status = $(this).attr('data-status');
         
         $('#formModal #tableForm').attr('action','$formUrl?id='+id);
+        $('#formModal #resource-title').val(title);
+        $('#formModal #resource-rid').val(rid);
+        $('#formModal #resource-author').val(author);
+        $('#formModal #resource-rids').val(rids);
+        $('#formModal #resource-keyword').val(keyword);
+        $('#formModal #resource-content').val(content);
         $('#formModal #resource-status').val(status);
         
     });
@@ -182,11 +200,12 @@ $js=<<<JS
     $("#createBtn").click(function(){
         var defaltData = ''; 
         $('#formModal #tableForm').attr('action','$formUrl');
-        $('#formModal #resource-type').val(1);
-        $('#formModal #resource-category').val(defaltData);
-        $('#formModal #resource-question').val(defaltData);
+        $('#formModal #resource-title').val(defaltData);
+        $('#formModal #resource-rid').val(defaltData);
+        $('#formModal #resource-author').val(defaltData);
+        $('#formModal #resource-rids').val(defaltData);
         $('#formModal #resource-keyword').val(defaltData);
-        $('#formModal #resource-resolve').val(defaltData);
+        $('#formModal #resource-content').val(defaltData);
         $('#formModal #resource-status').val(1);
     });
 
