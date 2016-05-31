@@ -14,12 +14,13 @@ class AdminPlusAsset extends AssetBundle
     public $sourcePath = '@vendor/almasaeed2010/hplus';
     public $css = [
         'css/bootstrap.min14ed.css?v=3.3.6',
+        'css/plugins/chosen/chosen.css',
+        'css/plugins/sweetalert/sweetalert.css',
+        'css/plugins/toastr/toastr.min.css',
         'css/font-awesome.min93e3.css?v=4.4.0',
         'css/animate.min.css',
         'css/style.min862f.css?v=4.1.0',
-        'css/plugins/sweetalert/sweetalert.css',
         '/css/bootstrap-table.min.css',
-        'css/plugins/toastr/toastr.min.css',
     ];
     public $js = [
         'js/bootstrap.min.js?v=3.3.6',
@@ -36,6 +37,7 @@ class AdminPlusAsset extends AssetBundle
         '/js/jquery-common-mime-fun.js',
         'js/plugins/toastr/toastr.min.js',
         'js/plugins/webuploader/jquery.ajaxupload.js',
+        'js/plugins/chosen/chosen.jquery.js',
     ];
     public $depends = [
 /*        'rmrevin\yii\fontawesome\AssetBundle',
