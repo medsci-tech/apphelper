@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
             ]);?>
             <div class="help-block"></div>
         </div>
-
+        <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
         <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
         <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
