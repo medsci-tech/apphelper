@@ -7,7 +7,7 @@
  */
 
 namespace api\modules\v4\controllers;
-use api\common\models\{Exam,ExamLog,ExamLevel,Exercise};
+use api\common\models\{Exam,ExamLog,ExamLevel,Exercise,ExamClass};
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
@@ -107,7 +107,7 @@ class ExamController extends \api\common\controllers\Controller
         $examlog->exa_id =$id;
         $examlog->uid =$this->uid;
         $examlog->start_time = time();
-        $examlog->save();
+        $examlog->save();    
         /* 获取缓存试题列表 */
         $data = self::getExerciseById($id);
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
@@ -249,19 +249,31 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function getExerciseById($id)
     {
-        $data = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id),true);
-        if(!$data)
+        $data = Exam::find()->select(['exe_ids','type','total'])->where(['id'=>$id])->asArray()->one();
+        if($data['type']==0) // 自定义出题
         {
-            $data = Exam::find()->select(['exe_ids'])->where(['id'=>$id])->asArray()->one();
+            $cacheData = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
+            $cacheData = json_decode($cacheData,true);  
+            if($cacheData)
+                  return $cacheData;          
+        }       
+              //Yii::$app->cache->delete(Yii::$app->params['redisKey'][4].$id);       
+        if($data['type']==1) // 随机出题                  
+            $data =self:: randExam($id,$data['class_id'],$data['total']);
+        else // 自定义出题
+        {
             if($data['exe_ids'])
                 $exe_ids = explode (',', $data['exe_ids']);
 
-            $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids])->asArray()->all();
-            foreach($data as &$val)
-                $val['option'] = unserialize($val['option']);
-
-            Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表          
-        } 
+            $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids])->asArray()->all();           
+        }
+        
+        foreach($data as &$val)
+            $val['option'] = unserialize($val['option']);
+        
+        if($data['type']==0)
+            Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表 
+            
         return $data;      
     }
     
@@ -316,5 +328,41 @@ class ExamController extends \api\common\controllers\Controller
             $model = new ExamLog();
         return $model;
     }
-
+     /**
+     * 返回随机类型试卷题
+     * @author by lxhui
+     * @param $id 试卷id
+     * @param $class_id 分类id
+     * @param $total 出题总数
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function randExam($id,$class_id,$total)
+    {
+        $connection = \Yii::$app->db;
+        $table = Exercise::tableName();
+        $table='md_exercise';
+        $model = ExamClass::findOne($class_id);
+        $where = "t1.id >= t2.id";
+        if($class_id)
+        {
+            if($model->parent) 
+            {
+                $res = ExamClass::find()->select('id')->where(['parent'=>$model->id,'status'=>1])->asArray()->all();
+                $ids = ArrayHelper::getColumn($res, 'id');
+                $ids = implode(',',$ids);
+                $where.= " and t1.id in($ids)";
+            }
+            else
+                $where.= " and t1.id =".$model->id;  
+        }
+       
+        $sql ="SELECT t1.id,t1.type,t1.question,t1.option,t1.answer FROM $table AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM $table)-(SELECT MIN(id) FROM $table))+(SELECT MIN(id) FROM $table)) AS id) AS t2 WHERE $where  ORDER BY t1.id LIMIT $total";  
+     
+        $command = $connection->createCommand($sql);
+        $list = $command->queryAll();
+        return $list;
+    }
+    
 }
