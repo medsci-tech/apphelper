@@ -66,6 +66,7 @@ class ResourceController extends BackendController
             if($post['Resource']['imgurl']){
                 $model->imgurl = $post['Resource']['imgurl'];
             }
+            $model->rids = implode(',', array_unique($model->rids));
             $result = $model->save(false);
             if($result){
                 $return = ['success', '操作成功哦'];
@@ -85,9 +86,10 @@ class ResourceController extends BackendController
         /*获取目录的树形结构*/
         $directoryStructureData = (new ResourceClass())->getDataForWhere();
         $directoryStructureList = $this->TreeList($directoryStructureData);
-        return $this->render('create', [
+        return $this->render('update', [
             'model' => $model,
             'directoryStructureList' => $directoryStructureList,
+            'title' => '添加资源',
         ]);
     }
     public function actionUpdate($id)
@@ -96,12 +98,14 @@ class ResourceController extends BackendController
         $referrer = $appYii->request->referrer ?? 'index';//跳转地址
         if($id){
             $model = $this->findModel($id);
+            $model->rids = explode(',', $model->rids);
             /*获取目录的树形结构*/
             $directoryStructureData = (new ResourceClass())->getDataForWhere();
             $directoryStructureList = $this->TreeList($directoryStructureData);
             return $this->render('update', [
                 'model' => $model,
                 'directoryStructureList' => $directoryStructureList,
+                'title' => '编辑资源',
             ]);
         }else{
             $this->redirect($referrer);
