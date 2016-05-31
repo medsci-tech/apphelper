@@ -150,21 +150,21 @@ class ExamController extends \api\common\controllers\Controller
                 $i++; //统计正确回答题目
         }
         /* 保存考试记录 */
-        $model = new ExamLog();
+        $model = self::lastExam($id);
         $model->exa_id =$id;
         $model->status =1;
         $model->uid =$this->uid;
         $model->answer_ids = serialize($optionList);
         $model->answers =$i;
-        $model->start_time =time()-$times;
         $model->end_time =time();
         $model->save();
         /* 根据成绩计算等级 */
         $rate = intval($i/$exam_total)*100; //正确率     
         $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
-        $mins = intval( $times / 60 ); //分钟
-        $secs = $times % 60; //秒
-        $times = $mins.':'.$secs;
+        $mins = intval( $timeLeft / 60 ); //分钟
+        $secs = $timeLeft % 60; //秒
+        $times = $mins.':'.$secs;     
+        ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'level'=>$level]];
         return $result; 
     } 
@@ -216,7 +216,7 @@ class ExamController extends \api\common\controllers\Controller
         $data = json_decode($key,true);
         if(!$data)
         {
-            $data = ExamLog::find()->where(['uid'=>$this->uid,'status'=>1])->OrderBy(['id'=>SORT_DESC])->asArray()->one();
+            $data = ExamLog::find()->where(['uid'=>$this->uid,'status'=>1,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->asArray()->one();
             Yii::$app->cache->set($key,json_encode($data),2592000);   
         }
         return $data;
@@ -311,10 +311,9 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function lastExam($id)
     {
-        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0])->OrderBy(['id'=>SORT_DESC])->one();
-        if($model)
-            ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
-        
+        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->one();     
+        if(!$model)
+            $model = new ExamLog();
         return $model;
     }
 
