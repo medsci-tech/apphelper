@@ -102,6 +102,12 @@ class ExamController extends \api\common\controllers\Controller
     public function actionList()
     {
         $id = self::checkId();
+        /* 记录开始答题时间 */
+        $examlog = new ExamLog();
+        $examlog->exa_id =$id;
+        $examlog->uid =$this->uid;
+        $examlog->start_time = time();
+        $examlog->save();
         /* 获取缓存试题列表 */
         $data = self::getExerciseById($id);
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
@@ -120,18 +126,15 @@ class ExamController extends \api\common\controllers\Controller
         $id = self::checkId();
         $data = Exam::find()->select(['exe_ids','minutes'])->where(['id'=>$id])->asArray()->one();
         $max =$data['minutes']*60; //考试时间转秒
-        $times = $this->params['times'] ?? 0; // 考试总耗时
-        if(!$times)
-        {
-            $result = ['code' => -1,'message'=>'无法统计考试时间!','data'=>null];
-            return $result; 
-        }
        /* 检查考试时间是否过期 */
-        if($times>$max)
+        $lastModel = self::lastExam($id);
+        $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
+        if($timeLeft>$max) // 如果已经过期
         {
             $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
             return $result;
         }
+
         /* 处理提交试卷 */
         $exe_ids = explode (',', $data['exe_ids']); //题库id集合
         $examlist = self::getExerciseById($id); // 获取试卷所有题目
@@ -296,6 +299,23 @@ class ExamController extends \api\common\controllers\Controller
             }
         }
         return $level;
+    }
+    
+     /**
+     * 最后未提交的历史试卷
+     * @author by lxhui
+     * @param $id 试卷id
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function lastExam($id)
+    {
+        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0])->OrderBy(['id'=>SORT_DESC])->one();
+        if($model)
+            ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
+        
+        return $model;
     }
 
 }
