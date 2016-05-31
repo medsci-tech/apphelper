@@ -18,7 +18,9 @@ class Exam extends ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'name', 'minutes', 'exe_ids', 'uid', 'about', 'count', 'status', 'publish_status', 'recommend_status'], 'required'],
+            [['type', 'name', 'minutes', 'uid', 'about', 'count', 'status', 'publish_status', 'recommend_status'], 'required'],
+            [[ 'class_id', 'total'], 'integer'],
+            [[ 'imgurl'], 'string'],
         ];
     }
 
