@@ -48,7 +48,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="form-group" data-toggle="random-exam">
         <label class="control-label">考题目录</label>
-        <select class="form-control" name="Exam[exercise-class]">
+        <select class="form-control" name="Exam[class_id]">
             <?php
                 echo '<option selected="selected" value="">全部</option>';
             foreach ($examClassTree as $key => $val){
@@ -59,7 +59,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="form-group" data-toggle="random-exam">
         <label class="control-label">出题个数</label>
-        <input name="Exam[exercise-count]" type="text" class="form-control">
+        <input name="Exam[total]" id="exam-total" type="text" class="form-control">
     </div>
     <?= $form->field($model, 'about')->textarea() ?>
     <div class="form-group field-exercise-category required">
@@ -88,10 +88,6 @@ $form = ActiveForm::begin([
 
 <?php
 $js = <<<JS
-    
-    /*默认自定义出题*/
-    $('[data-toggle="random-exam"]').hide();
-    $('[data-toggle="custom-exam"]').show();
     
     /*删除试题*/
     $('#examListBody').on('click','.delThisOption',function() {

@@ -121,6 +121,8 @@ backend\assets\AppAsset::register($this);
                                 data-publish_status="' . $model->publish_status . '"
                                 data-recommend_status="' . $model->recommend_status . '"
                                 data-about="' . $model->about . '"
+                                data-class_id="' . $model->class_id . '"
+                                data-total="' . $model->total . '"
                                 data-exercise=' . $exerciseData . '
                                 data-examLevel=' . $examLevelData . '
                                 data-status="' . $model->status . '"
@@ -193,6 +195,8 @@ $js=<<<JS
         var about = $(this).attr('data-about');
         var exercise = JSON.parse($(this).attr('data-exercise'));
         var examLevelList = JSON.parse($(this).attr('data-examLevel'));
+        var total = $(this).attr('data-total');
+        var class_id = $(this).attr('data-class_id');
         var status = $(this).attr('data-status');
         /* 编辑初始化 */
         $('#formModal #tableForm').attr('action', '$formUrl?id='+id);
@@ -202,10 +206,22 @@ $js=<<<JS
         $('#formModal #exam-publish_status').val(publish_status);
         $('#formModal #exam-recommend_status').val(recommend_status);
         $('#formModal #exam-about').val(about);
+        $('#formModal #exam-class_id').val(class_id);
+        $('#formModal #exam-total').val(total);
         $('#formModal #exam-status').val(status);
         examEditForMime($('#examListBody'), exercise);
         examLevelEditForMime($('#examLevelListBody'), examLevelList, conditionExamLevel, rateExamLevel);
         uploadResultInit();
+        /*根据出题类别初始化出题*/
+        if(0 == type){
+            /*自定义出题*/
+            $('[data-toggle="random-exam"]').hide();
+            $('[data-toggle="custom-exam"]').show();
+        }else if(1 == type){
+            /*随机出题*/
+            $('[data-toggle="random-exam"]').show();
+            $('[data-toggle="custom-exam"]').hide();
+        }
     });
     /*添加题库初始化*/
     $("#createBtn").click(function(){
@@ -217,10 +233,15 @@ $js=<<<JS
         $('#formModal #exam-publish_status').val(defaltData);
         $('#formModal #exam-recommend_status').val(defaltData);
         $('#formModal #exam-about').val(defaltData);
+        $('#formModal #exam-class_id').val(defaltData);
+        $('#formModal #exam-total').val(defaltData);
         $('#formModal #exam-status').val(1);
         $('#examListBody').html(defaltData);
         examLevelInitForMime('#examLevelListBody', conditionExamLevel, rateExamLevel);
         uploadResultInit();
+        /*初始化自定义出题*/
+        $('[data-toggle="random-exam"]').hide();
+        $('[data-toggle="custom-exam"]').show();
     });
 	
 	examLevelEditForMime = function (asThis, list, conditionExamLevel, rateExamLevel) {
