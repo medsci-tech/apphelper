@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider */
 /* @var $params */
 $yiiApp = Yii::$app;
-$this->title = '自定义培训';
+$this->title = '药店培训';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $yiiApp->params;
 backend\assets\AppAsset::register($this);
@@ -27,7 +27,7 @@ backend\assets\AppAsset::register($this);
 <div class="modal-body col-lg-10">
     <div class="box box-success">
         <div class="box-body">
-            <?php echo $this->render('_search', ['model' => $searchModel, 'attr_type' => 1]); ?>
+            <?php echo $this->render('_search', ['model' => $searchModel, 'attr_type' => 0]); ?>
         </div>
     </div>
     <div class="box box-success">
@@ -52,6 +52,7 @@ backend\assets\AppAsset::register($this);
                     ],
                     ['class' => 'yii\grid\SerialColumn'],
                     'title',
+                    'hour',
                     'views',
                     'comments',
                     [
@@ -92,6 +93,11 @@ backend\assets\AppAsset::register($this);
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',
                         'template' => '{update}',//只需要展示删除和更新
+                        'buttons' => [
+                            'update'=> function ($url, $model, $key) {
+                                return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" ></span>','update_pha?id='.$model->id);
+                            }
+                        ]
 
                     ],
                 ],

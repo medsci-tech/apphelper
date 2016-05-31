@@ -15,7 +15,8 @@ class ResourceController extends BackendController
 {
 
     /**
-     * 自定义培训
+     * 自定义培训列表页
+     * @author zhaiyu
      * @return string
      */
     public function actionIndex()
@@ -23,16 +24,16 @@ class ResourceController extends BackendController
         $appYii = Yii::$app;
 
         /*带搜索的目录树形结构*/
-        $directoryStructureModel = new ResourceClass();
-        $directoryStructureSearch = $directoryStructureModel->recursionTree(0,['attr_type' => 1]);//获取自定义分类树形图
+        $resourceClassModel = new ResourceClass();
+        $directoryStructureSearch = $resourceClassModel->recursionTree(0,['attr_type' => 1]);//获取自定义分类树形图
         $treeNavigateSelected = [];
         if(isset($appYii->request->queryParams['Resource']['rid'])){
-            $treeNavigateSelected = $directoryStructureModel->getDataForWhere(['id' => $appYii->request->queryParams['Resource']['rid']]);
+            $treeNavigateSelected = $resourceClassModel->getDataForWhere(['id' => $appYii->request->queryParams['Resource']['rid']]);
         }
 
         /*条件查询*/
         $search = new ResourceSearch();
-        $dataProvider = $search->search($appYii->request->queryParams);
+        $dataProvider = $search->search($appYii->request->queryParams, 1);
 
         return $this->render('index', [
             'searchModel' => $search,
@@ -40,12 +41,28 @@ class ResourceController extends BackendController
             'directoryStructureSearch' => json_encode($directoryStructureSearch),
             'treeNavigateSelectedName' => $treeNavigateSelected[0]['name'] ?? '',
         ]);
-
     }
 
+    /**
+     * 自定义培训保存
+     * @author zhaiyu
+     */
     public function actionForm()
     {
         $post = Yii::$app->request->post();
+        $return = $this->CommonSave($post);
+        Yii::$app->getSession()->setFlash($return[0], $return[1]);
+        $this->redirect('index');
+    }
+
+    /**
+     * 培训保存公共方法
+     * @author zhaiyu
+     * @param $post
+     * @return array
+     */
+    public function CommonSave($post)
+    {
         if(isset($post['Resource']['id'])){
             //有id修改
             $id = $post['Resource']['id'];
@@ -76,22 +93,33 @@ class ResourceController extends BackendController
         }else{
             $return = ['error', '操作失败哦'];
         }
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        $this->redirect('index');
+        return $return;
     }
 
+    /**
+     * 自定义培训添加
+     * @author zhaiyu
+     * @return string
+     */
     public function actionCreate()
     {
         $model = new Resource();
         /*获取目录的树形结构*/
-        $directoryStructureData = (new ResourceClass())->getDataForWhere();
+        $directoryStructureData = (new ResourceClass())->getDataForWhere(['attr_type' => 1]);
         $directoryStructureList = $this->TreeList($directoryStructureData);
-        return $this->render('update', [
+        return $this->render('save_custom', [
             'model' => $model,
             'directoryStructureList' => $directoryStructureList,
-            'title' => '添加资源',
+            'title' => '自定义培训-添加',
         ]);
     }
+
+    /**
+     * 自定义培训修改
+     * @author zhaiyu
+     * @param $id
+     * @return string
+     */
     public function actionUpdate($id)
     {
         $appYii = Yii::$app;
@@ -100,18 +128,23 @@ class ResourceController extends BackendController
             $model = $this->findModel($id);
             $model->rids = explode(',', $model->rids);
             /*获取目录的树形结构*/
-            $directoryStructureData = (new ResourceClass())->getDataForWhere();
+            $directoryStructureData = (new ResourceClass())->getDataForWhere(['attr_type' => 1]);
             $directoryStructureList = $this->TreeList($directoryStructureData);
-            return $this->render('update', [
+            return $this->render('save_custom', [
                 'model' => $model,
                 'directoryStructureList' => $directoryStructureList,
-                'title' => '编辑资源',
+                'title' => '自定义培训-编辑',
             ]);
         }else{
             $this->redirect($referrer);
         }
     }
 
+    /**
+     * 培训删除
+     * @author zhaiyu
+     * @return \yii\web\Response
+     */
     public function actionDelete()
     {
         $appYii = Yii::$app;
@@ -151,7 +184,6 @@ class ResourceController extends BackendController
     /**
      * @param $id
      * @return null|static
-     * @throws NotFoundHttpException
      */
     protected function findModel($id)
     {
@@ -163,34 +195,88 @@ class ResourceController extends BackendController
     }
 
     /**
-     * @return mixed
+     * 药店培训列表页
+     * @author zhaiyu
+     * @return string
      */
-    public function actionView($id)
+    public function actionPharmacy()
     {
 
+        $appYii = Yii::$app;
+
+        /*带搜索的目录树形结构*/
+        $resourceClassModel = new ResourceClass();
+        $directoryStructureSearch = $resourceClassModel->recursionTree(0,['attr_type' => 0]);//获取药店分类树形图
+        $treeNavigateSelected = [];
+        if(isset($appYii->request->queryParams['Resource']['rid'])){
+            $treeNavigateSelected = $resourceClassModel->getDataForWhere(['id' => $appYii->request->queryParams['Resource']['rid']]);
+        }
+
+        /*条件查询*/
+        $search = new ResourceSearch();
+        $dataProvider = $search->search($appYii->request->queryParams, 0);
+
+        return $this->render('pharmacy', [
+            'searchModel' => $search,
+            'dataProvider' => $dataProvider,
+            'directoryStructureSearch' => json_encode($directoryStructureSearch),
+            'treeNavigateSelectedName' => $treeNavigateSelected[0]['name'] ?? '',
+        ]);
     }
 
     /**
-     * 编辑初始化查询数据
+     * 药店培训修改
+     * @author zhaiyu
      * @param $id
+     * @return string
      */
-    public function actionFind($id)
+    public function actionUpdate_pha($id)
     {
+        $appYii = Yii::$app;
+        $referrer = $appYii->request->referrer ?? 'index';//跳转地址
         if($id){
-            $result = Resource::find()->where(['id' => $id])->asArray()->one();
-            if($result){
-                $return = [200,'',$result];
-            }else{
-                $return = [801];
-            }
+            $model = $this->findModel($id);
+            $model->rids = explode(',', $model->rids);
+            /*获取目录的树形结构*/
+            $directoryStructureData = (new ResourceClass())->getDataForWhere(['attr_type' => 0]);
+            $directoryStructureList = $this->TreeList($directoryStructureData);
+            return $this->render('save_pharmacy', [
+                'model' => $model,
+                'directoryStructureList' => $directoryStructureList,
+                'title' => '药店培训-编辑',
+            ]);
         }else{
-            $return = [802];
+            $this->redirect($referrer);
         }
-        $this->ajaxReturn($return);
     }
 
-    public function actionPharmacy()
+    /**
+     * 药店培训添加
+     * @author zhaiyu
+     * @return string
+     */
+    public function actionCreate_pha()
     {
-        echo '药店培训首页';
+        $model = new Resource();
+        /*获取目录的树形结构*/
+        $directoryStructureData = (new ResourceClass())->getDataForWhere(['attr_type' => 0]);
+        $directoryStructureList = $this->TreeList($directoryStructureData);
+        return $this->render('save_pharmacy', [
+            'model' => $model,
+            'directoryStructureList' => $directoryStructureList,
+            'title' => '药店培训-添加',
+        ]);
+    }
+
+    /**
+     * 自定义培训保存
+     * @author zhaiyu
+     */
+    public function actionForm_pha()
+    {
+        $post = Yii::$app->request->post();
+        $return = $this->CommonSave($post);
+        Yii::$app->getSession()->setFlash($return[0], $return[1]);
+        $this->redirect('pharmacy');
     }
 }

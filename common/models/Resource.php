@@ -30,6 +30,7 @@ class Resource extends ActiveRecord {
                 'rid',
                 'rids',
                 'author',
+                'hour',
                 'keyword',
             ], 'required'],
             [[
