@@ -58,14 +58,15 @@ class ResourceClass extends \yii\db\ActiveRecord
 
     public function getDataForWhere($where = []){
         $where['status'] = 1;
-        $examClass = ExamClass::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
+        $examClass = $this::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
         return $examClass;
     }
 
     /*树形结构*/
     public function recursionTree($parent = 0, $where = []){
         $column = [];
-        $model = $this->getDataForWhere(['parent' => $parent]);
+        $where['parent'] = $parent;
+        $model = $this->getDataForWhere($where);
         if(is_array($model)){
             foreach ($model as $key => $val){
                 $column[$key]['id'] = $val['id'];

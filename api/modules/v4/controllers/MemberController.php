@@ -69,18 +69,8 @@ class MemberController extends \api\common\controllers\Controller
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
         else
-        {
-            $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][0].$this->uid);
-            if($data)
-            {
-                $data= json_decode($data,true);
-                unset($data['province']);
-                $data['province'] = $this->params['province'];
-                Yii::$app->cache->set(Yii::$app->params['redisKey'][0].$this->uid,json_encode($data),2592000); // 更新缓存
-            }
             $result = ['code' => 200,'message'=>'设置成功','data'=>null];
-        }
-
+       
         return $result;
     }
     /**

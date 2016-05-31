@@ -37,9 +37,11 @@ class ExamController extends BackendController
     public function actionForm()
     {
         $appYii = Yii::$app;
-        if(isset($appYii->request->get()['id'])){
+        $get = $appYii->request->get();
+        $post = $appYii->request->post();
+        if(isset($get['id'])){
             //有id修改
-            $id = $appYii->request->get()['id'];
+            $id = $get['id'];
             $model = $this->findModel($id);
             if(empty($model)){
                 $model = new Exam();
@@ -48,54 +50,27 @@ class ExamController extends BackendController
             //无id添加
             $model = new Exam();
         }
-        $model->load(['Exam' => $appYii->request->post()['Exam']]);
+        $model->load(['Exam' => $post['Exam']]);
         $isValid = $model->validate();
         if ($isValid) {
-            if(1 == $appYii->request->post()['Exam']['type']){
-                /*type=1随机分配试题*/
-                $exerciseClass = $appYii->request->post()['Exam']['exercise-class'];//自定义分配试题类别
-                $exerciseCount = $appYii->request->post()['Exam']['exercise-count'];//自定义分配试题题数
-                $examClassModel = new ExamClass();
-                if($exerciseClass){
-                    $examClassList = $examClassModel->getDataForWhere(['like', 'path', ',' . $exerciseClass . ',']);
-                }else{
-                    $examClassList = $examClassModel->getDataForWhere();
-                }
-                $examClassListId = [];
-                /*获取选中类别及其子类别*/
-                foreach ($examClassList as $key => $val){
-                    $examClassListId[] = $val['id'];
-                }
-                $exerciseModel = new Exercise;
-                $exerciseList = $exerciseModel->getDataForWhere(['category' => $examClassListId]);//相关类别下试题列表
-                $exam_id = [];
-                /*如果 相关类别下试题题数 大于或等于 自定义分配试题题数 随机选择相关类别下的题目，否则选择关类别下所有试题*/
-                if(count($exerciseList) >= $exerciseCount){
-                    shuffle($exerciseList);//打乱试题列表顺序
-                    for ($i = 0; $i < $exerciseCount; $i++){
-                        $exam_id[] = $exerciseList[$i]['id'];
-                    }
-                }else{
-                    foreach ($exerciseList as $key => $val){
-                        $exam_id[] =  $val['id'];
-                    }
-                }
-                $model->exe_ids = implode(',', $exam_id);
+            if(1 == $post['Exam']['type']){
+//                /*type=1随机分配试题*/
+                $model->exe_ids = '';
             }else{
                 /*type=0自定义分配试题*/
-                $model->exe_ids = implode(',', array_unique($model->exe_ids));
+                $model->exe_ids = implode(',', array_unique($post['Exam']['exe_ids']));
+                $model->class_id = null;
+                $model->total = '';
             }
             if(!isset($model->id)){
                 $model->created_at = time();
             }
-            if($appYii->request->post()['Exam']['imgurl']){
-                $model->imgurl = $appYii->request->post()['Exam']['imgurl'];
-            }
             $result = $model->save(false);
             if($result){
+                //评分规则
                 $examLevelModel = new ExamLevel();
                 $examLevelDel = [];
-                $examLevelRequest = $appYii->request->post()['ExamLevel'];
+                $examLevelRequest = $post['ExamLevel'];
                 if(is_array($examLevelRequest)){
                     $examLevelData = [];
                     $examLevelDel = $examLevelRequest['id'];

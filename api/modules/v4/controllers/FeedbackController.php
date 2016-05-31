@@ -38,7 +38,7 @@ class FeedbackController extends \api\common\controllers\Controller
     {
         $imageList = $this->params['imageList'] ?? '';
         $content = $this->params['content'] ?? '';
-        if(!$imageList || !$content)
+        if(!$imageList && !$content)
         {
             $result = ['code' => -1,'message'=>'请至少加点东西吧!','data'=>null];
             return $result; 

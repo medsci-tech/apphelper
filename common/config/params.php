@@ -9,6 +9,7 @@ return [
         '1' => 'ad_list_', // 广告轮播图缓存键名
         '2' => 'resource_view_', // 资源详情
         '3' => 'app_index_', // 首页
-
+        '4' => 'exam_list_', // 试卷试题
+        '5' => 'exam_analyze_', // 试卷解析
     ],
 ];

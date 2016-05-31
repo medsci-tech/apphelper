@@ -25,9 +25,28 @@ class Resource extends ActiveRecord {
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['status', 'rid', 'hour', 'uid', 'publish_status', 'recommend_status', 'comments', 'views'], 'integer'],
-            [['title','author','rids','keyword','imgurl','content','author'], 'string'],
+            [[
+                'title',
+                'rid',
+                'rids',
+                'author',
+                'keyword',
+            ], 'required'],
+            [[
+                'status',
+                'hour',
+                'uid',
+                'comments',
+                'views',
+            ], 'integer'],
+            [[
+                'title',
+                'author',
+                'keyword',
+                'imgurl',
+                'content',
+                'author',
+            ], 'string'],
         ];
     }
 

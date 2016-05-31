@@ -115,11 +115,6 @@ class SearchController extends \api\common\controllers\Controller
             else
               $data = null;  
         }        
-        $data=[
-           ['keyword'=>'甲状腺'],
-           ['keyword'=>'糖凝胶囊'],
-           ['keyword'=>'胰岛素'],
-          ];  // 临时测试   
         $result = ['code' => 200,'message'=>'关键词提醒','data'=>$data];
         return $result;
     }

@@ -22,14 +22,5 @@ return [
     'wxAppId' => 'wx2d5c95252ba671cf',
     'wxAppSecret' => 'af6059c4d91063fb73a0f9b51f0a34d4',
     'wxNonceStr' => 'hehe',
-    'redisKey' => [
-        '0' => 'tocken_uid_', // 授权验证
-        '1' => 'ad_list_', // 推荐缓存键名
-        '2' => 'ad_list_', // 药店缓存键名
-        '3' => 'ad_list_', // 广告轮播图缓存键名
-        '4' => 'ad_list_', // 广告轮播图缓存键名
-        '5' => 'ad_list_', // 广告轮播图缓存键名
-        '6' => 'collect_', // 收藏列表
-    ],
 
 ];

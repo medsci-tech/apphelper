@@ -1,5 +1,6 @@
 <?php
 return [
+    'wap.domain' => '',
     /*通用状态选项*/
     'statusOption' => [
         '1' => '启用',
