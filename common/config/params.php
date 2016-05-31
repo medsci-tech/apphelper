@@ -11,5 +11,7 @@ return [
         '3' => 'app_index_', // 首页
         '4' => 'exam_list_', // 试卷试题
         '5' => 'exam_analyze_', // 试卷解析
+        '6' => 'exam_rand_', // 随机试卷
+        '7' => 'exam_info_', // 试卷基础信息
     ],
 ];
