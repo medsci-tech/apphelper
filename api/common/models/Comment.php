@@ -33,4 +33,28 @@ class Comment extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    /**
+     * 根据条件获取数据列表
+     * @param array $where
+     * @param array $limit
+     * @param array $offset
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getDataForWhere($where = [], $offset = 0, $limit = 10){
+        $where['status'] = 1;
+        $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->all();
+        return $dataList;
+    }
+
+    /**
+     * 根据条件获取数据条数
+     * @param array $where
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getDataCountForWhere($where = []){
+        $where['status'] = 1;
+        $dataList = $this::find()->where($where)->count();
+        return $dataList;
+    }
 }
