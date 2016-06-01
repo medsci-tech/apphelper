@@ -34,6 +34,7 @@ use yii\widgets\ActiveForm;
     <?= Html::button('推荐', ['class' => 'btn btn-info','data-toggle'=> 'isRec']) ?>
     <?= Html::button('取消推荐', ['class' => 'btn btn-warning','data-toggle'=> 'noRec']) ?>
     <?= Html::button('批量删除', ['class' => 'btn btn-danger', 'data-toggle'=> 'del']) ?>
+    <?= Html::a('导出', $attr_type ? 'export' : 'export_pha', ['class' => 'btn btn-success']) ?>
     <?php ActiveForm::end(); ?>
 <?php
 $js = <<<JS
