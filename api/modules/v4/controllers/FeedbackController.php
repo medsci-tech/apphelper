@@ -43,8 +43,13 @@ class FeedbackController extends \api\common\controllers\Controller
             $result = ['code' => -1,'message'=>'请至少加点东西吧!','data'=>null];
             return $result; 
         }
-        foreach($imageList as $key => $val)
-            $imageList[$key] = Yii::$app->params['qiniu']['domain'].'/'.$val; // 完整地址
+        if($imageList)
+        {
+            foreach($imageList as $key => $val)
+                $imageList[$key] = Yii::$app->params['qiniu']['domain'].'/'.$val; // 完整地址  
+        }
+        else
+           $imageList=null; 
         
         $imageList = serialize($imageList);
         $model= new $this->modelClass();
