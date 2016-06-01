@@ -9,9 +9,9 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['rid', 'required','message' => '评论资源rid不能为空!'],
+            ['rid', 'required','message' => '评论对象rid不能为空!'],
             ['content', 'required','message' => '说点什么吧!'],
-                ['type', 'required'],
+            ['type', 'required'],
             [['rid', 'reply_to_uid','uid'], 'integer'],
             ['reply_to_uid', 'default', 'value' => 0],
             ['created_at', 'default', 'value' => time()],

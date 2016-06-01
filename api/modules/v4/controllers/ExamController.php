@@ -226,14 +226,12 @@ class ExamController extends \api\common\controllers\Controller
                 $val['isRight'] = true;
             else
                 $val['isRight'] = false;          
-            $val['donswer'] = $answer;
+            $val['doanswer'] = $answer;
             if($res['type']==1) 
                 $val['option'] = unserialize($val['option']);  
             
         }
-        
-        $comment = ['nickname' =>'哇哈哈','avatar'=>'http://1.jpg','title'=>'你好吗'];
-        $result = ['code' => 200,'message'=>'试题解析!','data'=>['list'=>$data,'comment'=>$comment]];
+        $result = ['code' => 200,'message'=>'试题解析!','data'=>  array_values($data)];
         return $result; 
     }
     /**
@@ -415,6 +413,8 @@ class ExamController extends \api\common\controllers\Controller
         $sql ="SELECT t1.id,t1.type,t1.question,t1.option,t1.answer FROM $table AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM $table)-(SELECT MIN(id) FROM $table))+(SELECT MIN(id) FROM $table)) AS id) AS t2 WHERE $where  ORDER BY t1.id LIMIT $total";  
         $command = $connection->createCommand($sql);
         $list = $command->queryAll();
+        if(!$list) 
+            return $this->randExam($id,$class_id,$total);
         return $list;
     } 
     /**
