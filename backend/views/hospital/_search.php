@@ -8,6 +8,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\fileupload\FileUpload;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
@@ -33,6 +34,12 @@ use yii\widgets\ActiveForm;
     <?= Html::button('查询', ['id'=>'btn_search','class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加单位', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
+    <?= FileUpload::widget([
+        'model' => $uploadModel,
+        'attribute' => 'file',
+        'url' => ['index'],
+    ]);?>
+    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
     <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-info']) ?>
     <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
     <?php ActiveForm::end(); ?>
