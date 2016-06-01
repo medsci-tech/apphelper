@@ -40,14 +40,17 @@ class ExamController extends \api\common\controllers\Controller
         $model = new $this->modelClass();
         $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1];
         $orderBy= [ 'publish_time' => SORT_DESC, 'created_at' => SORT_DESC];
-        $data = $model::find()->select(['id','name as title','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')))AS total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
+        $data = $model::find()->select(['id','name as title','minutes','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')))AS total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
         /*  查询历史考试记录  */
         if($data)
         {
             $ids = ArrayHelper::getColumn($data, 'id');//试卷id集合
             $examLog = new ExamLog();  
             foreach($data as &$val){
-                $where =['exa_id'=>$val['id']];//'uid'=>$this->uid 临时去掉便于测试
+                $maxTime = $val['minutes']*60; //最大时间
+                ExamLog::deleteAll('unix_timestamp(now())-start_time > :maxTime AND uid = :uid AND exa_id = :exa_id AND status=0', [':maxTime' => $maxTime,':uid' =>$this->uid,'exa_id'=>$val['id']]); //删除历史脏数据
+                
+                $where =['exa_id'=>$val['id'],'uid'=>$this->uid];
                 $log = $examLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where($where)->asArray()->one();//最后答题记录
                 if($log['status']==1)
                 {
@@ -435,5 +438,5 @@ class ExamController extends \api\common\controllers\Controller
         }
         return $data;
     }
-    
+ 
 }
