@@ -22,11 +22,16 @@ class Resource extends ResourceModel
         ];
     }
 
-    public function search($params)
+    public function search($params, $attr_type)
     {
         $this->load($params);
         $category = [];
-        $examClassFind = ResourceClass::find()->andFilterWhere(['like', 'path', ',' . $this->rid . ','])->asArray()->all();
+        if($this->rid){
+            $examClassFind = ResourceClass::find()->andFilterWhere(['like', 'path', ',' . $this->rid . ','])->asArray()->all();
+        }else{
+            $examClassFind = ResourceClass::find()->andFilterWhere(['attr_type' => $attr_type])->asArray()->all();
+        }
+//        $examClassFind = ResourceClass::find()->andFilterWhere(['like', 'path', ',' . $this->rid . ','])->asArray()->all();
         if(count($examClassFind) > 0){
             foreach ($examClassFind as $val){
                 $category[] = $val['id'];
