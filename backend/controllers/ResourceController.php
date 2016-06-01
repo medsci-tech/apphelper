@@ -7,7 +7,6 @@ use common\models\Resource;
 use common\models\ResourceClass;
 use common\models\User;
 use Yii;
-use yii\web\Cookie;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -51,12 +50,9 @@ class ResourceController extends BackendController
             $exportData[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
 
-        /*将数据存入cookie以便导出*/
-        $cookie = $appYii->response->cookies->add(new Cookie([
-            'name' => 'resourceDataExportToExcel',
-            'value' => json_encode($exportData),
-        ]));
-//var_dump($cookie);exit;
+        /*将数据存入cache以便导出*/
+        $appYii->cache->set('resourceDataExportToExcel',json_encode($exportData));
+
         return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
@@ -254,11 +250,8 @@ class ResourceController extends BackendController
             $exportData[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
 
-        /*将数据存入cookie以便导出*/
-        $appYii->response->cookies->add(new Cookie([
-            'name' => 'resourcePharmacyDataExportToExcel',
-            'value' => json_encode($exportData),
-        ]));
+        /*将数据存入cache以便导出*/
+        $appYii->cache->set('resourcePharmacyDataExportToExcel',json_encode($exportData));
 
         return $this->render('pharmacy', [
             'searchModel' => $search,
@@ -330,7 +323,7 @@ class ResourceController extends BackendController
      */
     public function actionExport(){
         $column = [
-            'title'=>['column'=>'A','name'=>'资源名','width'=>20],
+            'title'=>['column'=>'A','name'=>'资源名','width'=>30],
             'author'=>['column'=>'B','name'=>'作者','width'=>20],
             'views'=>['column'=>'C','name'=>'浏览次数','width'=>10],
             'comments'=>['column'=>'D','name'=>'评论次数','width'=>10],
@@ -347,12 +340,9 @@ class ResourceController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = Yii::$app->request->cookies->getValue('resourceDataExportToExcel');
-//        var_dump(json_decode($data, true));
-//        var_dump($data);
-//        exit;
+        $data = json_decode(Yii::$app->cache->get('resourceDataExportToExcel'),true);
         $excel = new ExcelController();
-        $excel->Export($config, $column, json_decode($data, true));
+        $excel->Export($config, $column, $data);
     }
 
     /**
@@ -362,7 +352,7 @@ class ResourceController extends BackendController
     public function actionExport_pha(){
         $column = [
             'title'=>
-                ['column'=>'A','name'=>'资源名','width'=>20],
+                ['column'=>'A','name'=>'资源名','width'=>30],
             'hour'=>
                 ['column'=>'B','name'=>'时长(分钟)','width'=>20],
             'author'=>
@@ -390,8 +380,8 @@ class ResourceController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = Yii::$app->request->cookies->getValue('resourcePharmacyDataExportToExcel');
+        $data = json_decode(Yii::$app->cache->get('resourcePharmacyDataExportToExcel'),true);
         $excel = new ExcelController();
-        $excel->Export($config, $column, json_decode($data, true));
+        $excel->Export($config, $column, $data);
     }
 }

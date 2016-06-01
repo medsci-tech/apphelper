@@ -9,7 +9,6 @@ use common\models\User;
 use Yii;
 use yii\base\Object;
 use yii\web\Controller;
-use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use common\models\Upload;
 use yii\web\UploadedFile;
@@ -58,10 +57,9 @@ class MemberController extends BackendController
             $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
             $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
-        $appYii->response->cookies->add(new Cookie([
-            'name' => 'memberDataExportToExcel',
-            'value' => json_encode($dataArray),
-        ]));
+
+        /*将数据存入cache以便导出*/
+        $appYii->cache->set('memberDataExportToExcel',json_encode($dataArray));
 
         return $this->render('index', [
             'searchModel' => $searchMember,
@@ -269,9 +267,10 @@ class MemberController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = Yii::$app->request->cookies->getValue('memberDataExportToExcel');
+
+        $data = json_decode(Yii::$app->cache->get('memberDataExportToExcel'),true);
         $excel = new ExcelController();
-        $excel->Export($config, $column, json_decode($data, true));
+        $excel->Export($config, $column, $data);
     }
 
 
