@@ -45,13 +45,10 @@ class ExamController extends \api\common\controllers\Controller
         if($data)
         {
             $ids = ArrayHelper::getColumn($data, 'id');//试卷id集合
-            $examLog = new ExamLog();  
             foreach($data as &$val){
-                $maxTime = $val['minutes']*60; //最大时间
-                ExamLog::deleteAll('unix_timestamp(now())-start_time > :maxTime AND uid = :uid AND exa_id = :exa_id AND status=0', [':maxTime' => $maxTime,':uid' =>$this->uid,'exa_id'=>$val['id']]); //删除历史脏数据
-                
+                $maxTime = $val['minutes']*60; //最大时间       
                 $where =['exa_id'=>$val['id'],'uid'=>$this->uid];
-                $log = $examLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where($where)->asArray()->one();//最后答题记录
+                $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where($where)->asArray()->one();//最后答题记录
                 if($log['status']==1)
                 {
                     /* 根据成绩计算等级 */
@@ -64,6 +61,7 @@ class ExamController extends \api\common\controllers\Controller
                 {
                    if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
                    {
+                        ExamLog::deleteAll('uid = :uid AND exa_id = :exa_id AND status=0 AND unix_timestamp(now())-start_time > :maxTime', [':uid' =>$this->uid,'exa_id'=>$val['id'],':maxTime' => $maxTime]); //删除历史脏数据  
                         $val['labelName']='进行中';
                         $val['labelValue']= null;
                    } 
