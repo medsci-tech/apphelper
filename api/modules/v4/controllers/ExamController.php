@@ -245,7 +245,7 @@ class ExamController extends \api\common\controllers\Controller
     private function history($id)
     {
         $key = Yii::$app->params['redisKey'][5].$id.'_'.$this->uid;
-        $data = json_decode($key,true);
+        $data = json_decode(Yii::$app->cache->get($key),true);
         if(!$data)
         {
             $data = ExamLog::find()->where(['uid'=>$this->uid,'status'=>1,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->asArray()->one();
