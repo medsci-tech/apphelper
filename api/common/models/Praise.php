@@ -10,8 +10,8 @@ class Praise extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['to_uid','c_id','uid'], 'required'],
-            [['c_id'], 'required', 'message' => '评论id不能为空!'],
+            [['to_uid','id','uid'], 'required'],
+            [['id'], 'required', 'message' => '评论id不能为空!'],
             [['to_uid'], 'required', 'message' => '被点赞用户id不能为空!'],    
             ['to_uid', 'validatePraise'],
         ];
@@ -33,13 +33,13 @@ class Praise extends \yii\db\ActiveRecord
         }
     }
     /**
-     * Finds user by [[c_id,uid,to_uid]]
+     * Finds user by [[id,uid,to_uid]] 验证是否被点赞
      *
      * @return User|null
      */
     public function getUser()
     {
-        return $this::find()->where(['c_id'=>$this->c_id,'to_uid'=>$this->to_uid,'uid'=>$this->uid])->one();
+        return $this::find()->where(['id'=>$this->id,'to_uid'=>$this->to_uid,'uid'=>$this->uid])->one();
     }
     /**
      * save clicks 点赞
@@ -56,11 +56,5 @@ class Praise extends \yii\db\ActiveRecord
         return true;
     }
     
-    public function afterSave($insert)
-    {
-        parent::afterSave($insert);
-        /* 更新评论点赞数 */
-       
-    }
 }
 
