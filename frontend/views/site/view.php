@@ -51,26 +51,37 @@
         <div class="article_details"><?= $data['content'] ?></div>
     </div>
 </div>
+<input type="hidden" id="txt_value">
 </body>
 </html>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
-$(function(){
-    var imgList = $('img');
-    var imgArray = [];
-    for(var i = 0; i < imgList.length; i++){
-        imgList.eq(i).attr('data-position',i);
-        imgArray[i] = imgList.eq(i).attr('src');
-    }
-    $('img').click(function(){
-        var position = $(this).attr('data-position');
-        var jsonString = {
-              "imageList": imgArray,
-              "position": position
-        };
-        console.log(jsonString);
-        window.Client.showImage(jsonString);
+    var temp = null;
+    $(function(){
+        var imgList = $('img');
+        var imgArray = [];
+        for(var i = 0; i < imgList.length; i++){
+            imgList.eq(i).attr('data-position',i);
+            imgArray[i] = imgList.eq(i).attr('src');
+        }
+        $('img').click(function(){
+            var position = $(this).attr('data-position');
+            var jsonString = {
+                "imageList": imgArray,
+                "position": position
+            };
+            temp = jsonString;
+            console.log(jsonString);
+//            $("#txt_value").val(jsonString);
+//            window.Client.showImage(jsonString);
+            appCallJs();
+        });
     });
-});
 
+    function appCallJs(){
+        var jsonString = JSON.stringify(temp);
+        console.log(111);
+        console.log(jsonString);
+        Client.showImage(jsonString);
+    }
 </script>
