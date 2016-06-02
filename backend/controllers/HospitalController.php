@@ -64,17 +64,22 @@ class HospitalController extends BackendController
 //            var_dump($val->province); exit;
             $dataArray[$key]['id'] = $val->id;
             $dataArray[$key]['name'] = $val->name;
-            $dataArray[$key]['province'] = $val->province_id;
-            $dataArray[$key]['city'] = $val->city_id;
-            $dataArray[$key]['area'] = $val->area_id;
+            $dataArray[$key]['province_id'] = $val->province_id;
+            $dataArray[$key]['province'] = $val->province;
+            $dataArray[$key]['city_id'] = $val->city_id;
+            $dataArray[$key]['city'] = $val->city;
+            $dataArray[$key]['area_id'] = $val->area_id;
+            $dataArray[$key]['area'] = $val->area;
             $dataArray[$key]['address'] = $val->address;
             $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
         }
 
-        $appYii->response->cookies->add(new Cookie([
-            'name' => 'hospitalDataExportToExcel',
-            'value' => json_encode($dataArray),
-        ]));
+        /*将数据存入cache以便导出*/
+        $appYii->cache->set('hospitalDataExportToExcel',json_encode($dataArray));
+//        $appYii->response->cookies->add(new Cookie([
+//            'name' => 'hospitalDataExportToExcel',
+//            'value' => json_encode($dataArray),
+//        ]));
 
         return $this->render('index', [
             'model' => new Hospital(),
@@ -175,11 +180,14 @@ class HospitalController extends BackendController
         $column = [
             'id'=>['column'=>'A','name'=>'编号','width'=>10],
             'name'=>['column'=>'B','name'=>'单位名称','width'=>30],
-            'province'=>['column'=>'C','name'=>'省份','width'=>10],
-            'city'=>['column'=>'D','name'=>'城市','width'=>10],
-            'area'=>['column'=>'E','name'=>'县区','width'=>10],
-            'address'=>['column'=>'F','name'=>'地址','width'=>50],
-            'status'=>['column'=>'G','name'=>'状态','width'=>10],
+            'province_id'=>['column'=>'C','name'=>'省份编码','width'=>10],
+            'province'=>['column'=>'D','name'=>'省份','width'=>10],
+            'city_id'=>['column'=>'E','name'=>'城市编码','width'=>10],
+            'city'=>['column'=>'F','name'=>'城市','width'=>10],
+            'area_id'=>['column'=>'G','name'=>'县区编码','width'=>10],
+            'area'=>['column'=>'H','name'=>'县区','width'=>10],
+            'address'=>['column'=>'I','name'=>'地址','width'=>50],
+            'status'=>['column'=>'J','name'=>'状态','width'=>10],
         ];
         $config = [
             'fileName' => '用户数据导出-' . date('YmdHis'),
@@ -187,7 +195,7 @@ class HospitalController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = Yii::$app->request->cookies->getValue('hospitalDataExportToExcel');
+        $data = Yii::$app->cache->get('hospitalDataExportToExcel');
 //        var_dump(json_decode($data, true));exit;
         $excel = new ExcelController();
         $excel->Export($config, $column, json_decode($data, true));
