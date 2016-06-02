@@ -33,7 +33,6 @@ class CommentController extends \api\common\controllers\Controller
      * @author by zhaiyu
      * @startDate 20160601
      * @upDate 20160601
-     * @param
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
      * @return array
      */
@@ -44,113 +43,171 @@ class CommentController extends \api\common\controllers\Controller
         $type =$this->params['type']; // type 区分是试题还是资源
         $rid = $this->params['id']; // 资源或试题id
         $uid = $this->params['uid']; //登陆用户id
-        //limit条件
-        $page = intval($this->params['page']); // 资源或试题id
-        $page = $page > 0 ? $page : 1; // 资源或试题id
-        $size = 10; // 每页显示条数
-        $start = ($page - 1) * $size; // 资源或试题id
-        if(!$type || !$rid)
-        {
-            $result = ['code' => -1,'message'=>'type or id 不能为空!','data'=>null];
-            return $result;
-        }
-        $where = [
-            'type' => $type,
-            'rid' => $rid,
-        ];
-        $dataList = $model->getDataForWhere($where, $start, $size);
-        $dataCount = $model->getDataCountForWhere($where);
-        $data = [];
-        foreach($dataList as $key =>$val){
-            if($val->uid){
-                //用户相关
-                $member = Member::findByUid($val->uid);
-                $data[$key]['nickname'] = $member->nickname;//有问题
-                $data[$key]['avatar'] = $member->avatar;
-                //培训试题相关
-                $commentsData = [];
-                if('resource' == $val->type){
-                    $commentsData = Resource::find($val->rid)->one();
-                }elseif('exercise' == $val->type){
-                    $commentsData = Exercise::find($val->rid)->one();
-                }
-                $data[$key]['comments'] = $commentsData->comments;//评论次数
-                //点赞相关
-                $praiseCount = Praise::find($val->id)->count();
-                $isPraise = Praise::find()->where(['id' => $val->id, 'uid' => $uid])->one();
-                $data[$key]['praise'] = $praiseCount;//点赞数
-                $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
-                //评论相关
-                $data[$key]['content'] = $val->content;//内容
-                $data[$key]['type'] = $val->type;//类型
-                $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
-            }
-        }
-        if($dataCount < $page * $size){
-            $isLastPage = true;
+        if(!$type || !$rid){
+            $return = ['code' => -1,'message'=>'type or id 不能为空!','data'=>null];
         }else{
-            $isLastPage = false;
+            $where = [
+                'type' => $type,
+                'rid' => $rid,
+                'cid' => 0,
+            ];
+            //limit条件
+            $page = intval($this->params['page']); // 资源或试题id
+            $page = $page > 0 ? $page : 1; // 资源或试题id
+            $size = 10; // 每页显示条数
+            $start = ($page - 1) * $size; // 资源或试题id
+            //orderBy排序
+            $orderByParams = $this->params['orderBy'];
+            $orderBy = [];
+            if('hot' == $orderByParams){
+                $orderBy['comments'] = SORT_DESC;
+            }
+            $dataList = $model->getDataForWhere($where, $start, $size, $orderBy);//查询评论列表
+            $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
+            $data = [];
+            foreach($dataList as $key =>$val){
+                if($val->uid){
+                    //用户相关
+                    $member = Member::findOne($val->uid);
+                    $data[$key]['nickname'] = $member->oldAttributes['nickname'];
+                    $data[$key]['avatar'] = $member->avatar;
+                    //点赞相关
+                    $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
+                    $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
+                    $data[$key]['praise'] = $praiseCount;//点赞数
+                    $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
+                    //评论相关
+                    $data[$key]['id'] = $val->id;//内容
+                    $data[$key]['content'] = $val->content;//内容
+                    $data[$key]['type'] = $val->type;//类型
+                    $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
+                    $data[$key]['comments'] = $val->comments;//评论次数
+                }
+            }
+            if($dataCount < $page * $size){
+                $isLastPage = true;
+            }else{
+                $isLastPage = false;
+            }
+            $return = [
+                'code' => 200,
+                'message' => '评论一级列表',
+                'data'=>[
+                    'isLastPage' => $isLastPage,
+                    'list' => $data,
+                ],
+            ];
         }
-        $result = [
-            'code' => 200,
-            'message' => '评论列表',
-            'data'=>[
-                'isLastPage' => $isLastPage,
-                'list' => $data,
-            ]
-        ];
-        return $result;
+        return $return;
     }
 
     /**
      * 查看某个评论下的所有回复通用接口
-     * @author by lxhui
-     * @version [2010-05-31]
-     * @param array $params additional parameters
+     * @author by zhaiyu
+     * @startDate 20160601
+     * @upDate 20160601
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     * @return array
      */
     public function actionList()
     {
-        $model = new $this->modelClass();
-        $type =$this->params['type']; // type 区分是试题还是资源
-        $id = $this->params['id']; // 评论id
-        if(!$type || !$id)
-        {
-            $result = ['code' => -1,'message'=>'type or id 不能为空!','data'=>null];
-            return $result;
+        $model = new Comment();
+        //where条件
+        $cid = $this->params['cid']; // 资源或试题id
+        $uid = $this->params['uid']; //登陆用户id
+        if(!$cid){
+            $return = ['code' => -1,'message'=>'id 不能为空!','data'=>null];
+        }else{
+            $where = [
+                'cid' => $cid,
+            ];
+            //limit条件
+            $page = intval($this->params['page']); // 资源或试题id
+            $page = $page > 0 ? $page : 1; // 资源或试题id
+            $size = 10; // 每页显示条数
+            $start = ($page - 1) * $size; // 资源或试题id
+            //orderBy排序
+            $dataList = $model->getDataForWhere($where, $start, $size);//查询评论列表
+            $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
+            $data = [];
+            foreach($dataList as $key =>$val){
+                if($val->uid){
+                    //用户相关
+                    $member = Member::findOne($val->uid);
+                    $data[$key]['nickname'] = $member->oldAttributes['nickname'];
+                    $data[$key]['avatar'] = $member->avatar;
+                    //点赞相关
+                    $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
+                    $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
+                    $data[$key]['praise'] = $praiseCount;//点赞数
+                    $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
+                    //评论相关
+                    $data[$key]['id'] = $val->id;//内容
+                    $data[$key]['content'] = $val->content;//内容
+                    $data[$key]['type'] = $val->type;//类型
+                    $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
+                    $data[$key]['comments'] = $val->comments;//评论次数
+                }
+            }
+            if($dataCount < $page * $size){
+                $isLastPage = true;
+            }else{
+                $isLastPage = false;
+            }
+            $return = [
+                'code' => 200,
+                'message' => '评论二级列表',
+                'data'=>[
+                    'isLastPage' => $isLastPage,
+                    'list' => $data,
+                ],
+            ];
         }
-        /* 查找$id下的评论列表（这里二级会有嵌套回复的形式，请考虑接口组装） */
-        $data=[
-            ['id'=>'101','nickname'=> '哇哈哈','content'=> '普安药店员工收银服务指导说明','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'111','praise'=>'110','created_at'=>'2012-12-12','type'=> 'exam'],
-            ['id'=>'102','nickname'=> '哇哈哈2','content'=> '缺铁性贫血及推荐用药2','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'112','praise'=>'56','created_at'=>'2012-12-12','type'=> 'exam'],
-            ['id'=>'103','nickname'=> '哇哈哈3','content'=> '缺铁性贫血及推荐用药3','avatar'=>'http://qiuniu.up.com/13.jpg','comments'=>'124','praise'=>'99','created_at'=>'2012-12-12','type'=> 'resource'],
-            ['id'=>'104','nickname'=> '哇哈哈4','content'=> '缺铁性贫血及推荐用药4','avatar'=>'http://qiuniu.up.com/22.jpg','comments'=>'33','praise'=>'89','created_at'=>'2012-12-12','type'=> 'resource'],
-            ['id'=>'211','nickname'=> '哇哈哈5','content'=> '缺铁性贫血及推荐用药dd','avatar'=>'http://qiuniu.up.com/34.jpg','comments'=>'56','praise'=>'67','created_at'=>'2012-12-12','type'=> 'resource'],
-
-        ];
-        $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>true,'list'=>$data]];
-
-        return $result;
+        return $return;
     }
+
     /**
      * 提交评论
      * @author by lxhui
      * @version [2010-05-31]
-     * @param array $params additional parameters
+     * @editor zhaiyu
+     * @upDate 20160602
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     * @return array
      */
     public function actionSave()
     {
         $model = new $this->modelClass();
         $model->load($this->params, '');
-        if(!$response = $model->saves())
-        {
+        $result = $model->saves();
+        if($result){
+            if($result->cid){
+                $this->AddCommentCount($result->cid);
+            }
+            $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
+        }else{
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
-        else
-            $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
         return $result;
+    }
+
+    /**
+     * 递归添加评论数
+     * @author by zhaiyu
+     * @startDate 20160602
+     * @upDate 20160602
+     * @param $cid
+     */
+    public function AddCommentCount($cid){
+        $model = Comment::findOne($cid);
+        if($model){
+            $model->comments += 1;
+            $model->save(false);
+            if($model->cid){
+                $this->AddCommentCount($model->cid);
+            }
+        }
     }
 
 }
