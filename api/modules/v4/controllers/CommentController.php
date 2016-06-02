@@ -44,13 +44,7 @@ class CommentController extends \api\common\controllers\Controller
         $type =$this->params['type']; // type 区分是试题还是资源
         $rid = $this->params['id']; // 资源或试题id
         $uid = $this->params['uid']; //登陆用户id
-        //limit条件
-        $page = intval($this->params['page']); // 资源或试题id
-        $page = $page > 0 ? $page : 1; // 资源或试题id
-        $size = 10; // 每页显示条数
-        $start = ($page - 1) * $size; // 资源或试题id
-        if(!$type || !$rid)
-        {
+        if(!$type || !$rid){
             $result = ['code' => -1,'message'=>'type or id 不能为空!','data'=>null];
             return $result;
         }
@@ -58,32 +52,37 @@ class CommentController extends \api\common\controllers\Controller
             'type' => $type,
             'rid' => $rid,
         ];
-        $dataList = $model->getDataForWhere($where, $start, $size);
-        $dataCount = $model->getDataCountForWhere($where);
+        //limit条件
+        $page = intval($this->params['page']); // 资源或试题id
+        $page = $page > 0 ? $page : 1; // 资源或试题id
+        $size = 10; // 每页显示条数
+        $start = ($page - 1) * $size; // 资源或试题id
+        //orderBy排序
+        $orderByParams = $this->params['orderBy'];
+        $orderBy = [];
+        if('hot' == $orderByParams){
+            $orderBy['comments'] = SORT_DESC;
+        }
+        $dataList = $model->getDataForWhere($where, $start, $size, $orderBy);//查询评论列表
+        $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
         $data = [];
         foreach($dataList as $key =>$val){
             if($val->uid){
                 //用户相关
-                $member = Member::findByUid($val->uid);
-                $data[$key]['nickname'] = $member->nickname;//有问题
+                $member = Member::findOne($val->uid);
+                $data[$key]['nickname'] = $member->oldAttributes['nickname'];
                 $data[$key]['avatar'] = $member->avatar;
-                //培训试题相关
-                $commentsData = [];
-                if('resource' == $val->type){
-                    $commentsData = Resource::find($val->rid)->one();
-                }elseif('exercise' == $val->type){
-                    $commentsData = Exercise::find($val->rid)->one();
-                }
-                $data[$key]['comments'] = $commentsData->comments;//评论次数
                 //点赞相关
                 $praiseCount = Praise::find($val->id)->count();
-                $isPraise = Praise::find()->where(['id' => $val->id, 'uid' => $uid])->one();
+                $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
                 $data[$key]['praise'] = $praiseCount;//点赞数
                 $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
                 //评论相关
+                $data[$key]['id'] = $val->id;//内容
                 $data[$key]['content'] = $val->content;//内容
                 $data[$key]['type'] = $val->type;//类型
                 $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
+                $data[$key]['comments'] = $val->comments;//评论次数
             }
         }
         if($dataCount < $page * $size){
@@ -143,13 +142,20 @@ class CommentController extends \api\common\controllers\Controller
     {
         $model = new $this->modelClass();
         $model->load($this->params, '');
-        if(!$response = $model->saves())
-        {
+        $result = $model->saves();
+        if($result){
+            if($result->cid){
+                $comment = Comment::findOne($result->cid);
+                if($comment){
+                    $comment->comments += 1;
+                    $comment->save(false);
+                }
+            }
+            $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
+        }else{
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
-        else
-            $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
         return $result;
     }
 
