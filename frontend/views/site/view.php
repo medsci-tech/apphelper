@@ -69,12 +69,8 @@ $(function(){
               "position": position
         };
         console.log(jsonString);
-        showImage(jsonString);
+        window.Client.showImage(jsonString);
     });
 });
 
-
-function showImage(jsonString) {
-    Client.showImage(jsonString);
-}
 </script>
