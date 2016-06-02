@@ -42,7 +42,7 @@ class CommentController extends \api\common\controllers\Controller
         //where条件
         $type =$this->params['type']; // type 区分是试题还是资源
         $rid = $this->params['id']; // 资源或试题id
-        $uid = $this->params['uid']; //登陆用户id
+        $uid = $this->uid; 
         if(!$type || !$rid){
             $return = ['code' => -1,'message'=>'type or id 不能为空!','data'=>null];
         }else{
@@ -114,7 +114,7 @@ class CommentController extends \api\common\controllers\Controller
         $model = new Comment();
         //where条件
         $cid = $this->params['cid']; // 资源或试题id
-        $uid = $this->params['uid']; //登陆用户id
+        $uid = $this->uid; //登陆用户id
         if(!$cid){
             $return = ['code' => -1,'message'=>'id 不能为空!','data'=>null];
         }else{
