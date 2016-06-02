@@ -37,13 +37,15 @@ class Comment extends \yii\db\ActiveRecord
     /**
      * 根据条件获取数据列表
      * @param array $where
-     * @param array $limit
-     * @param array $offset
+     * @param int $offset
+     * @param int $limit
+     * @param string $orderBy
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function getDataForWhere($where = [], $offset = 0, $limit = 10){
+    public function getDataForWhere($where = [], $offset = 0, $limit = 10, $orderBy = ''){
         $where['status'] = 1;
-        $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->all();
+        $orderBy['id'] = SORT_DESC;
+        $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->orderBy($orderBy)->all();
         return $dataList;
     }
 
