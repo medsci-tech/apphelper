@@ -68,10 +68,13 @@ $(function(){
               "imageList": imgArray,
               "position": position
         };
+        console.log(jsonString);
         showImage(jsonString);
     });
 });
-    function showImage(jsonString) {
-       Client.showImage(jsonString);
-    }
+
+
+function showImage(jsonString) {
+    Client.showImage(jsonString);
+}
 </script>
