@@ -62,10 +62,10 @@ class CommentController extends \api\common\controllers\Controller
             ['id'=>'101','nickname'=> '哇哈哈','content'=> '普安药店员工收银服务指导说明','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'111','praise'=>'110','created_at'=>'2012-12-12','type'=> 'exam','isPraise'=>false,
                 'replys'=>$reply1
                 ],
-            ['id'=>'102','nickname'=> '哇哈哈2','content'=> '缺铁性贫血及推荐用药2','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'112','praise'=>'56','created_at'=>'2012-12-12','type'=> 'exam','isPraise'=>false,],
+            ['id'=>'102','nickname'=> '哇哈哈2','content'=> '缺铁性贫血及推荐用药2','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'112','praise'=>'56','created_at'=>'2012-12-12','type'=> 'exam','isPraise'=>false,'replys'=>null],
             ['id'=>'103','nickname'=> '哇哈哈3','content'=> '缺铁性贫血及推荐用药3','avatar'=>'http://qiuniu.up.com/13.jpg','comments'=>'124','praise'=>'99','created_at'=>'2012-12-12','type'=> 'resource', 'replys'=>$reply2],
-            ['id'=>'104','nickname'=> '哇哈哈4','content'=> '缺铁性贫血及推荐用药4','avatar'=>'http://qiuniu.up.com/22.jpg','comments'=>'33','praise'=>'89','created_at'=>'2012-12-12','type'=> 'resource','isPraise'=>false,],
-            ['id'=>'211','nickname'=> '哇哈哈5','content'=> '缺铁性贫血及推荐用药dd','avatar'=>'http://qiuniu.up.com/34.jpg','comments'=>'56','praise'=>'67','created_at'=>'2012-12-12','type'=> 'resource','isPraise'=>false,],
+            ['id'=>'104','nickname'=> '哇哈哈4','content'=> '缺铁性贫血及推荐用药4','avatar'=>'http://qiuniu.up.com/22.jpg','comments'=>'33','praise'=>'89','created_at'=>'2012-12-12','type'=> 'resource','isPraise'=>false,'replys'=>null],
+            ['id'=>'211','nickname'=> '哇哈哈5','content'=> '缺铁性贫血及推荐用药dd','avatar'=>'http://qiuniu.up.com/34.jpg','comments'=>'56','praise'=>'67','created_at'=>'2012-12-12','type'=> 'resource','isPraise'=>false, 'replys'=>null],
 
         ];
         $result = ['code' => 200,'message'=>'评论列表','data'=>['isLastPage'=>true,'list'=>$data]];
@@ -110,9 +110,9 @@ class CommentController extends \api\common\controllers\Controller
         $data=[
             ['id'=>'101','nickname'=> '哇哈哈','content'=> '普安药店员工收银服务指导说明','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'111','praise'=>'110','created_at'=>'2012-12-12','type'=> 'exam','praise'=>'156','isPraise'=>false, 'replys'=>$reply1],
             ['id'=>'102','nickname'=> '哇哈哈2','content'=> '缺铁性贫血及推荐用药2','avatar'=>'http://qiuniu.up.com/12.jpg','comments'=>'112','praise'=>'56','created_at'=>'2012-12-12','type'=> 'exam','praise'=>'156','isPraise'=>false, 'replys'=>$reply2],
-            ['id'=>'103','nickname'=> '哇哈哈3','content'=> '缺铁性贫血及推荐用药3','avatar'=>'http://qiuniu.up.com/13.jpg','comments'=>'124','praise'=>'99','created_at'=>'2012-12-12','type'=> 'resource'],
-            ['id'=>'104','nickname'=> '哇哈哈4','content'=> '缺铁性贫血及推荐用药4','avatar'=>'http://qiuniu.up.com/22.jpg','comments'=>'33','praise'=>'89','created_at'=>'2012-12-12','type'=> 'resource'],
-            ['id'=>'211','nickname'=> '哇哈哈5','content'=> '缺铁性贫血及推荐用药dd','avatar'=>'http://qiuniu.up.com/34.jpg','comments'=>'56','praise'=>'67','created_at'=>'2012-12-12','type'=> 'resource'],
+            ['id'=>'103','nickname'=> '哇哈哈3','content'=> '缺铁性贫血及推荐用药3','avatar'=>'http://qiuniu.up.com/13.jpg','comments'=>'124','praise'=>'99','created_at'=>'2012-12-12','type'=> 'resource', 'replys'=>null],
+            ['id'=>'104','nickname'=> '哇哈哈4','content'=> '缺铁性贫血及推荐用药4','avatar'=>'http://qiuniu.up.com/22.jpg','comments'=>'33','praise'=>'89','created_at'=>'2012-12-12','type'=> 'resource', 'replys'=>null],
+            ['id'=>'211','nickname'=> '哇哈哈5','content'=> '缺铁性贫血及推荐用药dd','avatar'=>'http://qiuniu.up.com/34.jpg','comments'=>'56','praise'=>'67','created_at'=>'2012-12-12','type'=> 'resource', 'replys'=>null],
 
         ];
         $result = ['code' => 200,'message'=>'推荐列表','data'=>['isLastPage'=>true,'list'=>$data]];
