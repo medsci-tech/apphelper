@@ -142,13 +142,20 @@ class CommentController extends \api\common\controllers\Controller
     {
         $model = new $this->modelClass();
         $model->load($this->params, '');
-        if(!$response = $model->saves())
-        {
+        $result = $model->saves();
+        if($result){
+            if($result->cid){
+                $comment = Comment::findOne($result->cid);
+                if($comment){
+                    $comment->comments += 1;
+                    $comment->save(false);
+                }
+            }
+            $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
+        }else{
             $message = array_values($model->getFirstErrors())[0];
             $result = ['code' => -1,'message'=>$message,'data'=>null];
         }
-        else
-            $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
         return $result;
     }
 
