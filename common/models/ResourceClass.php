@@ -58,8 +58,8 @@ class ResourceClass extends \yii\db\ActiveRecord
 
     public function getDataForWhere($where = []){
         $where['status'] = 1;
-        $examClass = $this::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
-        return $examClass;
+        $dataList = $this::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
+        return $dataList;
     }
 
     /*树形结构*/
