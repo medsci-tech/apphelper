@@ -10,10 +10,10 @@ class Praise extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['to_uid','id','uid'], 'required'],
+            [['id','uid'], 'required'],
             [['id'], 'required', 'message' => '评论id不能为空!'],
-            [['to_uid'], 'required', 'message' => '被点赞用户id不能为空!'],    
-            ['to_uid', 'validatePraise'],
+           // [['to_uid'], 'required', 'message' => '被点赞用户id不能为空!'],    
+            ['uid', 'validatePraise'],
         ];
     }
     /**
@@ -39,7 +39,7 @@ class Praise extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this::find()->where(['id'=>$this->id,'to_uid'=>$this->to_uid,'uid'=>$this->uid])->one();
+        return $this::find()->where(['id'=>$this->id,'uid'=>$this->uid])->one();
     }
     /**
      * save clicks 点赞
