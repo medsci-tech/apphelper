@@ -59,7 +59,6 @@ class TestController extends Controller
         //用户属性
         //$age = array("0000", "0010");
 
-
         //$cdt = new AppConditions();
        // $cdt->addCondition(AppConditions::PHONE_TYPE, $phoneTypeList);
        // $cdt->addCondition(AppConditions::REGION, $provinceList);
