@@ -10,7 +10,7 @@ class Comment extends \yii\db\ActiveRecord
             ['rid', 'required','message' => '评论对象rid不能为空!'],
             ['content', 'required','message' => '说点什么吧!'],
             ['type', 'required','message' => '评论类型type错误!'], 
-            [['rid', 'cid', 'reply_to_uid','uid','parent_uid'], 'integer'],
+            [['rid', 'cid','uid'], 'integer'],
             ['reply_to_uid', 'default', 'value' => 0],
             ['created_at', 'default', 'value' => time()],
             ['type', 'in', 'range' => ['exam','resource']],
@@ -39,13 +39,17 @@ class Comment extends \yii\db\ActiveRecord
      * @param array $where
      * @param int $offset
      * @param int $limit
-     * @param string $orderBy
+     * @param array $orderBy
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function getDataForWhere($where = [], $offset = 0, $limit = 10, $orderBy = ''){
+    public function getDataForWhere($where = [], $offset = 0, $limit = 10, $orderBy = []){
         $where['status'] = 1;
         $orderBy['id'] = SORT_DESC;
-        $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->orderBy($orderBy)->all();
+        if($limit){
+            $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->orderBy($orderBy)->all();
+        }else{
+            $dataList = $this::find()->where($where)->orderBy($orderBy)->all();
+        }
         return $dataList;
     }
 

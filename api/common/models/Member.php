@@ -44,9 +44,9 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function scenarios() {
         $scenarios = parent::scenarios();
-        $scenarios['register'] = ['username', 'password', 'verycode']; // 注册
+        $scenarios['register'] = ['username', 'password', 'verycode','clientid']; // 注册
         $scenarios['next'] = ['uid', 'nickname', 'sex', 'province', 'city', 'area','hospital_id','rank_id']; // 注册下一步
-        $scenarios['login'] = ['username', 'password']; // 登录
+        $scenarios['login'] = ['username', 'password','clientid']; // 登录
         $scenarios['setPassword'] = ['username','verycode','password', 'passwordRepeat']; // 设置密码
         $scenarios['setNickname'] = ['uid', 'nickname']; // 修改昵称
         $scenarios['setUsername'] = ['uid', 'username','verycode']; // 修改用户手机号
@@ -66,7 +66,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['username'], 'required','message' => '请输入手机号!', 'on' => ['register','login','setPassword','setUsername']],
             [['verycode'], 'required','message' => '请输入验证码!'],
-            [['username'], 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/','message' => '请输入有效的手机号!'],
+            [['username'], 'match', 'pattern' => '/^1[3|4|5|7|8][0-9]{9}$/','message' => '请输入正确的手机号!'],
             ['username', 'unique', 'targetClass' => '\api\common\models\Member', 'message' => '该手机号已经存在!', 'on' => ['register']],
             [['verycode'], function ($attribute, $params) {
                 $verycode = Yii::$app->cache->get($this->username);
@@ -80,7 +80,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['username', 'avatar', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             //注册资料场景
             [['username', 'password', 'verycode'], 'required', 'on' => ['register']], //必填
-
+            ['clientid', 'string', 'min' => 1, 'max' => 15,'message' => 'clientid长度在6-12之间!'],
             /* 设置密码相关 */
             [['username', 'password'], 'required', 'message' => '用户或密码不能为空!', 'on' => 'login'],
             [['password', 'passwordRepeat'], 'string', 'min' => 6, 'max' => 12, 'message' => '{attribute}是6-12位数字或字母'],
@@ -255,7 +255,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ($this->validate()) {
             /* 更新tocken */
             $this->_user->access_token = Yii::$app->security->generateRandomString();
-            $this->updateAll(['access_token'=>$this->_user->access_token],'id=:id',array(':id'=>$this->_user->id));
+            $this->updateAll(['access_token'=>$this->_user->access_token,'clientid'=>$this->clientid],'id=:id',array(':id'=>$this->_user->id));
             return $this->_user;
         } else {
             return false;
@@ -268,6 +268,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             $this->access_token = Yii::$app->security->generateRandomString();
             $this->setPassword($this->password);
             $this->created_at = time();
+            $this->clientid = $this->clientid;
             $this->generateAuthKey();
             if ($this->save()) {
                 return $this;
