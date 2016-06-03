@@ -42,10 +42,14 @@ class Comment extends \yii\db\ActiveRecord
      * @param string $orderBy
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function getDataForWhere($where = [], $offset = 0, $limit = 10, $orderBy = ''){
+    public function getDataForWhere($where = [], $offset = 0, $limit = 10, $orderBy = []){
         $where['status'] = 1;
         $orderBy['id'] = SORT_DESC;
-        $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->orderBy($orderBy)->all();
+        if($limit){
+            $dataList = $this::find()->where($where)->offset($offset)->limit($limit)->orderBy($orderBy)->all();
+        }else{
+            $dataList = $this::find()->where($where)->orderBy($orderBy)->all();
+        }
         return $dataList;
     }
 
