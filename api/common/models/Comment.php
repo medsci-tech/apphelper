@@ -39,7 +39,7 @@ class Comment extends \yii\db\ActiveRecord
      * @param array $where
      * @param int $offset
      * @param int $limit
-     * @param string $orderBy
+     * @param array $orderBy
      * @return array|\yii\db\ActiveRecord[]
      */
     public function getDataForWhere($where = [], $offset = 0, $limit = 10, $orderBy = []){
