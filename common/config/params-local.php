@@ -55,7 +55,13 @@ return [
         'accessKey' => 'OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-',
         'secretKey' => 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T',
     ],
-
+    /*个推配置项*/
+    'getui' => [
+        'appId' => 'EuCgiztOJC8FGoq2GVatO9',
+        'appKey' => '8Trw9aVxom5P3MpbITR7h',
+        'masterSecret' => 's0ER22qWDU6uvCWIik9t3',
+        'host' => 'http://sdk.open.api.igexin.com/apiex.htm'
+    ],
     /*考卷评分规则配置项*/
     'examLevel' => [
         /*条件*/
