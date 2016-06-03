@@ -104,7 +104,7 @@ class CommentController extends \api\common\controllers\Controller
             //limit条件
             $page = intval($this->params['page']); // 资源或试题id
             $page = $page > 0 ? $page : 1; // 资源或试题id
-            $size = 1; // 每页显示条数
+            $size = 10; // 每页显示条数
             $start = ($page - 1) * $size; // 资源或试题id
 
             $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
