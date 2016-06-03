@@ -8,7 +8,7 @@
 
 namespace api\modules\v4\controllers;
 use api\common\models\Comment;
-use api\common\models\Member;
+use common\models\Member;
 use api\common\models\Praise;
 use api\common\models\Resource;
 use api\common\models\Exercise;
@@ -62,28 +62,8 @@ class CommentController extends \api\common\controllers\Controller
             if('hot' == $orderByParams){
                 $orderBy['comments'] = SORT_DESC;
             }
-            $dataList = $model->getDataForWhere($where, $start, $size, $orderBy);//查询评论列表
             $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
-            $data = [];
-            foreach($dataList as $key =>$val){
-                if($val->uid){
-                    //用户相关
-                    $member = Member::findOne($val->uid);
-                    $data[$key]['nickname'] = $member->oldAttributes['nickname'];
-                    $data[$key]['avatar'] = $member->avatar;
-                    //点赞相关
-                    $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
-                    $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
-                    $data[$key]['praise'] = $praiseCount;//点赞数
-                    $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
-                    //评论相关
-                    $data[$key]['id'] = $val->id;//内容
-                    $data[$key]['content'] = $val->content;//内容
-                    $data[$key]['type'] = $val->type;//类型
-                    $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
-                    $data[$key]['comments'] = $val->comments;//评论次数
-                }
-            }
+            $data = $this->CommentListInfo($uid, false, $where, $start, $size, $orderBy);//查询评论列表
             if($dataCount < $page * $size){
                 $isLastPage = true;
             }else{
@@ -124,31 +104,11 @@ class CommentController extends \api\common\controllers\Controller
             //limit条件
             $page = intval($this->params['page']); // 资源或试题id
             $page = $page > 0 ? $page : 1; // 资源或试题id
-            $size = 10; // 每页显示条数
+            $size = 1; // 每页显示条数
             $start = ($page - 1) * $size; // 资源或试题id
-            //orderBy排序
-            $dataList = $model->getDataForWhere($where, $start, $size);//查询评论列表
+
             $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
-            $data = [];
-            foreach($dataList as $key =>$val){
-                if($val->uid){
-                    //用户相关
-                    $member = Member::findOne($val->uid);
-                    $data[$key]['nickname'] = $member->oldAttributes['nickname'];
-                    $data[$key]['avatar'] = $member->avatar;
-                    //点赞相关
-                    $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
-                    $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
-                    $data[$key]['praise'] = $praiseCount;//点赞数
-                    $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
-                    //评论相关
-                    $data[$key]['id'] = $val->id;//内容
-                    $data[$key]['content'] = $val->content;//内容
-                    $data[$key]['type'] = $val->type;//类型
-                    $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
-                    $data[$key]['comments'] = $val->comments;//评论次数
-                }
-            }
+            $data = $this->CommentListInfo($uid, true, $where, $start, $size);
             if($dataCount < $page * $size){
                 $isLastPage = true;
             }else{
@@ -210,4 +170,49 @@ class CommentController extends \api\common\controllers\Controller
         }
     }
 
+    /**
+     * 递归查询评论数
+     * @author by zhaiyu
+     * @startDate 20160603
+     * @upDate 20160603
+     * @param $where
+     * @param $start
+     * @param $size
+     * @param $uid
+     * @return array
+     */
+    public function CommentListInfo($uid, $loop = true, $where = [], $start = 0, $size = 0,$orderBy = []){
+        $model = new Comment();
+        $dataList = $model->getDataForWhere($where, $start, $size, $orderBy);//查询评论列表
+        $data = [];
+        if($dataList){
+            foreach($dataList as $key =>$val){
+                if($val->uid){
+                    //用户相关
+                    $member = Member::findOne($val->uid);
+                    $data[$key]['nickname'] = $member->nickname;
+                    $data[$key]['avatar'] = $member->avatar;
+                    $data[$key]['toNickname'] = Member::findOne($val->reply_to_uid)->nickname ?? '';
+                    //点赞相关
+                    $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
+                    $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
+                    $data[$key]['praise'] = $praiseCount;//点赞数
+                    $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
+                    //评论相关
+                    $data[$key]['id'] = $val->id;//内容
+                    $data[$key]['content'] = $val->content;//内容
+                    $data[$key]['type'] = $val->type;//类型
+                    $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
+                    $data[$key]['comments'] = $val->comments;//评论次数
+                    if($loop){
+                        $data[$key]['list'] = $this->CommentListInfo($uid, true, ['cid' => $val->id], 0, 0, $orderBy);
+                    if(empty($data[$key]['list'])){
+                        unset($data[$key]['list']);
+                    }
+                    }
+                }
+            }
+        }
+        return $data;
+    }
 }
