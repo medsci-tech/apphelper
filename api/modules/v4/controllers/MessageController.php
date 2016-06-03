@@ -42,7 +42,7 @@ class MessageController extends \api\common\controllers\Controller
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
         $data = $model::find()
-            ->select('link_id,title,type');
+            ->select('link_id,title,type,link_url');
            // ->where(['uid'=>$this->uid]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
