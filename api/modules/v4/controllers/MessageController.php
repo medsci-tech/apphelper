@@ -35,7 +35,6 @@ class MessageController extends \api\common\controllers\Controller
      */
     public function actionIndex()
     {
-
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $page = $page ? $page : 1;
