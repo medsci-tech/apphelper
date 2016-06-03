@@ -96,7 +96,7 @@ class CommentController extends \api\common\controllers\Controller
         $cid = $this->params['cid']; // 资源或试题id
         $uid = $this->uid; //登陆用户id
         if(!$cid){
-            $return = ['code' => -1,'message'=>'id 不能为空!','data'=>null];
+            $return = ['code' => -1,'message'=>'cid 不能为空!','data'=>null];
         }else{
             $where = [
                 'cid' => $cid,
