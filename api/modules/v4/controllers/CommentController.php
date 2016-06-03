@@ -192,7 +192,14 @@ class CommentController extends \api\common\controllers\Controller
                     $member = Member::findOne($val->uid);
                     $data[$key]['nickname'] = $member->nickname;
                     $data[$key]['avatar'] = $member->avatar;
-                    $data[$key]['toNickname'] = Member::findOne($val->reply_to_uid)->nickname ?? '';
+                    if($val->reply_to_uid){
+                        $toMember = Member::findOne($val->reply_to_uid);
+                        $data[$key]['toNickname'] = $toMember->nickname ?? '';
+                        $data[$key]['toUid'] = $toMember->id ?? '';
+                    }else{
+                        $data[$key]['toNickname'] = '';
+                        $data[$key]['toUid'] = '';
+                    }
                     //点赞相关
                     $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
                     $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
@@ -206,9 +213,9 @@ class CommentController extends \api\common\controllers\Controller
                     $data[$key]['comments'] = $val->comments;//评论次数
                     if($loop){
                         $data[$key]['list'] = $this->CommentListInfo($uid, true, ['cid' => $val->id], 0, 0, $orderBy);
-                    if(empty($data[$key]['list'])){
-                        unset($data[$key]['list']);
-                    }
+                        if(empty($data[$key]['list'])){
+                            unset($data[$key]['list']);
+                        }
                     }
                 }
             }
