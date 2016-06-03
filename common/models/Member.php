@@ -20,6 +20,7 @@ use Yii;
  */
 class Member extends User
 {
+    public $devicetoken;
     /**
      * {@inheritdoc}
      */
