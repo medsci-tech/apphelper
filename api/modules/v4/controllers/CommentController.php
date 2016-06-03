@@ -213,9 +213,9 @@ class CommentController extends \api\common\controllers\Controller
                     $data[$key]['comments'] = $val->comments;//评论次数
                     if($loop){
                         $data[$key]['list'] = $this->CommentListInfo($uid, true, ['cid' => $val->id], 0, 0, $orderBy);
-                        if(empty($data[$key]['list'])){
-                            unset($data[$key]['list']);
-                        }
+//                        if(empty($data[$key]['list'])){
+//                            unset($data[$key]['list']);
+//                        }
                     }
                 }
             }
