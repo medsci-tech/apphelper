@@ -211,7 +211,7 @@ class ExamController extends \api\common\controllers\Controller
         $exe_ids = array_keys($answers);
         
         if($res['type']==1) 
-            $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();  
+            $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();  
         else
             $data =self::getById($id,$res['exe_ids']);
       
@@ -296,7 +296,7 @@ class ExamController extends \api\common\controllers\Controller
             if($data['exe_ids'])
                 $exe_ids = explode (',', $data['exe_ids']);
 
-            $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();           
+            $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();           
         }
         foreach($data as &$val)
             $val['option'] = unserialize($val['option']);  
@@ -322,7 +322,7 @@ class ExamController extends \api\common\controllers\Controller
         if(!$data)
         {
             $exe_ids = explode (',', $exe_ids); 
-            $data = Exercise::find()->select(['id','type','question','option','answer'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();
+            $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();
             foreach($data as &$val)
                 $val['option'] = unserialize($val['option']);  
             Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表 
@@ -394,7 +394,7 @@ class ExamController extends \api\common\controllers\Controller
     private function randExam($id,$class_id,$total)
     {
         $connection = \Yii::$app->db;
-        $table = Exercise::tableName();$table='md_exercise';
+        $table = Exercise::tableName();
         $model = ExamClass::findOne($class_id);
         $where = "t1.id >= t2.id and t1.status=1";
         if($class_id)
@@ -410,7 +410,7 @@ class ExamController extends \api\common\controllers\Controller
                 $where.= " and t1.category =".$class_id;  
         }
         
-        $sql ="SELECT t1.id,t1.type,t1.question,t1.option,t1.answer FROM $table AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM $table)-(SELECT MIN(id) FROM $table))+(SELECT MIN(id) FROM $table)) AS id) AS t2 WHERE $where  ORDER BY t1.id LIMIT $total";  
+        $sql ="SELECT t1.id,t1.type,t1.question,t1.option,t1.answer,resolve FROM $table AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM $table)-(SELECT MIN(id) FROM $table))+(SELECT MIN(id) FROM $table)) AS id) AS t2 WHERE $where  ORDER BY t1.id LIMIT $total";  
         $command = $connection->createCommand($sql);
         $list = $command->queryAll();
         if(!$list) 
