@@ -17,21 +17,21 @@ use yii\widgets\ActiveForm;
             <label class="control-label">推送范围：
                 <label class="checkbox-inline">
                     <input type="radio" name="type" id="rdo1" class="radioItem"
-                           value="1"> 全部用户
+                           value="1" checked> 全部用户
                 </label>
                 <label class="checkbox-inline">
                     <input type="radio" name="type" id="rdo2" class="radioItem"
-                           value="0" checked> 指定用户
+                           value="0"> 指定用户
                 </label>
             </label>
         </div>
 
-        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
+        <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'link_url')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'id')->input('hidden')->label(false) ?>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-        <?= Html::a('保存','javascript:;', ['class' => 'btn btn-primary', 'id'=>'hospitalFormSubmit']) ?>
+        <button type="button" class="btn btn-white" data-dismiss="modal">保存，稍后发送</button>
+        <?= Html::a('发送','javascript:;', ['class' => 'btn btn-primary', 'id'=>'hospitalFormSubmit']) ?>
     </div>
 <?php ActiveForm::end(); ?>
