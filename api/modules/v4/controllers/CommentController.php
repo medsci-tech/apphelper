@@ -10,8 +10,9 @@ namespace api\modules\v4\controllers;
 use api\common\models\Comment;
 use common\models\Member;
 use api\common\models\Praise;
+use backend\controllers\TreeController;
 use api\common\models\Resource;
-use api\common\models\Exercise;
+use api\common\models\Exam;
 use Yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
@@ -69,11 +70,18 @@ class CommentController extends \api\common\controllers\Controller
             }else{
                 $isLastPage = false;
             }
+            if('resource' == $type){
+                $res = Resource::findOne($rid);
+            }elseif ('exam' == $type){
+                $res = Exam::findOne($rid);
+            }
+            $comments = $res->comments ?? 0;
             $return = [
                 'code' => 200,
                 'message' => '评论一级列表',
                 'data'=>[
                     'isLastPage' => $isLastPage,
+                    'comments' => $comments,
                     'list' => $data,
                 ],
             ];
@@ -143,6 +151,17 @@ class CommentController extends \api\common\controllers\Controller
         if($result){
             if($result->cid){
                 $this->AddCommentCount($result->cid);
+                //资源评论加一
+                $type = $this->params['type'];
+                if('resource' == $type){
+                    $res = Resource::findOne($result->rid);
+                }elseif ('exam' == $type){
+                    $res = Exam::findOne($result->rid);
+                }
+                if($res){
+                    $res->comments += 1;
+                    $res->save(false);
+                }
             }
             $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
         }else{
@@ -181,7 +200,7 @@ class CommentController extends \api\common\controllers\Controller
      * @param $uid
      * @return array
      */
-    public function CommentListInfo($uid, $loop = true, $where = [], $start = 0, $size = 0,$orderBy = []){
+    public function CommentListInfo($uid,$recursive, $where = [], $start = 0, $size = 0,$orderBy = [], $loop = 0){
         $model = new Comment();
         $dataList = $model->getDataForWhere($where, $start, $size, $orderBy);//查询评论列表
         $data = [];
@@ -190,31 +209,35 @@ class CommentController extends \api\common\controllers\Controller
                 if($val->uid){
                     //用户相关
                     $member = Member::findOne($val->uid);
-                    $data[$key]['nickname'] = $member->nickname;
-                    $data[$key]['avatar'] = $member->avatar;
+                    $data[$loop]['nickname'] = $member->nickname;
+                    $data[$loop]['avatar'] = $member->avatar;
                     if($val->reply_to_uid){
                         $toMember = Member::findOne($val->reply_to_uid);
-                        $data[$key]['toNickname'] = $toMember->nickname ?? '';
+                        $data[$loop]['toNickname'] = $toMember->nickname ?? '';
                     }else{
-                        $data[$key]['toNickname'] = '';
+                        $data[$loop]['toNickname'] = '';
                     }
                     //点赞相关
                     $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
                     $isPraise = Praise::find()->select('id')->where(['id' => $val->id, 'uid' => $uid])->one();
-                    $data[$key]['praise'] = $praiseCount;//点赞数
-                    $data[$key]['isPraise'] = $isPraise ? true : false;//点赞数
+                    $data[$loop]['praise'] = $praiseCount;//点赞数
+                    $data[$loop]['isPraise'] = $isPraise ? true : false;//点赞数
                     //评论相关
-                    $data[$key]['id'] = $val->id;//内容
-                    $data[$key]['content'] = $val->content;//内容
-                    $data[$key]['type'] = $val->type;//类型
-                    $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
-                    $data[$key]['comments'] = $val->comments;//评论次数
-                    $data[$key]['toUid'] = $val->uid;
-                    if($loop){
-                        $data[$key]['list'] = $this->CommentListInfo($uid, true, ['cid' => $val->id], 0, 0, $orderBy);
-//                        if(empty($data[$key]['list'])){
-//                            unset($data[$key]['list']);
-//                        }
+                    $data[$loop]['id'] = $val->id;//内容
+                    $data[$loop]['content'] = $val->content;//内容
+                    $data[$loop]['type'] = $val->type;//类型
+                    $data[$loop]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
+                    $data[$loop]['comments'] = $val->comments;//评论次数
+                    $data[$loop]['toUid'] = $val->uid;
+                    $loop++;
+                    if($recursive){
+                        $dataChild = $this->CommentListInfo($uid, $recursive,  ['cid' => $val->id], 0, 0, $orderBy, $loop);
+                        if($dataChild){
+                            foreach ($dataChild as $v){
+                                $data[$loop] = $v;
+                                $loop++;
+                            }
+                        }
                     }
                 }
             }
