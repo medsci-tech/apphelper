@@ -89,9 +89,9 @@
                     </li>
                 </ul>
             </li>
-
-
-
+            <li>
+                <a class="J_menuItem" href="/message/index"><i class="fa fa-desktop"></i> <span class="nav-label">消息推送</span></a>
+            </li>
 
 
         </ul>
