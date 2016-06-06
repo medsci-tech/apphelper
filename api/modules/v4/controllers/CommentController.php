@@ -195,10 +195,8 @@ class CommentController extends \api\common\controllers\Controller
                     if($val->reply_to_uid){
                         $toMember = Member::findOne($val->reply_to_uid);
                         $data[$key]['toNickname'] = $toMember->nickname ?? '';
-                        $data[$key]['toUid'] = $toMember->id ?? '';
                     }else{
                         $data[$key]['toNickname'] = '';
-                        $data[$key]['toUid'] = '';
                     }
                     //点赞相关
                     $praiseCount = Praise::find()->select('id')->where(['id' => $val->id])->count();
@@ -211,6 +209,7 @@ class CommentController extends \api\common\controllers\Controller
                     $data[$key]['type'] = $val->type;//类型
                     $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
                     $data[$key]['comments'] = $val->comments;//评论次数
+                    $data[$key]['toUid'] = $val->uid;
                     if($loop){
                         $data[$key]['list'] = $this->CommentListInfo($uid, true, ['cid' => $val->id], 0, 0, $orderBy);
 //                        if(empty($data[$key]['list'])){
