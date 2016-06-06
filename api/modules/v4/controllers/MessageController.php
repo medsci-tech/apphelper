@@ -35,14 +35,13 @@ class MessageController extends \api\common\controllers\Controller
      */
     public function actionIndex()
     {
-
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $page = $page ? $page : 1;
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
         $data = $model::find()
-            ->select('link_id,title,type');
+            ->select('link_id,title,type,link_url');
            // ->where(['uid'=>$this->uid]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
