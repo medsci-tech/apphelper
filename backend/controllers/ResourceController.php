@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\search\Resource as ResourceSearch;
-use yidashi\webuploader\WebuploaderAction;
+//use yidashi\webuploader\WebuploaderAction;
 use common\models\Resource;
 use common\models\ResourceClass;
 use common\models\User;
@@ -21,10 +21,10 @@ class ResourceController extends BackendController
                 'class' => 'kucha\ueditor\UEditorAction',
                 'config' => [
                     'imageUrlPrefix' => \Yii::getAlias('@static').'/', //图片访问路径前缀
-                    'imagePathFormat' => 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}', //上传保存路径
+                    'imagePathFormat' => 'uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}', //上传保存路径
                 ],
             ],
-            'webupload' => WebuploaderAction::className(),
+            //'webupload' => WebuploaderAction::className(),
         ];
     }
     /**
