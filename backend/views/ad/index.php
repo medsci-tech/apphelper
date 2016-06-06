@@ -24,10 +24,10 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
                 <span class="glyphicon glyphicon-plus"></span>添加
             </button>
 
-            <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+            <button id="btnEdit" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" style="display:none;”>
                 <span class="glyphicon glyphicon-edit"></span>修改
             </button>
-            <button id="btnDelete" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash">删除</span></button>
+            <button id="btnDelete" type="button" class="btn btn-danger" style="display:none;"><span class="glyphicon glyphicon-trash">删除</span></button>
         </div>
         <div class="row">
             <?= $strHtml ?>
@@ -71,7 +71,8 @@ $js = <<<JS
             attr_id = $(this).attr('attr_id');
             attr_from = $(this).attr('attr_from');
             titles = $(this).attr('atitle');
-
+            $("#btnEdit").show();
+            $("#btnDelete").show();
         });
 
         $('#btnAdd').click(function () {
