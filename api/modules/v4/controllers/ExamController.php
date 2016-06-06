@@ -147,7 +147,7 @@ class ExamController extends \api\common\controllers\Controller
             $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
             return $result;
         }
-        $optionList= $this->params['optionList'];// 客户端提交的试题
+        $optionList= $this->params['optionList'] ?? [];// 客户端提交的试题
         /* 处理提交试卷 */
         if($data['type']==1) // 随机出题
         {
@@ -168,6 +168,7 @@ class ExamController extends \api\common\controllers\Controller
                 $i++; //统计正确回答题目
         }
         $exam_total = $data['type']==0 ? substr_count($data['exe_ids'],',')+1 : count($optionList); // 题目总数
+     
         /* 保存考试记录 */
         $model = self::lastExam($id);
         $model->exa_id =$id;
@@ -178,7 +179,7 @@ class ExamController extends \api\common\controllers\Controller
         $model->end_time =time();
         $model->save();
         /* 根据成绩计算等级 */
-        $rate = intval($i/$exam_total)*100; //正确率     
+        $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
         $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
         $mins = intval( $timeLeft / 60 ); //分钟
         $secs = $timeLeft % 60; //秒
