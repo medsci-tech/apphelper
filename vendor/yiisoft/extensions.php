@@ -93,15 +93,6 @@ return array (
       '@dosamigos/fileupload' => $vendorDir . '/2amigos/yii2-file-upload-widget/src',
     ),
   ),
-    'wenyuan/yii2-ueditor' =>
-    array (
-        'name' => 'wenyuan/yii2-ueditor',
-        'version' => '1.0.0.0',
-        'alias' =>
-            array (
-                '@wenyuan/ueditor' => $vendorDir . '/wenyuan/yii2-ueditor',
-            ),
-    ),
   'crazyfd/yii2-qiniu' => 
   array (
     'name' => 'crazyfd/yii2-qiniu',
