@@ -11,9 +11,9 @@ use yii\widgets\ActiveForm;
 $this->title = $title;
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
+use wenyuan\ueditor\Ueditor;
 ?>
 <div class="modal-body">
-    <h1><?= Html::encode($this->title) ?></h1>
     <p>
         <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
     </p>
@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
             ]);?>
             <div class="help-block"></div>
         </div>
-        <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
+        <?= $form->field($model, 'content')->widget(Ueditor::className(), ['options'=>['initialFrameHeight' => 200]]) ?>
         <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
         <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>

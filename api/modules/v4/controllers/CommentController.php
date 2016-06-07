@@ -122,11 +122,25 @@ class CommentController extends \api\common\controllers\Controller
             }else{
                 $isLastPage = false;
             }
+            $dataOne = $model::findOne($cid);
+            if($dataOne){
+                if('resource' == $dataOne->type){
+                    $res = Resource::findOne($dataOne->rid);
+                    $title = $res->title;
+                }elseif ('exam' == $dataOne->type){
+                    $res = Exam::findOne($dataOne->rid);
+                    $title = $res->name;
+                }
+            }
+            $resTitle = $title ?? '';
+            $resImg = $res->imgurl ?? '';
             $return = [
                 'code' => 200,
                 'message' => '评论二级列表',
                 'data'=>[
                     'isLastPage' => $isLastPage,
+                    'title' => $resTitle,
+                    'imgUrl' => $resImg,
                     'list' => $data,
                 ],
             ];
