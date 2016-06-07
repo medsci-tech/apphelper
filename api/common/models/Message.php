@@ -28,10 +28,7 @@ class Message extends \yii\db\ActiveRecord
                {
                  Yii::$app->redis->set($key,json_encode($cacheData));
                  $count++;
-               }
-                   
-               
-               
+               }      
             }
             //$ids = ArrayHelper::getColumn($result, 'id');   
          
