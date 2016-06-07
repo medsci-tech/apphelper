@@ -17,9 +17,6 @@ backend\assets\AppAsset::register($this);
         </textarea>
     </div>
     <div class="modal-footer">
-        <input type="hidden" name="type" id="type">
-        <input type="hidden" name="attr_id" id="attr_id">
-        <input type="hidden" name="attr_name" id="attr_name">
         <button id="btnClose" type="button" class="btn btn-white">关闭</button>
         <button id="btnConfirm" type="button" class="btn btn-primary">确定</button>
     </div>
