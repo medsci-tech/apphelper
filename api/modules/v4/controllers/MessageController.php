@@ -1,17 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: yidashi
+ * User: lxhui
  * Date: 16-1-28
  * Time: 下午6:40
  */
 
 namespace api\modules\v4\controllers;
-
-use api\common\models\Hospital;
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\swiftmailer\Message;
 use yii\base\InvalidConfigException;
 use yii\data\Pagination;
 
@@ -37,15 +34,18 @@ class MessageController extends \api\common\controllers\Controller
     {
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
-        $page = $page ? $page : 1;
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
+        //$model->updateAll(['isread'=>1],'touid=:touid',array(':touid'=>$this->uid));//更新信息已读状态
+        
         $data = $model::find()
-            ->select('title,type,link_url')
-            ->where(['uid'=>$this->uid]);
+            ->select('title,link_url,isread')
+            ->where(['or','touid='.$this->uid,'type=1'])
+            ->orderBy(['send_at'=>SORT_DESC]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
+        
         $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $model ? $model : null]];
         return $result;
     }
@@ -60,7 +60,8 @@ class MessageController extends \api\common\controllers\Controller
     public function actionWarn()
     {
         $model = new $this->modelClass();
-        $count = $model::find()->where(['uid'=>$this->uid,'isread'=>0])->count();
+        //$count = $model::find()->where(['touid'=>$this->uid, 'isread'=>0,'type'=>0])->count(); // 单推消息
+        $count = $model::find()->where(['or', 'type=1', ['and', 'touid='.$this->uid,'isread=0']])->count(); 
         $result = ['code' => 200, 'message' => '消息提醒!', 'data' => ['count' => $count]];
         return $result;
     }
