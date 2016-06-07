@@ -98,6 +98,8 @@ class ExamController extends \api\common\controllers\Controller
         $levels = ArrayHelper::getColumn($examLevel, 'level');
         if($levels)
             $levels = implode('/',$levels);
+        else
+            $levels=null;
         $data['levels']=$levels;
         $data['id']=$id;
         $result = ['code' => 200,'message'=>'试卷详情','data'=>$data];
@@ -319,7 +321,7 @@ class ExamController extends \api\common\controllers\Controller
     private function getById($id,$exe_ids)
     {
         $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
-        $data = json_decode($data,true);  
+        $data = json_decode($data,true);        
         if(!$data)
         {
             $exe_ids = explode (',', $exe_ids); 
@@ -327,7 +329,7 @@ class ExamController extends \api\common\controllers\Controller
             foreach($data as &$val)
                 $val['option'] = unserialize($val['option']);  
             Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表 
-        }
+        } 
         return $data;      
     }
     
