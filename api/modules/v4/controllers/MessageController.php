@@ -41,12 +41,12 @@ class MessageController extends \api\common\controllers\Controller
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
         $data = $model::find()
-            ->select('link_id,title,type,link_url');
-           // ->where(['uid'=>$this->uid]);
+            ->select('title,type,link_url')
+            ->where(['uid'=>$this->uid]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
-        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $model]];
+        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $model ? $model : null]];
         return $result;
     }
     

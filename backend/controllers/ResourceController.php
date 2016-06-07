@@ -21,7 +21,7 @@ class ResourceController extends BackendController
                 'class' => 'kucha\ueditor\UEditorAction',
                 'config' => [
                     'imageUrlPrefix' => \Yii::getAlias('@static').'/', //图片访问路径前缀
-                    'imagePathFormat' => 'uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}', //上传保存路径
+                    'imagePathFormat' => 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}', //上传保存路径
                 ],
             ],
             //'webupload' => WebuploaderAction::className(),
