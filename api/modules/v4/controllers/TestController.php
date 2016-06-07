@@ -39,4 +39,10 @@ class TestController extends Controller
         $url = $qiniu->getLink($key);
 
     }
+    public function actionDelete()
+    {
+        echo'success';
+        Yii::$app->cache->delete('*');exit;
+    }
+           
 }
