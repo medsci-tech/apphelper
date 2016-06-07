@@ -217,7 +217,7 @@ class ExamController extends \api\common\controllers\Controller
             $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();  
         else
             $data =self::getById($id,$res['exe_ids']);
-      
+        
         $data = ArrayHelper::index($data, 'id');
         foreach($data as $key=>&$val)
         { 
@@ -321,7 +321,8 @@ class ExamController extends \api\common\controllers\Controller
     private function getById($id,$exe_ids)
     {
         $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
-        $data = json_decode($data,true);        
+        $data = json_decode($data,true);  
+       
         if(!$data)
         {
             $exe_ids = explode (',', $exe_ids); 

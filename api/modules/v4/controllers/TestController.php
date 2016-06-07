@@ -42,7 +42,7 @@ class TestController extends Controller
     public function actionDelete()
     {
         echo'success';
-        Yii::$app->cache->delete('*');exit;
+        Yii::$app->cache->flush();exit;
     }
            
 }
