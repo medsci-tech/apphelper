@@ -20,6 +20,6 @@ return [
     ],
     'aliases' => [
         '@common/logic' => '@common/models/logic',
-        '@static' => 'http://admin.test.ohmate.com.cn',
+        '@static' => 'http://admin.apphelper.dev',
     ],
 ];
