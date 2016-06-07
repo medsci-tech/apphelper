@@ -147,14 +147,18 @@ $js=<<<JS
     });
 
     /*添加初始化*/
-   $('#btn_add').click(function() {
+   $('#btnAdd').click(function() {
         var defaltData = '';
         $('#message-id').val(defaltData);
         $('#message-content').val(defaltData);
         $('#message-link_url').val(defaltData);
         $('#message-title').val(defaltData);
         $('#myModal #tableForm').attr('action', '$formUrl');
-        $("#rdo1").attr("checked","checked");
+        var valOption = $('input[name="type"]:checked').val();
+        if(valOption == '0'){
+            $("#rdo2").removeAttr("checked");
+            $("#rdo1").attr("checked",true);
+        }
         var title = '添加';
         $("#l_title").html(title);
 

@@ -35,3 +35,24 @@ use yii\widgets\ActiveForm;
         <?= Html::a('发送','javascript:;', ['class' => 'btn btn-primary', 'id'=>'hospitalFormSubmit']) ?>
     </div>
 <?php ActiveForm::end(); ?>
+
+<?php
+$js = <<<JS
+    $('.radioItem').change(function(){
+        var valOption = $('input[name="type"]:checked').val();
+        if(valOption =='0') {
+            layer.open({
+              type: 2,
+              title: '填写人员手机',
+              shadeClose: false,
+              shade: 0.3,
+              closeBtn:1,
+              area: ['400px', '50%'],
+              content: '/message/member', //iframe的url
+
+            });
+        }
+    });
+JS;
+$this->registerJs($js);
+?>

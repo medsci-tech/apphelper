@@ -46,4 +46,9 @@ class MessageController extends BackendController {
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionMember()
+    {
+        return $this->render('member');
+    }
 }
