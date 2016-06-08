@@ -48,21 +48,19 @@ class ResourceController extends \api\common\controllers\Controller
         $rs = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count() / $pagesize);
 
-//        print_r($rs);
         $array = array();
         $progress = 0;
+        $x = new ResourceClass();
+        $y = new Resource();
+        $z = new ResourceStudyLog();
         foreach ($rs as $resource) {
 
-            $x = new ResourceClass();
             $rsClass = $x::find()
                 ->select('id')
                 ->where(['parent' => $resource['id'], 'status'=>1])
                 ->asArray()
                 ->all();
 
-//            print_r($rsClass);
-
-            $y = new Resource();
             $time = $y::find()
                 ->select('SUM(hour) AS hours')
                 ->where(['status' => 1, 'publish_status' => 1, 'rid'=>array_column($rsClass,'id')])
@@ -76,16 +74,13 @@ class ResourceController extends \api\common\controllers\Controller
                 ->all();
 
             $hour = $time[0]['hours'];
-//            print_r($time);
 
-            $z = new ResourceStudyLog();
             $study = $z::find()
                 ->select('SUM(times) AS studyTime')
                 ->where(['rid'=>array_column($class,'id')])
                 ->asArray()
                 ->all();
 
-//            print_r($study);
             $progress = $study[0]['studyTime']/1000/60/$hour;
 
             $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => intval($progress));
@@ -234,8 +229,8 @@ class ResourceController extends \api\common\controllers\Controller
         $total_page = ceil($data->count() / $pagesize);
 
         $array = array();
+        $model = new Resource();
         foreach ($rsModel as $rs) {
-            $model = new Resource();
             $resources = $model::find()
                 ->select('SUM(hour) AS hours')
                 ->where(['status' => 1, 'publish_status' => 1, 'rid' => $rs['id']])
