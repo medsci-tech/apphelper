@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
         <div class="form-group">
             <label class="control-label">推送范围：
                 <label class="checkbox-inline">
-                    <input type="radio" name="type" id="rdo1" class="radioItem"
+                    <input type="radio" name="push_type" id="rdo1" class="radioItem"
                            value="1" checked> 全部用户
                 </label>
                 <label class="checkbox-inline">
-                    <input type="radio" name="type" id="rdo2" class="radioItem"
+                    <input type="radio" name="push_type" id="rdo2" class="radioItem"
                            value="0"> 指定用户
                 </label>
             </label>
@@ -33,6 +33,8 @@ use yii\widgets\ActiveForm;
     <div class="modal-footer">
         <button id="btnSave" type="button" class="btn btn-white" data-dismiss="modal">保存，稍后发送</button>
         <button id="btnSend" type="button" class="btn btn-primary" data-dismiss="modal">发送</button>
+        <input id="type" name="type" type="hidden">
+        <input id="post_type" name="post_type" type="hidden">
     </div>
 <?php ActiveForm::end(); ?>
 
@@ -55,7 +57,13 @@ $js = <<<JS
     });
 
     $('#btnSave').click(function(){
-    
+        $('#type').val('save');
+        $("#tableForm").submit();
+    });
+
+    $('#btnSend').click(function(){
+        $('#type').val('send');
+        $("#tableForm").submit();
     });
 JS;
 $this->registerJs($js);
