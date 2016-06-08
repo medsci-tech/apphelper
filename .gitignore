@@ -9,3 +9,4 @@ runtime/logs/app.log
 /nbproject/private/
 /frontend/controllers/TestController.php
 /nbproject
+/common/config/main.php
