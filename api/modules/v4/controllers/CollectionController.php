@@ -35,10 +35,11 @@ class CollectionController extends \api\common\controllers\Controller
         $offset=$pagesize*($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
         $result = $model::find()
-            ->select(['rid']);
-           // ->andWhere(['uid' => $this->uid]); // 临时屏蔽   
+            ->select(['rid','id as cid'])
+            ->andWhere(['uid' => $this->uid]);  
         $pages = new Pagination(['totalCount' =>$result->count(), 'pageSize' => $pagesize]);
         $results = $result->offset($offset)->limit($pages->limit)->OrderBy(['id' =>SORT_DESC])->asArray()->all();
+        $map = ArrayHelper::map($results, 'rid', 'cid');
         $total_page = ceil($result->count()/$pagesize);
         if($results)
         {
@@ -57,6 +58,7 @@ class CollectionController extends \api\common\controllers\Controller
             $count= count($data); 
             for($i=0;$i<$count;$i++)
             {  
+                $data[$i]['cid']=$map[$data[$i]['id']];
                 $data[$i]['labelName']='参与人数';
                 $data[$i]['labelValue']=$data[$i]['views'];
                 $data[$i]['classname']=constant("CLASSNAME")[$resource_class[$data[$i]['rid']]];
@@ -100,5 +102,34 @@ class CollectionController extends \api\common\controllers\Controller
             $result = ['code' => 200,'message'=>'收藏成功!','data'=>null];
             return $result;  
         }
+    }
+    
+    /**
+     * 删除收藏
+     * @author by lxhui
+     * @version [2010-05-05]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionDelete()
+    {
+        $id = $this->params['cid'];
+        if(!$id)
+        {
+            $result = ['code' => -1,'message'=>'缺少收藏对象id!','data'=>null];
+            return $result;   
+        }
+        $where=['uid'=>$this->uid,'id'=>$id,'type'=>1];
+        $model = new $this->modelClass();
+        $model = $model::find()->where($where)->one();
+        if(!$model)
+        {
+            $result = ['code' => -1,'message'=>'找不到该收藏对象!','data'=>null];
+            return $result;           
+        }
+        $model->delete();
+        $result = ['code' => 200,'message'=>'删除成功!','data'=>null];
+        return $result;  
+       
     }
 }

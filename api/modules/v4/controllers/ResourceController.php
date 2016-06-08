@@ -7,7 +7,7 @@
  */
 
 namespace api\modules\v4\controllers;
-use api\common\models\{Resource, ResourceClass,ResourceViewLog,ResourceStudyLog};
+use api\common\models\{Resource, ResourceClass,ResourceViewLog,ResourceStudyLog,Collection};
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
@@ -263,6 +263,11 @@ class ResourceController extends \api\common\controllers\Controller
             $result = ['code' => -1,'message'=>'缺少ID!','data'=>null];
             return $result;
         }
+        if(!Resource::findOne($id))
+        {
+            $result = ['code' => -1,'message'=>'资源不存在!','data'=>null];
+            return $result;  
+        }
         /* 记录该用户访问资源 */
         $viewModel = new ResourceViewLog();
         $res = $viewModel->find()->where(['uid'=>$this->uid,'rid'=>$id])->one();
@@ -277,9 +282,16 @@ class ResourceController extends \api\common\controllers\Controller
             $model->views += 1;
             $model->save();
         }
+       
+        $where=['uid'=>$this->uid,'rid'=>$id,'type'=>1];
+        $model = Collection::find($where)->where($where)->one();
+        if($model)
+            $iscollect = true;
+        else
+            $iscollect = false;
                
         $wapUrl = 'http://wap.test.ohmate.com.cn/site/view/'.$id;
-        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl]];
+        $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl,'iscollect'=>$iscollect]];
         return $result;
     }
     
