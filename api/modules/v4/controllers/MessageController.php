@@ -21,6 +21,7 @@ class MessageController extends \api\common\controllers\Controller
         return [
             'index' => ['POST'],
             'warn' => ['POST'],
+            'read' => ['POST'],
         ];
     }
     /**
@@ -39,7 +40,7 @@ class MessageController extends \api\common\controllers\Controller
         //$model->updateAll(['isread'=>1],'touid=:touid',array(':touid'=>$this->uid));//更新信息已读状态
         
         $data = $model::find()
-            ->select('title,link_url,isread')
+            ->select(['id','title','link_url'])
             ->where(['or','touid='.$this->uid,'type=1'])
             ->orderBy(['send_at'=>SORT_DESC]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
@@ -65,7 +66,32 @@ class MessageController extends \api\common\controllers\Controller
         $result = ['code' => 200, 'message' => '消息提醒!', 'data' => ['count' => $count]];
         return $result;
     }
+    /**
+     * 消息提醒
+     * @author by lxhui
+     * @version [2010-05-21]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionRead()
+    {
+        $model = new $this->modelClass();
+        $id=$this->params['id'];
+        $model = $model::findOne($id);
+        if(!$model)
+        {
+            $result = ['code' => 200, 'message' => '没有找到该消息记录!!', 'data' =>null];   
+            return $result;
+        }
+        if($model->type==1) // 单推设置(群推无需设置属性)
+        {
+            $model->isread =1;
+            $model->save();  
+        }
 
+        $result = ['code' => 200, 'message' => '消息已读!', 'data' =>null];
+        return $result;
+    }
 }
 
 
