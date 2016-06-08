@@ -11,9 +11,9 @@ use yii\widgets\ActiveForm;
 backend\assets\AppAsset::register($this);
 ?>
 
-<?php $form = ActiveForm::begin(['action' => ['ad/find'], 'method' => 'get', 'id' => 'resourceForm']); ?>
+<?php $form = ActiveForm::begin(['action' => ['message/user'], 'method' => 'get', 'id' => 'userForm']); ?>
     <div class="modal-body" style="background-color: white">
-        <textarea name="phone" cols=40 rows=10>
+        <textarea name="phone" cols=45 rows=10>
         </textarea>
     </div>
     <div class="modal-footer">
@@ -34,14 +34,15 @@ $js = <<<JS
     });
 
     $("#btnConfirm").click(function() {
-        parent.$('#attr_name').val($("#attr_name").val());
-        parent.$('#attr_id').val($("#attr_id").val());
-        parent.$('#attr_from').val($("#type").val());
-        parent.layer.close(index);
+        $("#userForm").submit();
+        //parent.$('#attr_name').val($("#attr_name").val());
+        //parent.$('#attr_id').val($("#attr_id").val());
+        //parent.$('#attr_from').val($("#type").val());
+        //parent.layer.close(index);
     });
 
     $("#btnSearch").click(function() {
-        $("#resourceForm").submit();
+        $("#userForm").submit();
     });
 JS;
 $this->registerJs($js);

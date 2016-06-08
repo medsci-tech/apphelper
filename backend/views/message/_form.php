@@ -31,8 +31,8 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'id')->input('hidden')->label(false) ?>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-dismiss="modal">保存，稍后发送</button>
-        <?= Html::a('发送','javascript:;', ['class' => 'btn btn-primary', 'id'=>'hospitalFormSubmit']) ?>
+        <button id="btnSave" type="button" class="btn btn-white" data-dismiss="modal">保存，稍后发送</button>
+        <button id="btnSend" type="button" class="btn btn-primary" data-dismiss="modal">发送</button>
     </div>
 <?php ActiveForm::end(); ?>
 
@@ -52,6 +52,10 @@ $js = <<<JS
 
             });
         }
+    });
+
+    $('#btnSave').click(function(){
+    
     });
 JS;
 $this->registerJs($js);
