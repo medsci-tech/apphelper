@@ -288,7 +288,8 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
         if ( !$this->validate()) {
             return false;
         }
-        $user = Member::find()->where(['username'=>$this->username])->one();
+        $user = $this::find()->where(['username'=>$this->username])->one();
+
         $user->setPassword($this->password);
         if ($user->save(false)) {
             return $user;
