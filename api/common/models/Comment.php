@@ -10,7 +10,7 @@ class Comment extends \yii\db\ActiveRecord
             ['rid', 'required','message' => '评论对象rid不能为空!'],
             ['content', 'required','message' => '说点什么吧!'],
             ['type', 'required','message' => '评论类型type错误!'], 
-            [['rid', 'cid','uid'], 'integer'],
+            [['rid', 'cid','uid','exa_id'], 'integer'],
             ['reply_to_uid', 'default', 'value' => 0],
             ['created_at', 'default', 'value' => time()],
             ['type', 'in', 'range' => ['exam','resource']],

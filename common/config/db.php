@@ -12,7 +12,7 @@ return  [
     'charset' => 'utf8mb4',
     'tablePrefix' => 'md_',
 
-    'enableSchemaCache' => true,
+    'enableSchemaCache' => false,
     // Duration of schema cache.
     'schemaCacheDuration' => 3600,
     // Name of the cache component used to store schema information

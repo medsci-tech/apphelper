@@ -295,7 +295,7 @@ class ResourceController extends \api\common\controllers\Controller
         else
             $iscollect = false;
                
-        $wapUrl = 'http://wap.test.ohmate.com.cn/site/view/'.$id;
+        $wapUrl = Yii::$app->params['wapUrl'].'/site/view/'.$id;
         $result = ['code' => 200,'message'=>'详情介绍','data'=>['wapUrl'=>$wapUrl,'iscollect'=>$iscollect]];
         return $result;
     }
