@@ -61,9 +61,10 @@ class MessageController extends \api\common\controllers\Controller
     public function actionWarn()
     {
         $model = new $this->modelClass();
-        //$count = $model::find()->where(['touid'=>$this->uid, 'isread'=>0,'type'=>0])->count(); // 单推消息
-        $count = $model::find()->where(['or', 'type=1', ['and', 'touid='.$this->uid,'isread=0']])->count(); 
+        $count = $model::find()->where(['touid'=>$this->uid, 'isread'=>0,'type'=>0])->count(); // 单推消息
+        //$count = $model::find()->where(['or', 'type=1', ['and', 'touid='.$this->uid,'isread=0']])->count(); 
         $result = ['code' => 200, 'message' => '消息提醒!', 'data' => ['count' => $count]];
+        //self::getFullWarn();exit;
         return $result;
     }
     /**
@@ -88,10 +89,43 @@ class MessageController extends \api\common\controllers\Controller
             $model->isread =1;
             $model->save();  
         }
+        else // 群推设置用户消息状态
+        {
+            
+        }
 
         $result = ['code' => 200, 'message' => '消息已读!', 'data' =>null];
         return $result;
     }
+    
+    /**
+     * 获取用户全推消息
+     * @author by lxhui
+     * @version [2010-05-21]
+     * @param array $uid 登录用户id
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */ 
+    private function getFullWarn()
+    {
+        $model = new $this->modelClass();
+        /* 获取全推未读消息 */
+        $result = $model::find()->where('type=1')->asArray()->orderBy(['id'=>SORT_DESC])->all();
+        foreach($result as $val)
+            {
+               $key = $val['id'].'_'.$this->uid; // 每个消息的缓存键
+               $cacheData = ['id'=>$val['id'],'isread'=>0];
+               
+               $keyValue = Yii::$app->redis->get($key);
+               $keyValue = json_decode($keyValue,true);
+               if($keyValue && $keyValue['is'])   
+               {
+                 Yii::$app->redis->set($key,json_encode($cacheData));
+                 $count++;
+               }      
+            }
+        
+        
+    }   
 }
 
 
