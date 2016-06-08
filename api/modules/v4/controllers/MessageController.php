@@ -40,7 +40,7 @@ class MessageController extends \api\common\controllers\Controller
         $model = new $this->modelClass();
 
         $data = $model::find()
-            ->select(['id','title','link_url','push_type','type','cid'])
+            ->select(['id','title','link_url','push_type','type','cid','isread','isread'])
             ->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
             ->orderBy(['send_at'=>SORT_DESC]);
         $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
@@ -58,6 +58,7 @@ class MessageController extends \api\common\controllers\Controller
             if(!$val['link_url'])
                 $val['link_url']=Yii::$app->params['wapUrl'].'/message/view/'.$val['id'];
             
+            $val['isread'] = $val['isread']>0  ? true : false;
             unset($val['push_type'],$val['cid']);
         }
 
