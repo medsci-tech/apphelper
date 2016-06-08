@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'supportEmail' => 'support@example.com',
+    'wapUrl' => 'http://wap.test.ohmate.com.cn',
     'user.passwordResetTokenExpire' => 3600,
 
     'redisKey' => [
