@@ -87,10 +87,83 @@ backend\assets\AppAsset::register($this);
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title"><label id="l_title">添加</label></h4>
             </div>
-<!--            --><?//=$this->render('form', [
-//                'model' => $model,
-//            ]);?>
+            <?=$this->render('_form', [
+                'model' => $model,
+            ]);?>
         </div>
     </div>
 </div>
 </div>
+
+<?php
+$formUrl = \yii\helpers\Url::toRoute('_form');
+$getError = $yiiApp->getSession()->getFlash('error');
+$getSuccess = $yiiApp->getSession()->getFlash('success');
+$js=<<<JS
+    /*修改操作状态提示*/
+    if('$getError' || '$getSuccess'){
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+        }
+    }
+    if('$getError'){
+        toastr.error('$getError');
+    }else if('$getSuccess'){
+        toastr.success('$getSuccess');
+    }
+
+    /*编辑初始化*/
+    $("span[name='saveData']").click(function(){
+        var titles = '编辑';
+        $("#l_title").html(titles);
+        var id = $(this).attr('id');
+        var title = $(this).attr('title');
+        var content = $(this).attr('content');
+        var link_url = $(this).attr('link_url');
+        var type = $(this).attr('type');
+
+        if(type=='1') {
+            $("#rdo1").attr("checked","checked");
+        } else{
+            $("#rdo2").attr("checked","checked");
+        }
+
+        $('#message-id').val(id);
+        $('#message-content').val(content);
+        $('#message-link_url').val(link_url);
+        $('#message-title').val(title);
+        $('#myModal #tableForm').attr('action', '$formUrl?id='+id);
+
+    });
+
+    /*添加初始化*/
+   $('#btnAdd').click(function() {
+        var defaltData = '';
+        $('#message-id').val(defaltData);
+        $('#message-content').val(defaltData);
+        $('#message-link_url').val(defaltData);
+        $('#message-title').val(defaltData);
+        $('#myModal #tableForm').attr('action', '$formUrl');
+        var valOption = $('input[name="type"]:checked').val();
+        if(valOption == '0'){
+            $("#rdo2").removeAttr("checked");
+            $("#rdo1").attr("checked",true);
+        }
+        var title = '添加';
+        $("#l_title").html(title);
+
+   });
+
+JS;
+$this->registerJs($js);
+?>
