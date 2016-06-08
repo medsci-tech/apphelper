@@ -71,7 +71,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             [['verycode'], function ($attribute, $params) {
                 $verycode = Yii::$app->cache->get($this->username);
                 if ($verycode !== $this->verycode) {
-                    //$this->addError($attribute, '手机验证码不匹配或者已过期！');
+                    $this->addError($attribute, '手机验证码不匹配或者已过期！');
                 }
             }],
             ['password', 'string', 'min' => 6, 'max' => 24,'message' => '密码长度在6-12之间!'],
