@@ -20,7 +20,7 @@ class ResourceController extends BackendController
             'upload' => [
                 'class' => 'kucha\ueditor\UEditorAction',
                 'config' => [
-                    'imageUrlPrefix' => \Yii::getAlias('@static').'/', //图片访问路径前缀
+                    'imageUrlPrefix' => '', //图片访问路径前缀
                     'imagePathFormat' => 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}', //上传保存路径
                 ],
             ],

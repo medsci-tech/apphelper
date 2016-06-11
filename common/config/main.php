@@ -20,6 +20,5 @@ return [
     ],
     'aliases' => [
         '@common/logic' => '@common/models/logic',
-        '@static' => 'http://admin.apphelper.dev',
     ],
 ];
