@@ -11,7 +11,6 @@ use yii\widgets\ActiveForm;
 $this->title = $title;
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
-use wenyuan\ueditor\Ueditor;
 ?>
 <div class="modal-body">
     <p>

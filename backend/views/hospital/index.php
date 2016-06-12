@@ -35,7 +35,7 @@ backend\assets\AppAsset::register($this);
                         }
 
                     ],
-                    'id',
+                    ['class' => 'yii\grid\SerialColumn'],
                     'name',
                     'province',
                     'city',

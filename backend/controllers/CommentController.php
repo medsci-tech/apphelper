@@ -6,25 +6,13 @@
  * Time: 下午6:40
  */
 
-namespace api\modules\v4\controllers;
+namespace backend\controllers;
 
-use api\common\models\Comment;
+use common\models\Comment;
 use common\models\Member;
-use api\common\models\Praise;
-use api\common\models\Resource;
-use api\common\models\Exam;
 use Yii;
-
-class CommentController extends \api\common\controllers\Controller
+class CommentController extends BackendController
 {
-    public $modelClass = 'api\common\models\Comment';
-
-    protected function verbs(){
-        return [
-            'save'=>['POST'],
-            'index'=>['POST'],
-        ];
-    }
 
     /**
      * 资源详情/题目详情的评论加载通用接口
