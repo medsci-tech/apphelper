@@ -31,17 +31,16 @@ backend\assets\AppAsset::register($this);
                 'method' => 'post',
                 'options' => ['class' => 'form-inline', 'id' => 'modifyForm'],
             ]); ?>
-            <?= Html::input('hidden', 'type', 'enable', ['id' => 'typeForm']); ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
                     'title',
                     'uid',
                     [
-                        'attribute' => 'type',
+                        'attribute' => 'push_type',
                         'value' =>
                             function ($model) {
-                                $result = $this->params['params']['sendType'][$model->type];
+                                $result = $this->params['params']['sendType'][$model->push_type];
                                 return $result ?? '';
                             },
                     ],
@@ -66,8 +65,9 @@ backend\assets\AppAsset::register($this);
                                 content="'.$model->content.'"
                                 id="'.$model->id.'"
                                 uid="'.$model->uid.'"
-                                type="'.$model->type.'"
+                                type="'.$model->push_type.'"
                                 link_url="'.$model->link_url.'"
+                                status="'.$model->status.'"
                                  ></span>');
                             },
                         ]
@@ -125,24 +125,35 @@ $js=<<<JS
     /*编辑初始化*/
     $("span[name='saveData']").click(function(){
         var titles = '编辑';
-        $("#l_title").html(titles);
+
         var id = $(this).attr('id');
         var title = $(this).attr('title');
         var content = $(this).attr('content');
         var link_url = $(this).attr('link_url');
         var type = $(this).attr('type');
+        var status = $(this).attr('status');
 
-        if(type=='1') {
+        $("#rdo1").removeAttr("checked");
+        $("#rdo2").removeAttr("checked");
+        if(type == '1') {
             $("#rdo1").attr("checked","checked");
         } else{
             $("#rdo2").attr("checked","checked");
         }
 
+        if(status == '1') {
+            titles = '浏览';
+            $("#btnSave").hide();
+            $("#btnSend").hide();
+        }
+
+        $("#l_title").html(titles);
         $('#message-id').val(id);
         $('#message-content').val(content);
         $('#message-link_url').val(link_url);
         $('#message-title').val(title);
-        $('#myModal #tableForm').attr('action', '$formUrl?id='+id);
+        $('#post_type').val('edit');
+        //$('#myModal #tableForm').attr('action', '$formUrl?id='+id);
 
     });
 
@@ -153,14 +164,15 @@ $js=<<<JS
         $('#message-content').val(defaltData);
         $('#message-link_url').val(defaltData);
         $('#message-title').val(defaltData);
-        $('#myModal #tableForm').attr('action', '$formUrl');
-        var valOption = $('input[name="type"]:checked').val();
+        //$('#myModal #tableForm').attr('action', '$formUrl');
+        var valOption = $('input[name="push_type"]:checked').val();
         if(valOption == '0'){
             $("#rdo2").removeAttr("checked");
             $("#rdo1").attr("checked",true);
         }
         var title = '添加';
         $("#l_title").html(title);
+        $('#post_type').val('add');
 
    });
 

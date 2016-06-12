@@ -23,7 +23,7 @@ class Message extends \yii\db\ActiveRecord {
     public function rules()
     {
         return [
-            [['uid', 'isread', 'type','created_at','status','send_at','touid' ], 'integer'],
+            [['uid', 'isread', 'push_type','created_at','status','send_at','touid' ], 'integer'],
             [['title'], 'string', 'max' => 150],
             [['link_url'], 'string', 'max' => 150],
             [['content'], 'string', 'max' => 1000],
@@ -40,7 +40,7 @@ class Message extends \yii\db\ActiveRecord {
             'title' => '标题',
             'link_url' => '跳转链接',
             'content' => '内容',
-            'type' => '推送范围',
+            'push_type' => '推送范围',
             'created_at' => '创建时间',
             'status' => '发送状态',
             'send_at' => '发送时间',

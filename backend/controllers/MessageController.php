@@ -48,6 +48,34 @@ class MessageController extends BackendController {
         ]);
     }
 
+    public function actionCreate()
+    {
+        $params = Yii::$app->request->post();
+
+        if(1 == $params['push_type']) {
+            $message = $params['Message'];
+            if ($message['id']) {
+                $model = $this->findModel($message['id']);
+                $model->title = $message['title'];
+                $model->content = $message['content'];
+                $model->link_url = $message['link_url'];
+            } else {
+                $model = new Message();
+
+            }
+        }else
+
+        if ('send' == $params['type']) {
+
+        }
+
+        if ('save' == $params['type']) {
+
+        }
+
+        return $this->redirect(['index']);
+    }
+
     public function actionMember()
     {
         return $this->render('member');
@@ -74,6 +102,15 @@ class MessageController extends BackendController {
 
             Yii::$app->cache->set('MessageUser',json_encode($array));
 //            print_r($array);
+        }
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Message::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 }
