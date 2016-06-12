@@ -104,16 +104,23 @@ class MessageController extends \api\common\controllers\Controller
             $result = ['code' => 200, 'message' => '没有找到该消息记录!!', 'data' =>null];   
             return $result;
         }
-        if($model->push_type==1) // 单推设置(群推无需设置属性)
+        if($model->push_type==0) // 单推设置(群推无需设置属性)
         {
             $model->isread =1;
             $model->save();  
         }
         else // 群推设置用户消息状态
         {
-            
+            $key = $id.'_'.$this->uid; // 每个消息的缓存键
+            $keyValue = Yii::$app->redis->get($key);
+            $keyValue = json_decode($keyValue,true);
+            /* 设置已读状态 */
+            if(is_array($keyValue) && $keyValue['isread']==0)
+            {
+                $keyValue = ['id'=>$id,'isread'=>1];
+                Yii::$app->redis->set($key,json_encode($keyValue));  
+            }
         }
-       //$model->updateAll(['isread'=>1],'touid=:touid',array(':touid'=>$this->uid));//更新信息已读状态
         $result = ['code' => 200, 'message' => '消息已读!', 'data' =>null];
         return $result;
     }
