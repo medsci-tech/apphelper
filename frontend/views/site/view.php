@@ -74,9 +74,16 @@
             console.log(jsonString);
 //            $("#txt_value").val(jsonString);
 //            window.Client.showImage(jsonString);
-            appCallJs();
+//            appCallJs();
+            clickImg(JSON.stringify(temp));
         });
     });
+
+    function clickImg(json){
+        var url="ClickImage:"+json;
+        console.log(url);
+        document.location = url;
+    }
 
     function appCallJs(){
         var jsonString = JSON.stringify(temp);
