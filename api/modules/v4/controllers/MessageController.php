@@ -101,7 +101,7 @@ class MessageController extends \api\common\controllers\Controller
         $model = $model::findOne($id);
         if(!$model)
         {
-            $result = ['code' => 200, 'message' => '没有找到该消息记录!!', 'data' =>null];   
+            $result = ['code' => 200, 'message' => '没有找到该消息记录!', 'data' =>null];   
             return $result;
         }
         if($model->push_type==0) // 单推设置(群推无需设置属性)
