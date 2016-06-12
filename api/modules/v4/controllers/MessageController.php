@@ -41,12 +41,16 @@ class MessageController extends \api\common\controllers\Controller
 
         $data = $model::find()
             ->select(['id','title','link_url','push_type','type','cid','isread','isread'])
-            ->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
-            ->orderBy(['send_at'=>SORT_DESC]);
-        $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
-        $total_page = ceil($data->count() / $pagesize);
-        foreach($model as &$val)
+            //->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
+            ->where(['touid'=>$this->uid,'push_type'=>0])
+            ->orderBy(['send_at'=>SORT_DESC])
+            ->asArray()->all(); // 单推
+       
+        $res = $model->getFullWarn($this->uid);
+        $res = $res['list']; // 全推消息
+        $data = array_merge($data,$res);   
+        ArrayHelper::multisort($data, ['id'], [SORT_DESC]);
+        foreach($data as &$val)
         {
             $val['rid'] = null;
             if (in_array($val['type'], ['resource','exam']))
@@ -59,11 +63,11 @@ class MessageController extends \api\common\controllers\Controller
                 $val['link_url']=Yii::$app->params['wapUrl'].'/message/view/'.$val['id'];
             
             $val['isread'] = $val['isread']>0  ? true : false;
-            unset($val['push_type'],$val['cid']);
+            unset($val['push_type']);
         }
-
-        
-        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $model ? $model : null]];
+        $total_page = ceil(count($data)/$pagesize); // 总页数    
+        $data = array_slice($data,$offset,$pagesize);
+        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $data ? $data : null]];
         return $result;
     }
     
