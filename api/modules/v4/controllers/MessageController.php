@@ -41,12 +41,16 @@ class MessageController extends \api\common\controllers\Controller
 
         $data = $model::find()
             ->select(['id','title','link_url','push_type','type','cid','isread','isread'])
-            ->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
-            ->orderBy(['send_at'=>SORT_DESC]);
-        $pages = new Pagination(['totalCount' => $data->count(), 'pageSize' => $pagesize]);
-        $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
-        $total_page = ceil($data->count() / $pagesize);
-        foreach($model as &$val)
+            //->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
+            ->where(['touid'=>$this->uid,'push_type'=>0])
+            ->orderBy(['send_at'=>SORT_DESC])
+            ->asArray()->all(); // 单推
+       
+        $res = $model->getFullWarn($this->uid);
+        $res = $res['list']; // 全推消息
+        $data = array_merge($data,$res);   
+        ArrayHelper::multisort($data, ['id'], [SORT_DESC]);
+        foreach($data as &$val)
         {
             $val['rid'] = null;
             if (in_array($val['type'], ['resource','exam']))
@@ -59,11 +63,11 @@ class MessageController extends \api\common\controllers\Controller
                 $val['link_url']=Yii::$app->params['wapUrl'].'/message/view/'.$val['id'];
             
             $val['isread'] = $val['isread']>0  ? true : false;
-            unset($val['push_type'],$val['cid']);
+            unset($val['push_type']);
         }
-
-        
-        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $model ? $model : null]];
+        $total_page = ceil(count($data)/$pagesize); // 总页数    
+        $data = array_slice($data,$offset,$pagesize);
+        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $data ? $data : null]];
         return $result;
     }
     
@@ -101,19 +105,26 @@ class MessageController extends \api\common\controllers\Controller
         $model = $model::findOne($id);
         if(!$model)
         {
-            $result = ['code' => 200, 'message' => '没有找到该消息记录!!', 'data' =>null];   
+            $result = ['code' => 200, 'message' => '没有找到该消息记录!', 'data' =>null];   
             return $result;
         }
-        if($model->push_type==1) // 单推设置(群推无需设置属性)
+        if($model->push_type==0) // 单推设置(群推无需设置属性)
         {
             $model->isread =1;
             $model->save();  
         }
         else // 群推设置用户消息状态
         {
-            
+            $key = $id.'_'.$this->uid; // 每个消息的缓存键
+            $keyValue = Yii::$app->redis->get($key);
+            $keyValue = json_decode($keyValue,true);
+            /* 设置已读状态 */
+            if(is_array($keyValue) && $keyValue['isread']==0)
+            {
+                $keyValue = ['id'=>$id,'isread'=>1];
+                Yii::$app->redis->set($key,json_encode($keyValue));  
+            }
         }
-       //$model->updateAll(['isread'=>1],'touid=:touid',array(':touid'=>$this->uid));//更新信息已读状态
         $result = ['code' => 200, 'message' => '消息已读!', 'data' =>null];
         return $result;
     }

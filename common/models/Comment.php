@@ -46,6 +46,12 @@ class Comment extends \yii\db\ActiveRecord
             'content' => '内容',
             'up' => '顶',
             'down' => '踩',
+            'real_name' => '姓名',
+            'nickname' => '昵称',
+            'username' => '手机号',
+            'comments' => '评论数',
+            'created_at' => '创建时间',
+            'status' => '状态',
         ];
     }
     /**

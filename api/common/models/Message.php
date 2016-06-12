@@ -15,7 +15,7 @@ class Message extends \yii\db\ActiveRecord
     public function getFullWarn($uid)
     {
         /* 获取全推未读消息 */
-        $result = $this::find()->where(['push_type'=>1])->asArray()->orderBy(['id'=>SORT_DESC])->all();
+        $result = $this::find()->select(['id','title','link_url','push_type','type','cid','isread','isread'])->where(['push_type'=>1])->asArray()->orderBy(['id'=>SORT_DESC])->all();
         $count = 0; //消息总数
         if($result)
         {
@@ -34,7 +34,7 @@ class Message extends \yii\db\ActiveRecord
             }
         }
         $ids = ArrayHelper::getColumn($result, 'id') ?? null;   // 群推消息id集合     
-        $list = ['count'=>$count,'data'=>$ids];
+        $list = ['count'=>$count,'data'=>$ids,'list'=>$result];
         return $list;       
     }   
 

@@ -259,6 +259,7 @@ class Getui {
     }
 
     //群推接口案例
+
     public function pushMessageToApp($title, $content){
         $igt = new \IGeTui(HOST,APPKEY,MASTERSECRET);
         $template = $this->IGtTransmissionTemplateDemo($title, $content);
