@@ -26,8 +26,12 @@ class CommentController extends BackendController
     public function actionIndex()
     {
         /*条件查询*/
+        $params = [
+            'title' => '',
+            'type' => 'resource',
+        ];
         $search = new CommentSearch();
-        $dataProvider = $search->search(Yii::$app->request->queryParams);
+        $dataProvider = $search->search($params);
 
         return $this->render('resource-index', [
             'searchModel' => $search,
@@ -52,15 +56,8 @@ class CommentController extends BackendController
             'cid' => 0,
             'rid' => $id,
         ];
-        $model = Comment::find();
-        $model->andFilterWhere($where);
-        $dataProvider = new ActiveDataProvider([
-            'query' => Comment::find(),
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
-//        $dataProvider = $search::find()->where($where)->sql;
+        $model = new CommentSearch();
+        $dataProvider = $model->searchYi($where);
         return $this->render('comment', [
             'searchModel' => $model,
             'dataProvider' => $dataProvider,

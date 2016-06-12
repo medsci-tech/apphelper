@@ -15,6 +15,7 @@ use yii\widgets\ActiveForm;
 /* @var $params */
 $this->title = '一级评论列表';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
 /*根据get参数判断是否是考卷添加试题*/
 ?>
@@ -49,18 +50,38 @@ backend\assets\AppAsset::register($this);
                     'created_at',
                     [
                         'attribute' => 'real_name',
-                        'label' => '姓名',
                         'value' =>
                             function ($model) {
                                 $result = Member::findOne($model->uid);
+                                $this->params['comment']['nickname'] = $result->nickname ?? '';
+                                $this->params['comment']['username'] = $result->username ?? '';
                                 return $result->real_name ?? '';
                             },
                     ],
-//                    '姓名',
-//                    '昵称',
-//                    '手机号',
-//                    '评论内容',
-//                    '子评论数',
+                    [
+                        'attribute' => 'nickname',
+                        'value' =>
+                            function ($model) {
+                                return $this->params['comment']['nickname'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'username',
+                        'value' =>
+                            function ($model) {
+                                return $this->params['comment']['username'];
+                            },
+                    ],
+                    'content',
+                    'comments',
+                    [
+                        'attribute' => 'status',
+                        'value' =>
+                            function ($model) {
+                                $result = $this->params['params']['statusOption'][$model->status];
+                                return $result ?? '';
+                            },
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',
