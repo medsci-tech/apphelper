@@ -14,6 +14,9 @@ class Comment extends \yii\db\ActiveRecord
             ['reply_to_uid', 'default', 'value' => 0],
             ['created_at', 'default', 'value' => time()],
             ['type', 'in', 'range' => ['exam','resource']],
+            ['exa_id', 'required', 'when' => function($model) {
+            return $model->type == 'exam';
+            },'message' => '试卷id不能为空!'],
             [['content'], 'string', 'max' => 500]
         ];
     }
