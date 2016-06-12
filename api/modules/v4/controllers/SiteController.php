@@ -20,6 +20,7 @@ class SiteController extends CommonController
             'login'=>['POST'],
             'forget'=>['POST'],
             'info'=>['POST'],
+            'logout'=>['POST'],
         ];
     }
 
@@ -144,6 +145,28 @@ class SiteController extends CommonController
             ['msg'=>'本次升级改进了很多UI']
         ];
         $result = ['code' => 200,'message' =>'功能介绍','data' =>$data];
+        return $result;
+    }
+    
+    /**
+     * 退出app
+     * @author by lxhui
+     * @version [2010-06-12]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionLogout()
+    {
+        $model = new $this->modelClass();
+        $model = $model::findOne($this->params['uid']);
+        if($model)
+        {
+            $model->updateAll(['clientid'=>null],'id=:id',array(':id'=>$this->params['uid']));
+            $result = ['code' => 200,'message' =>'退出成功!','data' =>null];  
+        }
+        else
+            $result = ['code' => -1,'message' =>'退出失败!','data' =>null];  
+            
         return $result;
     }
 }
