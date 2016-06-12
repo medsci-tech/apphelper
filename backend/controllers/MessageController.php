@@ -10,6 +10,7 @@ namespace backend\controllers;
 
 use common\models\Member;
 use common\models\Message;
+use common\components\Getui;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,25 +53,95 @@ class MessageController extends BackendController {
     {
         $params = Yii::$app->request->post();
 
-        if(1 == $params['push_type']) {
+        if ('add' == $params['type']) {
+
+            $message = $params['Message'];
+            if (1 == $params['push_type']) {
+                $userList = Array();
+                $array = array();
+                foreach($userList as $user){
+                    $model = new Message();
+                    $model->title = $message['title'];
+                    $model->content = $message['content'];
+                    $model->link_url = $message['link_url'];
+                    $model->push_type = $params['push_type'];
+                    $model->isread = 0;
+                    $model->touid = $user;
+                    $model->create_at = time();
+                    $model->status = 0;
+                    $model->save(false);
+                    $row = array('id' =>$model->id);
+                    array_push($array, $row);
+                }
+            } else {
+                $model = new Message();
+                $model->title = $message['title'];
+                $model->content = $message['content'];
+                $model->link_url = $message['link_url'];
+                $model->push_type = $params['push_type'];
+                $model->isread = 0;
+                $model->create_at = time();
+                $model->status = 0;
+                $model->save(false);
+                $id = $model->id;
+            }
+
+            if ('send' == $params['type']) {
+                $push = new Getui();
+                $status = 0;
+                if (1 == $params['push_type']) {
+                    $push->pushMessageToApp();
+                    $model = $this->findModel($id);
+                    $model->status = 1;
+                    $model->send_at = time();
+                    $model->save(false);
+                } else {
+
+                    $push->pushSingle($message['title'],$message['content'],$array);
+                    foreach($array as $user){
+                        $model = $this->findModel($user);
+                        $model->status = 1;
+                        $model->send_at = time();
+                        $model->save(false);
+                    }
+                }
+            }
+
+
+//            if ('save' == $params['type']) {
+//                $status = 0;
+//            }
+        }
+
+        if ('edit' == $params['type']) {
+
             $message = $params['Message'];
             if ($message['id']) {
                 $model = $this->findModel($message['id']);
                 $model->title = $message['title'];
                 $model->content = $message['content'];
                 $model->link_url = $message['link_url'];
-            } else {
-                $model = new Message();
-
+                $model->save(false);
             }
-        }else
 
-        if ('send' == $params['type']) {
+            if ('send' == $params['type']) {
+                $push = new Getui();
+                if (1 == $params['push_type']) {
+                    $push->pushMessageToApp();
+                } else {
+                    $array = array();
+                    $row = array('id' =>$model->id);
+                    array_push($array, $row);
+                    $push->pushSingle($message['title'],$message['content'],$array);
+                }
+                $model->status = $status;
+                $model->send_at = time();
+                $model->save(false);
+            }
 
-        }
-
-        if ('save' == $params['type']) {
-
+//            if ('save' == $params['type']) {
+//
+//            }
         }
 
         return $this->redirect(['index']);
