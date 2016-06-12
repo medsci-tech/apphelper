@@ -80,9 +80,10 @@
     });
 
     function clickImg(json){
-        var url="ClickImage:"+json;
-        console.log(url);
-        document.location = url;
+        var params="ClickImage:"+json;
+//        console.log(url);
+//        var url = location.href;
+        location.href = params;
     }
 
     function appCallJs(){
