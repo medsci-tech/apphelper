@@ -7,17 +7,14 @@
  */
 
 namespace api\modules\v4\controllers;
+
 use api\common\models\Comment;
 use common\models\Member;
 use api\common\models\Praise;
-use backend\controllers\TreeController;
 use api\common\models\Resource;
-use api\common\models\Exam;
+use api\common\models\Exercise;
 use Yii;
-use yii\rest\ActiveController;
-use yii\filters\auth\CompositeAuth;
-use yii\filters\auth\QueryParamAuth;
-use yii\base\InvalidConfigException;
+
 class CommentController extends \api\common\controllers\Controller
 {
     public $modelClass = 'api\common\models\Comment';
@@ -73,7 +70,7 @@ class CommentController extends \api\common\controllers\Controller
             if('resource' == $type){
                 $res = Resource::findOne($rid);
             }elseif ('exam' == $type){
-                $res = Exam::findOne($rid);
+                $res = Exercise::findOne($rid);
             }
             $comments = $res->comments ?? 0;
             $return = [
@@ -82,7 +79,7 @@ class CommentController extends \api\common\controllers\Controller
                 'data'=>[
                     'isLastPage' => $isLastPage,
                     'comments' => $comments,
-                    'list' => $data,
+                    'list' => empty($data) ? null : $data,
                 ],
             ];
         }
@@ -126,10 +123,10 @@ class CommentController extends \api\common\controllers\Controller
             if($dataOne){
                 if('resource' == $dataOne->type){
                     $res = Resource::findOne($dataOne->rid);
-                    $title = $res->title;
+                    $title = $res->title ?? '';
                 }elseif ('exam' == $dataOne->type){
-                    $res = Exam::findOne($dataOne->rid);
-                    $title = $res->name;
+                    $res = Exercise::findOne($dataOne->rid);
+                    $title = $res->question ?? '';
                 }
             }
             $resTitle = $title ?? '';
@@ -141,7 +138,7 @@ class CommentController extends \api\common\controllers\Controller
                     'isLastPage' => $isLastPage,
                     'title' => $resTitle,
                     'imgUrl' => $resImg,
-                    'list' => $data,
+                    'list' => empty($data) ? null : $data,
                 ],
             ];
         }
@@ -170,7 +167,7 @@ class CommentController extends \api\common\controllers\Controller
                 if('resource' == $type){
                     $res = Resource::findOne($result->rid);
                 }elseif ('exam' == $type){
-                    $res = Exam::findOne($result->rid);
+                    $res = Exercise::findOne($result->rid);
                 }
                 if($res){
                     $res->comments += 1;
