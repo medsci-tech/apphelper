@@ -79,7 +79,7 @@ class CommentController extends \api\common\controllers\Controller
                 'data'=>[
                     'isLastPage' => $isLastPage,
                     'comments' => $comments,
-                    'list' => empty($data) ? null : $data,
+                    'list' => $data,
                 ],
             ];
         }
@@ -138,7 +138,7 @@ class CommentController extends \api\common\controllers\Controller
                     'isLastPage' => $isLastPage,
                     'title' => $resTitle,
                     'imgUrl' => $resImg,
-                    'list' => empty($data) ? null : $data,
+                    'list' => $data,
                 ],
             ];
         }

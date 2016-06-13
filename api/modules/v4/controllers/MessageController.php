@@ -67,7 +67,7 @@ class MessageController extends \api\common\controllers\Controller
         }
         $total_page = ceil(count($data)/$pagesize); // 总页数    
         $data = array_slice($data,$offset,$pagesize);
-        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $data ? $data : null]];
+        $result = ['code' => 200, 'message' => '消息列表!', 'data' => ['isLastPage' => $page >= $total_page ? true : false, 'list' => $data ? $data : []]];
         return $result;
     }
     

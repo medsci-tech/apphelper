@@ -12,6 +12,9 @@ use backend\models\search\Comment as CommentSearch;
 use common\models\Comment;
 use common\models\Member;
 use yii\data\ActiveDataProvider;
+use common\models\Resource;
+use common\models\Exercise;
+use common\models\ResourceClass;
 use Yii;
 class CommentController extends BackendController
 {
@@ -25,22 +28,38 @@ class CommentController extends BackendController
      */
     public function actionIndex()
     {
+        $type = Yii::$app->request->queryParams['type'];
+//        var_dump(Yii::$app->request->queryParams);exit;
         /*条件查询*/
-        $params = [
-            'title' => '',
-            'type' => 'resource',
-        ];
-        $search = new CommentSearch();
-        $dataProvider = $search->search($params);
+        if($type == 'exercise'){
+            $search = new Exercise();
+            $view = 'exercise';
+        }else{
+            $search = new Resource();
+            $view = 'resource';
+        }
+        $dataProvider = (new CommentSearch())->search(Yii::$app->request->queryParams);
 
-        return $this->render('resource-index', [
+        //资源种类
+        $cateList = [];
+        $resourceClassModel = new ResourceClass();
+        $cateListArr = $resourceClassModel->getDataForWhere(['parent' => 0]);
+        if($cateListArr){
+            foreach ($cateListArr as $key => $val){
+                $cateList[$val['id']] = $val['name'];
+            }
+        }
+        $cateList['exercise'] = '试题';
+//        var_dump($cateList);exit;
+        return $this->render($view . '-index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
+            'cateList' => $cateList,
         ]);
     }
 
     /**
-     * 某个资源一级评论列表
+     * 资源一级评论列表
      * @author zhaiyu
      * @startDate 20160612
      * @upDate 20160612
@@ -57,7 +76,7 @@ class CommentController extends BackendController
             'rid' => $id,
         ];
         $model = new CommentSearch();
-        $dataProvider = $model->searchYi($where);
+        $dataProvider = $model->searchComment($where);
         return $this->render('comment', [
             'searchModel' => $model,
             'dataProvider' => $dataProvider,
@@ -65,28 +84,75 @@ class CommentController extends BackendController
     }
 
     /**
-     * 某个资源一级评论列表
+     * 资源二级评论列表
      * @author zhaiyu
      * @startDate 20160612
-     * @upDate 20160612
-     * @param $id
+     * @upDate 20160613
+     * @param $rid
+     * @param cid
      * @return string
      */
-    public function actionEr($id)
+    public function actionEr($rid, $cid)
     {
-        if(empty($id)){
+        if(empty($rid || $cid)){
             $this->redirect('index');
         }
-        $search = new Comment();
         $where = [
-            'cid' => 0,
-            'rid' => $id,
+            'cid' => $cid,
+            'rid' => $rid,
         ];
-        $dataProvider = $search::find()->where($where);
-        return $this->render('comment', [
-            'searchModel' => $search,
+        $model = new CommentSearch();
+        $dataProvider = $model->searchComment($where);
+        return $this->render('info', [
+            'searchModel' => $model,
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    /**
+     * 培训更改状态
+     * @author zhaiyu
+     * @startDate 20160613
+     * @upDate 20160613
+     * @return \yii\web\Response
+     */
+    public function actionDelete()
+    {
+        $appYii = Yii::$app;
+        $params = $appYii->request->post();
+        $id = $appYii->request->get('id');
+        if(isset($params['selection'])) {
+            $model = new Comment();
+            if ('del' == $params['type']) {
+                /*删除*/
+                foreach ($params['selection'] as $key => $val) {
+                    $this->findModel($val)->delete();
+                }
+            }elseif ('enable' == $params['type']) {
+                /*启用*/
+                $model->saveData(['id' => $params['selection']], ['status' => 1]);
+            } elseif ('disable' == $params['type']) {
+                /*禁用*/
+                $model->saveData(['id' => $params['selection']], ['status' => 0]);
+            }
+        }elseif($id){
+            $this->findModel($id)->delete();
+        }
+        return $this->redirect($appYii->request->referrer);
+    }
+
+    /**
+     * @param $id
+     * @return null|static
+     */
+    protected function findModel($id)
+    {
+        if (($model = Comment::findOne($id)) !== null) {
+            return $model;
+        } else {
+            return false;
+        }
+    }
+
 
 }

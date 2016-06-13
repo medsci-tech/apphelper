@@ -92,7 +92,9 @@
             <li>
                 <a class="J_menuItem" href="/message/index"><i class="fa fa-desktop"></i> <span class="nav-label">消息推送</span></a>
             </li>
-
+            <li>
+                <a class="J_menuItem" href="comment/index"><i class="fa fa-desktop"></i> <span class="nav-label">评论管理</a>
+            </li>
 
         </ul>
     </div>
