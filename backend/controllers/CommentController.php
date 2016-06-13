@@ -12,6 +12,9 @@ use backend\models\search\Comment as CommentSearch;
 use common\models\Comment;
 use common\models\Member;
 use yii\data\ActiveDataProvider;
+use common\models\Resource;
+use common\models\Exercise;
+use common\models\ResourceClass;
 use Yii;
 class CommentController extends BackendController
 {
@@ -25,17 +28,33 @@ class CommentController extends BackendController
      */
     public function actionIndex()
     {
+        $type = Yii::$app->request->queryParams['type'];
+//        var_dump(Yii::$app->request->queryParams);exit;
         /*条件查询*/
-        $params = [
-            'title' => '',
-            'type' => 'resource',
-        ];
-        $search = new CommentSearch();
-        $dataProvider = $search->search($params);
+        if($type == 'exercise'){
+            $search = new Exercise();
+            $view = 'exercise';
+        }else{
+            $search = new Resource();
+            $view = 'resource';
+        }
+        $dataProvider = (new CommentSearch())->search(Yii::$app->request->queryParams);
 
-        return $this->render('resource-index', [
+        //资源种类
+        $cateList = [];
+        $resourceClassModel = new ResourceClass();
+        $cateListArr = $resourceClassModel->getDataForWhere(['parent' => 0]);
+        if($cateListArr){
+            foreach ($cateListArr as $key => $val){
+                $cateList[$val['id']] = $val['name'];
+            }
+        }
+        $cateList['exercise'] = '试题';
+//        var_dump($cateList);exit;
+        return $this->render($view . '-index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
+            'cateList' => $cateList,
         ]);
     }
 
@@ -57,7 +76,7 @@ class CommentController extends BackendController
             'rid' => $id,
         ];
         $model = new CommentSearch();
-        $dataProvider = $model->searchYi($where);
+        $dataProvider = $model->searchComment($where);
         return $this->render('comment', [
             'searchModel' => $model,
             'dataProvider' => $dataProvider,
@@ -83,7 +102,7 @@ class CommentController extends BackendController
             'rid' => $rid,
         ];
         $model = new CommentSearch();
-        $dataProvider = $model->searchYi($where);
+        $dataProvider = $model->searchComment($where);
         return $this->render('info', [
             'searchModel' => $model,
             'dataProvider' => $dataProvider,
@@ -134,4 +153,6 @@ class CommentController extends BackendController
             return false;
         }
     }
+
+
 }

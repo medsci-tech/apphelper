@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $treeNavigateSelectedName; */
 /* @var $directoryStructureSearch */
 /* @var $dataProvider */
-/* @var $params */
+/* @var $cateList */
 $this->title = '评论资源列表';
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
@@ -22,7 +22,10 @@ backend\assets\AppAsset::register($this);
 <div class="modal-body">
     <div class="box box-success">
         <div class="box-body">
-            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?php echo $this->render('_search',[
+                    'model' => $searchModel,
+                    'cateList' => $cateList,
+                ]); ?>
         </div>
     </div>
     <div class="box box-success">
