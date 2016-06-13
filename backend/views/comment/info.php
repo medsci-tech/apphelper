@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $directoryStructureSearch */
 /* @var $dataProvider */
 /* @var $params */
-$this->title = '一级评论列表';
+$this->title = '二级评论列表';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
@@ -21,6 +21,7 @@ backend\assets\AppAsset::register($this);
 ?>
 
 <div class="modal-body">
+    
     <div class="box box-success">
         <div class="box-body">
             <?php echo $this->render('_search-info', ['model' => $searchModel]); ?>
@@ -72,6 +73,30 @@ backend\assets\AppAsset::register($this);
                                 return $this->params['comment']['username'];
                             },
                     ],
+                    [
+                        'attribute' => 'to-real_name',
+                        'value' =>
+                            function ($model) {
+                                $result = Member::findOne($model->reply_to_uid);
+                                $this->params['comment']['to-nickname'] = $result->nickname ?? '';
+                                $this->params['comment']['to-username'] = $result->username ?? '';
+                                return $result->real_name ?? '';
+                            },
+                    ],
+                    [
+                        'attribute' => 'to-nickname',
+                        'value' =>
+                            function ($model) {
+                                return $this->params['comment']['to-nickname'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'to-username',
+                        'value' =>
+                            function ($model) {
+                                return $this->params['comment']['to-username'];
+                            },
+                    ],
                     'content',
                     'comments',
                     [
@@ -81,17 +106,6 @@ backend\assets\AppAsset::register($this);
                                 $result = $this->params['params']['statusOption'][$model->status];
                                 return $result ?? '';
                             },
-                    ],
-                    [
-                        'class' => 'yii\grid\ActionColumn',
-                        'header' => '操作',
-                        'template' => '{view}',//只需要展示删除和更新
-                        'buttons' => [
-                            'view'=> function ($url, $model, $key) {
-                                $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
-                                return Html::a($aHtml,['er','rid'=>$model->rid, 'cid' => $model->id]);
-                            },
-                        ],
                     ],
                 ],
             ]); ?>

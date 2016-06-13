@@ -49,6 +49,9 @@ class Comment extends \yii\db\ActiveRecord
             'real_name' => '姓名',
             'nickname' => '昵称',
             'username' => '手机号',
+            'to-real_name' => '被回复者-姓名',
+            'to-nickname' => '被回复者-昵称',
+            'to-username' => '被回复者-手机号',
             'comments' => '评论数',
             'created_at' => '创建时间',
             'status' => '状态',
@@ -105,5 +108,23 @@ class Comment extends \yii\db\ActiveRecord
     {
         $article = Article::find()->where(['id' => $this->article_id])->one();
         $article->updateCounters(['comment' => 1]);
+    }
+
+    /**
+     * 批量修改
+     * author zhaiyu
+     * startDate 20160511
+     * updateDate 20160511
+     * @param array $where
+     * @param array $data
+     */
+    public function saveData($where = [], $data = []){
+        $result = $this::find()->where($where)->all();
+        foreach ($result as $val){
+            foreach ($data as $k => $v){
+                $val->$k = $v;
+            }
+            $val->save(false);
+        }
     }
 }
