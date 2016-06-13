@@ -142,7 +142,7 @@ class SiteController extends CommonController
     public function actionInfo()
     {
         $data = [
-            ['msg'=>'本次升级改进了很多UI']
+            'msg'=>'本次升级改进了很多UI'
         ];
         $result = ['code' => 200,'message' =>'功能介绍','data' =>$data];
         return $result;
