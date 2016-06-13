@@ -157,12 +157,12 @@ class Getui {
 
         try {
             $rep = $igt->pushMessageToSingle($message, $target);
-            var_dump($rep);
+            //var_dump($rep);
             return $rep;
         }catch(RequestException $e){
             $requstId =e.getRequestId();
             $rep = $igt->pushMessageToSingle($message, $target,$requstId);
-            var_dump($rep);
+            //var_dump($rep);
             return $rep;
         }
 

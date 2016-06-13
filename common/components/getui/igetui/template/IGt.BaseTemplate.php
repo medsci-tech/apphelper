@@ -12,7 +12,7 @@ class IGtBaseTemplate
 
     function get_transparent()
     {
-        $transparent = new Transparent();
+        $transparent = new \Transparent();
         $transparent->set_id('');
         $transparent->set_messageId('');
         $transparent->set_taskId('');
@@ -87,7 +87,7 @@ class IGtBaseTemplate
     function get_pushInfo()
     {
         if ($this->pushInfo == null) {
-            $this->pushInfo = new PushInfo();
+            $this->pushInfo = new \PushInfo();
             $this->pushInfo->set_invalidAPN(true);
             $this->pushInfo->set_invalidMPN(true);
         }
@@ -97,12 +97,12 @@ class IGtBaseTemplate
 
     function set_pushInfo($actionLocKey, $badge, $message, $sound, $payload, $locKey, $locArgs, $launchImage, $contentAvailable = 0)
     {
-        $this->pushInfo = new PushInfo();
+        $this->pushInfo = new \PushInfo();
         $this->pushInfo->set_invalidAPN(true);
         $this->pushInfo->set_invalidMPN(true);
-        $apn = new IGtAPNPayload();
+        $apn = new \IGtAPNPayload();
 
-        $alertMsg = new DictionaryAlertMsg();
+        $alertMsg = new \DictionaryAlertMsg();
         if ($actionLocKey != null && $actionLocKey != '')
         {
             $alertMsg->actionLocKey = $actionLocKey;
@@ -158,7 +158,7 @@ class IGtBaseTemplate
         if ($len > IGtAPNPayload::$PAYLOAD_MAX_BYTES) {
             throw new Exception("APN payload length overlength (" . $len . ">" . IGtAPNPayload::$PAYLOAD_MAX_BYTES . ")");
         }
-        $this->pushInfo = new PushInfo();
+        $this->pushInfo = new \PushInfo();
         $this->pushInfo->set_apnJson($payload);
         $this->pushInfo->set_invalidAPN(false);
     }

@@ -19,8 +19,6 @@ require_once(dirname(__FILE__) . '/' . 'igetui/template/IGt.APNTemplate.php');
 require_once(dirname(__FILE__) . '/' . 'igetui/utils/GTConfig.php');
 require_once(dirname(__FILE__) . '/' . 'igetui/utils/HttpManager.php');
 require_once(dirname(__FILE__) . '/' . 'igetui/utils/ApiUrlRespectUtils.php');
-require_once(dirname(__FILE__) . '/' . 'igetui/utils/LangUtils.php');
-
 
 
 Class IGeTui

@@ -13,8 +13,9 @@ use common\models\Member;
 use api\common\models\Praise;
 use api\common\models\Resource;
 use api\common\models\Exercise;
+use api\common\models\{Message,Exam};
 use Yii;
-
+use common\components\Getui; // 引用个推工具类
 class CommentController extends \api\common\controllers\Controller
 {
     public $modelClass = 'api\common\models\Comment';
@@ -174,6 +175,14 @@ class CommentController extends \api\common\controllers\Controller
                     $res->save(false);
                 }
             }
+            /* 回复消息推送 */
+            if($this->params['cid'])
+            {
+                $m = $model->findOne($this->params['cid']);
+                $touid = $m->uid;
+                self::pushMessage($this->params['cid'],$type,$this->params['content'],$touid);//消息推送  
+            }
+                
             $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
         }else{
             $message = array_values($model->getFirstErrors())[0];
@@ -182,6 +191,40 @@ class CommentController extends \api\common\controllers\Controller
         return $result;
     }
 
+    /**
+     * 回复消息推送
+     * @author by lxhui
+     * @param $cid 被回复的评论id
+     * @param $type resource or exam
+     * @param $touid 接收消息的用户
+     * @param $content 评论回复的内容
+     */
+    private function pushMessage($cid,$type,$content,$touid){
+        $getui =  new Getui();
+        $usermodel = Member::findOne($this->uid);
+        $nickname = $usermodel->nickname; //当前用户昵称
+
+        if('resource' == $type)
+            $title =$nickname .' 回复了你!';
+        elseif('exam' == $type){
+            $exammodel = Exam::findOne($this->params['exa_id']);
+            $title =$nickname."在试卷 '".$exammodel['name']."' 回复了你!";
+        }
+        $res = $getui->pushSingle($title,$content,[$touid]);
+
+        $msgmodel = new Message();
+        $msgmodel->title = $title;
+        $msgmodel->touid = $touid;
+        $msgmodel->content = $content;
+        $msgmodel->created_at = time();
+        $msgmodel->status = 1;
+        $msgmodel->send_at = time();
+        $msgmodel->type = $type;
+        $msgmodel->cid = $cid;
+        $msgmodel->save(false);
+        return;
+    }
+    
     /**
      * 递归添加评论数
      * @author by zhaiyu
