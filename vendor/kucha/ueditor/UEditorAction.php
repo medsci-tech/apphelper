@@ -133,12 +133,7 @@ class UEditorAction extends Action
 
         //上传图片到七牛
         $imgInfo = $up->getFileInfo();
-        $qiNiuSet = [
-            'bucket' => 'apphelper-images',
-            'domain' => 'o7f6z4jud.bkt.clouddn.com',
-            'accessKey' => 'OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-',
-            'secretKey' => 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T',
-        ];
+        $qiNiuSet = $qiNiuSet = Yii::$app->params['qiniu'];
         $qiniu = new Qiniu($qiNiuSet['accessKey'], $qiNiuSet['secretKey'],$qiNiuSet['domain'], $qiNiuSet['bucket']);
         $key = 'ueditor/images/' . $imgInfo['title']; // 上传文件目录名images后面跟单独文件夹
         $uploadResult = $qiniu->uploadFile($_SERVER['DOCUMENT_ROOT'].'/'.$imgInfo['url'],$key); // 要上传的图片
