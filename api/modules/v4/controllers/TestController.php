@@ -22,7 +22,7 @@ class TestController extends Controller
     public function actionSend()
     {
         $getui =  new Getui();
-        //$getui->pushMessageToApp();// 群推
+        $getui->pushMessageToApp($title='你牛逼',$content='牛逼的人不轻易落泪!');// 群推
         $res =$getui->pushSingle($title='你牛逼',$content='牛逼的人不轻易落泪!',$uids=[297]);// 单推 4fcd96017e60fde64edc72bf46648dd1
         print_r($res);
        exit;
