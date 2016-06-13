@@ -23,7 +23,8 @@ class TestController extends Controller
     {
         $getui =  new Getui();
         //$getui->pushMessageToApp();// 群推
-       $getui->pushSingle($title='你牛逼',$content='牛逼在哪里啊',$uids=[288,202]);// 单推 ios
+        $res =$getui->pushSingle($title='你牛逼',$content='{"title": "这样真滴好么", "content": "哈哈哈哈你死定了" }',$uids=[297]);// 单推 4fcd96017e60fde64edc72bf46648dd1
+        print_r($res);
        exit;
      
     }

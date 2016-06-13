@@ -57,9 +57,12 @@ return [
     ],
     /*个推配置项*/
     'getui' => [
-        'appId' => 'EuCgiztOJC8FGoq2GVatO9',
-        'appKey' => '8Trw9aVxom5P3MpbITR7h',
-        'masterSecret' => 's0ER22qWDU6uvCWIik9t3',
+//        'appId' => 'EuCgiztOJC8FGoq2GVatO9',
+//        'appKey' => '8Trw9aVxom5P3MpbITR7h',
+//        'masterSecret' => 's0ER22qWDU6uvCWIik9t3',
+        'appId' => 'aSwbB4dAsg9e1R30TQFgk',
+        'appKey' => 'dXyBaRBVJ39pAeJBUcOoz',
+        'masterSecret' => 'KgnDRujdJr5k30F5ldcoB4',
         'host' => 'http://sdk.open.api.igexin.com/apiex.htm'
     ],
     /*考卷评分规则配置项*/

@@ -127,7 +127,7 @@ class Getui {
     //
 
     //单推接口案例
-    public function pushMessageToSingle($title,$content,$clientid='4fcd96017e60fde64edc72bf46648dd1'){
+    public function pushMessageToSingle($title,$content,$clientid){
         //$igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
         $igt = new \IGeTui(NULL,APPKEY,MASTERSECRET,false);
 
@@ -155,14 +155,14 @@ class Getui {
         $target->set_clientId($clientid);
     //    $target->set_alias(Alias);
 
-
         try {
             $rep = $igt->pushMessageToSingle($message, $target);
-            
+            var_dump($rep);
             return $rep;
         }catch(RequestException $e){
             $requstId =e.getRequestId();
             $rep = $igt->pushMessageToSingle($message, $target,$requstId);
+            var_dump($rep);
             return $rep;
         }
 
@@ -416,7 +416,7 @@ class Getui {
         $apn->alertMsg=$alertmsg;
         $apn->badge=7;
         $apn->sound="";
-        $apn->add_customMsg("payload","payload");
+        $apn->add_customMsg("payload","阿波罗度上市");
         $apn->contentAvailable=1;
         $apn->category="ACTIONABLE";
         $template->set_apnInfo($apn);
