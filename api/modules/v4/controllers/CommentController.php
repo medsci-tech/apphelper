@@ -180,7 +180,7 @@ class CommentController extends \api\common\controllers\Controller
             {
                 $m = $model->findOne($this->params['cid']);
                 $touid = $m->uid;
-                //self::pushMessage($this->params['cid'],$type,$this->params['content'],$touid);//消息推送  
+                self::pushMessage($this->params['cid'],$type,$this->params['content'],$touid);//消息推送  
             }
                 
             $result = ['code' => 200,'message'=>'评论成功!','data'=>null];
@@ -211,7 +211,6 @@ class CommentController extends \api\common\controllers\Controller
             $title =$nickname."在试卷 '".$exammodel['name']."' 回复了你!";
         }
         $res = $getui->pushSingle($title,$content,[$touid]);
-
         $msgmodel = new Message();
         $msgmodel->title = $title;
         $msgmodel->touid = $touid;

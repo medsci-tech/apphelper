@@ -62,6 +62,7 @@ class Getui {
         $apn->category="ACTIONABLE";
         $template->set_apnInfo($apn);
         $message = new \IGtSingleMessage();
+        $message->set_data($template);
         $ret = $igt->pushAPNMessageToSingle(APPID, $devicetoken, $message);
         return $ret;
     }

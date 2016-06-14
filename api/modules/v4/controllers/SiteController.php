@@ -161,7 +161,7 @@ class SiteController extends CommonController
         $model = $model::findOne($this->params['uid']);
         if($model)
         {
-            $model->updateAll(['clientid'=>null],'id=:id',array(':id'=>$this->params['uid']));
+            $model->updateAll(['clientid'=>null,'devicetoken'=>null],'id=:id',array(':id'=>$this->params['uid']));
             $result = ['code' => 200,'message' =>'退出成功!','data' =>null];  
         }
         else
