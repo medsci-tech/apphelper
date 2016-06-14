@@ -89,6 +89,7 @@
 
     function clickImg(){
 //        console.log(temp.imageList[temp.position]);
+        var params="ClickImage:"+JSON.stringify(temp);
         console.log(params);
 //        console.log(url);
 //        var url = location.href;
