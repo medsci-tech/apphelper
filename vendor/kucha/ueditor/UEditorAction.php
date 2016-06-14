@@ -136,10 +136,7 @@ class UEditorAction extends Action
         $qiNiuSet = $qiNiuSet = Yii::$app->params['qiniu'];
         $qiniu = new Qiniu($qiNiuSet['accessKey'], $qiNiuSet['secretKey'],$qiNiuSet['domain'], $qiNiuSet['bucket']);
         $key = 'ueditor/images/' . $imgInfo['title']; // 上传文件目录名images后面跟单独文件夹
-        $uploadResult = $qiniu->uploadFile($_SERVER['DOCUMENT_ROOT'].'/'.$imgInfo['url'],$key); // 要上传的图片
-        if($uploadResult['code'] != 200){
-            return 'error';
-        }
+        $qiniu->uploadFile($_SERVER['DOCUMENT_ROOT'].'/'.$imgInfo['url'],$key); // 要上传的图片
         $url = $qiniu->getLink($key);
         $imgInfo['url'] = $url;
         /**
