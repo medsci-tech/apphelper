@@ -62,6 +62,7 @@ class Getui {
         $apn->category="ACTIONABLE";
         $template->set_apnInfo($apn);
         $message = new \IGtSingleMessage();
+        $message->set_data($template);
         $ret = $igt->pushAPNMessageToSingle(APPID, $devicetoken, $message);
         return $ret;
     }
@@ -157,12 +158,12 @@ class Getui {
 
         try {
             $rep = $igt->pushMessageToSingle($message, $target);
-            var_dump($rep);
+            //var_dump($rep);
             return $rep;
         }catch(RequestException $e){
             $requstId =e.getRequestId();
             $rep = $igt->pushMessageToSingle($message, $target,$requstId);
-            var_dump($rep);
+            //var_dump($rep);
             return $rep;
         }
 
@@ -259,9 +260,10 @@ class Getui {
     }
 
     //群推接口案例
-    public function pushMessageToApp($title,$content){
+
+    public function pushMessageToApp($title, $content){
         $igt = new \IGeTui(HOST,APPKEY,MASTERSECRET);
-        $template = $this->IGtTransmissionTemplateDemo();
+        $template = $this->IGtTransmissionTemplateDemo($title, $content);
         //$template = $this->IGtNotificationTemplateDemo();
         //$template = IGtLinkTemplateDemo();
         //个推信息体
