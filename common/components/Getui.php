@@ -260,9 +260,10 @@ class Getui {
     }
 
     //群推接口案例
-    public function pushMessageToApp($title,$content){
+
+    public function pushMessageToApp($title, $content){
         $igt = new \IGeTui(HOST,APPKEY,MASTERSECRET);
-        $template = $this->IGtTransmissionTemplateDemo();
+        $template = $this->IGtTransmissionTemplateDemo($title, $content);
         //$template = $this->IGtNotificationTemplateDemo();
         //$template = IGtLinkTemplateDemo();
         //个推信息体

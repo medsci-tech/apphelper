@@ -57,7 +57,8 @@ class MessageController extends BackendController {
 
             $message = $params['Message'];
             if (1 == $params['push_type']) {
-                $userList = Array();
+                $data = Yii::$app->cache->get('MessageUser');
+                $userList = json_decode($data, true);
                 $array = array();
                 foreach($userList as $user){
                     $model = new Message();
@@ -90,7 +91,7 @@ class MessageController extends BackendController {
                 $push = new Getui();
                 $status = 0;
                 if (1 == $params['push_type']) {
-                    $push->pushMessageToApp();
+                    $push->pushMessageToApp($message['title'],$message['content']);
                     $model = $this->findModel($id);
                     $model->status = 1;
                     $model->send_at = time();
@@ -127,7 +128,7 @@ class MessageController extends BackendController {
             if ('send' == $params['type']) {
                 $push = new Getui();
                 if (1 == $params['push_type']) {
-                    $push->pushMessageToApp();
+                    $push->pushMessageToApp($message['title'],$message['content']);
                 } else {
                     $array = array();
                     $row = array('id' =>$model->id);

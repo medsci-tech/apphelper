@@ -49,7 +49,6 @@ class ResourceController extends \api\common\controllers\Controller
         $total_page = ceil($data->count() / $pagesize);
 
         $array = array();
-        $progress = 0;
         $x = new ResourceClass();
         $y = new Resource();
         $z = new ResourceStudyLog();
@@ -82,6 +81,7 @@ class ResourceController extends \api\common\controllers\Controller
                 ->all();
 
             $progress = $study[0]['studyTime']/1000/60/$hour;
+            $progress = $progress ?? 0;
 
             $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => intval($progress));
             array_push($array, $row);
@@ -239,7 +239,7 @@ class ResourceController extends \api\common\controllers\Controller
 
             $hour = $resources[0]['hours'];
 
-            $row = array('id' => $rs['id'], 'name' => $rs['name'], 'time' => $hour);
+            $row = array('id' => $rs['id'], 'name' => $rs['name'], 'time' => $hour ?? 0);
             array_push($array, $row);
         }
 
