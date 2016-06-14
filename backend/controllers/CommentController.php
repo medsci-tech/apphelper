@@ -16,6 +16,7 @@ use common\models\Resource;
 use common\models\Exercise;
 use common\models\ResourceClass;
 use Yii;
+use yii\web\Cookie;
 class CommentController extends BackendController
 {
 
@@ -28,8 +29,9 @@ class CommentController extends BackendController
      */
     public function actionIndex()
     {
-        $type = Yii::$app->request->queryParams['type'];
-//        var_dump(Yii::$app->request->queryParams);exit;
+        $appYii = Yii::$app;
+        $type = $appYii->request->queryParams['type'] ?? '';
+//        var_dump($appYii->request->url);exit;
         /*条件查询*/
         if($type == 'exercise'){
             $search = new Exercise();
@@ -38,7 +40,7 @@ class CommentController extends BackendController
             $search = new Resource();
             $view = 'resource';
         }
-        $dataProvider = (new CommentSearch())->search(Yii::$app->request->queryParams);
+        $dataProvider = (new CommentSearch())->search($appYii->request->queryParams);
 
         //资源种类
         $cateList = [];
@@ -50,7 +52,11 @@ class CommentController extends BackendController
             }
         }
         $cateList['exercise'] = '试题';
-//        var_dump($cateList);exit;
+        //记录本页面URL
+        Yii::$app->response->cookies->add(new Cookie([
+            'name' => 'comment-index-html',
+            'value' => $appYii->request->url,
+        ]));
         return $this->render($view . '-index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
@@ -77,9 +83,16 @@ class CommentController extends BackendController
         ];
         $model = new CommentSearch();
         $dataProvider = $model->searchComment($where);
+        //记录本页面URL
+        Yii::$app->response->cookies->add(new Cookie([
+            'name' => 'comment-yi-html',
+            'value' => Yii::$app->request->url,
+        ]));
+        $referrerUrl = Yii::$app->request->cookies->getValue('comment-index-html');
         return $this->render('comment', [
             'searchModel' => $model,
             'dataProvider' => $dataProvider,
+            'referrerUrl' => $referrerUrl,
         ]);
     }
 
@@ -103,9 +116,11 @@ class CommentController extends BackendController
         ];
         $model = new CommentSearch();
         $dataProvider = $model->searchComment($where);
+        $referrerUrl = Yii::$app->request->cookies->getValue('comment-yi-html');
         return $this->render('info', [
             'searchModel' => $model,
             'dataProvider' => $dataProvider,
+            'referrerUrl' => $referrerUrl,
         ]);
     }
 
