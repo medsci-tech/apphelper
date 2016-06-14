@@ -93,7 +93,7 @@ class ExamController extends \api\common\controllers\Controller
     public function actionInfo()
     {
         $id = self::checkId();
-        $data = Exam::find()->select(['name','minutes',"LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')) as total",'about'])->where(['id'=>$id])->asArray()->one();
+        $data = Exam::find()->select(['name','minutes',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')))AS total",'about'])->where(['id'=>$id])->asArray()->one();
         $examLevel = ExamLevel::find()->select(['level'])->where(['exam_id'=>$id])->asArray()->all();
         $levels = ArrayHelper::getColumn($examLevel, 'level');
         if($levels)

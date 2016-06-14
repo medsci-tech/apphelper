@@ -22,9 +22,9 @@ class TestController extends Controller
     public function actionSend()
     {
         $getui =  new Getui();
-        $getui->pushMessageToApp($title='你牛逼',$content='牛逼的人不轻易落泪!');// 群推
+        //$getui->pushMessageToApp($title='你牛逼',$content='牛逼的人不轻易落泪!');// 群推
         $res =$getui->pushSingle($title='你牛逼',$content='牛逼的人不轻易落泪!',$uids=[297]);// 单推 4fcd96017e60fde64edc72bf46648dd1
-        print_r($res);
+        var_dump($res);
        exit;
      
     }
@@ -42,8 +42,12 @@ class TestController extends Controller
     }
     public function actionDelete()
     {
-        echo'success';
-        Yii::$app->cache->flush();exit;
+           Yii::$app->cache->delete('ad_list_*'); //获取缓存
+               $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][1]); //获取缓存
+        $data = json_decode($data,true); 
+        print_r($data);exit;
+        //echo'success';
+        //Yii::$app->cache->flush();exit;
     }
            
 }
