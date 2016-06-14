@@ -121,17 +121,18 @@ class CommentController extends \api\common\controllers\Controller
                 $isLastPage = false;
             }
             $dataOne = $model::findOne($cid);
+            $resImg = '';
             if($dataOne){
                 if('resource' == $dataOne->type){
                     $res = Resource::findOne($dataOne->rid);
                     $title = $res->title ?? '';
+                    $resImg = $res->imgurl ?? '';
                 }elseif ('exam' == $dataOne->type){
                     $res = Exercise::findOne($dataOne->rid);
                     $title = $res->question ?? '';
                 }
             }
             $resTitle = $title ?? '';
-            $resImg = $res->imgurl ?? '';
             $return = [
                 'code' => 200,
                 'message' => '评论二级列表',
