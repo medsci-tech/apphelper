@@ -40,7 +40,7 @@ class ExamController extends \api\common\controllers\Controller
         $model = new $this->modelClass();
         $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1];
         $orderBy= [ 'publish_time' => SORT_DESC, 'created_at' => SORT_DESC];
-        $data = $model::find()->select(['id','name as title','minutes','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')))AS total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
+        $data = $model::find()->select(['id','name as title','minutes','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',',''))+1)AS total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
         /*  查询历史考试记录  */
         if($data)
         {
@@ -93,7 +93,7 @@ class ExamController extends \api\common\controllers\Controller
     public function actionInfo()
     {
         $id = self::checkId();
-        $data = Exam::find()->select(['name','minutes',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',','')))AS total",'about'])->where(['id'=>$id])->asArray()->one();
+        $data = Exam::find()->select(['name','minutes',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',',''))+1)AS total",'about'])->where(['id'=>$id])->asArray()->one();
         $examLevel = ExamLevel::find()->select(['level'])->where(['exam_id'=>$id])->asArray()->all();
         $levels = ArrayHelper::getColumn($examLevel, 'level');
         if($levels)
