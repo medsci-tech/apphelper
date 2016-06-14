@@ -19,16 +19,28 @@ class Message extends \yii\db\ActiveRecord
         $count = 0; //消息总数
         if($result)
         {
-            foreach($result as $val)
-            {             
+            foreach($result as &$val)
+            {          
                 $key = $val['id'].'_'.$uid; // 每个消息的缓存键
                 $keyValue = Yii::$app->redis->get($key);
                 $keyValue = json_decode($keyValue,true);
+                
                 if(!$keyValue)
                 {
                     $keyValue = ['id'=>$val['id'],'isread'=>0];
                     Yii::$app->redis->set($key,json_encode($keyValue));
-                }  
+                }
+                else
+                {
+                    if($keyValue['isread']==1)
+                    {
+                       Yii::$app->redis->del($key);
+                       $keyValue = ['id'=>$val['id'],'isread'=>1]; 
+                       Yii::$app->redis->set($key,json_encode($keyValue)); 
+                       $val['isread'] =1;
+                    }    
+                   
+                }
                 if($keyValue['isread']==0)
                     $count++;
             }
