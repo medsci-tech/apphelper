@@ -8,22 +8,31 @@
 
 namespace backend\models\search;
 
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Resource as ResourceModel;
 use common\models\Exercise as ExerciseModel;
 use common\models\Comment as CommentModel;
 
-class Comment extends CommentModel
+class Comment extends ResourceModel
 {
-    
+
     public function search($params)
     {
-        if($params['type'] == 'exam'){
-            $query = ExerciseModel::find();
-            $query->andFilterWhere(['like', 'question', $params['title']]);
+        
+        if(isset($params['type'])){
+            if($params['type'] == 'exercise'){
+                $query = Resource::find();
+                $query->andFilterWhere(['like', 'question', $params['title']]);
+            }else{
+                $query = Exercise::find();
+                $query->andFilterWhere(['like', 'title', $params['title']]);
+//                if(){
+//
+//                }
+            }
         }else{
-            $query = ResourceModel::find();
-            $query->andFilterWhere(['like', 'title', $params['title']]);
+            $query = Resource::find();
         }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -34,7 +43,12 @@ class Comment extends CommentModel
         return $dataProvider;
     }
 
-    public function searchYi($where)
+    /**
+     * 评论详情搜索
+     * @param $where
+     * @return ActiveDataProvider
+     */
+    public function searchComment($where)
     {
         $model = $this::find();
         $model->andFilterWhere($where);
