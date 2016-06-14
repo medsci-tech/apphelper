@@ -12,8 +12,8 @@ use yii\widgets\ActiveForm;
 /* @var $treeNavigateSelectedName; */
 /* @var $directoryStructureSearch */
 /* @var $dataProvider */
-/* @var $params */
-$this->title = '自定义培训';
+/* @var $cateList */
+$this->title = '评论资源列表';
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
 /*根据get参数判断是否是考卷添加试题*/
@@ -22,7 +22,10 @@ backend\assets\AppAsset::register($this);
 <div class="modal-body">
     <div class="box box-success">
         <div class="box-body">
-            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?php echo $this->render('_search',[
+                'model' => $searchModel,
+                'cateList' => $cateList,
+            ]); ?>
         </div>
     </div>
     <div class="box box-success">
@@ -46,47 +49,18 @@ backend\assets\AppAsset::register($this);
                         }
                     ],
                     ['class' => 'yii\grid\SerialColumn'],
-                    'title',
-                    'views',
+                    'question',
                     'comments',
-                    [
-                        'attribute' => 'uid',
-                        'value' =>
-                            function ($model) {
-                                $result = \common\models\User::findOne($model->uid);
-                                return $result->username ?? '';
-                            },
-                    ],
-                    [
-                        'attribute' => 'recommend_status',
-                        'value' =>
-                            function ($model) {
-                                $result = $this->params['params']['recStatusOption'][$model->recommend_status];
-                                return $result ?? '';
-                            },
-                    ],
-                    [
-                        'attribute' => 'publish_status',
-                        'value' =>
-                            function ($model) {
-                                $result = $this->params['params']['pubStatusOption'][$model->publish_status];
-                                return $result ?? '';
-                            },
-                    ],
-                    [
-                        'attribute' => 'status',
-                        'value' =>
-                            function ($model) {
-                                $result = $this->params['params']['statusOption'][$model->status];
-                                return $result ?? '';
-                            },
-                    ],
-                    'publish_time:datetime',
-                    'created_at:datetime',
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',
-                        'template' => '{update}',//只需要展示删除和更新
+                        'template' => '{view}',//只需要展示删除和更新
+                        'buttons' => [
+                            'view'=> function ($url, $model, $key) {
+                                $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
+                                return Html::a($aHtml,['yi','id'=>$model->id]);
+                            },
+                        ],
 
                     ],
                 ],
@@ -95,38 +69,3 @@ backend\assets\AppAsset::register($this);
         </div>
     </div>
 </div>
-
-<?php
-$getError = $yiiApp->getSession()->getFlash('error');
-$getSuccess = $yiiApp->getSession()->getFlash('success');
-$js=<<<JS
-    /*修改操作状态提示*/
-    if('$getError' || '$getSuccess'){
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "onclick": null,
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "3000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-        }
-    }
-    if('$getError'){
-        toastr.error('$getError');
-    }else if('$getSuccess'){
-        toastr.success('$getSuccess');
-    }
-    
-
-
-JS;
-$this->registerJs($js);
-?>
-
-
-

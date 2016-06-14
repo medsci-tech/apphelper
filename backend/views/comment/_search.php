@@ -8,7 +8,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+$get = Yii::$app->request->get();
+$titleSearch = $get['title'] ?? '';
+$typeSearch = $get['type'] ?? '';
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
@@ -23,17 +25,28 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <div class="form-group field-resource-title required">
         <label class="control-label">资源名</label>
-        <input type="text" class="form-control" name="title">
+        <input type="text" class="form-control" name="title" value="<?php echo $titleSearch?>">
     </div>
     <div class="form-group field-resource-rid required">
         <label class="control-label">所属目录</label>
         <select class="form-control" name="type">
-            <option value="2">店员培训</option>
-            <option value="1">新手培训</option>
-            <option value="3">店长培训</option>
-            <option value="14">产品</option>
-            <option value="15">疾病</option>
-            <option value="exercise">试题</option>
+            <?php
+                $optionHtml = '';
+                foreach ($cateList as $key => $val){
+                    $optionHtml .= '<option value="' . $key . '" ';
+                    if($typeSearch){
+                        if($typeSearch == $key){
+                            $optionHtml .= 'selected="selected" ';
+                        }
+                    }else{
+                        if(1 == $key){
+                            $optionHtml .= 'selected="selected" ';
+                        }
+                    }
+                    $optionHtml .= '>' . $val . '</option>';
+                }
+            echo $optionHtml;
+            ?>
         </select>
     </div>
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>

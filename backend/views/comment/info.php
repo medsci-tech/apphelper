@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $treeNavigateSelectedName; */
 /* @var $directoryStructureSearch */
 /* @var $dataProvider */
-/* @var $params */
+/* @var $referrerUrl */
 $this->title = '二级评论列表';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = Yii::$app->params;
@@ -24,7 +24,10 @@ backend\assets\AppAsset::register($this);
     
     <div class="box box-success">
         <div class="box-body">
-            <?php echo $this->render('_search-info', ['model' => $searchModel]); ?>
+            <?php echo $this->render('_search-info', [
+                'model' => $searchModel,
+                'referrerUrl' => $referrerUrl,
+            ]); ?>
         </div>
     </div>
     <div class="box box-success">
