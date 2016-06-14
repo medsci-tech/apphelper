@@ -10,8 +10,6 @@ namespace backend\controllers;
 
 use backend\models\search\Comment as CommentSearch;
 use common\models\Comment;
-use common\models\Member;
-use yii\data\ActiveDataProvider;
 use common\models\Resource;
 use common\models\Exercise;
 use common\models\ResourceClass;

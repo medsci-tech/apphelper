@@ -122,6 +122,13 @@ class CommentController extends \api\common\controllers\Controller
             }
             $dataOne = $model::findOne($cid);
             $resImg = '';
+            $info = [
+                'toUid' => '',
+                'nickname' => '',
+                'avatar' => '',
+                'content' => '',
+                'created_at' => '0000-00-00 00:00:00',//时间
+            ];
             if($dataOne){
                 if('resource' == $dataOne->type){
                     $res = Resource::findOne($dataOne->rid);
@@ -131,7 +138,20 @@ class CommentController extends \api\common\controllers\Controller
                     $res = Exercise::findOne($dataOne->rid);
                     $title = $res->question ?? '';
                 }
+                //回复一级评论对象
+                $memberInfo = Member::findOne($dataOne->uid);
+                $info_nickname = '';$info_avatar = '';
+                if($memberInfo){
+                    $info_nickname = $memberInfo->nickname;
+                    $info_avatar = $memberInfo->avatar;
+                }
+                $info['toUid'] = $dataOne->uid;
+                $info['nickname'] = $info_nickname;
+                $info['avatar'] = $info_avatar;
+                $info['content'] = $dataOne->content;
+                $info['created_at'] = date('Y-m-d H:i:s', $dataOne->created_at);
             }
+
             $resTitle = $title ?? '';
             $return = [
                 'code' => 200,
@@ -140,6 +160,7 @@ class CommentController extends \api\common\controllers\Controller
                     'isLastPage' => $isLastPage,
                     'title' => $resTitle,
                     'imgUrl' => $resImg,
+                    'info' => $info,
                     'list' => $data,
                 ],
             ];
@@ -280,7 +301,7 @@ class CommentController extends \api\common\controllers\Controller
                     $data[$loop]['id'] = $val->id;//内容
                     $data[$loop]['content'] = $val->content;//内容
                     $data[$loop]['type'] = $val->type;//类型
-                    $data[$loop]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//类型
+                    $data[$loop]['created_at'] = date('Y-m-d H:i:s', $val->created_at);//时间
                     $data[$loop]['comments'] = $val->comments;//评论次数
                     $data[$loop]['toUid'] = $val->uid;
                     $loop++;
