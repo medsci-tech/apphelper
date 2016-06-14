@@ -82,8 +82,8 @@
     function clickImg(json){
         var params="ClickImage:"+json;
 //        console.log(url);
-//        var url = location.href;
-        location.href = params;
+        var url = location.href;
+        location.href = url+"&"+params;
     }
 
     function appCallJs(){
