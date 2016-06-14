@@ -149,6 +149,7 @@ class ResourceController extends \api\common\controllers\Controller
             ->asArray()
             ->all();
 
+        array_push($rsModel, ['id'=>14]);
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
@@ -190,6 +191,7 @@ class ResourceController extends \api\common\controllers\Controller
             ->asArray()
             ->all();
 
+        array_push($rsModel, ['id'=>15]);
         $model = new Resource();
         $data = $model::find()
             ->select('id,title,views,imgurl')
