@@ -127,6 +127,9 @@ class CommentController extends \api\common\controllers\Controller
                 'nickname' => '',
                 'avatar' => '',
                 'content' => '',
+                'comments' => '',
+                'praise' => '',
+                'isPraise' => '',
                 'created_at' => '0000-00-00 00:00:00',//时间
             ];
             if($dataOne){
@@ -145,10 +148,15 @@ class CommentController extends \api\common\controllers\Controller
                     $info_nickname = $memberInfo->nickname;
                     $info_avatar = $memberInfo->avatar;
                 }
+                $praiseCount = Praise::find()->select('id')->where(['id' => $dataOne->id])->count();
+                $isPraise = Praise::find()->select('id')->where(['id' => $dataOne->id, 'uid' => $uid])->one();
                 $info['toUid'] = $dataOne->uid;
                 $info['nickname'] = $info_nickname;
                 $info['avatar'] = $info_avatar;
                 $info['content'] = $dataOne->content;
+                $info['comments'] = $dataOne->comments;
+                $info['praise'] = $praiseCount;
+                $info['isPraise'] = $isPraise ? true : false;
                 $info['created_at'] = date('Y-m-d H:i:s', $dataOne->created_at);
             }
 
