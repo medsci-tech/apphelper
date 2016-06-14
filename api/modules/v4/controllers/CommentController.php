@@ -160,8 +160,8 @@ class CommentController extends \api\common\controllers\Controller
                     'isLastPage' => $isLastPage,
                     'title' => $resTitle,
                     'imgUrl' => $resImg,
-                    'list' => $data,
                     'info' => $info,
+                    'list' => $data,
                 ],
             ];
         }
