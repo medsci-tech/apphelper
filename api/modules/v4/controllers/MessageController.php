@@ -40,7 +40,7 @@ class MessageController extends \api\common\controllers\Controller
         $model = new $this->modelClass();
 
         $data = $model::find()
-            ->select(['id','title','link_url','push_type','type','cid','isread','isread'])
+            ->select(['id','title','link_url','push_type','type','cid','isread'])
             //->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
             ->where(['touid'=>$this->uid,'push_type'=>0])
             ->orderBy(['send_at'=>SORT_DESC])
