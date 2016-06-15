@@ -399,7 +399,7 @@ class Getui {
         $template =  new \IGtTransmissionTemplate();
         $template->set_appId(APPID);//应用appid
         $template->set_appkey(APPKEY);//应用appkey
-        $template->set_transmissionType(1);//透传消息类型
+        $template->set_transmissionType(2);//透传消息类型
         $template->set_transmissionContent($content);//透传内容
         //$template->set_duration(BEGINTIME,ENDTIME); //设置ANDROID客户端在此时间区间内展示消息
         //APN高级推送

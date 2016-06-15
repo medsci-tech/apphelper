@@ -8,6 +8,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+use common\models\member;
 
 $yiiApp = Yii::$app;
 $this->title = '消息推送';
@@ -35,7 +36,19 @@ backend\assets\AppAsset::register($this);
                 'dataProvider' => $dataProvider,
                 'columns' => [
                     'title',
-                    'uid',
+                    [
+                        'attribute' => 'uid',
+                        'value' =>
+                            function ($model) {
+                                if($model->uid) {
+                                    $member = Member::find()
+                                        ->where(['id'=>$model->uid])
+                                        ->one();
+                                    $result = $member->real_name;
+                                }
+                                return $result ?? '';
+                            },
+                    ],
                     [
                         'attribute' => 'push_type',
                         'value' =>
@@ -44,7 +57,16 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'created_at',
+                    [
+                        'attribute' => 'created_at',
+                        'value' =>
+                            function ($model) {
+                                if($model->created_at) {
+                                    $result = date('Y-m-d h:m:s', $model->created_at);
+                                }
+                                return $result ?? '';
+                            },
+                    ],
                     [
                         'attribute' => 'status',
                         'value' =>
@@ -53,7 +75,16 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'send_at',
+                    [
+                        'attribute' => 'send_at',
+                        'value' =>
+                            function ($model) {
+                                if($model->send_at) {
+                                    $result = date('Y-m-d h:m:s', $model->send_at);
+                                }
+                                return $result ?? '';
+                            },
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template'=>'{view}  {update}',
