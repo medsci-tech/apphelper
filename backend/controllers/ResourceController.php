@@ -124,6 +124,7 @@ class ResourceController extends BackendController
         }else{
             $return = ['error', '操作失败哦'];
         }
+        self::clearIndex();// 更新app首页缓存
         return $return;
     }
 
@@ -209,6 +210,7 @@ class ResourceController extends BackendController
         }elseif($id){
             $this->findModel($id)->delete();
         }
+        self::clearIndex();// 更新app首页缓存
         return $this->redirect(['index']);
     }
 
@@ -232,7 +234,6 @@ class ResourceController extends BackendController
      */
     public function actionPharmacy()
     {
-
         $appYii = Yii::$app;
 
         /*带搜索的目录树形结构*/
@@ -327,6 +328,7 @@ class ResourceController extends BackendController
         $post = Yii::$app->request->post();
         $return = $this->CommonSave($post);
         Yii::$app->getSession()->setFlash($return[0], $return[1]);
+        self::clearIndex();// 更新app首页缓存
         $this->redirect('pharmacy');
     }
 
@@ -397,4 +399,14 @@ class ResourceController extends BackendController
         $excel = new ExcelController();
         $excel->Export($config, $column, $data);
     }
+    
+    /**
+     * App首页缓存更新
+     * @author lxh
+     */
+    private function clearIndex()
+    {
+        Yii::$app->cache->delete(Yii::$app->params['redisKey'][3]);    
+    }
+
 }

@@ -90,7 +90,7 @@ class IndexController extends \api\common\controllers\Controller
                     unset($resources[$i]['rid'],$resources[$i]['views']);
                 }  
             }       
-            $exams = Exam::find()->select(['id','name as title','imgurl',"LENGTH(exe_ids) - LENGTH( REPLACE(exe_ids,',','')) as total",'publish_time'])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
+            $exams = Exam::find()->select(['id','name as title','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',',''))+1)AS total",'publish_time'])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
             if($exams)
             {
                foreach($exams as &$val)
