@@ -98,6 +98,7 @@ class ResourceController extends BackendController
             //有id修改
             $id = $post['Resource']['id'];
             $model = $this->findModel($id);
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][2].$id); //删除缓存
             if(empty($model)){
                 $model = new Resource();
             }
@@ -211,6 +212,11 @@ class ResourceController extends BackendController
             $this->findModel($id)->delete();
         }
         self::clearIndex();// 更新app首页缓存
+        /* 更新详情缓存 */
+        foreach ($params['selection'] as $key => $val) {
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][2].$val); //删除缓存
+    }
+        
         return $this->redirect(['index']);
     }
 
