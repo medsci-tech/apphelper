@@ -29,6 +29,7 @@ class AdminPlusAsset extends AssetBundle
         'js/plugins/slimscroll/jquery.slimscroll.min.js',
         'js/plugins/layer/layer.min.js',
         'js/hplus.min.js?v=4.1.0',
+        'js/plugins/layer/laydate/laydate.js',
         'js/contabs.min.js',
         'js/plugins/pace/pace.min.js',
         'js/plugins/sweetalert/sweetalert.min.js',

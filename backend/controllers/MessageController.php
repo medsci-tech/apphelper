@@ -53,10 +53,21 @@ class MessageController extends BackendController {
     {
         $params = Yii::$app->request->post();
 
-        if ('add' == $params['type']) {
+        if ('add' == $params['post_type']) {
 
             $message = $params['Message'];
             if (1 == $params['push_type']) {
+                $model = new Message();
+                $model->title = $message['title'];
+                $model->content = $message['content'];
+                $model->link_url = $message['link_url'];
+                $model->push_type = $params['push_type'];
+                $model->isread = 0;
+                $model->created_at = time();
+                $model->status = 0;
+                $model->save(false);
+                $id = $model->id;
+            } else {
                 $data = Yii::$app->cache->get('MessageUser');
                 $userList = json_decode($data, true);
                 $array = array();
@@ -68,28 +79,16 @@ class MessageController extends BackendController {
                     $model->push_type = $params['push_type'];
                     $model->isread = 0;
                     $model->touid = $user;
-                    $model->create_at = time();
+                    $model->created_at = time();
                     $model->status = 0;
                     $model->save(false);
                     $row = array('id' =>$model->id);
                     array_push($array, $row);
                 }
-            } else {
-                $model = new Message();
-                $model->title = $message['title'];
-                $model->content = $message['content'];
-                $model->link_url = $message['link_url'];
-                $model->push_type = $params['push_type'];
-                $model->isread = 0;
-                $model->create_at = time();
-                $model->status = 0;
-                $model->save(false);
-                $id = $model->id;
             }
 
             if ('send' == $params['type']) {
                 $push = new Getui();
-                $status = 0;
                 if (1 == $params['push_type']) {
                     $push->pushMessageToApp($message['title'],$message['content']);
                     $model = $this->findModel($id);
@@ -114,7 +113,7 @@ class MessageController extends BackendController {
 //            }
         }
 
-        if ('edit' == $params['type']) {
+        if ('edit' == $params['post_type']) {
 
             $message = $params['Message'];
             if ($message['id']) {
@@ -135,7 +134,7 @@ class MessageController extends BackendController {
                     array_push($array, $row);
                     $push->pushSingle($message['title'],$message['content'],$array);
                 }
-                $model->status = $status;
+                $model->status = 1;
                 $model->send_at = time();
                 $model->save(false);
             }
