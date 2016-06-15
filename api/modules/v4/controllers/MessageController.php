@@ -33,7 +33,7 @@ class MessageController extends \api\common\controllers\Controller
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
      */
     public function actionIndex()
-    {
+    {                
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset = $pagesize * ($page - 1); //计算记录偏移量
