@@ -59,7 +59,7 @@ class MessageController extends \api\common\controllers\Controller
                 $val['rid']= $comment->rid; // 资源id
             }
 
-            if(!$val['link_url'])
+            if(!$val['link_url'] && !$val['cid'])
                 $val['link_url']=Yii::$app->params['wapUrl'].'/message/view/'.$val['id'];
             
             $val['isread'] = $val['isread']>0  ? true : false;
