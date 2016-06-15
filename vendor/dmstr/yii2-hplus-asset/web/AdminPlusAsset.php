@@ -21,6 +21,7 @@ class AdminPlusAsset extends AssetBundle
         'css/animate.min.css',
         'css/style.min862f.css?v=4.1.0',
         '/css/bootstrap-table.min.css',
+        'css/plugins/plyr/plyr.css',
     ];
     public $js = [
         'js/bootstrap.min.js?v=3.3.6',
@@ -39,6 +40,7 @@ class AdminPlusAsset extends AssetBundle
         'js/plugins/toastr/toastr.min.js',
         'js/plugins/webuploader/jquery.ajaxupload.js',
         'js/plugins/chosen/chosen.jquery.js',
+        'js/plugins/plyr/plyr.js',
     ];
     public $depends = [
 /*        'rmrevin\yii\fontawesome\AssetBundle',

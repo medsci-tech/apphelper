@@ -36,23 +36,10 @@ class FeedbackController extends BackendController
         ]);
     }
 
-    /**
-     * 资源一级评论列表
-     * @author zhaiyu
-     * @startDate 20160612
-     * @upDate 20160612
-     * @param $id
-     * @return string
-     */
-    public function actionInfo($id)
-    {
-
-    }
-
+    //搜索
     public function search($params)
     {
         $model = new Feedback();
-//        var_dump($params);exit;
         $query = $model::find();
         if(isset($params['startTime'])){
             $startTime = strtotime($params['startTime']);
@@ -62,7 +49,6 @@ class FeedbackController extends BackendController
             $endTime = strtotime($params['endTime']);
             $query->andFilterWhere(['<=', 'created_at', $endTime]);
         }
-//        $query->andFilterWhere(['like', 'name', $this->name]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
