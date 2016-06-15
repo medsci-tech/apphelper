@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $treeNavigateSelectedName; */
 /* @var $directoryStructureSearch */
 /* @var $dataProvider */
-$this->title = '一级评论列表';
+$this->title = '反馈列表';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
@@ -114,10 +114,21 @@ $js=<<<JS
         console.log(imgurl);
         console.log(content);
         var html = '';
-        var listLen = imgurl.length;
-        for(var i = 0; i < listLen; i++){
-            html += '<img width="100%" src="' + imgurl[i] + '">';
+        if(imgurl){
+            var listLen = imgurl.length;
+            for(var i = 0; i < listLen; i++){
+                var fix = '';
+                var pattern = /^http:\/\//i;
+                var preg = pattern.test(imgurl[i]);
+                if(false == preg){
+                    fix = 'http://';
+                }
+                html += '<img class="img-thumbnail"  src="' + fix + imgurl[i] + '">';
+            }
+        }else {
+            html += '<p class="single-line">无图片</p>';
         }
+
         $('[data-toggle="form-content"]').text(content);
         $('[data-toggle="form-img"]').html(html);
     });
