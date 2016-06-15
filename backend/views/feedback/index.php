@@ -114,16 +114,19 @@ $js=<<<JS
         console.log(imgurl);
         console.log(content);
         var html = '';
-        var listLen = imgurl.length;
-        for(var i = 0; i < listLen; i++){
-            var fix = '';
-            var pattern = /^http:\/\//i;
-            var preg = pattern.test(imgurl[i]);
-            if(false == preg){
-                fix = 'http://';
+        if(imgurl){
+            var listLen = imgurl.length;
+            for(var i = 0; i < listLen; i++){
+                var fix = '';
+                var pattern = /^http:\/\//i;
+                var preg = pattern.test(imgurl[i]);
+                if(false == preg){
+                    fix = 'http://';
+                }
+                html += '<img class="img-thumbnail"  src="' + fix + imgurl[i] + '">';
             }
-            html += '<img class="" width="100%" src="' + fix + imgurl[i] + '">';
         }
+
         $('[data-toggle="form-content"]').text(content);
         $('[data-toggle="form-img"]').html(html);
     });

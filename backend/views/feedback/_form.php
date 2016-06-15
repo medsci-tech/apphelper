@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label class="control-label">图片</label>
-        <div class="single-line" data-toggle="form-img"></div>
+        <div data-toggle="form-img"></div>
     </div>
 
     <div class="form-group">
