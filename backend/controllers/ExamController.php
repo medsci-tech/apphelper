@@ -43,6 +43,8 @@ class ExamController extends BackendController
             //有id修改
             $id = $get['id'];
             $model = $this->findModel($id);
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][7].$id); //删除缓存
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][4].$id);//删除缓存
             if(empty($model)){
                 $model = new Exam();
             }
@@ -139,6 +141,12 @@ class ExamController extends BackendController
             }
         }elseif($id){
             $this->findModel($id)->delete();
+        }
+        
+        /* 删除缓存 */
+        foreach ($params['selection'] as $key => $val) {
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][7].$val);
+            Yii::$app->cache->delete(Yii::$app->params['redisKey'][4].$val);
         }
         return $this->redirect(['index']);
     }
