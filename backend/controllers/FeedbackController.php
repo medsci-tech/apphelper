@@ -10,11 +10,9 @@ namespace backend\controllers;
 
 use backend\models\search\Feedback as FeedbackSearch;
 use common\models\Member;
-use common\models\Resource;
-use common\models\Exercise;
-use common\models\ResourceClass;
+use common\models\Feedback;
 use Yii;
-use yii\web\Cookie;
+use yii\data\ActiveDataProvider;
 class FeedbackController extends BackendController
 {
 
@@ -27,38 +25,14 @@ class FeedbackController extends BackendController
      */
     public function actionIndex()
     {
-        $appYii = Yii::$app;
-        $type = $appYii->request->queryParams['type'] ?? '';
-//        var_dump($appYii->request->url);exit;
-        /*条件查询*/
-        if($type == 'exercise'){
-            $search = new Exercise();
-            $view = 'exercise';
-        }else{
-            $search = new Resource();
-            $view = 'resource';
-        }
-        $dataProvider = (new CommentSearch())->search($appYii->request->queryParams);
-
-        //资源种类
-        $cateList = [];
-        $resourceClassModel = new ResourceClass();
-        $cateListArr = $resourceClassModel->getDataForWhere(['parent' => 0]);
-        if($cateListArr){
-            foreach ($cateListArr as $key => $val){
-                $cateList[$val['id']] = $val['name'];
-            }
-        }
-        $cateList['exercise'] = '试题';
-        //记录本页面URL
-        Yii::$app->response->cookies->add(new Cookie([
-            'name' => 'comment-index-html',
-            'value' => $appYii->request->url,
-        ]));
-        return $this->render($view . '-index', [
+        $queryParams = Yii::$app->request->queryParams;
+//        $startTime = $queryParams['startTime'] ?? '';
+//        $endTime = $queryParams['endTime'] ?? '';
+        $search = new Feedback();
+        $dataProvider = $this->search($queryParams);
+        return $this->render('index', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
-            'cateList' => $cateList,
         ]);
     }
 
@@ -73,6 +47,29 @@ class FeedbackController extends BackendController
     public function actionInfo($id)
     {
 
+    }
+
+    public function search($params)
+    {
+        $model = new Feedback();
+//        var_dump($params);exit;
+        $query = $model::find();
+        if(isset($params['startTime'])){
+            $startTime = strtotime($params['startTime']);
+            $query->andFilterWhere(['>=', 'created_at', $startTime]);
+        }
+        if(isset($params['endTime'])){
+            $endTime = strtotime($params['endTime']);
+            $query->andFilterWhere(['<=', 'created_at', $endTime]);
+        }
+//        $query->andFilterWhere(['like', 'name', $this->name]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $dataProvider;
     }
 
 }
