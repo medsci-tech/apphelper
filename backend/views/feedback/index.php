@@ -125,6 +125,8 @@ $js=<<<JS
                 }
                 html += '<img class="img-thumbnail"  src="' + fix + imgurl[i] + '">';
             }
+        }else {
+            html += '<p class="single-line">无图片</p>';
         }
 
         $('[data-toggle="form-content"]').text(content);
