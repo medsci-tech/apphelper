@@ -98,6 +98,24 @@
             <li>
                 <a class="J_menuItem" href="feedback/index"><i class="fa fa-desktop"></i> <span class="nav-label">用户反馈</a>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">资源学习统计</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a class="J_menuItem" href="stats/resource">按资源统计</a>
+                    </li>
+                    <li><a class="J_menuItem" href="stats/reuser">按用户统计</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">考卷统计</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a class="J_menuItem" href="stats/exam">按考卷统计</a>
+                    </li>
+                    <li><a class="J_menuItem" href="stats/exuser">按用户统计</a>
+                    </li>
+                </ul>
+            </li>
 
         </ul>
     </div>
