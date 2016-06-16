@@ -33,14 +33,14 @@ class MessageController extends \api\common\controllers\Controller
      * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
      */
     public function actionIndex()
-    {
+    {                
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset = $pagesize * ($page - 1); //计算记录偏移量
         $model = new $this->modelClass();
 
         $data = $model::find()
-            ->select(['id','title','link_url','push_type','type','cid','isread','isread'])
+            ->select(['id','title','link_url','push_type','type','cid','isread'])
             //->where(['and', 'touid='.$this->uid, ['or', 'push_type=0', 'push_type=1']])
             ->where(['touid'=>$this->uid,'push_type'=>0])
             ->orderBy(['send_at'=>SORT_DESC])
@@ -59,8 +59,13 @@ class MessageController extends \api\common\controllers\Controller
                 $val['rid']= $comment->rid; // 资源id
             }
 
-            if(!$val['link_url'])
+            if(!$val['link_url'] && !$val['cid'])
                 $val['link_url']=Yii::$app->params['wapUrl'].'/message/view/'.$val['id'];
+
+            if($val['link_url'])
+                $val['goType']= 'link';
+            else
+                $val['goType']= 'comment';
             
             $val['isread'] = $val['isread']>0  ? true : false;
             unset($val['push_type']);

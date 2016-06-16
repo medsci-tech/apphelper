@@ -150,6 +150,8 @@ class CommentController extends \api\common\controllers\Controller
                 }
                 $praiseCount = Praise::find()->select('id')->where(['id' => $dataOne->id])->count();
                 $isPraise = Praise::find()->select('id')->where(['id' => $dataOne->id, 'uid' => $uid])->one();
+                $info['id'] = $dataOne->id;
+                $info['type'] = $dataOne->type;
                 $info['toUid'] = $dataOne->uid;
                 $info['nickname'] = $info_nickname;
                 $info['avatar'] = $info_avatar;

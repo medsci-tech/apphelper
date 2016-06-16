@@ -42,9 +42,9 @@ class TestController extends Controller
     }
     public function actionDelete()
     {
-           Yii::$app->cache->delete('ad_list_:'); //获取缓存
-               $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][1]); //获取缓存
-        $data = json_decode($data,true); 
+           Yii::$app->cache->delete(Yii::$app->params['redisKey'][3]); //获取缓存
+                       $data = json_decode(Yii::$app->cache->get(Yii::$app->params['redisKey'][3]),true);// 从缓存获取数据
+
         print_r($data);exit;
         //echo'success';
         //Yii::$app->cache->flush();exit;

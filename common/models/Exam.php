@@ -21,6 +21,8 @@ class Exam extends ActiveRecord
             [['type', 'name', 'minutes', 'uid', 'about', 'count', 'status', 'publish_status', 'recommend_status'], 'required'],
             [[ 'class_id', 'total'], 'integer'],
             [[ 'imgurl'], 'string'],
+            // 若 "imgurl" 为空，则设其为 null
+            ['imgurl', 'default', 'value' => null],
         ];
     }
 

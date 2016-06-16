@@ -47,6 +47,8 @@ class Resource extends ActiveRecord {
                 'content',
                 'author',
             ], 'string'],
+              // 若 "imgurl" 为空，则设其为 null
+            ['imgurl', 'default', 'value' => null],
         ];
     }
 

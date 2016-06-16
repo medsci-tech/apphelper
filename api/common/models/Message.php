@@ -20,11 +20,10 @@ class Message extends \yii\db\ActiveRecord
         if($result)
         {
             foreach($result as &$val)
-            {          
+            {   
                 $key = $val['id'].'_'.$uid; // 每个消息的缓存键
                 $keyValue = Yii::$app->redis->get($key);
                 $keyValue = json_decode($keyValue,true);
-                
                 if(!$keyValue)
                 {
                     $keyValue = ['id'=>$val['id'],'isread'=>0];

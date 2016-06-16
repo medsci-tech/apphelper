@@ -33,6 +33,7 @@ class ExamController extends \api\common\controllers\Controller
      */
     public function actionIndex()
     {
+        self::cleanHistory(); // 清除脏数据
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset=$pagesize*($page - 1); //计算记录偏移量
@@ -186,7 +187,7 @@ class ExamController extends \api\common\controllers\Controller
         $mins = intval( $timeLeft / 60 ); //分钟
         $secs = $timeLeft % 60; //秒
         $times = $mins.':'.$secs;     
-        ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
+        //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'level'=>$level]];
         return $result; 
     } 
@@ -347,6 +348,9 @@ class ExamController extends \api\common\controllers\Controller
     private function getLevel($id,$rate=0,$total=1)
     {
         $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();
+        $map = ArrayHelper::map($result, 'rate', 'level');
+        $minKey = min(array_keys($map));
+        $minRate = $map[$minKey];// 最小等级
         foreach($result as &$data)
         {
             switch ($data['condition'])
@@ -354,14 +358,20 @@ class ExamController extends \api\common\controllers\Controller
                 case 0: // 等于
                   if($rate==$data['rate'])
                       $level = $data['level'];
+                  else
+                      $level = $minRate;
                   break;
                 case 1://大于等于
                     if($rate>=$data['rate'])
                         $level = $data['level'];
+                    else
+                      $level = $minRate;
                   break;
                 case -1:// 小于
                     if($rate<$data['rate'])
                         $level = $data['level'];
+                    else
+                        $level = $minRate;   
                   break;
                 default:
                     $level = '未定义';           
@@ -439,6 +449,27 @@ class ExamController extends \api\common\controllers\Controller
             Yii::$app->cache->set(Yii::$app->params['redisKey'][7].$id,json_encode($data),2592000); // 缓存试题信息 
         }
         return $data;
+    }
+    /**
+     * 删除过期的未提交试卷
+     * @author by lxhui
+     * @param $id 试卷id
+     * @version [2010-05-29]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    private function cleanHistory()
+    {
+        $result = ExamLog::find()->where(['status'=>0,'uid'=>$this->uid])->asArray()->All();
+        foreach($result as $val)
+        {
+            $data = self::infoExam($val['exa_id']);
+            $max =$data['minutes']*60; //考试时间转秒  
+            $timeLeft =  time()-$val['start_time']; // 距离当前生剩余时间
+            if($timeLeft>$max) // 如果已经过期
+                ExamLog::deleteAll('id = :id', [':id' => $val['id']]); //删除历史脏数据          
+        }
+        return ;
     }
  
 }

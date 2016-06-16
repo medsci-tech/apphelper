@@ -142,3 +142,40 @@ uploadResultInit = function () {
     $('[data-toggle="upload-progressInput"]').val('');
     $('[data-toggle="upload-saveInput"]').val('');
 };
+
+/**
+ * ajax提交请求
+ * @param type
+ * @param url
+ * @param data
+ * @param location
+ */
+subActionAjaxForMime = function (type, url, data, location) {
+    $.ajax({
+        type: type,
+        url: url,
+        data: data,
+        success: function(res){
+            if(res.code == 200){
+                swal({
+                    title: "成功",
+                    type: "success",
+                    confirmButtonColor: "#1ab394",
+                    confirmButtonText: "确定",
+                    closeOnConfirm: false
+                }, function () {
+                    window.location.href = location;
+                });
+            }else {
+                swal({
+                    title: "失败",
+                    text: res.msg,
+                    type: "warning",
+                    confirmButtonColor: "#1ab394",
+                    confirmButtonText: "确定",
+                    closeOnConfirm: false
+                });
+            }
+        }
+    });
+};
