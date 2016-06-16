@@ -20,8 +20,8 @@ use dosamigos\fileupload\FileUpload;
     <?php
     $form = ActiveForm::begin([
         'action' => ['index'],
-        'method' => 'post',
-        'options' => ['class' => 'form-inline','enctype' => 'multipart/form-data'],
+        'method' => 'get',
+        'options' => ['class' => 'form-inline'],
     ]); ?>
 
     <?= $form->field($model, 'username') ?>
@@ -31,18 +31,16 @@ use dosamigos\fileupload\FileUpload;
     <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加用户', ['id'=>'btn_add', 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#myModal']) ?>
-    <?= FileUpload::widget([
-        'model' => $uploadModel,
-        'attribute' => 'file',
-        'url' => ['index'],
-    ]);?>
-    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
+
     <?= Html::button('启用', ['class' => 'btn btn-info','id'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
     <?= Html::button('批量删除', [
         'class' => 'btn btn-danger',
         'id'=> 'del',
     ]) ?>
+
+    <?= Html::button('导入', [ 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#importModal']) ?>
+    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
     <?php ActiveForm::end(); ?>
 
 <?php
