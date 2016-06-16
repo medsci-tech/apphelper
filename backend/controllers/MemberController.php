@@ -90,7 +90,7 @@ class MemberController extends BackendController
                     $return = ['error','操作失败哦'];
                 }
             }else{
-                $return = ['success','操作失败哦'];
+                $return = ['error','操作失败哦'];
             }
             Yii::$app->getSession()->setFlash($return[0], $return[1]);
             $this->redirect('index');
@@ -123,7 +123,7 @@ class MemberController extends BackendController
                     $return = ['error','操作失败哦'];
                 }
             }else{
-                $return = ['success','操作失败哦'];
+                $return = ['error','操作失败哦'];
             }
             Yii::$app->getSession()->setFlash($return[0], $return[1]);
             $this->redirect('index');
@@ -258,7 +258,7 @@ class MemberController extends BackendController
     }
 
     /**
-     * 
+     *
      */
     public function actionUpexcel(){
         $post = Yii::$app->request->post();
