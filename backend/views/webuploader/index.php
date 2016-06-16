@@ -10,6 +10,7 @@ $modelName = $name ?? '';
 $imgMaxSize = $imgMaxSize ?? 2097152;
 $proBarMaxWidth = $proBarWidth ?? 200;
 $uploadPath = $uploadPath ?? 'images/exam';
+$buttonName = $buttonName ?? '上传';
 
 ?>
 
@@ -18,7 +19,7 @@ $uploadPath = $uploadPath ?? 'images/exam';
         <input readonly id="txt_show" type="text" class="form-control" data-toggle="upload-progressInput">
         <input id="txt_value" type="hidden" data-toggle="upload-saveInput" name="<?php echo $modelName;?>">
     </div>
-    <button id="upload-promptzone" type="button" class="btn btn-warning">上传</button>
+    <button id="upload-promptzone" type="button" class="btn btn-success"><?php echo $buttonName;?></button>
     <div class="form-group progress">
         <div id="upload-progressbar" aria-valuemax="100" role="progressbar" class="progress-bar progress-bar-info">
             <span></span>
