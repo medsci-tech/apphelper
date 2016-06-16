@@ -26,23 +26,8 @@ class MemberController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-        $uploadModel = new Upload();
-        $uploadModel->file = UploadedFile::getInstance($uploadModel, 'file');
-        if($uploadModel->file){
-            $fileData = $uploadModel->excel(Yii::getAlias('@webroot/uploads'));
-            if (200 == $fileData['code']) {
-                $import = $this->actionImport($fileData['data']);
-                if(200 == $import['code']){
-                    echo 'success';
-                }else{
-                    echo $import['msg'];
-                }
-            }else{
-                echo $fileData['msg'];
-            }
-        }
         $searchMember = new \backend\models\search\Member();
-        $dataProvider = $searchMember->search($appYii->request->post());
+        $dataProvider = $searchMember->search($appYii->request->queryParams);
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $dataArray[$key]['real_name'] = $val->real_name;
@@ -64,7 +49,6 @@ class MemberController extends BackendController
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
-            'uploadModel' => $uploadModel,
         ]);
     }
 
@@ -236,7 +220,7 @@ class MemberController extends BackendController
                 $return = ['code' => 200,'msg' => 'success'];
             } catch (\Exception $e) {
                 $transaction->rollBack(); // 事务执行失败，则回滚
-                $return = ['code' => 602,'msg' => '导入失败'];
+                $return = ['code' => 602,'msg' => $e->errorInfo[2]];
             }
         }else{
             $return = ['code' => 603,'msg' => $result['msg']];
@@ -273,28 +257,23 @@ class MemberController extends BackendController
         $excel->Export($config, $column, $data);
     }
 
-
-
-    public function actionTest(){
-        $targetFolder = '/uploads'; // Relative to the root
-
-        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
-
-        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-            $tempFile = $_FILES['Filedata']['tmp_name'];
-            $targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-            $targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
-
-            // Validate the file type
-            $fileTypes = array('jpg','jpeg','gif','png'); // File extensions
-            $fileParts = pathinfo($_FILES['Filedata']['name']);
-
-            if (in_array($fileParts['extension'],$fileTypes)) {
-                move_uploaded_file($tempFile,$targetFile);
-                echo '1';
-            } else {
-                echo 'Invalid file type.';
+    /**
+     * 
+     */
+    public function actionUpexcel(){
+        $post = Yii::$app->request->post();
+//        var_dump($post);exit;
+        if ($post['excel']) {
+            $import = $this->actionImport($post['excel']);
+//            var_dump($import);exit;
+            if(200 == $import['code']){
+                $return = ['code'=>200,'msg'=>'success','data'=>''];
+            }else{
+                $return = ['code'=>801,'msg'=>$import['msg'],'data'=>''];
             }
+        }else{
+            $return = ['code'=>802,'msg'=>'文件上传失败','data'=>''];
         }
+        $this->ajaxReturn($return);
     }
 }
