@@ -65,6 +65,7 @@ class MessageController extends BackendController {
                 $model->isread = 0;
                 $model->created_at = time();
                 $model->status = 0;
+                $model->uid = Yii::$app->user->id;
                 $model->save(false);
                 $id = $model->id;
             } else {
@@ -81,6 +82,7 @@ class MessageController extends BackendController {
                     $model->touid = $user;
                     $model->created_at = time();
                     $model->status = 0;
+                    $model->uid = Yii::$app->user->id;
                     $model->save(false);
                     $row = array('id' =>$model->id);
                     array_push($array, $row);
@@ -121,6 +123,7 @@ class MessageController extends BackendController {
                 $model->title = $message['title'];
                 $model->content = $message['content'];
                 $model->link_url = $message['link_url'];
+                $model->uid = Yii::$app->user->id;
                 $model->save(false);
             }
 
