@@ -6,6 +6,9 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+use common\models\Member;
+$model = new Member();
+
 ?>
 <?php
 $form = ActiveForm::begin([
@@ -34,11 +37,20 @@ $form = ActiveForm::begin([
 <?php ActiveForm::end(); ?>
 
 <?php
+$formName = $formName ?? '';
 $js = <<<JS
+if('$formName' == 'create'){
+    $('#myModal #memberFormSubmit').click(function() {
+        getRegionValue('Member','tableForm');/*地区联动*/
+        $('#myModal #tableForm').submit();
+    });
+}else {
     $('#updateModal #memberFormSubmit').click(function() {
         getRegionValue('Member','tableForm');/*地区联动*/
         $('#updateModal #tableForm').submit();
     });
+}
+
 JS;
 $this->registerJs($js);
 ?>
