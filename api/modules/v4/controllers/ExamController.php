@@ -349,8 +349,9 @@ class ExamController extends \api\common\controllers\Controller
     {
         $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();
         $map = ArrayHelper::map($result, 'rate', 'level');
-        $minKey = min(array_keys($map));
-        $minRate = $map[$minKey];// 最小等级
+        if($map)
+            sort($map);  
+        $minRate = $map ? current($map) : 0;// 最小等级
         foreach($result as &$data)
         {
             switch ($data['condition'])
