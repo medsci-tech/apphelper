@@ -133,12 +133,12 @@ class UEditorAction extends Action
 
         //上传图片到七牛
         $imgInfo = $up->getFileInfo();
-//        $qiNiuSet = $qiNiuSet = Yii::$app->params['qiniu'];
-//        $qiniu = new Qiniu($qiNiuSet['accessKey'], $qiNiuSet['secretKey'],$qiNiuSet['domain'], $qiNiuSet['bucket']);
-//        $key = 'ueditor/images/' . $imgInfo['title']; // 上传文件目录名images后面跟单独文件夹
-//        $qiniu->uploadFile($_SERVER['DOCUMENT_ROOT'].'/'.$imgInfo['url'],$key); // 要上传的图片
-//        $url = $qiniu->getLink($key);
-//        $imgInfo['url'] = $url;
+        $qiNiuSet = $qiNiuSet = Yii::$app->params['qiniu'];
+        $qiniu = new Qiniu($qiNiuSet['accessKey'], $qiNiuSet['secretKey'],$qiNiuSet['domain'], $qiNiuSet['bucket']);
+        $key = 'ueditor/images/' . $imgInfo['title']; // 上传文件目录名images后面跟单独文件夹
+        $qiniu->uploadFile($_SERVER['DOCUMENT_ROOT'].'/'.$imgInfo['url'],$key); // 要上传的图片
+        $url = $qiniu->getLink($key);
+        $imgInfo['url'] = $url;
         /**
          * 得到上传文件所对应的各个参数,数组结构
          * array(
