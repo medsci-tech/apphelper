@@ -7,9 +7,10 @@
  */
 //自定义参数
 $modelName = $name ?? '';
-$imgMaxSize = $imgMaxSize ?? 2097152;
+$imgMaxSize = $imgMaxSize ?? 2097152;//最大限制，默认2M
 $proBarMaxWidth = $proBarWidth ?? 200;
-$uploadPath = $uploadPath ?? 'images/exam';
+$actionCtrl = $actionCtrl ?? 'img';//上传function
+$uploadPath = $uploadPath ?? 'images/exam';//上传到七牛的目录
 $buttonName = $buttonName ?? '上传';
 
 ?>
@@ -19,7 +20,7 @@ $buttonName = $buttonName ?? '上传';
         <input readonly id="txt_show" type="text" class="form-control" data-toggle="upload-progressInput">
         <input id="txt_value" type="hidden" data-toggle="upload-saveInput" name="<?php echo $modelName;?>">
     </div>
-    <button id="upload-promptzone" type="button" class="btn btn-success"><?php echo $buttonName;?></button>
+    <button id="upload-promptzone" type="button" class="btn btn-waring"><?php echo $buttonName;?></button>
     <div class="form-group progress">
         <div id="upload-progressbar" aria-valuemax="100" role="progressbar" class="progress-bar progress-bar-info">
             <span></span>
@@ -34,7 +35,7 @@ $js = <<<JS
 	var probar = $('#upload-progressbar');
 	var progressbarMaxWidth = $proBarMaxWidth;
 	$('#upload-promptzone').ajaxUploadPrompt({
-		url : '/upload/img?path=$uploadPath',
+		url : '/upload/$actionCtrl?path=$uploadPath',
 		beforeSend : function(e,f) {
 		    if(f.files[0].size > $imgMaxSize){
                 uploadResultError('文件不能超过' + '$formatterSize');
