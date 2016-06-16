@@ -347,7 +347,10 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function getLevel($id,$rate=0,$total=1)
     {
-        $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();//print_r($result);exit;
+        $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();
+        $map = ArrayHelper::map($result, 'rate', 'level');
+        $minKey = min(array_keys($map));
+        $minRate = $map[$minKey];// 最小等级
         foreach($result as &$data)
         {
             switch ($data['condition'])
@@ -355,14 +358,20 @@ class ExamController extends \api\common\controllers\Controller
                 case 0: // 等于
                   if($rate==$data['rate'])
                       $level = $data['level'];
+                  else
+                      $level = $minRate;
                   break;
                 case 1://大于等于
                     if($rate>=$data['rate'])
                         $level = $data['level'];
+                    else
+                      $level = $minRate;
                   break;
                 case -1:// 小于
                     if($rate<$data['rate'])
                         $level = $data['level'];
+                    else
+                        $level = $minRate;   
                   break;
                 default:
                     $level = '未定义';           
