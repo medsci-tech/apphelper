@@ -61,6 +61,11 @@ class MessageController extends \api\common\controllers\Controller
 
             if(!$val['link_url'] && !$val['cid'])
                 $val['link_url']=Yii::$app->params['wapUrl'].'/message/view/'.$val['id'];
+
+            if($val['link_url'])
+                $val['goType']= 'link';
+            else
+                $val['goType']= 'comment';
             
             $val['isread'] = $val['isread']>0  ? true : false;
             unset($val['push_type']);
