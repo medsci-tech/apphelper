@@ -35,9 +35,9 @@ $form = ActiveForm::begin([
 
 <?php
 $js = <<<JS
-    $('#updateModal #memberFormSubmit').click(function() {
+    $('#tableForm #memberFormSubmit').click(function() {
         getRegionValue('Member','tableForm');/*地区联动*/
-        $('#updateModal #tableForm').submit();
+        $('#tableForm').submit();
     });
 JS;
 $this->registerJs($js);

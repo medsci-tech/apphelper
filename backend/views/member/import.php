@@ -20,14 +20,14 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-        <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'memberFormSubmit']) ?>
+        <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'formSubmit']) ?>
     </div>
 
 
 <?php
 $js = <<<JS
 
-$('#importModal #memberFormSubmit').click(function() {
+$('#importModal #formSubmit').click(function() {
     var excelFile = $('[data-toggle="upload-saveInput"]').val();
     var data = {
         'excel' : excelFile
