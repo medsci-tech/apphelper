@@ -21,7 +21,7 @@ backend\assets\AppAsset::register($this);
     <div class="box box-success">
         <div class="box-header"><h2 class="box-title">用户搜索</h2></div>
         <div class="box-body">
-            <?php echo $this->render('_search', ['model' => $searchModel,'uploadModel'=>$uploadModel]); ?>
+            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
         </div>
     </div>
     <div class="box box-success">
@@ -137,6 +137,17 @@ backend\assets\AppAsset::register($this);
             </div>
         </div>
     </div>
+    <div class="modal inmodal" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">导入用户</h4>
+                </div>
+                <?=$this->render('import');?>
+            </div>
+        </div>
+    </div>
 <?php
 
 $getError = $yiiApp->getSession()->getFlash('error');
@@ -196,7 +207,6 @@ $js=<<<JS
     });
     /*添加初始化*/
    $('#btn_add').click(function() {
-        var defaltData = ''; 
         /*地区联动*/
         getRegionInit('tableForm');
    });

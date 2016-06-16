@@ -25,16 +25,7 @@ class Member extends MemberModel
     public function search($params)
     {
         $query = MemberModel::find();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
         $this->load($params);
-        if (!$this->validate()) {
-            return $dataProvider;
-        }
         $query->andFilterWhere(
             [
                 'hospital_id' => $this->hospital_id,
@@ -42,6 +33,12 @@ class Member extends MemberModel
         );
         $query->andFilterWhere(['like', 'real_name', $this->real_name]);
         $query->andFilterWhere(['like', 'username', $this->username]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
         return $dataProvider;
     }
 }

@@ -41,4 +41,27 @@ class UploadController extends BackendController
         $this->ajaxReturn($return);
     }
 
+    /**
+     * excel文件导入到本地
+     */
+    public function actionImport(){
+        $appYii = Yii::$app;
+        $uploadModel = new Upload();
+        $uploadModel->file = UploadedFile::getInstanceByName('file');
+        if($uploadModel->file){
+            $result = $uploadModel->excel(Yii::getAlias('@webroot/uploads'));
+            if(200 == $result['code']){
+                $return = ['code'=>200,'msg'=>'上传成功','data'=>[
+                    'tName' => $uploadModel->file->name,
+                    'saveName' => $result['data'],
+                ]];
+            }else{
+                $return = ['code'=>802,'msg'=>$result['msg'],'data'=>''];
+            }
+        }else{
+            $return = ['code'=>803,'msg'=>'上传失败','data'=>''];
+        }
+        $this->ajaxReturn($return);
+    }
+
 }
