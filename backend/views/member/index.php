@@ -118,9 +118,7 @@ backend\assets\AppAsset::register($this);
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">添加用户</h4>
             </div>
-            <?=$this->render('create', [
-                'model' => $searchModel,
-            ]);?>
+            <?=$this->render('create');?>
         </div>
     </div>
 </div>
@@ -131,9 +129,7 @@ backend\assets\AppAsset::register($this);
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">编辑用户</h4>
                 </div>
-                <?=$this->render('update', [
-                    'model' => $searchModel,
-                ]);?>
+                <?=$this->render('update');?>
             </div>
         </div>
     </div>
