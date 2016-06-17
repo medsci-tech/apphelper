@@ -12,14 +12,13 @@ use yii\widgets\ActiveForm;
 /* @var $params */
 
 $yiiApp = Yii::$app;
-$this->title = '用户';
+$this->title = '用户管理';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $yiiApp->params;
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
     <div class="box box-success">
-        <div class="box-header"><h2 class="box-title">用户搜索</h2></div>
         <div class="box-body">
             <?php echo $this->render('_search', ['model' => $searchModel]); ?>
         </div>
