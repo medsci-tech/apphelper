@@ -199,7 +199,7 @@ class ResourceClassController extends BackendController
             $model -> status = 1;
             $model -> save(false);
             if($model -> grade != 3) {
-                $childs = ExamClass::find()
+                $childs = ResourceClass::find()
                     ->andFilterWhere(['like', 'path', $model->id])
                     ->all();
                 foreach($childs as $child)
@@ -216,7 +216,7 @@ class ResourceClassController extends BackendController
             $model -> status = 0;
             $model -> save(false);
             if($model -> grade != 3) {
-                $childs = ExamClass::find()
+                $childs = ResourceClass::find()
                     ->andFilterWhere(['like', 'path', $model->id])
                     ->all();
                 foreach($childs as $child)
@@ -229,7 +229,15 @@ class ResourceClassController extends BackendController
             }
             return $this->redirect(['index']);
         } else if('delete' == $params['type']) {
-
+            $model = $this->findModel($params['uid']);
+            if($model->grade == 3) {
+                $model->delete();
+            } else{
+                $childs = ResourceClass::find()
+                    ->andFilterWhere(['like', 'path', $model->id])
+                    ->all();
+                $childs->delete();
+            }
             return $this->redirect(['index']);
         } else{
             return $this->redirect(['index']);
