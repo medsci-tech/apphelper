@@ -75,28 +75,17 @@ class ResourceController extends BackendController
     }
 
     /**
-     * 自定义培训保存
+     * 培训保存公共方法
      * @author zhaiyu
+     * @return array
      */
     public function actionForm()
     {
         $post = Yii::$app->request->post();
-        $return = $this->CommonSave($post);
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        $this->redirect('index');
-    }
-
-    /**
-     * 培训保存公共方法
-     * @author zhaiyu
-     * @param $post
-     * @return array
-     */
-    public function CommonSave($post)
-    {
-        if(isset($post['Resource']['id'])){
+        $get = Yii::$app->request->get();
+        $id = $get['id'] ?? false;
+        if($id){
             //有id修改
-            $id = $post['Resource']['id'];
             $model = $this->findModel($id);
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][2].$id); //删除缓存
             if(empty($model)){
@@ -112,21 +101,18 @@ class ResourceController extends BackendController
             if(!isset($model->id)){
                 $model->created_at = time();
             }
-            if($post['Resource']['imgurl']){
-                $model->imgurl = $post['Resource']['imgurl'];
-            }
             $model->rids = implode(',', array_unique($model->rids));
             $result = $model->save(false);
-            if($result){
-                $return = ['success', '操作成功哦'];
-            }else{
-                $return = ['error', '操作失败哦'];
+            if ($result) {
+                $return = ['code' => 200, 'msg' => '', 'data' => ''];
+            } else {
+                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
             }
         }else{
-            $return = ['error', '操作失败哦'];
+            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
         self::clearIndex();// 更新app首页缓存
-        return $return;
+        $this->ajaxReturn($return);
     }
 
     /**
@@ -325,18 +311,7 @@ class ResourceController extends BackendController
         ]);
     }
 
-    /**
-     * 自定义培训保存
-     * @author zhaiyu
-     */
-    public function actionForm_pha()
-    {
-        $post = Yii::$app->request->post();
-        $return = $this->CommonSave($post);
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        self::clearIndex();// 更新app首页缓存
-        $this->redirect('pharmacy');
-    }
+
 
     /**
      * 培训导出
