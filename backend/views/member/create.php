@@ -6,8 +6,6 @@ use yii\helpers\Html;
 /* @var $model common\models\Article */
 /* @var $dataModel common\models\ArticleData */
 
-$this->title = '添加用户数据 ';
-$this->params['breadcrumbs'][] = ['label' => '用户', 'url' => ['index']];
 
 ?>
 <div class="article-create">
@@ -20,8 +18,17 @@ $js = <<<JS
 
 //提交操作
 $('#myModal #memberFormSubmit').click(function() {
-    getRegionValue('Member','myModal');/*地区联动*/
-    $('#myModal #tableForm').submit();
+    var data = getRegionReturnValue('myModal');
+    var elmeParent = '#myModal';
+    data.real_name = $(elmeParent + ' #member-real_name').val();
+    data.username = $(elmeParent + ' #member-username').val();
+    data.email = $(elmeParent + ' #member-email').val();
+    data.hospital_id = $(elmeParent + ' #member-hospital_id').val();
+    data.rank_id = $(elmeParent + ' #member-rank_id').val();
+    data.status = $(elmeParent + ' #member-status').val();
+    var href = window.location.href;
+    console.log(href);
+    subActionAjaxForMime('post', 'form', {'Member':data}, href);
 });
 
 JS;

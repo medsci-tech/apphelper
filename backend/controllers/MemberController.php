@@ -79,26 +79,9 @@ class MemberController extends BackendController
     public function actionCreate()
     {
         $model = new Member();
-        if ($model->load(Yii::$app->request->post())) {
-            $isValid = $model->validate();
-            if ($isValid) {
-                $model->created_at = time();
-                $res = $model->save(false);
-                if($res && $model->signup()){
-                    $return = ['success','操作成功哦'];
-                }else{
-                    $return = ['error','操作失败哦'];
-                }
-            }else{
-                $return = ['error','操作失败哦'];
-            }
-            Yii::$app->getSession()->setFlash($return[0], $return[1]);
-            $this->redirect('index');
-        }else{
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -112,26 +95,49 @@ class MemberController extends BackendController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post())) {
-            $isValid = $model->validate();
-            if ($isValid) {
-                $model->updated_at = time();
-                $res = $model->save(false);
-                if($res){
-                    $return = ['success','操作成功哦'];
-                }else{
-                    $return = ['error','操作失败哦'];
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionForm(){
+        $get = Yii::$app->request->get();
+        $post = Yii::$app->request->post();
+        if(isset($get['id'])){
+            //有id修改
+            $id = $get['id'];
+            $model = $this->findModel($id);
+            if(empty($model)){
+                $model = new Member();
+            }
+        }else{
+            //无id添加
+            $model = new Member();
+        }
+        $model->load($post);
+        $isValid = $model->validate();
+
+        if ($isValid) {
+            $checkUsername = $model->checkUsernameExist($model->username, $model->id);
+            if(false == $checkUsername){
+                if (!isset($model->id)) {
+                    $model->created_at = time();
+                } else {
+                    $model->updated_at = time();
+                }
+                $result = $model->save(false);
+                if ($result) {
+                    $return = ['code' => 200, 'msg' => '', 'data' => ''];
+                } else {
+                    $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
                 }
             }else{
-                $return = ['error','操作失败哦'];
+                $return = ['code' => 803, 'msg' => '手机号已存在', 'data' => ''];
             }
-            Yii::$app->getSession()->setFlash($return[0], $return[1]);
-            $this->redirect('index');
         }else{
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
+        $this->ajaxReturn($return);
     }
 
     public function actionDelete()

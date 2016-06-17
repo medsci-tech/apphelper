@@ -12,7 +12,7 @@ $model = new Member();
 ?>
 <?php
 $form = ActiveForm::begin([
-    'action' => ['create'],
+    'action' => ['form'],
     'method' => 'post',
     'options' => ['id' => 'tableForm'],
 ]); ?>
