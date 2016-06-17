@@ -182,7 +182,7 @@ $js=<<<JS
         var status = $(this).attr('data-status');
       
         /* 编辑初始化 */
-        $('#updateModal #tableForm').attr('action','/member/update?id='+id);
+        $('#updateModal #tableForm').attr('action','/member/form?id='+id);
         $('#updateModal #member-id').val(id);
         $('#updateModal #member-real_name').val(real_name);
         $('#updateModal #member-nickname').val(nickname);

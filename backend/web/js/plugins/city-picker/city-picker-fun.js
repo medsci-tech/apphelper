@@ -36,6 +36,29 @@ getRegionValue = function (m, parentBom) {
 };
 
 /**
+ *
+ * @param parentBom
+ */
+getRegionReturnValue = function (parentBom) {
+    if (parentBom) {
+        parentBom = '#' + parentBom + ' ';
+    } else {
+        parentBom = '';
+    }
+    var result = {};
+    var cityTitle = $(parentBom + '[data-toggle="city-picker"]').next().find('.title');
+    var province = cityTitle.find('span[data-count="province"]');
+    var city = cityTitle.find('span[data-count="city"]');
+    var area = cityTitle.find('span[data-count="district"]');
+    result.province_id = province.attr('data-code') ? province.attr('data-code') : '';
+    result.city_id = city.attr('data-code') ? city.attr('data-code') : '';
+    result.area_id = area.attr('data-code') ? area.attr('data-code') : '';
+    result.province = province.text();
+    result.city = city.text();
+    result.area = area.text();
+    return result;
+};
+/**
  *  修改数据前获取数据信息
  * author zhaiyu
  * startDate 20160510

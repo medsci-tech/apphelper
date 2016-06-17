@@ -35,8 +35,9 @@ class Member extends User
     public function rules()
     {
         return [
-            [['username', 'email', 'real_name', 'province_id', 'city_id', 'area_id', 'province', 'city', 'area', 'hospital_id', 'rank_id'], 'required'],
-            [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['username', 'email', 'real_name', 'province_id', 'city_id', 'hospital_id', 'rank_id'], 'required'],
+            [['province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['area', 'city', 'province'], 'string'],
             [['username'], 'string', 'length' => 11],
             [['real_name'], 'string', 'max' => 30],
         ];
@@ -108,6 +109,23 @@ class Member extends User
         $this->setPassword($this->password);
         unset($this->password);
         return $this->save(false);
+    }
+
+    public function checkUsernameExist($username, $id = 0){
+        $where = [
+            'username' => $username
+        ];
+        if($id > 0){
+            $andWhere = 'id != '.$id;
+        }else{
+            $andWhere = '';
+        }
+        $result = $this::find()->where($where)->andWhere($andWhere)->one();
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
