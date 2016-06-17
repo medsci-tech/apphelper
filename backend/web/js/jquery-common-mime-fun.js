@@ -144,7 +144,11 @@ uploadResultInit = function () {
 };
 
 /**
- *
+ * ajax提交请求
+ * @param type
+ * @param url
+ * @param data
+ * @param location
  */
 subActionAjaxForMime = function (type, url, data, location) {
     $.ajax({
@@ -174,4 +178,4 @@ subActionAjaxForMime = function (type, url, data, location) {
             }
         }
     });
-}
+};
