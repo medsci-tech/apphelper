@@ -47,6 +47,7 @@ class Member extends User
         return [
             'id' => Yii::t('app', 'ID'),
             'username' => '手机号',
+            'nickname' => '昵称',
             'province_id' => '省份',
             'province' => '省份',
             'city_id' => '城市',
