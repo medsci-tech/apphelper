@@ -12,7 +12,7 @@ $model = new Member();
 ?>
 <?php
 $form = ActiveForm::begin([
-    'action' => ['create'],
+    'action' => ['form'],
     'method' => 'post',
     'options' => ['id' => 'tableForm'],
 ]); ?>
@@ -35,22 +35,3 @@ $form = ActiveForm::begin([
     <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'memberFormSubmit']) ?>
 </div>
 <?php ActiveForm::end(); ?>
-
-<?php
-$formName = $formName ?? '';
-$js = <<<JS
-if('$formName' == 'create'){
-    $('#myModal #memberFormSubmit').click(function() {
-        getRegionValue('Member','tableForm');/*地区联动*/
-        $('#myModal #tableForm').submit();
-    });
-}else {
-    $('#updateModal #memberFormSubmit').click(function() {
-        getRegionValue('Member','tableForm');/*地区联动*/
-        $('#updateModal #tableForm').submit();
-    });
-}
-
-JS;
-$this->registerJs($js);
-?>
