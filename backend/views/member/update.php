@@ -12,6 +12,19 @@ $this->params['breadcrumbs'][] = ['label' => '用户', 'url' => ['index']];
 ?>
 <div class="article-update">
 
-    <?= $this->render('_form',['formName' => 'update']) ?>
+    <?= $this->render('_form') ?>
 
 </div>
+<?php
+$js = <<<JS
+
+//提交操作
+$('#updateModal #memberFormSubmit').click(function() {
+    getRegionValue('Member','updateModal');/*地区联动*/
+    $('#updateModal #tableForm').submit();
+});
+
+
+JS;
+$this->registerJs($js);
+?>
