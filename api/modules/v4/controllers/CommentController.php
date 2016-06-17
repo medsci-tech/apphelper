@@ -195,6 +195,7 @@ class CommentController extends \api\common\controllers\Controller
         if($result){
             if($result->cid){
                 $this->AddCommentCount($result->cid);
+            }
                 //资源评论加一
                 $type = $this->params['type'];
                 if('resource' == $type){
@@ -203,12 +204,12 @@ class CommentController extends \api\common\controllers\Controller
                     $res = Exercise::findOne($result->rid);
                 }
                 if($res){
+                    var_dump($res->comments);
                     $res->comments += 1;
                     $res->save(false);
                 }
-            }
             /* 回复消息推送 */
-            if($this->params['cid'])
+            if(isset($this->params['cid']))
             {
                 $m = $model->findOne($this->params['cid']);
                 $touid = $m->uid;
