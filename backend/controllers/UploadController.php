@@ -45,7 +45,6 @@ class UploadController extends BackendController
      * excel文件导入到本地
      */
     public function actionImport(){
-        $appYii = Yii::$app;
         $uploadModel = new Upload();
         $uploadModel->file = UploadedFile::getInstanceByName('file');
         if($uploadModel->file){
@@ -62,6 +61,10 @@ class UploadController extends BackendController
             $return = ['code'=>803,'msg'=>'上传失败','data'=>''];
         }
         $this->ajaxReturn($return);
+    }
+
+    public function actionVideo(){
+        
     }
 
 }
