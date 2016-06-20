@@ -117,6 +117,9 @@
                 </ul>
             </li>
 
+            <li>
+                <a class="J_menuItem" href="video/index"><i class="fa fa-desktop"></i> <span class="nav-label">视频管理</a>
+            </li>
         </ul>
     </div>
 </nav>
