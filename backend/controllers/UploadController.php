@@ -63,8 +63,23 @@ class UploadController extends BackendController
         $this->ajaxReturn($return);
     }
 
-    public function actionVideo(){
-        
+    public function actionVideos(){
+        $uploadModel = new Upload();
+        $uploadModel->file = UploadedFile::getInstanceByName('file');
+        $qiNiuSet = Yii::$app->params['qiniu'];
+        $qiniu = new Qiniu($qiNiuSet['accessKey'], $qiNiuSet['secretKey'],$qiNiuSet['domain'], $qiNiuSet['bucket']);
+        $key = 'video/' . $uploadModel->file->name; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
+        $qiniu->uploadFile($uploadModel->file->tempName,$key); // 要上传的图片
+        $url = $qiniu->getLink($key);
+        if($url){
+            $return = ['code'=>200,'msg'=>'上传成功','data'=>[
+                'tName' => $uploadModel->file->name,
+                'saveName' => $url,
+            ]];
+        }else{
+            $return = ['code'=>801,'msg'=>'远程上传失败','data'=>''];
+        }
+        $this->ajaxReturn($return);
     }
 
 }

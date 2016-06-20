@@ -33,18 +33,14 @@ class Upload extends Model
         $suffix = mb_substr($this->file->name, (mb_strripos($this->file->name, '.') + 1));
         if(in_array($suffix,['xls','xlsx'])){
             $fileName = $uploadPath .'/temp/'. date('YmdHis') . '.' . $suffix;
-            if ($this->validate()) {
-                $res = $this->file->saveAs($fileName);
-                if($res){
-                    $return = ['code'=>200,'msg'=>'success','data'=>$fileName];
-                }else{
-                    $return = ['code'=>701,'msg'=>'save error','data'=>''];
-                }
-            } else {
-                $return = ['code'=>702,'msg'=>'validate error','data'=>''];
+            $res = $this->file->saveAs($fileName);
+            if($res){
+                $return = ['code'=>200,'msg'=>'success','data'=>$fileName];
+            }else{
+                $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
             }
         }else{
-            $return = ['code'=>703,'msg'=>'suffix error','data'=>''];
+            $return = ['code'=>703,'msg'=>'请上传Excel格式文件','data'=>''];
         }
         return $return;
     }
@@ -64,18 +60,14 @@ class Upload extends Model
                 @touch($filePath . 'index.html');
             }
             $fileName = $filePath . $name . '.' . $suffix;
-            if ($this->validate()) {
-                $res = $this->file->saveAs($fileName);
-                if($res){
-                    $return = ['code'=>200,'msg'=>'上传成功哦','data'=>[
-                        'path' => $filePath,
-                        'name' => $name . '.' . $suffix,
-                    ]];
-                }else{
-                    $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
-                }
-            } else {
-                $return = ['code'=>702,'msg'=>'上传失败哦','data'=>''];
+            $res = $this->file->saveAs($fileName);
+            if($res){
+                $return = ['code'=>200,'msg'=>'上传成功哦','data'=>[
+                    'path' => $filePath,
+                    'name' => $name . '.' . $suffix,
+                ]];
+            }else{
+                $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
             }
         }else{
             $return = ['code'=>703,'msg'=>'目前只支持png,jpg,gif格式','data'=>''];
