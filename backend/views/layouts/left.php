@@ -41,7 +41,7 @@
                         <a class="J_menuItem" href="member/index" data-index="0">用户管理</a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/admin/assignment/index" data-index="0">管理员管理</a>
+                        <a class="J_menuItem" href="/assignment/index" data-index="0">管理员管理</a>
                     </li>
 
                 </ul>
