@@ -28,14 +28,11 @@ use dosamigos\fileupload\FileUpload;
     ]); ?>
 
     <?= $form->field($model, 'name') ?>
-    <div class="form-group">
-        <?= $this->render('/region/index',['regionValue'=>'']);?>
-    </div>
-    <?= Html::button('查询', ['id'=>'btn_search','class' => 'btn btn-primary']) ?>
+    <?= $form->field($model, 'url') ?>
+
+    <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
     <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加单位', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
-    <?= Html::button('导入', [ 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#importModal']) ?>
-    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
     <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-info']) ?>
     <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
     <?php ActiveForm::end(); ?>
@@ -85,11 +82,7 @@ $js = <<<JS
             swal("禁用成功！", "", "success");
         });
     });
-    
-    $('#btn_search').click(function() {
-        getRegionValue('Hospital','searchForm');/*地区联动*/
-        $(this).submit();
-    });
+
 JS;
 $this->registerJs($js);
 ?>

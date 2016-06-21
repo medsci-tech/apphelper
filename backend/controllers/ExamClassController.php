@@ -221,7 +221,15 @@ class ExamClassController extends BackendController
             }
             return $this->redirect(['index']);
         } else if('delete' == $params['type']) {
-
+            $model = $this->findModel($params['uid']);
+            if($model->grade == 3) {
+                $model->delete();
+            } else{
+                $childs = ExamClass::find()
+                    ->andFilterWhere(['like', 'path', $model->id])
+                    ->all();
+                $childs->delete();
+            }
             return $this->redirect(['index']);
         } else{
             return $this->redirect(['index']);
