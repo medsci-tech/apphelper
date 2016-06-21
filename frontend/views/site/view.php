@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <title>文章详情</title>
+    <link rel="stylesheet" href="/css/plyr/plyr.css">
 </head>
 <style>
     * {
@@ -48,18 +49,20 @@
 <div class="article">
     <div class="content">
         <div class="article_time">发布时间：<?= date('Y-m-d h:m:s', $data['publish_time']) ?></div>
-        <video controls="controls"
-               src="https://cdn.selz.com/plyr/1.0/movie.mp4"
-               width="100%" height="100%"
-        >
-        </video>
+        <div class="player">
+            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
+                <!-- Video files -->
+                <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="article_details"><?= $data['content'] ?></div>
     </div>
 </div>
 <input type="hidden" id="txt_value">
 </body>
 </html>
-
+<script src="/js/plyr.js"></script>
+<script>plyr.setup();</script>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
     var temp = null;
