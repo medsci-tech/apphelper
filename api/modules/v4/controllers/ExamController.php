@@ -189,8 +189,7 @@ class ExamController extends \api\common\controllers\Controller
         $times = $mins.':'.$secs;     
         //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         Yii::$app->cache->delete(Yii::$app->params['redisKey'][5].$id.'_'.$this->uid);  //删除本试卷最后历史记录
-        
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'level'=>$level]];
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$level]];
         return $result; 
     } 
     
