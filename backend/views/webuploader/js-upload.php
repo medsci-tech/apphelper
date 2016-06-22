@@ -1,5 +1,7 @@
 <?php
-
+$ajaxUrl = $ajaxUrl ?? '';
+$ajaxType = $ajaxType ?? 'post';
+$ajaxLocation = $ajaxLocation ?? 'index';
 use yii\helpers\Html;
 $referrer = Yii::$app->request->referrer ?? 'index';
 ?>
@@ -164,11 +166,31 @@ $('#submitBtn').on('click', function() {
         //禁止提交
          return false;
     }else {
-       //保存数据 
-       // var 
+        //保存数据 
+        var imgurlList = $('#fsUploadProgress').find('.hash').prev().find('a');
+        var nameList = imgurlList.parents('.progressContainer').find('.progressName span[data-toggle="file_name"]');
+        var imgLen = imgurlList.length;
+        if(imgLen > 0){
+            var imgurlData = {};
+            var nameData = {};
+            for(var i = 0; i < imgLen; i++){
+                imgurlData[i] = $(imgurlList[i]).attr('href');
+                nameData[i] = $(nameList[i]).text();
+            }
+            var data = {
+                'imgurl' : imgurlData,
+                'name' : nameData,
+            };
+            subActionAjaxForMime('$ajaxType', '$ajaxUrl', data, '$ajaxLocation');
+        }else {
+            swal('没有可上传的文件');
+        }
+       
     }
     
 });
+
+
 
 JS;
 $this->registerJs($js);
