@@ -40,7 +40,7 @@ $referrer = Yii::$app->request->referrer ?? 'index';
         <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
         <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
-        <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
+        <?= Html::a('返回', $referrer, ['class' => 'btn btn-white']) ?>
         <?= Html::button('确定', ['class' => 'btn btn-primary','id'=>'submitBtn']) ?>
 
     <?php ActiveForm::end(); ?>
