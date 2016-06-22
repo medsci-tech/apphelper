@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
-use common\models\member;
+use common\models\Member;
 
 $yiiApp = Yii::$app;
 $this->title = '消息推送';
