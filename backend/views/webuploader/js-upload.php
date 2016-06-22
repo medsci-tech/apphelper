@@ -45,7 +45,7 @@ $domain = Yii::$app->params['qiniu']['domain']; // 七牛返回的域名
 $auth = new \Qiniu\Auth($accessKey, $secretKey);
 // 生成上传 Token
 $token = $auth->uploadToken($bucket);
-
+$getDate = date('Ymd');
 $js = <<<JS
 var uploader = Qiniu.uploader({
     runtimes: 'html5,flash,html4',
@@ -58,6 +58,7 @@ var uploader = Qiniu.uploader({
     multi_selection: !(mOxie.Env.OS.toLowerCase()==="ios"),
     uptoken:'$token',
     domain: '$domain/',
+    uptoken_url: 'videos',
     auto_start: true,
     log_level: 5,
     init: {
@@ -96,12 +97,17 @@ var uploader = Qiniu.uploader({
             var progress = new FileProgress(err.file, 'fsUploadProgress');
             progress.setError();
             progress.setStatus(errTip);
+        },
+        'Key': function(up, file) {
+            // do something with key
+            var suffix = file.name.split('.');
+            var key = 'video/$getDate'+file.id + '.' + suffix[suffix.length-1];
+            return key
         }
     }
 });
-// console.log(uptoken_func());
+
 uploader.bind('FileUploaded', function() {
-    console.log('hello man,a file is uploaded');
 });
 $('#container').on(
     'dragenter',
@@ -159,6 +165,7 @@ $('#submitBtn').on('click', function() {
          return false;
     }else {
        //保存数据 
+       // var 
     }
     
 });
