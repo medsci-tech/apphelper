@@ -52,6 +52,12 @@
         <div class="player">
             <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
                 <!-- Video files -->
+                <source src="http://7xvmio.com1.z0.glb.clouddn.com/test.mp4" type="video/mp4">
+            </video>
+        </div>
+            <div class="player">
+            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
+                <!-- Video files -->
                 <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type="video/mp4">
             </video>
         </div>
