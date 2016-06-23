@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
                     ['class' => 'yii\grid\SerialColumn'],
                     'name',
                     'url',
-                    'suffix',
+                    'type',
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template'=>'{view}',

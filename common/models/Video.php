@@ -28,12 +28,12 @@ class Video extends ActiveRecord {
             [[
                 'name',
                 'url',
-                'suffix',
+                'type',
             ], 'required'],
             [[
                 'name',
                 'url',
-                'suffix',
+                'type',
             ], 'string'],
         ];
     }
@@ -47,7 +47,7 @@ class Video extends ActiveRecord {
             'id' => Yii::t('app', 'ID'),
             'name' => '文件名',
             'url' => '链接地址',
-            'suffix' => '后缀',
+            'type' => '类型',
             'created_at' => '创建时间',
         ];
     }

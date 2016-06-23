@@ -43,7 +43,7 @@ class VideoController extends BackendController
                 foreach ($post['imgurl'] as $key => $val){
                     $data['url'] = $val;
                     $data['name'] = $post['name'][$key];
-                    $data['suffix'] = mb_substr($val, (mb_strripos($val, '.')));
+                    $data['type'] = $this->getFileInfo($val);
                     $data['created_at'] = time();
                     $appYii->db->createCommand()->insert('{{%video}}',$data)->execute();
                 }
@@ -51,7 +51,7 @@ class VideoController extends BackendController
                 $return = ['code' => 200,'msg' => 'success'];
             } catch (\Exception $e) {
                 $transaction->rollBack(); // 事务执行失败，则回滚
-                $return = ['code' => 802,'msg' => $e->errorInfo[2]];
+                $return = ['code' => 802,'msg' => '远程保存失败'];
             }
         }else{
             $return = ['code' => 801, 'msg' => '数据有误，请重试', 'data' => ''];
