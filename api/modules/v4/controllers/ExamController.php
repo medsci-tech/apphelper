@@ -145,10 +145,10 @@ class ExamController extends \api\common\controllers\Controller
        /* 检查考试时间是否过期 */
         $lastModel = self::lastExam($id);
         $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
-        if($timeLeft>$max) // 如果已经过期
+        if($timeLeft>$max) // 如果已经过期(离线不适用)
         {
-            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
-            return $result;
+            //$result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
+            //return $result;
         }
         $optionList= $this->params['optionList'] ?? [];// 客户端提交的试题
         
