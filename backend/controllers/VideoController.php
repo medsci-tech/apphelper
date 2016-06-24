@@ -33,21 +33,44 @@ class VideoController extends BackendController
      */
     public function actionForm()
     {
-        $post = Yii::$app->request->post();
-        $model = new Video();
-        $model->load($post);
-        $isValid = $model->validate();
-        if ($isValid) {
-            $model->created_at = time();
-            $result = $model->save(false);
-            if ($result) {
-                $return = ['code' => 200, 'msg' => '', 'data' => ''];
-            } else {
-                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
+        $appYii = Yii::$app;
+        $post = $appYii->request->post();
+
+        if(isset($post['imgurl']) && isset($post['name'])){
+            $transaction = $appYii->db->beginTransaction(); //开启事务
+            try {
+                $data = [];
+                foreach ($post['imgurl'] as $key => $val){
+                    $data['url'] = $val;
+                    $data['name'] = $post['name'][$key];
+                    $data['type'] = $this->getFileInfo($val);
+                    $data['created_at'] = time();
+                    $appYii->db->createCommand()->insert('{{%video}}',$data)->execute();
+                }
+                $transaction->commit(); // 两条sql均执行成功，则提交
+                $return = ['code' => 200,'msg' => 'success'];
+            } catch (\Exception $e) {
+                $transaction->rollBack(); // 事务执行失败，则回滚
+                $return = ['code' => 802,'msg' => '远程保存失败'];
             }
         }else{
-            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
+            $return = ['code' => 801, 'msg' => '数据有误，请重试', 'data' => ''];
         }
         $this->ajaxReturn($return);
+    }
+
+    public function actionCreate(){
+        return $this->render('/webuploader/js-upload', [
+            'ajaxUrl' => 'form',
+            'ajaxType' => 'post',
+            'ajaxLocation' => 'index',
+        ]);
+    }
+    public function actionView($id){
+        $model = Video::findOne($id);
+//       var_dump($model);
+        return $this->render('view', [
+            'modelData' => $model,
+        ]);
     }
 }

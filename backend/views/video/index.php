@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
                     ['class' => 'yii\grid\SerialColumn'],
                     'name',
                     'url',
-                    'suffix',
+                    'type',
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template'=>'{view}',
@@ -48,24 +48,3 @@ backend\assets\AppAsset::register($this);
         </div>
     </div>
 </div>
-
-<!-- 弹出部分 -->
-<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><label id="l_title">单位</label></h4>
-            </div>
-            <?=$this->render('form');?>
-        </div>
-    </div>
-</div>
-
-<?php
-$js=<<<JS
-
-  
-JS;
-$this->registerJs($js);
-?>

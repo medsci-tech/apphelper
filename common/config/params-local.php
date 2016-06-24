@@ -109,4 +109,25 @@ return [
         '1' => '全部用户',
         '0' => '指定用户',
     ],
+
+    /*上传文件格式限制--目前没用到*/
+    'uploadFile' => [
+        'videoType' => [
+            'video/mp4',
+            'video/avi',
+            'flv',
+            'video/3gpp',
+            'webm',
+            'asf',
+            'mov',
+            'rmvb',
+
+        ],
+        'imageType' => [
+            'image/gif',
+            'image/jpeg',
+            'image/png',
+            'image/bmp',
+        ],
+    ],
 ];
