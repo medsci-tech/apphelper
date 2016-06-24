@@ -34,7 +34,7 @@ use dosamigos\fileupload\FileUpload;
     <?= Html::button('查询', ['id'=>'btn_search','class' => 'btn btn-primary']) ?>
     <?= Html::button('添加', ['id'=>'btn_add','class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>"#myModal"]) ?>
     <?= Html::button('导入', [ 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#importModal']) ?>
-    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
+    <?= Html::a('导出','export?default=0', ['class' => 'btn btn-success']) ?>
     <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-info']) ?>
     <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
     <?php ActiveForm::end(); ?>
