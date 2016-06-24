@@ -60,7 +60,7 @@ class VideoController extends BackendController
     }
 
     public function actionCreate(){
-        return $this->render('/webuploader/js-upload', [
+        return $this->render('create', [
             'ajaxUrl' => 'form',
             'ajaxType' => 'post',
             'ajaxLocation' => 'index',
