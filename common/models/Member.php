@@ -55,7 +55,7 @@ class Member extends User
             'area_id' => '县区',
             'area' => '县区',
             'address' => '地址',
-            'hospital_id' => '医院',
+            'hospital_id' => '药店',
             'rank_id' => '职称',
             'email' => '邮箱',
             'created_at' => '注册时间',

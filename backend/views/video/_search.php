@@ -31,10 +31,7 @@ use dosamigos\fileupload\FileUpload;
     <?= $form->field($model, 'url') ?>
 
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::a('添加', 'create', ['class' => 'btn btn-success']) ?>
-    <?= Html::button('启用', ['id'=>'btn_enable','class' => 'btn btn-info']) ?>
-    <?= Html::button('禁用', ['id'=>'btn_disable','class' => 'btn btn-warning']) ?>
     <?php ActiveForm::end(); ?>
 </div>
 

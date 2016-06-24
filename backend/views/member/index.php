@@ -44,6 +44,10 @@ backend\assets\AppAsset::register($this);
                         }
 
                     ],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '序号'
+                    ],
                     'real_name',
                     'nickname',
                     'username',
@@ -78,7 +82,7 @@ backend\assets\AppAsset::register($this);
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template'=>'{view}  {update} {delete}',
+                        'template'=>'{view}  {update}',
                         'header' => '操作',
                         'buttons'=>[
                             'update'=> function ($url, $model, $key) {
