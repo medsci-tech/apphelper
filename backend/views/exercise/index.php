@@ -109,6 +109,7 @@ backend\assets\AppAsset::register($this);
         </div>
     </div>
     <?php if($this->params['hiboyiamalayer']):?>
+        <?= Html::button('取消', ['class' => 'btn-outline btn btn-default','data-toggle'=> 'layerCtrlParentCancel']) ?>
         <?= Html::button('移入', ['class' => 'btn-outline btn btn-success','data-toggle'=> 'layerCtrlParent']) ?>
     <?php endif;?>
 </div>
@@ -210,6 +211,7 @@ $js=<<<JS
         exerciseInitForMime('#optionListBody');
     });
     
+    /*题库添加试题，完成后关闭窗口*/
     $('[data-toggle="layerCtrlParent"]').on('click',function() {
         var check = $('#delForm').find('input[name="selection[]"]');
         var parentHtml = parent.$('#formModal #examListBody');
@@ -239,6 +241,12 @@ $js=<<<JS
             return false;
         }
         parentHtml.append(html);
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    });
+    
+    /*题库取消添加试题，关闭窗口*/
+    $('[data-toggle="layerCtrlParentCancel"]').on('click',function() {
         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
         parent.layer.close(index);
     });

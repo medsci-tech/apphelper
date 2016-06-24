@@ -236,8 +236,9 @@ class MemberController extends BackendController
 
     /**
      * 用户数据导出
+     * @param $default
      */
-    public function actionExport(){
+    public function actionExport($default){
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>20],
             'nickname'=>['column'=>'B','name'=>'昵称','width'=>20],
@@ -252,13 +253,17 @@ class MemberController extends BackendController
             'status'=>['column'=>'K','name'=>'状态','width'=>10],
         ];
         $config = [
-            'fileName' => '用户数据导出-' . date('YmdHis'),
+            'fileName' => '用户导出-' . date('YmdHis'),
             'columnHeight' => '20',
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-
-        $data = json_decode(Yii::$app->cache->get('memberDataExportToExcel'),true);
+        if($default){
+            $data = [];
+            $config['fileName'] = '用户导入模板';
+        }else{
+            $data = json_decode(Yii::$app->cache->get('memberDataExportToExcel'),true);
+        }
         $excel = new ExcelController();
         $excel->Export($config, $column, $data);
     }
