@@ -310,7 +310,7 @@ class ExamController extends \api\common\controllers\Controller
                 if($data)
                     $data = json_decode($data,true);
                 else
-                    $data=[];
+                    $data= null;
             }
             else
                 $data =self::randExam($id,$data['class_id'],$data['total']); // 重新发布随机试卷
