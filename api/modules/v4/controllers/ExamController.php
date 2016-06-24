@@ -119,13 +119,6 @@ class ExamController extends \api\common\controllers\Controller
         $id = self::checkId();
         /* 获取缓存试题列表 */
         $data = self::getExerciseById($id);
-        /* 记录开始答题时间 */
-        $examlog = new ExamLog();
-        $examlog->exa_id = $id;
-        $examlog->uid =$this->uid;
-        $examlog->start_time = time();
-        $examlog->save();    
-
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
         return $result;
     }
@@ -293,11 +286,25 @@ class ExamController extends \api\common\controllers\Controller
             $cacheData = json_decode($cacheData,true);
             if($cacheData)
                   return $cacheData;          
-        }           
+        }  
+        $examlog = new ExamLog();
+        $log = $examlog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最后答题记录
+        if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
+            $beginStatus = false; //继续考试
+        else
+            $beginStatus = true; // 开始考试
+       /* 记录试卷考试开始时间 */ 
+        if($beginStatus)
+        {
+            /* 记录开始答题时间 */
+           $examlog->exa_id = $id;
+           $examlog->uid =$this->uid;
+           $examlog->start_time = time();
+           $examlog->save();    
+        }      
         if($data['type']==1) // 随机出题   
         {
-            $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最后答题记录
-            if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
+            if(!$beginStatus)
             {
                 $data = Yii::$app->redis->get(Yii::$app->params['redisKey'][8].$id.'_'.$this->uid); // 获取随机缓存试题信息
                 if($data)
@@ -306,7 +313,7 @@ class ExamController extends \api\common\controllers\Controller
                     $data=[];
             }
             else
-                $data =self::randExam($id,$data['class_id'],$data['total']);
+                $data =self::randExam($id,$data['class_id'],$data['total']); // 重新发布随机试卷
         }
             
         else // 自定义出题
