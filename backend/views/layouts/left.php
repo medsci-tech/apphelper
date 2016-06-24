@@ -4,7 +4,7 @@
     </div>
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
-            <li class="nav-header">
+            <li class="nav-header navbar-minimalize">
                 <div class="dropdown profile-element">
                     <span><img alt="image" class="img-circle" src="/img/profile_small.jpg" /></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
