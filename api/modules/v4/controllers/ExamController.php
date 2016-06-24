@@ -117,14 +117,14 @@ class ExamController extends \api\common\controllers\Controller
     public function actionList()
     {
         $id = self::checkId();
+        /* 获取缓存试题列表 */
+        $data = self::getExerciseById($id);
         /* 记录开始答题时间 */
         $examlog = new ExamLog();
         $examlog->exa_id = $id;
         $examlog->uid =$this->uid;
         $examlog->start_time = time();
         $examlog->save();    
-        /* 获取缓存试题列表 */
-        $data = self::getExerciseById($id);
 
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
         return $result;
@@ -295,7 +295,20 @@ class ExamController extends \api\common\controllers\Controller
                   return $cacheData;          
         }           
         if($data['type']==1) // 随机出题   
-            $data =self::randExam($id,$data['class_id'],$data['total']);
+        {
+            $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最后答题记录
+            if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
+            {
+                $data = Yii::$app->redis->get(Yii::$app->params['redisKey'][8].$id.'_'.$this->uid); // 获取随机缓存试题信息
+                if($data)
+                    $data = json_decode($data,true);
+                else
+                    $data=[];
+            }
+            else
+                $data =self::randExam($id,$data['class_id'],$data['total']);
+        }
+            
         else // 自定义出题
         {
             if($data['exe_ids'])
