@@ -13,11 +13,12 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $attr_type */
+/* @var $searchAction */
 ?>
 
     <?php
     $form = ActiveForm::begin([
-        'action' => ['index'],
+        'action' => [$attr_type ? 'index' : 'pharmacy'],
         'method' => 'get',
         'options' => ['class' => 'form-inline navbar-btn', 'id' => 'search-form'],
     ]); ?>
