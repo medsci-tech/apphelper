@@ -40,7 +40,7 @@ class MemberController extends BackendController
             $dataArray[$key]['city_id'] =  $val->city;
             $dataArray[$key]['area_id'] =  $val->area;
             $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
-            $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
+           // $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
 
         /*将数据存入cache以便导出*/
