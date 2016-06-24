@@ -66,4 +66,11 @@ class VideoController extends BackendController
             'ajaxLocation' => 'index',
         ]);
     }
+    public function actionView($id){
+        $model = Video::findOne($id);
+//       var_dump($model);
+        return $this->render('view', [
+            'modelData' => $model,
+        ]);
+    }
 }

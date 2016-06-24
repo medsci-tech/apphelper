@@ -28,7 +28,6 @@ class Video extends ActiveRecord {
             [[
                 'name',
                 'url',
-                'type',
             ], 'required'],
             [[
                 'name',
