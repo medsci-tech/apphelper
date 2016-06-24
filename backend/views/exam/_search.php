@@ -25,7 +25,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('添加', ['class' => 'btn btn-success','id'=>'createBtn','data-toggle'=>'modal','data-target'=>'#formModal']) ?>
     <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','data-toggle'=> 'disable']) ?>
@@ -33,7 +32,6 @@ use yii\widgets\ActiveForm;
     <?= Html::button('取消发布', ['class' => 'btn btn-warning','data-toggle'=> 'noPub']) ?>
     <?= Html::button('推荐', ['class' => 'btn btn-info','data-toggle'=> 'isRec']) ?>
     <?= Html::button('取消推荐', ['class' => 'btn btn-warning','data-toggle'=> 'noRec']) ?>
-    <?= Html::button('批量删除', ['class' => 'btn btn-danger', 'id'=> 'del']) ?>
     <?php ActiveForm::end(); ?>
 
 <?php
