@@ -21,6 +21,7 @@ $('#myModal #memberFormSubmit').click(function() {
     var data = getRegionReturnValue('myModal');
     var elmeParent = '#myModal';
     data.real_name = $(elmeParent + ' #member-real_name').val();
+    data.sex = $(elmeParent + ' #member-sex').val();
     data.username = $(elmeParent + ' #member-username').val();
     data.email = $(elmeParent + ' #member-email').val();
     data.hospital_id = $(elmeParent + ' #member-hospital_id').val();
