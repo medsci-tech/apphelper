@@ -35,9 +35,9 @@ class Member extends User
     public function rules()
     {
         return [
-            [['username', 'email', 'real_name', 'province_id', 'city_id', 'hospital_id', 'rank_id'], 'required'],
+            [['username', 'email', 'real_name', 'hospital_id', 'rank_id'], 'required'],
             [['province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
-            [['area', 'city', 'province'], 'string'],
+            [['area', 'city', 'province', 'sex'], 'string'],
             [['username'], 'string', 'length' => 11],
             [['real_name'], 'string', 'max' => 30],
         ];
@@ -46,6 +46,7 @@ class Member extends User
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'sex' => '性别',
             'username' => '手机号',
             'nickname' => '昵称',
             'province_id' => '省份',

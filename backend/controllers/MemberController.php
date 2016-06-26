@@ -32,15 +32,16 @@ class MemberController extends BackendController
         foreach ($dataProvider->getModels() as $key => $val){
             $dataArray[$key]['real_name'] = $val->real_name;
             $dataArray[$key]['nickname'] = $val->nickname;
+            $dataArray[$key]['sex'] = $val->sex;
             $dataArray[$key]['username'] = $val->username;
             $dataArray[$key]['email'] = $val->email;
             $dataArray[$key]['hospital_id'] =$val->hospital_id ? Hospital::findOne($val->hospital_id)->name : '';
-            $dataArray[$key]['rank_id'] = $val->rank_id ? $appYii->params['member']['rank'][$val->rank_id] : '';
-            $dataArray[$key]['province_id'] =  $val->province;
-            $dataArray[$key]['city_id'] =  $val->city;
-            $dataArray[$key]['area_id'] =  $val->area;
+            $dataArray[$key]['rank_id'] = $appYii->params['member']['rank'][$val->rank_id];
+            $dataArray[$key]['province'] =  $val->province;
+            $dataArray[$key]['city'] =  $val->city;
+            $dataArray[$key]['area'] =  $val->area;
             $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
-           // $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
+            $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
         }
 
         /*将数据存入cache以便导出*/
@@ -189,13 +190,14 @@ class MemberController extends BackendController
         $column = [
             'real_name'=>'姓名',
             'nickname'=>'昵称',
+            'sex'=>'性别',
             'username'=>'手机号',
             'email'=>'邮箱',
             'hospital_id'=>'医院',
             'rank_id'=>'职称',
-            'province_id'=>'省份',
-            'city_id'=>'城市',
-            'area_id'=>'县区',
+            'province'=>'省份',
+            'city'=>'城市',
+            'area'=>'县区',
             'status'=>'状态',
         ];
 //                $fileName = $fileData['data'];
@@ -213,9 +215,9 @@ class MemberController extends BackendController
                     $val['rank_id'] = array_search($val['rank_id'], $rank);
                     $val['status'] = array_search($val['status'], $status);
                     $val['hospital_id'] = Hospital::find()->andFilterWhere(['like', 'name', $val['hospital_id']])->one()->id;
-                    $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province_id']])->one()->id;
-                    $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city_id']])->one()->id;
-                    $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area_id']])->one()->id;
+                    $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province']])->one()->id;
+                    $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city']])->one()->id;
+                    $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area']])->one()->id;
                     $user->setPassword($appYii->params['member']['defaultPwd']);
                     $user->generateAuthKey();
                     $val['password_hash'] =$user->password_hash;
@@ -242,15 +244,16 @@ class MemberController extends BackendController
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>20],
             'nickname'=>['column'=>'B','name'=>'昵称','width'=>20],
-            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
-            'email'=>['column'=>'D','name'=>'邮箱','width'=>30],
-            'hospital_id'=>['column'=>'E','name'=>'医院','width'=>20],
-            'rank_id'=>['column'=>'F','name'=>'职称','width'=>10],
-            'province_id'=>['column'=>'G','name'=>'省份','width'=>10],
-            'city_id'=>['column'=>'H','name'=>'城市','width'=>10],
-            'area_id'=>['column'=>'I','name'=>'县区','width'=>10],
-            'created_at'=>['column'=>'J','name'=>'注册时间','width'=>20],
+            'sex'=>['column'=>'C','name'=>'性别','width'=>10],
+            'username'=>['column'=>'D','name'=>'手机号','width'=>20],
+            'email'=>['column'=>'E','name'=>'邮箱','width'=>30],
+            'hospital_id'=>['column'=>'F','name'=>'医院','width'=>20],
+            'rank_id'=>['column'=>'G','name'=>'职称','width'=>10],
+            'province'=>['column'=>'H','name'=>'省份','width'=>10],
+            'city'=>['column'=>'I','name'=>'城市','width'=>10],
+            'area'=>['column'=>'J','name'=>'县区','width'=>10],
             'status'=>['column'=>'K','name'=>'状态','width'=>10],
+            'created_at'=>['column'=>'L','name'=>'注册时间','width'=>20],
         ];
         $config = [
             'fileName' => '用户导出-' . date('YmdHis'),
@@ -261,6 +264,7 @@ class MemberController extends BackendController
         if($default){
             $data = [];
             $config['fileName'] = '用户导入模板';
+            unset($column['created_at']);
         }else{
             $data = json_decode(Yii::$app->cache->get('memberDataExportToExcel'),true);
         }

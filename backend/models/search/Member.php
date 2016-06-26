@@ -17,7 +17,7 @@ class Member extends MemberModel
     public function rules()
     {
         return [
-            [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['username', 'hospital_id'], 'integer'],
             [['real_name'], 'string'],
         ];
     }
