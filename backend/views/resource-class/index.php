@@ -42,8 +42,8 @@ use yii\helpers\Html;
                 addable: true,
                 editable: true,
                 deletable: true,
-                enable: true,
-                disable: true
+                enable: false,
+                disable: false
             });
         }
 
