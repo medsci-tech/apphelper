@@ -33,7 +33,7 @@ class ExamController extends \api\common\controllers\Controller
      */
     public function actionIndex()
     {
-        self::cleanHistory(); // 清除脏数据
+        //self::cleanHistory(); // 清除脏数据
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset=$pagesize*($page - 1); //计算记录偏移量
@@ -117,15 +117,8 @@ class ExamController extends \api\common\controllers\Controller
     public function actionList()
     {
         $id = self::checkId();
-        /* 记录开始答题时间 */
-        $examlog = new ExamLog();
-        $examlog->exa_id = $id;
-        $examlog->uid =$this->uid;
-        $examlog->start_time = time();
-        $examlog->save();    
         /* 获取缓存试题列表 */
         $data = self::getExerciseById($id);
-
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
         return $result;
     }
@@ -145,12 +138,13 @@ class ExamController extends \api\common\controllers\Controller
        /* 检查考试时间是否过期 */
         $lastModel = self::lastExam($id);
         $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
-        if($timeLeft>$max) // 如果已经过期
+        if($timeLeft>$max) // 如果已经过期(离线不适用)
         {
-            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
-            return $result;
+            //$result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
+            //return $result;
         }
         $optionList= $this->params['optionList'] ?? [];// 客户端提交的试题
+        
         /* 处理提交试卷 */
         if($data['type']==1) // 随机出题
         {
@@ -171,7 +165,6 @@ class ExamController extends \api\common\controllers\Controller
                 $i++; //统计正确回答题目
         }
         $exam_total = $data['type']==0 ? substr_count($data['exe_ids'],',')+1 : count($optionList); // 题目总数
-     
         /* 保存考试记录 */
         $model = self::lastExam($id);
         $model->exa_id =$id;
@@ -188,7 +181,8 @@ class ExamController extends \api\common\controllers\Controller
         $secs = $timeLeft % 60; //秒
         $times = $mins.':'.$secs;     
         //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'level'=>$level]];
+        Yii::$app->cache->delete(Yii::$app->params['redisKey'][5].$id.'_'.$this->uid);  //删除本试卷最后历史记录
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$level]];
         return $result; 
     } 
     
@@ -201,7 +195,6 @@ class ExamController extends \api\common\controllers\Controller
      */
     public function actionAnalyze()
     {   
-        //Yii::$app->cache->delete('*');exit;
         $id = self::checkId();
         $res = self::infoExam($id);
         /* 查找用户下的最新历史考试记录 */
@@ -215,10 +208,11 @@ class ExamController extends \api\common\controllers\Controller
         $exe_ids = array_keys($answers);
         
         if($res['type']==1) 
-            $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();  
+            $data = json_decode(Yii::$app->redis->get(Yii::$app->params['redisKey'][8].$id.'_'.$this->uid),true);
+            //$data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();  
         else
             $data =self::getById($id,$res['exe_ids']);
-        
+
         $data = ArrayHelper::index($data, 'id');
         foreach($data as $key=>&$val)
         { 
@@ -289,12 +283,39 @@ class ExamController extends \api\common\controllers\Controller
         if($data['type']==0) // 自定义出题
         {
             $cacheData = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
-            $cacheData = json_decode($cacheData,true);  
+            $cacheData = json_decode($cacheData,true);
             if($cacheData)
                   return $cacheData;          
-        }           
+        }  
+        $examlog = new ExamLog();
+        $log = $examlog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最后答题记录
+        if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
+            $beginStatus = false; //继续考试
+        else
+            $beginStatus = true; // 开始考试
+       /* 记录试卷考试开始时间 */ 
+        if($beginStatus)
+        {
+            /* 记录开始答题时间 */
+           $examlog->exa_id = $id;
+           $examlog->uid =$this->uid;
+           $examlog->start_time = time();
+           $examlog->save();    
+        }      
         if($data['type']==1) // 随机出题   
-            $data =self::randExam($id,$data['class_id'],$data['total']);
+        {
+            if(!$beginStatus)
+            {
+                $data = Yii::$app->redis->get(Yii::$app->params['redisKey'][8].$id.'_'.$this->uid); // 获取随机缓存试题信息
+                if($data)
+                    $data = json_decode($data,true);
+                else
+                    $data= null;
+            }
+            else
+                $data =self::randExam($id,$data['class_id'],$data['total']); // 重新发布随机试卷
+        }
+            
         else // 自定义出题
         {
             if($data['exe_ids'])
@@ -306,7 +327,7 @@ class ExamController extends \api\common\controllers\Controller
             $val['option'] = unserialize($val['option']);  
         if($data['type']==0) // 自定义
             Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表 
-     
+
         return $data;      
     }
     
@@ -321,17 +342,10 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function getById($id,$exe_ids)
     {
-        $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
-        $data = json_decode($data,true);  
-       
-        if(!$data)
-        {
-            $exe_ids = explode (',', $exe_ids); 
-            $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();
-            foreach($data as &$val)
-                $val['option'] = unserialize($val['option']);  
-            Yii::$app->cache->set(Yii::$app->params['redisKey'][4].$id,json_encode($data),2592000); // 缓存试题列表 
-        } 
+        $exe_ids = explode (',', $exe_ids); 
+        $data = Exercise::find()->select(['id','type','question','option','answer','resolve'])->where(['id'=>$exe_ids,'status'=>1])->asArray()->all();
+        foreach($data as &$val)
+            $val['option'] = unserialize($val['option']);
         return $data;      
     }
     
@@ -430,6 +444,9 @@ class ExamController extends \api\common\controllers\Controller
         $list = $command->queryAll();
         if(!$list) 
             return $this->randExam($id,$class_id,$total);
+        
+        /* 缓存随机试卷 */
+        Yii::$app->redis->set(Yii::$app->params['redisKey'][8].$id.'_'.$this->uid,json_encode($list)); // 缓存试题信息    
         return $list;
     } 
     /**
