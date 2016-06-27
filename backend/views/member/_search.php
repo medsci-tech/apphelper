@@ -29,22 +29,17 @@ use dosamigos\fileupload\FileUpload;
     <?= $form->field($model, 'hospital_id')->dropDownList(array_flip(array_merge(['全部' => ''], array_flip(\common\models\Hospital::find()->select('name')->indexBy('id')->column())))) ?>
 
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
-    <?= Html::button('添加用户', ['id'=>'btn_add', 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#myModal']) ?>
+    <?= Html::button('添加', ['id'=>'btn_add', 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#myModal']) ?>
 
     <?= Html::button('启用', ['class' => 'btn btn-info','id'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
-    <?= Html::button('批量删除', [
-        'class' => 'btn btn-danger',
-        'id'=> 'del',
-    ]) ?>
-
     <?= Html::button('导入', [ 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#importModal']) ?>
-    <?= Html::a('导出','export', ['class' => 'btn btn-success']) ?>
+    <?= Html::a('导出','export?default=0', ['class' => 'btn btn-success']) ?>
     <?php ActiveForm::end(); ?>
 
 <?php
 $js = <<<JS
+$('#member-hospital_id').chosen({width: '260px'});
   /*删除*/
     $('#del').click(function() {
         /*判断是否有选中*/

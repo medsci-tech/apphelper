@@ -19,8 +19,8 @@ function FileProgress(file, targetID) {
         Wrappeer.attr('id', this.fileProgressID).addClass('progressContainer');
 
         var progressText = $("<td/>");
-        progressText.addClass('progressName').text(file.name);
-
+        var fileNameHtml = '<span data-toggle="file_name">' + file.name + '</span>';
+        progressText.addClass('progressName').html(fileNameHtml);
 
         var fileSize = plupload.formatSize(file.size).toUpperCase();
         var progressSize = $("<td/>");
@@ -234,12 +234,12 @@ FileProgress.prototype.setComplete = function(up, info) {
     var Wrapper = $('<div class="Wrapper"/>');
     var imgWrapper = $('<div class="imgWrapper col-md-3"/>');
     var linkWrapper = $('<a class="linkWrapper" target="_blank"/>');
-    var showImg = $('<img src="images/loading.gif"/>');
+    var showImg = $('<img src="/img/loading.gif"/>');
 
     progressNameTd.append(Wrapper);
 
     if (!isImg) {
-        showImg.attr('src', 'images/default.png');
+        showImg.attr('src', '/img/video-100x100.png');
         Wrapper.addClass('default');
 
         imgWrapper.append(showImg);
@@ -268,7 +268,7 @@ FileProgress.prototype.setComplete = function(up, info) {
                     $('#myModal-img').find('.text-warning').show();
                 }
                 var newImg = new Image();
-                modalBody.find('img').attr('src', 'images/loading.gif');
+                modalBody.find('img').attr('src', '/img/loading.gif');
                 newImg.onload = function() {
                     modalBody.find('img').attr('src', url).data('key', key).data('h', height);
                     modalBody.find('.modal-body-wrapper').find('a').attr('href', url);

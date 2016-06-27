@@ -117,15 +117,8 @@ class ExamController extends \api\common\controllers\Controller
     public function actionList()
     {
         $id = self::checkId();
-        /* 记录开始答题时间 */
-        $examlog = new ExamLog();
-        $examlog->exa_id = $id;
-        $examlog->uid =$this->uid;
-        $examlog->start_time = time();
-        $examlog->save();    
         /* 获取缓存试题列表 */
         $data = self::getExerciseById($id);
-
         $result = ['code' => 200,'message'=>'试卷题目列表','data'=>$data];
         return $result;
     }
@@ -145,10 +138,10 @@ class ExamController extends \api\common\controllers\Controller
        /* 检查考试时间是否过期 */
         $lastModel = self::lastExam($id);
         $timeLeft =  time()-$lastModel->start_time; // 距离当前生剩余时间
-        if($timeLeft>$max) // 如果已经过期
+        if($timeLeft>$max) // 如果已经过期(离线不适用)
         {
-            $result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
-            return $result;
+            //$result = ['code' => -1,'message'=>'考试时间已过期!','data'=>null];
+            //return $result;
         }
         $optionList= $this->params['optionList'] ?? [];// 客户端提交的试题
         
@@ -189,8 +182,7 @@ class ExamController extends \api\common\controllers\Controller
         $times = $mins.':'.$secs;     
         //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         Yii::$app->cache->delete(Yii::$app->params['redisKey'][5].$id.'_'.$this->uid);  //删除本试卷最后历史记录
-        
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'level'=>$level]];
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$level]];
         return $result; 
     } 
     
@@ -294,9 +286,36 @@ class ExamController extends \api\common\controllers\Controller
             $cacheData = json_decode($cacheData,true);
             if($cacheData)
                   return $cacheData;          
-        }           
+        }  
+        $examlog = new ExamLog();
+        $log = $examlog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最后答题记录
+        if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
+            $beginStatus = false; //继续考试
+        else
+            $beginStatus = true; // 开始考试
+       /* 记录试卷考试开始时间 */ 
+        if($beginStatus)
+        {
+            /* 记录开始答题时间 */
+           $examlog->exa_id = $id;
+           $examlog->uid =$this->uid;
+           $examlog->start_time = time();
+           $examlog->save();    
+        }      
         if($data['type']==1) // 随机出题   
-            $data =self::randExam($id,$data['class_id'],$data['total']);
+        {
+            if(!$beginStatus)
+            {
+                $data = Yii::$app->redis->get(Yii::$app->params['redisKey'][8].$id.'_'.$this->uid); // 获取随机缓存试题信息
+                if($data)
+                    $data = json_decode($data,true);
+                else
+                    $data= null;
+            }
+            else
+                $data =self::randExam($id,$data['class_id'],$data['total']); // 重新发布随机试卷
+        }
+            
         else // 自定义出题
         {
             if($data['exe_ids'])

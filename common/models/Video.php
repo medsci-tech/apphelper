@@ -28,12 +28,11 @@ class Video extends ActiveRecord {
             [[
                 'name',
                 'url',
-                'suffix',
             ], 'required'],
             [[
                 'name',
                 'url',
-                'suffix',
+                'type',
             ], 'string'],
         ];
     }
@@ -47,7 +46,7 @@ class Video extends ActiveRecord {
             'id' => Yii::t('app', 'ID'),
             'name' => '文件名',
             'url' => '链接地址',
-            'suffix' => '后缀',
+            'type' => '类型',
             'created_at' => '创建时间',
         ];
     }
@@ -57,23 +56,6 @@ class Video extends ActiveRecord {
         $scenarios = parent::scenarios();
         return $scenarios;
     }
-
-    /**
-     * 批量修改
-     * author zhaiyu
-     * startDate 20160511
-     * updateDate 20160511
-     * @param array $where
-     * @param array $data
-     */
-    public function saveData($where = [], $data = []){
-        $exam = $this::find()->where($where)->all();
-        foreach ($exam as $val){
-            foreach ($data as $k => $v){
-                $val->$k = $v;
-            }
-            $val->save(false);
-        }
-    }
+    
 
 }

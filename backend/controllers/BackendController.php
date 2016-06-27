@@ -82,5 +82,31 @@ class BackendController extends Controller
         return $directoryStructureList;
     }
 
+
+    /**
+     * 获取远程直接可读文件信息，如图片、视频等
+     * @author zhaiyu
+     * @startDate 20160623
+     * @upDate 20160623
+     * @param $fileName
+     * @param string $attribute type:类型，size:大小
+     * @return string
+     */
+    public function getFileInfo($fileName, $attribute = 'type'){
+        $file = get_headers($fileName);
+        switch (strtoupper($attribute)){
+            case 'TYPE':
+                $info =  mb_substr($file[3], 14);//获取文件mime类型
+                break;
+            case 'SIZE':
+                $info = mb_substr($file[4], 16);//获取文件大小
+                break;
+            default:
+                $info = '';
+                break;
+        }
+        return $info;
+    }
+
 }
 

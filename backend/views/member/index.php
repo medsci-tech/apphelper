@@ -44,8 +44,13 @@ backend\assets\AppAsset::register($this);
                         }
 
                     ],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '序号'
+                    ],
                     'real_name',
                     'nickname',
+                    'sex',
                     'username',
                     'email',
                     [
@@ -78,7 +83,7 @@ backend\assets\AppAsset::register($this);
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template'=>'{view}  {update} {delete}',
+                        'template'=>'{view}  {update}',
                         'header' => '操作',
                         'buttons'=>[
                             'update'=> function ($url, $model, $key) {
@@ -87,6 +92,7 @@ backend\assets\AppAsset::register($this);
                                 data-real_name="'.$model->real_name.'"
                                 data-nickname="'.$model->nickname.'"
                                 data-username="'.$model->username.'"
+                                data-sex="'.$model->sex.'"
                                 data-email="'.$model->email.'"
                                 data-hospital_id="'.$model->hospital_id.'"
                                 data-rank_id="'.$model->rank_id.'"
@@ -137,7 +143,7 @@ backend\assets\AppAsset::register($this);
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">导入用户</h4>
+                    <h4 class="modal-title">导入</h4>
                 </div>
                 <?=$this->render('import');?>
             </div>
@@ -174,6 +180,7 @@ $js=<<<JS
         var id = $(this).attr('data-id');
         var real_name = $(this).attr('data-real_name');
         var nickname = $(this).attr('data-nickname');
+        var sex = $(this).attr('data-sex');
         var username = $(this).attr('data-username');
         var email = $(this).attr('data-email');
         var hospital_id = $(this).attr('data-hospital_id');
@@ -185,6 +192,7 @@ $js=<<<JS
         $('#updateModal #member-id').val(id);
         $('#updateModal #member-real_name').val(real_name);
         $('#updateModal #member-nickname').val(nickname);
+        $('#updateModal #member-sex').val(sex);
         $('#updateModal #member-username').val(username);
         $('#updateModal #member-email').val(email);
         $('#updateModal #member-hospital_id').val(hospital_id);

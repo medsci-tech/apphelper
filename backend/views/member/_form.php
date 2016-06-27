@@ -18,6 +18,7 @@ $form = ActiveForm::begin([
 ]); ?>
 <div class="modal-body">
     <?= $form->field($model, 'real_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sex')->dropDownList(Yii::$app->params['sexOption']) ?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

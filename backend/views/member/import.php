@@ -17,6 +17,9 @@ use yii\widgets\ActiveForm;
             ]);?>
             <div class="help-block"></div>
         </div>
+        <div class="form-group">
+            <a href="export?default=1" >下载模板</a>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>

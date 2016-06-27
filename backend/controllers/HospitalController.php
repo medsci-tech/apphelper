@@ -151,7 +151,7 @@ class HospitalController extends BackendController
     /**
      * 用户数据导出
      */
-    public function actionExport(){
+    public function actionExport($default){
         $column = [
             'name'=>['column'=>'A','name'=>'单位名称','width'=>30],
             'province'=>['column'=>'B','name'=>'省份','width'=>10],
@@ -161,15 +161,20 @@ class HospitalController extends BackendController
             'status'=>['column'=>'F','name'=>'状态','width'=>10],
         ];
         $config = [
-            'fileName' => '单位数据导出-' . date('YmdHis'),
+            'fileName' => '单位导出-' . date('YmdHis'),
             'columnHeight' => '20',
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = Yii::$app->cache->get('hospitalDataExportToExcel');
+        if($default){
+            $data = [];
+            $config['fileName'] = '单位导入模板';
+        }else{
+            $data = json_decode(Yii::$app->cache->get('hospitalDataExportToExcel'),true);
+        }
 
         $excel = new ExcelController();
-        $excel->Export($config, $column, json_decode($data, true));
+        $excel->Export($config, $column, $data);
     }
 
     protected function actionImport($fileName){
