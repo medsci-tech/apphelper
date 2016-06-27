@@ -47,7 +47,6 @@ class ResourceStudy extends ActiveRecord {
             'username' => '手机号',
             'view' => '浏览数',
             'times' => '时长',
-            'created_at' => '浏览时间',
         ];
     }
 
@@ -57,7 +56,11 @@ class ResourceStudy extends ActiveRecord {
         return $scenarios;
     }
 
-    //搜索
+    /**
+     * 资源列表搜索
+     * @param $params
+     * @return ActiveDataProvider
+     */
     public function search($params)
     {
         $query = $this::find();
@@ -87,6 +90,35 @@ class ResourceStudy extends ActiveRecord {
             //搜索为空
             $query->andFilterWhere(['id' => '']);
         }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $dataProvider;
+    }
+
+    public function searchResourceForResource($params)
+    {
+        $query = $this::find();
+        $username = $params['username'] ?? '';
+        $rid = $params['rid'] ?? '';
+        $where = [];
+        if($username){
+            $memberModel = Member::find()->where(['like', 'username', $username])->all();
+            if($memberModel){
+                foreach ($memberModel as $key => $val){
+                    $where['uid'][] = $val->id;
+                }
+            }else{
+                $where['id'][] = '';
+            }
+        }
+        if($rid){
+            $where['rid'] = $rid;
+        }
+        $query->andFilterWhere($where);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

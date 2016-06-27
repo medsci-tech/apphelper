@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use common\models\Resource;
+use common\models\Member;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,9 +14,8 @@ $this->title = '资源统计';
 $this->params['breadcrumbs'][] = $this->title;
 
 $get = $yiiApp->request->get();
-$startTimeSearch = $get['startTime'] ?? '';
-$endTimeSearch = $get['endTime'] ?? '';
-$titleSearch = $get['title'] ?? '';
+$usernameSearch = $get['username'] ?? '';
+
 $attrTypeSearch = $get['attr_type'] ?? 0;
 $this->params['stats']['attrType'] = $yiiApp->params['resourceClass']['attrType'][$attrTypeSearch];
 $this->params['stats']['attr_type'] = $attrTypeSearch;
@@ -26,37 +26,14 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource',
+                'action' => 'resource-yi',
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
+            <?= Html::a('返回', $referrerUrl ?? 'index', ['class' => 'btn btn-white']) ?>
             <div class="form-group">
-                <label class="control-label">起始时间</label>
-                <input id="startTime" type="text" class="form-control layer-date" name="startTime" value="<?php echo $startTimeSearch?>">
-            </div>
-            <div class="form-group">
-                <label class="control-label">截止时间</label>
-                <input id="endTime" type="text" class="form-control layer-date" name="endTime" value="<?php echo $endTimeSearch?>">
-            </div>
-            <div class="form-group">
-                <label class="control-label">资源类别</label>
-                <select class="form-control" id="type-list-search" name="attr_type">
-                    <?php
-                    $attr_type_list = '';
-                    foreach ($yiiApp->params['resourceClass']['attrType'] as $key => $val){
-                        $attr_type_list .= '<option value="' . $key . '" ';
-                        if($attrTypeSearch == $key){
-                            $attr_type_list .= ' selected="selected"';
-                        }
-                        $attr_type_list .= '>' . $val . '</option>';
-                    }
-                    echo $attr_type_list;
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">资源名</label>
-                <input type="text" class="form-control" name="title" value="<?php echo $titleSearch?>">
+                <label class="control-label">手机号</label>
+                <input type="text" class="form-control" name="username" value="<?php echo $usernameSearch?>">
             </div>
 
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
@@ -90,6 +67,30 @@ backend\assets\AppAsset::register($this);
                             },
                     ],
                     [
+                        'attribute' => 'real_name',
+                        'value'=>
+                            function($model){
+                                $result = Member::findOne($model->uid);
+                                $this->params['stats']['username'] = $result->username ?? '';
+                                $this->params['stats']['nickname'] = $result->nickname ?? '';
+                                return  $result->real_name ?? '';
+                            },
+                    ],
+                    [
+                        'attribute' => 'nickname',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['nickname'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'username',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['username'];
+                            },
+                    ],
+                    [
                         'attribute' => 'view',
                         'value'=>
                             function($model){
@@ -104,7 +105,7 @@ backend\assets\AppAsset::register($this);
                         'buttons' => [
                             'view'=> function ($url, $model, $key) {
                                 $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
-                                return Html::a($aHtml,['resource-yi','rid' => $model->rid, 'attr_type' => $this->params['stats']['attr_type']]);
+                                return Html::a($aHtml,['resource-er','rid'=>$model->rid, 'uid' => $model->uid, 'attr_type' => $this->params['stats']['attr_type']]);
                             },
                         ],
                     ]
