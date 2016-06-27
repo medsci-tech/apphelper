@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+use common\models\Resource;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,7 +16,9 @@ $get = $yiiApp->request->get();
 $startTimeSearch = $get['startTime'] ?? '';
 $endTimeSearch = $get['endTime'] ?? '';
 $titleSearch = $get['title'] ?? '';
-$attrTypeSearch = $get['attr_type'] ?? '';
+$attrTypeSearch = $get['attr_type'] ?? 0;
+$this->params['stats']['attrType'] = $yiiApp->params['resourceClass']['attrType'][$attrTypeSearch];
+
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
@@ -70,8 +73,29 @@ backend\assets\AppAsset::register($this);
                         'class' => 'yii\grid\SerialColumn',
                         'header' => '序号'
                     ],
-                    'uid',
-                    'rid',
+                    [
+                        'attribute' => 'title',
+                        'value'=>
+                            function($model){
+                                $result = Resource::findOne($model->rid);
+                                $this->params['stats']['view'] = $result->views ?? 0;
+                                return  $result->title ?? '';
+                            },
+                    ],
+                    [
+                        'attribute' => 'attr_type',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['attrType'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'view',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['view'];
+                            },
+                    ],
                     'times',
                     [
                         'class' => 'yii\grid\ActionColumn',

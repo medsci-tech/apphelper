@@ -40,7 +40,7 @@ class ResourceStudy extends ActiveRecord {
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => '资源名',
+            'title' => '资源名',
             'attr_type' => '类别',
             'real_name' => '姓名',
             'nickname' => '昵称',
@@ -81,8 +81,12 @@ class ResourceStudy extends ActiveRecord {
         foreach ($resourceModel as $key => $val){
             $resourceStudyWhere[] = $val->id;
         }
-        $query->andFilterWhere(['rid' => $resourceStudyWhere]);
-
+        if($resourceStudyWhere){
+            $query->andFilterWhere(['rid' => $resourceStudyWhere]);
+        }else{
+            //搜索为空
+            $query->andFilterWhere(['id' => '']);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
