@@ -41,13 +41,13 @@ class FeedbackController extends BackendController
     {
         $model = new Feedback();
         $query = $model::find();
-        if(isset($params['startTime'])){
-            $startTime = strtotime($params['startTime']);
-            $query->andFilterWhere(['>=', 'created_at', $startTime]);
+        $startTime = $params['startTime'] ?? '';
+        $endTime = $params['endTime'] ?? '';
+        if($startTime){
+            $query->andFilterWhere(['>=', 'created_at', strtotime($startTime)]);
         }
-        if(isset($params['endTime'])){
-            $endTime = strtotime($params['endTime']);
-            $query->andFilterWhere(['<=', 'created_at', $endTime]);
+        if($endTime){
+            $query->andFilterWhere(['<=', 'created_at', strtotime($endTime)]);
         }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
