@@ -8,8 +8,7 @@
 
 namespace backend\controllers;
 
-use backend\models\search\Stats as StatsSearch;
-use common\models\Stats;
+use common\models\ResourceStudy;
 use Yii;
 
 class StatsController extends BackendController
@@ -24,7 +23,13 @@ class StatsController extends BackendController
      */
     public function actionResource()
     {
-
+        $queryParams = Yii::$app->request->queryParams;
+        $search = new ResourceStudy();
+        $dataProvider = $search->search($queryParams);
+        return $this->render('resource', [
+            'searchModel' => $search,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
