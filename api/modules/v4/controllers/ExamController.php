@@ -280,13 +280,6 @@ class ExamController extends \api\common\controllers\Controller
     private function getExerciseById($id)
     {
         $data = self::infoExam($id);
-        if($data['type']==0) // 自定义出题
-        {
-            $cacheData = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
-            $cacheData = json_decode($cacheData,true);
-            if($cacheData)
-                  return $cacheData;          
-        }  
         $examlog = new ExamLog();
         $log = $examlog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最后答题记录
         if($log['start_time']>0 && !$log['end_time']) // 未提交试卷
@@ -301,7 +294,14 @@ class ExamController extends \api\common\controllers\Controller
            $examlog->uid =$this->uid;
            $examlog->start_time = time();
            $examlog->save();    
-        }      
+        }    
+        if($data['type']==0) // 自定义出题
+        {
+            $cacheData = Yii::$app->cache->get(Yii::$app->params['redisKey'][4].$id);
+            $cacheData = json_decode($cacheData,true);
+            if($cacheData)
+                  return $cacheData;          
+        }       
         if($data['type']==1) // 随机出题   
         {
             if(!$beginStatus)
