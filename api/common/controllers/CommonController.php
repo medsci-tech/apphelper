@@ -42,7 +42,7 @@ class CommonController extends ActiveController
         if(strlen($username) !=11 || !is_numeric($username))
         {
             $message = '请输入有效手机号!';
-            $result = ['code' => 200,'message'=>$message,'data'=>[]];
+            $result = ['code' => 200,'message'=>$message,'data'=>null];
             return $result;
         }
         else
@@ -55,7 +55,7 @@ class CommonController extends ActiveController
                 if(!$model)
                 {
                     $message = '该手机号不存在!';
-                    $result = ['code' => 200,'message'=>$message,'data'=>[]];
+                    $result = ['code' => 200,'message'=>$message,'data'=>null];
                     return $result;  
                 }             
             }
@@ -76,7 +76,7 @@ class CommonController extends ActiveController
                 $result = ['code' => 200,'message'=>$message,'data'=>['verycode' => $verycode]];
             }
             else
-                $result = ['code' => 200,'message'=>'发送失败!请稍后再试!','data'=>[]];
+                $result = ['code' => 200,'message'=>'发送失败!请稍后再试!','data'=>null];
 
             return $result;
         }
