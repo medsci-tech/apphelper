@@ -39,4 +39,17 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * 注册协议
+     *
+     * @return mixed
+     */
+    public function actionProtocol()
+    {
+      return $this->render('protocol', [
+
+        ]);  
+      
+    }
+
 }
