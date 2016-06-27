@@ -6,15 +6,19 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+use common\models\Member;
+$model = new Member();
+
 ?>
 <?php
 $form = ActiveForm::begin([
-    'action' => ['create'],
+    'action' => ['form'],
     'method' => 'post',
     'options' => ['id' => 'tableForm'],
 ]); ?>
 <div class="modal-body">
     <?= $form->field($model, 'real_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sex')->dropDownList(Yii::$app->params['sexOption']) ?>
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
@@ -32,13 +36,3 @@ $form = ActiveForm::begin([
     <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'memberFormSubmit']) ?>
 </div>
 <?php ActiveForm::end(); ?>
-
-<?php
-$js = <<<JS
-    $('#updateModal #memberFormSubmit').click(function() {
-        getRegionValue('Member','tableForm');/*地区联动*/
-        $('#updateModal #tableForm').submit();
-    });
-JS;
-$this->registerJs($js);
-?>

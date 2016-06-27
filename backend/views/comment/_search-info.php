@@ -16,7 +16,6 @@ use yii\helpers\Html;
     <?= Html::a('返回', $referrerUrl ?? 'index', ['class' => 'btn btn-white']) ?>
     <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','data-toggle'=> 'disable']) ?>
-    <?= Html::button('批量删除', ['class' => 'btn btn-danger', 'data-toggle'=> 'del']) ?>
 </div>
 
 <?php

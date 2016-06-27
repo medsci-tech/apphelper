@@ -51,7 +51,7 @@ return [
     /*七牛配置项*/
     'qiniu' => [
         'bucket' => 'apphelper-images',
-        'domain' => 'o7f6z4jud.bkt.clouddn.com',
+        'domain' => 'http://o7f6z4jud.bkt.clouddn.com',
         'accessKey' => 'OL3qoivVQhxkRWAL_W3CRs435m1Y5CeJVfkKIDg-',
         'secretKey' => 'mPEylNDXx64U84HjkEcUwJyXg1B40-GUUfC_TR8T',
     ],
@@ -108,5 +108,31 @@ return [
     'sendType' => [
         '1' => '全部用户',
         '0' => '指定用户',
+    ],
+
+    /*上传文件格式限制--目前没用到*/
+    'uploadFile' => [
+        'videoType' => [
+            'video/mp4',
+            'video/avi',
+            'flv',
+            'video/3gpp',
+            'webm',
+            'asf',
+            'mov',
+            'rmvb',
+
+        ],
+        'imageType' => [
+            'image/gif',
+            'image/jpeg',
+            'image/png',
+            'image/bmp',
+        ],
+    ],
+    'sexOption' => [
+        '未知' => '未知',
+        '男' => '男',
+        '女' => '女',
     ],
 ];

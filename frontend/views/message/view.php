@@ -42,7 +42,6 @@
     img{
         width: 100%;
     }
-
 </style>
 <body>
 <div class="article">
@@ -54,4 +53,3 @@
 <input type="hidden" id="txt_value">
 </body>
 </html>
-

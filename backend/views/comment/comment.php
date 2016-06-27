@@ -49,8 +49,11 @@ backend\assets\AppAsset::register($this);
                             return ['value' => $model->id];
                         }
                     ],
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'created_at',
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '序号'
+                    ],
+                    'created_at:datetime',
                     [
                         'attribute' => 'real_name',
                         'value' =>

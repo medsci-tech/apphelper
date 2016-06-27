@@ -24,16 +24,14 @@ $endTimeSearch = $get['endTime'] ?? '';
         'options' => ['class' => 'form-inline navbar-btn', 'id' => 'search-form'],
     ]); ?>
     <div class="form-group field-resource-title">
-        <label class="control-label">资源名</label>
+        <label class="control-label">起始时间</label>
         <input id="startTime" type="text" class="form-control layer-date" name="startTime" value="<?php echo $startTimeSearch?>">
     </div>
     <div class="form-group field-resource-title">
-        <label class="control-label">资源名</label>
+        <label class="control-label">截止时间</label>
         <input id="endTime" type="text" class="form-control layer-date" name="endTime" value="<?php echo $endTimeSearch?>">
     </div>
-
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?php ActiveForm::end(); ?>
 <?php
 $js = <<<JS

@@ -50,7 +50,10 @@ backend\assets\AppAsset::register($this);
                             return ['value' => $model->id];
                         }
                     ],
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '序号'
+                    ],
                     'title',
                     'hour',
                     'views',

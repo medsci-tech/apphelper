@@ -34,12 +34,13 @@ class ExcelController
         $listTitle = [];$listData = [];
         for ($col = 0;$col < $highestColumnIndex;$col++)
         {
-            $listTitle[] =$objWorksheet->getCellByColumnAndRow($col, 1)->getValue();
+            $listTitle[] =$objWorksheet->getCellByColumnAndRow($col, 1)->getValue();//标题
         }
         for ($row = 2;$row <= $highestRow;$row++)
         {
             $data = [];$emptyCount = 0;
             foreach ($column as $key => $val){
+                //内容
                 $data[$key]=$objWorksheet->getCellByColumnAndRow(array_search($val, $listTitle), $row)->getValue();
                 if(empty(trim($data[$key]))){
                     $emptyCount++;

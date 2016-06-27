@@ -50,10 +50,8 @@ $typeSearch = $get['type'] ?? '';
         </select>
     </div>
     <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-    <?= Html::resetButton('重置', ['class' => 'btn btn-default']) ?>
     <?= Html::button('启用', ['class' => 'btn btn-info','data-toggle'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','data-toggle'=> 'disable']) ?>
-    <?= Html::button('批量删除', ['class' => 'btn btn-danger', 'data-toggle'=> 'del']) ?>
     <?php ActiveForm::end(); ?>
 <?php
 $js = <<<JS

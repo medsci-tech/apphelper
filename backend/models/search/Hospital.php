@@ -19,6 +19,7 @@ class Hospital extends HospitalModel
     {
         return [
             [['province_id', 'city_id', 'area_id'], 'integer'],
+            [['name'], 'string'],
         ];
     }
 

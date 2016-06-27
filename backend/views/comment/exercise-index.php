@@ -15,6 +15,7 @@ use yii\widgets\ActiveForm;
 /* @var $cateList */
 $this->title = '评论资源列表';
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['params'] = Yii::$app->params;
 backend\assets\AppAsset::register($this);
 /*根据get参数判断是否是考卷添加试题*/
 ?>
@@ -48,9 +49,20 @@ backend\assets\AppAsset::register($this);
                             return ['value' => $model->id];
                         }
                     ],
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '序号'
+                    ],
                     'question',
                     'comments',
+                    [
+                        'attribute' => 'status',
+                        'value' =>
+                            function ($model) {
+                                $result = $this->params['params']['statusOption'][$model->status];
+                                return $result ?? '';
+                            },
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',

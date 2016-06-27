@@ -13,9 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['params'] = $yiiApp->params;
 backend\assets\AppAsset::register($this);
 ?>
-<p></p>
 <div class="modal-body">
-    <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel,'uploadModel'=>$uploadModel]); ?></div>
+    <div class="box-body"><?php echo $this->render('_search', ['model' => $searchModel]); ?></div>
     <div class="box box-success">
         <div class="box-body">
             <?php
@@ -35,7 +34,10 @@ backend\assets\AppAsset::register($this);
                         }
 
                     ],
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'header' => '序号'
+                    ],
                     'name',
                     'province',
                     'city',
@@ -90,7 +92,19 @@ backend\assets\AppAsset::register($this);
         </div>
     </div>
 </div>
-</div>
+
+    <div class="modal inmodal" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">导入</h4>
+                </div>
+                <?=$this->render('import');?>
+            </div>
+        </div>
+    </div>
+
 <?php
 $formUrl = \yii\helpers\Url::toRoute('form');
 $getError = $yiiApp->getSession()->getFlash('error');

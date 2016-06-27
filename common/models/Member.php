@@ -35,8 +35,9 @@ class Member extends User
     public function rules()
     {
         return [
-            [['username', 'email', 'real_name', 'province_id', 'city_id', 'area_id', 'province', 'city', 'area', 'hospital_id', 'rank_id'], 'required'],
-            [['username', 'province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['username', 'email', 'real_name', 'hospital_id', 'rank_id'], 'required'],
+            [['province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['area', 'city', 'province', 'sex'], 'string'],
             [['username'], 'string', 'length' => 11],
             [['real_name'], 'string', 'max' => 30],
         ];
@@ -45,7 +46,9 @@ class Member extends User
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'sex' => '性别',
             'username' => '手机号',
+            'nickname' => '昵称',
             'province_id' => '省份',
             'province' => '省份',
             'city_id' => '城市',
@@ -53,7 +56,7 @@ class Member extends User
             'area_id' => '县区',
             'area' => '县区',
             'address' => '地址',
-            'hospital_id' => '医院',
+            'hospital_id' => '药店',
             'rank_id' => '职称',
             'email' => '邮箱',
             'created_at' => '注册时间',
@@ -108,6 +111,23 @@ class Member extends User
         $this->setPassword($this->password);
         unset($this->password);
         return $this->save(false);
+    }
+
+    public function checkUsernameExist($username, $id = 0){
+        $where = [
+            'username' => $username
+        ];
+        if($id > 0){
+            $andWhere = 'id != '.$id;
+        }else{
+            $andWhere = '';
+        }
+        $result = $this::find()->where($where)->andWhere($andWhere)->one();
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

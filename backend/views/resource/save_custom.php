@@ -11,10 +11,11 @@ use yii\widgets\ActiveForm;
 $this->title = $title;
 $this->params['breadcrumbs'][] = $this->title;
 backend\assets\AppAsset::register($this);
+$referrer = Yii::$app->request->referrer ?? 'index';
 ?>
 <div class="modal-body">
     <p>
-        <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
+        <?= Html::a('返回', $referrer, ['class' => 'btn btn-white']) ?>
     </p>
     <?php
     $form = ActiveForm::begin([
@@ -35,11 +36,12 @@ backend\assets\AppAsset::register($this);
             ]);?>
             <div class="help-block"></div>
         </div>
+        <?= $form->field($model, 'videourl')->textInput(['placeholder' => '填写格式为：http://xx.com/xx/xx.mp4']) ?>
         <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
         <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
-        <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
-        <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('返回', $referrer, ['class' => 'btn btn-white']) ?>
+        <?= Html::button('确定', ['class' => 'btn btn-primary','id'=>'submitBtn']) ?>
 
     <?php ActiveForm::end(); ?>
 
@@ -48,7 +50,25 @@ backend\assets\AppAsset::register($this);
 <?php
 $js = <<<JS
 $('#resource-rid').chosen({width: '100%'});
-$('#resource-rids').chosen({width: '100%',default_multiple_text: '123'});
+$('#resource-rids').chosen({width: '100%'});
+
+//提交操作
+$('#submitBtn').click(function() {
+    var data = {};
+    var elmeParent = '#resource';
+    data.status = $(elmeParent + '-status').val();
+    data.title = $(elmeParent + '-title').val();
+    data.rid = $(elmeParent + '-rid').val();
+    data.author = $(elmeParent + '-author').val();
+    data.rids = $(elmeParent + '-rids').val();
+    data.keyword = $(elmeParent + '-keyword').val();
+    data.imgurl = $('[data-toggle="upload-saveInput"]').val();
+    data.videourl = $(elmeParent + '-videourl').val();
+    data.content = $(elmeParent + '-content').val();
+    var id = $(elmeParent + '-id').val();
+    console.log(data);
+    subActionAjaxForMime('post', 'form?id=' + id, {'Resource':data}, '$referrer');
+});
 JS;
 $this->registerJs($js);
 ?>
