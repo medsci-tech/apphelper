@@ -44,15 +44,25 @@
     img{
         width: 100%;
     }
+    .ppt img{
+        display: none;
+    }
+    .ppt img:first-child{
+        display: block;
+    }
 
 </style>
 <body>
 <div class="article">
     <div class="content">
         <div class="article_time">发布时间：<?= date('Y-m-d h:m:s', $data['publish_time']) ?></div>
+        <div class="ppt">
+            <img src="http://7xshr6.com1.z0.glb.clouddn.com/1%20(2).png">
+            <img src="http://7xshr6.com1.z0.glb.clouddn.com/1%20(2).png">
+        </div>
         <video id="" class="video-js vjs-default-skin vjs-big-play-centered"
                controls preload="auto" width="100%"
-               poster="http://video-js.zencoder.com/oceans-clip.png"
+               poster=""
                data-setup='{"example_option":true}'>
             <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type='video/mp4' />
         </video>
@@ -65,10 +75,6 @@
 <!--<script src="/js/plyr.js"></script>
 <script>plyr.setup();</script>-->
 <script src="http://vjs.zencdn.net/4.12/video.js"></script>
-<script type="text/javascript">
-    document.createElement('video');document.createElement('audio');document.createElement('track');
-
-</script>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
     var temp = null;
