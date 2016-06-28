@@ -94,7 +94,7 @@ class ResourceStudy extends ActiveRecord {
         return $query;
     }
 
-    public function searchResourceForResource($params)
+    public function searchResourceYi($params)
     {
         $query = $this::find();
         $username = $params['username'] ?? '';
@@ -112,13 +112,7 @@ class ResourceStudy extends ActiveRecord {
         }
         $where['rid'] = $rid;
         $query->andFilterWhere($where);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
-        return $dataProvider;
+        return $query;
     }
 
     /**
