@@ -80,16 +80,20 @@ class ResourceStudy extends ActiveRecord {
         foreach ($classResourceModel as $key => $val){
             $typeList[] = $val['id'];
         }
-        $resourceModel = Resource::find()->where(['rid' => $typeList])->andWhere(['like', 'title' ,$title])->all();
-        $resourceStudyWhere = [];
-        foreach ($resourceModel as $key => $val){
-            $resourceStudyWhere[] = $val->id;
-        }
-        if($resourceStudyWhere){
-            $query->andFilterWhere(['rid' => $resourceStudyWhere]);
-        }else{
-            //搜索为空
-            $query->andFilterWhere(['id' => '']);
+        if($title){
+            $resourceModel = Resource::find()->where(['rid' => $typeList])->andWhere(['like', 'title' ,$title])->all();
+            $resourceStudyWhere = [];
+            if($resourceModel){
+                foreach ($resourceModel as $key => $val){
+                    $resourceStudyWhere[] = $val->id;
+                }
+            }
+            if($resourceStudyWhere){
+                $query->andFilterWhere(['rid' => $resourceStudyWhere]);
+            }else{
+                //搜索为空
+                $query->andFilterWhere(['id' => '']);
+            }
         }
         return $query;
     }
