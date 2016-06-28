@@ -237,31 +237,10 @@ class StatsController extends BackendController
     }
 
     /**
-     * 考卷统计--按考卷统计
-     * @author zhaiyu
-     * @startDate 20160612
-     * @upDate 20160612
-     * @return string
-     */
-    public function actionExam()
-    {
-
-    }
-
-    /**
-     * 考卷统计--按用户统计
-     * @author zhaiyu
-     * @startDate 20160612
-     * @upDate 20160612
-     * @return string
-     */
-    public function actionExuser()
-    {
-
-    }
-
-    /**
      * 资源统计--按资源统计--列表导出
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
      */
     public function actionResourceExport(){
         $appYii = Yii::$app;
@@ -300,6 +279,9 @@ class StatsController extends BackendController
 
     /**
      * 资源统计--按资源统计--一级列表导出
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
      */
     public function actionResourceYiExport(){
         $appYii = Yii::$app;
@@ -342,7 +324,11 @@ class StatsController extends BackendController
     }
 
     /**
-     * 资源统计--按资源统计--二级列表导出
+     * 资源统计--按资源统计--二级列表导出公共部分
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
+     * @param $column
      */
     protected function actionResourceErExportCommon($column){
         $appYii = Yii::$app;
@@ -386,6 +372,9 @@ class StatsController extends BackendController
 
     /**
      * 资源统计--按资源统计--二级列表导出
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
      */
     public function actionResourceErExport(){
         $column = [
@@ -401,6 +390,9 @@ class StatsController extends BackendController
 
     /**
      * 资源统计--按用户统计--列表导出
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
      */
     public function actionReuserExport(){
         $appYii = Yii::$app;
@@ -437,7 +429,10 @@ class StatsController extends BackendController
     }
 
     /**
-     * 资源统计--按用户统计--列表导出
+     * 资源统计--按用户统计--一级列表导出
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
      */
     public function actionReuserYiExport(){
         $queryParams = Yii::$app->request->queryParams;
@@ -484,7 +479,10 @@ class StatsController extends BackendController
     }
 
     /**
-     * 资源统计--按资源统计--二级列表导出
+     * 资源统计--按用户统计--二级列表导出
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
      */
     public function actionReuserErExport(){
         $column = [
@@ -496,6 +494,31 @@ class StatsController extends BackendController
             'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
         ];
         $this->actionResourceErExportCommon($column);
+    }
+
+
+    /**
+     * 考卷统计--按考卷统计
+     * @author zhaiyu
+     * @startDate 20160612
+     * @upDate 20160612
+     * @return string
+     */
+    public function actionExam()
+    {
+
+    }
+
+    /**
+     * 考卷统计--按用户统计
+     * @author zhaiyu
+     * @startDate 20160612
+     * @upDate 20160612
+     * @return string
+     */
+    public function actionExuser()
+    {
+
     }
 
 }
