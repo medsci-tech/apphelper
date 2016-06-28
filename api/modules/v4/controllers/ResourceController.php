@@ -324,6 +324,7 @@ class ResourceController extends \api\common\controllers\Controller
         $studyModel->uid= $this->uid;
         $studyModel->rid= $id;
         $studyModel->times= $times;
+        $studyModel->created_at= time();
         $studyModel->save();
         $result = ['code' => 200,'message'=>'离开资源','data'=>null];
         return $result;
