@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <title>文章详情</title>
     <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
-<!--    <link rel="stylesheet" href="/css/plyr/plyr.css">-->
 </head>
 <style>
     * {
@@ -72,8 +71,6 @@
 <input type="hidden" id="txt_value">
 </body>
 </html>
-<!--<script src="/js/plyr.js"></script>
-<script>plyr.setup();</script>-->
 <script src="http://vjs.zencdn.net/4.12/video.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
