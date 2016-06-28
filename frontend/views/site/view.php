@@ -40,29 +40,28 @@
     .article_details{
         color: #3e3e3e;
     }
-    img{
+    img video{
         width: 100%;
     }
-
 </style>
 <body>
 <div class="article">
     <div class="content">
         <div class="article_time">发布时间：<?= date('Y-m-d h:m:s', $data['publish_time']) ?></div>
          <div class="player">
-            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
+            <video controls crossorigin>
                 <!-- Video files -->
                 <source src="http://7xvmio.com1.z0.glb.clouddn.com/6140716hd.mp4" type="video/mp4">
             </video>
         </div>
         <div class="player">
-            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
+            <video controls crossorigin>
                 <!-- Video files -->
                 <source src="http://7xvmio.com1.z0.glb.clouddn.com/test.mp4" type="video/mp4">
             </video>
         </div>
             <div class="player">
-            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
+            <video controls crossorigin>
                 <!-- Video files -->
                 <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type="video/mp4">
             </video>
