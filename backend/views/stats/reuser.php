@@ -24,7 +24,7 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource',
+                'action' => 'reuser',
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>

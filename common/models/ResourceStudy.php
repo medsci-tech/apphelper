@@ -146,22 +146,21 @@ class ResourceStudy extends ActiveRecord {
         if($endTime){
             $query->andFilterWhere(['<=', 'created_at', strtotime($endTime)]);
         }
-//        $classResourceModel = (new ResourceClass())->getDataForWhere(['attr_type' => $attr_type]);
-//        $typeList = [];
-//        foreach ($classResourceModel as $key => $val){
-//            $typeList[] = $val['id'];
-//        }
-//        $resourceModel = Resource::find()->where(['rid' => $typeList])->andWhere(['like', 'title' ,$title])->all();
-//        $resourceStudyWhere = [];
-//        foreach ($resourceModel as $key => $val){
-//            $resourceStudyWhere[] = $val->id;
-//        }
-//        if($resourceStudyWhere){
-//            $query->andFilterWhere(['rid' => $resourceStudyWhere]);
-//        }else{
-//            //搜索为空
-//            $query->andFilterWhere(['id' => '']);
-//        }
+        if($username){
+            $memberModel = Member::find()->where(['like', 'username' ,$username])->all();
+            $uid = [];
+            if($memberModel){
+                foreach ($memberModel as $key => $val){
+                    $uid[] = $val->id;
+                }
+            }
+            if($uid){
+                $query->andFilterWhere(['uid' => $uid]);
+            }else{
+                //搜索为空
+                $query->andFilterWhere(['id' => '']);
+            }
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('uid'),
             'pagination' => [
