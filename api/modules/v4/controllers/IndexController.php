@@ -45,7 +45,7 @@ class IndexController extends \api\common\controllers\Controller
             $data = $model::find()
                 ->select(['id','title','linkurl','imgurl',"if(attr_from>1,'exam',IF(attr_from>0,'article',null))AS type",])
                 ->where(['status' => 1])
-                ->orderBy(['sort' => SORT_ASC,'created_at' => SORT_DESC,])
+                ->orderBy(['sort' => SORT_ASC,'created_at' => SORT_DESC])
                 ->asArray()
                 ->all();
             Yii::$app->cache->set(Yii::$app->params['redisKey'][1],json_encode($data),2592000);

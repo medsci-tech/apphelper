@@ -163,7 +163,7 @@ class AdController extends BackendController
     {
         $strHtml = "";
         $allAD = AD::find()
-            ->orderBy('sort')
+             ->orderBy(['sort' => SORT_ASC,'created_at' => SORT_DESC])
             ->all();
 
         foreach($allAD as $ad)
