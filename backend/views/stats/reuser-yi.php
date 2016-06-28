@@ -86,7 +86,6 @@ backend\assets\AppAsset::register($this);
                                 return  $this->params['stats']['attrType'][$this->params['stats']['attr_type']];
                             },
                     ],
-
                     [
                         'attribute' => 'view',
                         'value'=>

@@ -10,15 +10,11 @@ use common\models\ResourceStudy;
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$yiiApp = Yii::$app;
 $this->title = '资源统计';
 $this->params['breadcrumbs'][] = $this->title;
 
-$get = $yiiApp->request->get();
-$usernameSearch = $get['username'] ?? '';
-
-$attrTypeSearch = $get['attr_type'] ?? 0;
-$this->params['stats']['attrType'] = $yiiApp->params['resourceClass']['attrType'][$attrTypeSearch];
+$this->params['stats']['memberInfo'] = $memberInfo;
+$this->params['stats']['resourceInfo'] = $resourceInfo;
 
 backend\assets\AppAsset::register($this);
 ?>
@@ -41,57 +37,38 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'title',
                         'value'=>
                             function($model){
-                                $result = Resource::findOne($model->rid);
-                                $this->params['stats']['view'] = $result->views ?? 0;
-                                return  $result->title ?? '';
+                                return  $this->params['stats']['resourceInfo']['title'];
                             },
                     ],
                     [
                         'attribute' => 'attr_type',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['attrType'];
+                                return  $this->params['stats']['resourceInfo']['attr_type'];
                             },
                     ],
                     [
                         'attribute' => 'real_name',
                         'value'=>
                             function($model){
-                                $result = Member::findOne($model->uid);
-                                $this->params['stats']['username'] = $result->username ?? '';
-                                $this->params['stats']['nickname'] = $result->nickname ?? '';
-                                return  $result->real_name ?? '';
+                                return  $this->params['stats']['memberInfo']['real_name'];
                             },
                     ],
                     [
                         'attribute' => 'nickname',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['nickname'];
+                                return  $this->params['stats']['memberInfo']['nickname'];
                             },
                     ],
                     [
                         'attribute' => 'username',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['username'];
+                                return  $this->params['stats']['memberInfo']['username'];
                             },
                     ],
-                    [
-                        'attribute' => 'view',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['view'];
-                            },
-                    ],
-                    [
-                        'attribute' => 'times',
-                        'value'=>
-                            function($model){
-                                $result = ResourceStudy::find()->where(['rid' => $model->rid, 'uid' => $model->uid])->one();
-                                return  $result->times ?? 0;
-                            },
-                    ],
+                    'times',
                 ],
             ]); ?>
         </div>

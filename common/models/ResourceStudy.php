@@ -92,7 +92,7 @@ class ResourceStudy extends ActiveRecord {
             $query->andFilterWhere(['id' => '']);
         }
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->groupBy('rid'),
             'pagination' => [
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
@@ -104,7 +104,7 @@ class ResourceStudy extends ActiveRecord {
     {
         $query = $this::find();
         $username = $params['username'] ?? '';
-        $rid = $params['rid'] ?? '';
+        $rid = $params['rid'];
         $where = [];
         if($username){
             $memberModel = Member::find()->where(['like', 'username', $username])->all();
@@ -116,9 +116,7 @@ class ResourceStudy extends ActiveRecord {
                 $where['id'][] = '';
             }
         }
-        if($rid){
-            $where['rid'] = $rid;
-        }
+        $where['rid'] = $rid;
         $query->andFilterWhere($where);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
