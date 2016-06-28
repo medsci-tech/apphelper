@@ -21,7 +21,7 @@
                 <a class="J_menuItem" href="member/index"><i class="fa fa-user"></i><span class="nav-label">用户管理</span></a>
             </li>
             <li>
-                <a class="J_menuItem" href="assignment/index"><i class="fa fa-user-secret"></i> <span class="nav-label">管理员管理</span></a>
+                <a class="J_menuItem" href="admin/index"><i class="fa fa-user-secret"></i> <span class="nav-label">管理员管理</span></a>
             </li>
             <li>
                 <a class="J_menuItem" href="/hospital/index"><i class="fa fa-medkit"></i> <span class="nav-label">单位管理</span></a>
