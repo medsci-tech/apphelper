@@ -26,7 +26,7 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource-yi?rid=' . $rid,
+                'action' => ['resource-yi', 'rid' => $rid],
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
@@ -37,7 +37,11 @@ backend\assets\AppAsset::register($this);
             </div>
 
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('导出', 'explode', ['class' => 'btn btn-success']) ?>
+            <?= Html::a('导出', [
+                'resource-yi-export',
+                'rid' => $rid,
+                'username' => $usernameSearch,
+            ], ['class' => 'btn btn-success']) ?>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

@@ -46,7 +46,7 @@ class ResourceStudy extends ActiveRecord {
             'nickname' => '昵称',
             'username' => '手机号',
             'view' => '浏览数',
-            'times' => '时长',
+            'times' => '时长(秒)',
             'created_at' => '浏览时间',
         ];
     }
@@ -62,7 +62,7 @@ class ResourceStudy extends ActiveRecord {
      * @param $params
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function searchResource($params)
     {
         $query = $this::find();
         $startTime = $params['startTime'] ?? '';
@@ -91,16 +91,10 @@ class ResourceStudy extends ActiveRecord {
             //搜索为空
             $query->andFilterWhere(['id' => '']);
         }
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query->groupBy('rid'),
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
-        return $dataProvider;
+        return $query;
     }
 
-    public function searchResourceForResource($params)
+    public function searchResourceYi($params)
     {
         $query = $this::find();
         $username = $params['username'] ?? '';
@@ -118,13 +112,19 @@ class ResourceStudy extends ActiveRecord {
         }
         $where['rid'] = $rid;
         $query->andFilterWhere($where);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
+        return $query;
+    }
+
+    public function searchResourceEr($params)
+    {
+        $query = $this::find();
+        $uid = $params['uid'] ?? '';
+        $rid = $params['rid'] ?? '';
+        $query->andFilterWhere([
+            'uid' => $uid,
+            'rid' => $rid,
         ]);
-        return $dataProvider;
+        return $query;
     }
 
     /**
@@ -159,13 +159,25 @@ class ResourceStudy extends ActiveRecord {
                 $query->andFilterWhere(['id' => '']);
             }
         }
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query->groupBy('uid'),
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
-        return $dataProvider;
+        return $query;
+    }
+
+    public function searchReuserYi($params){
+        $query = $this::find();
+        $uid = $params['uid'];
+        $title = $params['title'] ?? '';
+        $resourceModel = Resource::find()->where(['like', 'title', $title])->all();
+        $resourceList = [];
+        if($resourceModel){
+            foreach ($resourceModel as $key => $val){
+                $resourceList[] = $val->id;
+            }
+            $query->andFilterWhere(['rid' => $resourceList]);
+        }else{
+            $query->andFilterWhere(['id' => '']);
+        }
+        $query->andFilterWhere(['uid' => $uid]);
+        return $query;
     }
    
 
