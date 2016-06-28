@@ -10,3 +10,4 @@ runtime/logs/app.log
 /frontend/controllers/TestController.php
 /nbproject
 /common/config/main.php
+/backend/controllers/TestController.php
