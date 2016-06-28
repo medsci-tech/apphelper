@@ -19,8 +19,8 @@ class User extends UserModel {
         $query = UserModel::find();
         $this->load($params);
         $where = [];
-        if($this->uid){
-            $where['uid'] = $this->uid;
+        if($this->id){
+            $where['id'] = $this->id;
         }
         $query = $query->andFilterWhere($where)
             ->andFilterWhere(['like', 'username', $this->username]);

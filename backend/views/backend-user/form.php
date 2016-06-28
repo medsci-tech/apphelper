@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\hospital */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php $form = ActiveForm::begin(['action' => ['admin/create'],'method'=>'post','id'=>'tableForm']); ?>
+<?php $form = ActiveForm::begin(['action' => ['backend-user/create'],'method'=>'post','id'=>'tableForm']); ?>
     <div class="modal-body">
         <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
@@ -22,16 +22,15 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-        <?= Html::a('保存','javascript:;', ['class' => 'btn btn-primary', 'id'=>'hospitalFormSubmit']) ?>
+        <?= Html::a('保存','javascript:;', ['class' => 'btn btn-primary', 'id'=>'userFormSubmit']) ?>
     </div>
 <?php ActiveForm::end(); ?>
 
 <?php
 $js = <<<JS
-    //$('#myModal #hospitalFormSubmit').click(function() {
-    //    getRegionValue('Hospital','tableForm');/*地区联动*/
-    //    $('#myModal #tableForm').submit();
-    //});
+    $('#myModal #userFormSubmit').click(function() {
+        $('#myModal #tableForm').submit();
+    });
 JS;
 $this->registerJs($js);
 ?>

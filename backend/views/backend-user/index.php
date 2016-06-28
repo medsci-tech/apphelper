@@ -47,8 +47,26 @@ backend\assets\AppAsset::register($this);
                         'username',
                         'email',
                         'address',
-                        'created_at',
-                        'updated_at',
+                        [
+                            'attribute' => 'created_at',
+                            'value' =>
+                                function ($model) {
+                                    if($model->created_at) {
+                                        $result = date('Y-m-d h:m:s', $model->created_at);
+                                    }
+                                    return $result ?? '';
+                                },
+                        ],
+                        [
+                            'attribute' => 'updated_at',
+                            'value' =>
+                                function ($model) {
+                                    if($model->updated_at) {
+                                        $result = date('Y-m-d h:m:s', $model->updated_at);
+                                    }
+                                    return $result ?? '';
+                                },
+                        ],
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'template'=>'{view}  {update}',
@@ -57,9 +75,9 @@ backend\assets\AppAsset::register($this);
                                 'update'=> function ($url, $model, $key) {
                                     return Html::a('<span name="saveData" class="glyphicon glyphicon-pencil" data-target="#myModal" data-toggle="modal"
                                 names="'.$model->username.'"
-                                address="'.$model->address.'"
                                 email="'.$model->email.'"
                                 id="'.$model->id.'"
+                                address="'.$model->address.'"
                                  ></span>');
                                 },
                             ]
@@ -120,20 +138,16 @@ $js=<<<JS
         var address = $(this).attr('address');
         var email = $(this).attr('email');
 
+        console.log('name:'+name);
+        console.log('email:'+email);
+
         $('#user-id').val(id);
         $('#user-username').val(name);
-        $('#user-address').val(address);
+        console.log($('#user-username').val(name));
         $('#user-email').val(email);
+        $('#user-address').val(address);
         $('#myModal #tableForm').attr('action', '$formUrl?id='+id);
-       /*地区联动*/
-//        var regionValue = {};
-//        regionValue.province_id = $(this).attr('province_id');
-//        regionValue.city_id = $(this).attr('city_id');
-//        regionValue.area_id = $(this).attr('area_id');
-//        regionValue.province = $(this).attr('province');
-//        regionValue.city = $(this).attr('city');
-//        regionValue.area = $(this).attr('area');
-//        getRegionDefault(regionValue, 'tableForm');
+
     });
 
     /*添加初始化*/
@@ -144,8 +158,7 @@ $js=<<<JS
         $('#user-address').val(defaltData);
         $('#user-email').val(defaltData);
         $('#myModal #tableForm').attr('action', '$formUrl');
-        /*地区联动*/
-        //getRegionInit('tableForm');
+
    });
 
 JS;

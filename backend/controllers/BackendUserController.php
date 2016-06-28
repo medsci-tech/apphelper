@@ -21,7 +21,7 @@ use common\models\Upload;
 use yii\web\UploadedFile;
 
 
-class AdminController extends BackendController {
+class BackendUserController extends BackendController {
 
     public function behaviors()
     {
@@ -70,5 +70,37 @@ class AdminController extends BackendController {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionForm()
+    {
+        $appYii = Yii::$app;
+        if(isset($appYii->request->get()['id'])){
+            $id = $appYii->request->get()['id'];
+            $model = $this->findModel($id);
+            if(empty($model)){
+                $model = new User();
+            }
+        }else{
+            $model = new User();
+        }
+
+        $model->load($appYii->request->post());
+        $isValid = $model->validate();
+        if ($isValid) {
+            if(!isset($model->id)){
+                $model->created_at = time();
+            }
+            $result = $model->save(false);
+            if($result){
+                $return = ['success', '操作成功哦'];
+            }else{
+                $return = ['error', '操作失败哦'];
+            }
+        }else{
+            $return = ['error', '操作失败哦'];
+        }
+        Yii::$app->getSession()->setFlash($return[0], $return[1]);
+        $this->redirect('index');
     }
 }
