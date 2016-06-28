@@ -163,13 +163,13 @@ class AdController extends BackendController
     {
         $strHtml = "";
         $allAD = AD::find()
-            ->orderBy('id')
+            ->orderBy('sort')
             ->all();
 
         foreach($allAD as $ad)
         {
             $strHtml = $strHtml." <div class='col-sm-6 col-md-4'>
-                <img src='".$ad->imgurl."' class='thumbnail'
+                <img src='".$ad->imgurl."' class='thumbnail' width='300px'
                 aid='".$ad->id."' sort='".$ad->sort."'
                 links='".$ad->linkurl."'  status ='".$ad->status."'
                 attr_id='".$ad->attr_id."' attr_from ='".$ad->attr_from."'

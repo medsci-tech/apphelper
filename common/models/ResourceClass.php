@@ -55,7 +55,11 @@ class ResourceClass extends \yii\db\ActiveRecord
         ];
     }
 
-
+    /**
+     * 查询
+     * @param array $where
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public function getDataForWhere($where = []){
         $where['status'] = 1;
         $dataList = $this::find()->where($where)->orderBy(['sort' => SORT_DESC])->asArray()->all();
