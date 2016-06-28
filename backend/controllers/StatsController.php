@@ -12,7 +12,6 @@ use common\models\Member;
 use common\models\Resource;
 use common\models\ResourceClass;
 use common\models\ResourceStudy;
-use common\models\ResourceView;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Cookie;
@@ -53,8 +52,35 @@ class StatsController extends BackendController
     public function actionResourceYi()
     {
         $queryParams = Yii::$app->request->queryParams;
-        $search = new ResourceStudy();
-        $dataProvider = $search->searchResourceForResource($queryParams);
+        $query = ResourceStudy::find();
+        $username = $queryParams['username'] ?? '';
+        $rid = $queryParams['rid'];
+        $where = [];
+        if($username){
+            $memberModel = Member::find()->where(['like', 'username', $username])->all();
+            if($memberModel){
+                foreach ($memberModel as $key => $val){
+                    $where['uid'][] = $val->id;
+                }
+            }else{
+                $where['id'][] = '';
+            }
+        }
+        $where['rid'] = $rid;
+        $query->andFilterWhere($where);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+
+        $resourceModel = Resource::findOne($rid);
+        $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
+        $resourceInfo = [
+            'title' => $resourceModel->title ?? '',
+            'attr_type' => Yii::$app->params['resourceClass']['attrType'][$attr_type],
+        ];
         //记录本页面URL
         Yii::$app->response->cookies->add(new Cookie([
             'name' => 'stats-resource-yi-html',
@@ -64,6 +90,7 @@ class StatsController extends BackendController
         return $this->render('resource-yi', [
             'dataProvider' => $dataProvider,
             'referrerUrl' => $referrerUrl,
+            'resourceInfo' => $resourceInfo,
         ]);
     }
 
@@ -78,9 +105,21 @@ class StatsController extends BackendController
     {
 
         $queryParams = Yii::$app->request->queryParams;
-        $query = ResourceView::find();
+        $query = ResourceStudy::find();
         $uid = $queryParams['uid'] ?? '';
         $rid = $queryParams['rid'] ?? '';
+        $resourceModel = Resource::findOne($rid);
+        $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
+        $resourceInfo = [
+            'title' => $resourceModel->title ?? '',
+            'attr_type' => Yii::$app->params['resourceClass']['attrType'][$attr_type],
+        ];
+        $memberModel = Member::findOne($uid);
+        $memberInfo = [
+            'real_name' => $memberModel->real_name ?? '',
+            'nickname' => $memberModel->nickname ?? '',
+            'username' => $memberModel->username ?? '',
+        ];
         $query->andFilterWhere([
             'uid' => $uid,
             'rid' => $rid,
@@ -95,6 +134,8 @@ class StatsController extends BackendController
         return $this->render('resource-er', [
             'dataProvider' => $dataProvider,
             'referrerUrl' => $referrerUrl,
+            'memberInfo' => $memberInfo,
+            'resourceInfo' => $resourceInfo,
         ]);
     }
 
@@ -190,15 +231,14 @@ class StatsController extends BackendController
             'title' => $resourceModel->title ?? '',
             'attr_type' => Yii::$app->params['resourceClass']['attrType'][$attr_type],
         ];
-        $query->andFilterWhere(['uid' => $uid]);
-        $query->andFilterWhere(['rid' => $rid]);
         $memberModel = Member::findOne($uid);
         $memberInfo = [
             'real_name' => $memberModel->real_name ?? '',
             'nickname' => $memberModel->nickname ?? '',
             'username' => $memberModel->username ?? '',
         ];
-
+        $query->andFilterWhere(['uid' => $uid]);
+        $query->andFilterWhere(['rid' => $rid]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

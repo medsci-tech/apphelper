@@ -10,11 +10,9 @@ use common\models\ResourceStudy;
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$yiiApp = Yii::$app;
 $this->title = '资源统计';
 $this->params['breadcrumbs'][] = $this->title;
 
-$get = $yiiApp->request->get();
 $this->params['stats']['memberInfo'] = $memberInfo;
 $this->params['stats']['resourceInfo'] = $resourceInfo;
 

@@ -25,7 +25,7 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource-yi',
+                'action' => '',
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
@@ -86,7 +86,6 @@ backend\assets\AppAsset::register($this);
                                 return  $this->params['stats']['attrType'][$this->params['stats']['attr_type']];
                             },
                     ],
-
                     [
                         'attribute' => 'view',
                         'value'=>

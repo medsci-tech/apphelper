@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use common\models\Resource;
+use common\models\ResourceStudy;
+use common\models\ResourceClass;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,7 +19,7 @@ $startTimeSearch = $get['startTime'] ?? '';
 $endTimeSearch = $get['endTime'] ?? '';
 $titleSearch = $get['title'] ?? '';
 $attrTypeSearch = $get['attr_type'] ?? 0;
-$this->params['stats']['attrType'] = $yiiApp->params['resourceClass']['attrType'][$attrTypeSearch];
+$this->params['stats']['attrType'] = $yiiApp->params['resourceClass']['attrType'];
 $this->params['stats']['attr_type'] = $attrTypeSearch;
 backend\assets\AppAsset::register($this);
 ?>
@@ -78,7 +80,7 @@ backend\assets\AppAsset::register($this);
                         'value'=>
                             function($model){
                                 $result = Resource::findOne($model->rid);
-                                $this->params['stats']['view'] = $result->views ?? 0;
+                                $this->params['stats']['attr_type'] = ResourceClass::findOne($result->rid)->attr_type;
                                 return  $result->title ?? '';
                             },
                     ],
@@ -86,17 +88,25 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'attr_type',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['attrType'];
+                                return  $this->params['stats']['attrType'][$this->params['stats']['attr_type']];
                             },
                     ],
                     [
                         'attribute' => 'view',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['view'];
+                                $result = ResourceStudy::find()->where(['rid' => $model->rid])->count('id');
+                                return  $result;
                             },
                     ],
-                    'times',
+                    [
+                        'attribute' => 'times',
+                        'value'=>
+                            function($model){
+                                $result = ResourceStudy::find()->where(['rid' => $model->rid])->sum('times');
+                                return  $result;
+                            },
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'template'=>'{view}',
@@ -104,7 +114,7 @@ backend\assets\AppAsset::register($this);
                         'buttons' => [
                             'view'=> function ($url, $model, $key) {
                                 $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
-                                return Html::a($aHtml,['resource-yi','rid' => $model->rid, 'attr_type' => $this->params['stats']['attr_type']]);
+                                return Html::a($aHtml,['resource-yi','rid' => $model->rid]);
                             },
                         ],
                     ]
