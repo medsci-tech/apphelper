@@ -15,13 +15,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['stats']['memberInfo'] = $memberInfo;
 $this->params['stats']['resourceInfo'] = $resourceInfo;
-
+$get = Yii::$app->request->get();
+$uid = $get['uid'];
+$rid = $get['rid'];
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
     <div class="navbar-btn">
         <?= Html::a('返回', $referrerUrl ?? 'index', ['class' => 'btn btn-white']) ?>
-        <?= Html::a('导出', 'explode', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('导出', [
+            'resource-er-export',
+            'rid' => $rid,
+            'uid' => $uid,
+        ], ['class' => 'btn btn-success']) ?>
     </div>
     <div class="box box-success">
         <div class="box-body">

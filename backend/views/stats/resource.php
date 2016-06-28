@@ -62,7 +62,13 @@ backend\assets\AppAsset::register($this);
             </div>
 
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('导出', 'explode', ['class' => 'btn btn-success']) ?>
+            <?= Html::a('导出', [
+                'resource-export',
+                'startTime' => $startTimeSearch,
+                'endTime' => $endTimeSearch,
+                'title' => $titleSearch,
+                'attr_type' => $attrTypeSearch,
+            ], ['class' => 'btn btn-success']) ?>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

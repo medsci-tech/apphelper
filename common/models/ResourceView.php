@@ -40,7 +40,7 @@ class ResourceView extends ActiveRecord {
             'nickname' => '昵称',
             'username' => '手机号',
             'view' => '浏览数',
-            'times' => '时长',
+            'times' => '时长(秒)',
             'created_at' => '浏览时间',
         ];
     }
