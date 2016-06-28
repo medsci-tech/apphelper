@@ -28,6 +28,8 @@ class AD extends \yii\db\ActiveRecord
             [['created_at', 'attr_id', 'attr_from', 'status'], 'integer'],
             [['title'], 'string', 'max' => 20],
             [['imgurl'], 'string', 'max' => 150],
+            // 若 "linkurl" 为空，则设其为 null
+            ['linkurl', 'default', 'value' => null]
         ];
     }
 
