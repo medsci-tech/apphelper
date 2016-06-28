@@ -43,7 +43,9 @@
     img{
         width: 100%;
     }
-
+    .player{
+        width: 100%;
+    }
 </style>
 <body>
 <div class="article">

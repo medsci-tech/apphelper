@@ -42,11 +42,24 @@ class CommonController extends ActiveController
         if(strlen($username) !=11 || !is_numeric($username))
         {
             $message = '请输入有效手机号!';
-            $result = ['code' => 200,'message'=>$message,'data'=>[]];
+            $result = ['code' => -1,'message'=>$message,'data'=>null];
             return $result;
         }
         else
         {
+            /* 验证已注册的会员发送的手机号是否合法 */
+            if($this->params['checkUser']) //需要验证手机号
+            {
+                $model = new \api\common\models\Member();
+                $model = $model::find()->where(['username'=>$username])->one();
+                if(!$model)
+                {
+                    $message = '该手机号不存在!';
+                    $result = ['code' => -1,'message'=>$message,'data'=>null];
+                    return $result;  
+                }             
+            }
+            
             if(Yii::$app->cache->get($username))
             {
                 $message = '验证码已经成功发出!';
@@ -63,7 +76,7 @@ class CommonController extends ActiveController
                 $result = ['code' => 200,'message'=>$message,'data'=>['verycode' => $verycode]];
             }
             else
-                $result = ['code' => 200,'message'=>'发送失败!请稍后再试!','data'=>[]];
+                $result = ['code' => 200,'message'=>'发送失败!请稍后再试!','data'=>null];
 
             return $result;
         }
