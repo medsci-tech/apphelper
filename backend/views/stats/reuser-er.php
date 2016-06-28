@@ -33,20 +33,7 @@ backend\assets\AppAsset::register($this);
                         'header' => '序号'
                     ],
                     'created_at:datetime',
-                    [
-                        'attribute' => 'title',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['title'];
-                            },
-                    ],
-                    [
-                        'attribute' => 'attr_type',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['attr_type'];
-                            },
-                    ],
+
                     [
                         'attribute' => 'real_name',
                         'value'=>
@@ -66,6 +53,20 @@ backend\assets\AppAsset::register($this);
                         'value'=>
                             function($model){
                                 return  $this->params['stats']['memberInfo']['username'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'title',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['resourceInfo']['title'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'attr_type',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['resourceInfo']['attr_type'];
                             },
                     ],
                     'times',

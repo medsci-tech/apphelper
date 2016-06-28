@@ -3,8 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
-use common\models\Member;
+use common\models\Resource;
 use common\models\ResourceStudy;
+use common\models\ResourceClass;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -14,11 +15,10 @@ $this->title = '资源统计';
 $this->params['breadcrumbs'][] = $this->title;
 
 $get = $yiiApp->request->get();
-$usernameSearch = $get['username'] ?? '';
-$rid = $get['rid'];
-
-$this->params['stats']['resourceInfo'] = $resourceInfo;
-
+$nameSearch = $get['title'] ?? '';
+$uid = $get['uid'];
+$this->params['stats']['attrType'] = $yiiApp->params['resourceClass']['attrType'];
+$this->params['stats']['memberInfo'] = $memberInfo;
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
@@ -26,14 +26,14 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource-yi?rid=' . $rid,
+                'action' => 'resuer-yi?uid=' . $uid,
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
             <?= Html::a('返回', $referrerUrl ?? 'index', ['class' => 'btn btn-white']) ?>
             <div class="form-group">
-                <label class="control-label">手机号</label>
-                <input type="text" class="form-control" name="username" value="<?php echo $usernameSearch?>">
+                <label class="control-label">资源名</label>
+                <input type="text" class="form-control" name="title" value="<?php echo $nameSearch?>">
             </div>
 
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
@@ -51,41 +51,40 @@ backend\assets\AppAsset::register($this);
                         'header' => '序号'
                     ],
                     [
-                        'attribute' => 'title',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['title'];
-                            },
-                    ],
-                    [
-                        'attribute' => 'attr_type',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['attr_type'];
-                            },
-                    ],
-                    [
                         'attribute' => 'real_name',
                         'value'=>
                             function($model){
-                                $result = Member::findOne($model->uid);
-                                $this->params['stats']['username'] = $result->username ?? '';
-                                $this->params['stats']['nickname'] = $result->nickname ?? '';
-                                return  $result->real_name ?? '';
+                                return  $this->params['stats']['memberInfo']['real_name'];
                             },
                     ],
                     [
                         'attribute' => 'nickname',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['nickname'];
+                                return  $this->params['stats']['memberInfo']['nickname'];
                             },
                     ],
                     [
                         'attribute' => 'username',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['username'];
+                                return  $this->params['stats']['memberInfo']['username'];
+                            },
+                    ],
+                    [
+                        'attribute' => 'title',
+                        'value'=>
+                            function($model){
+                                $result = Resource::findOne($model->rid);
+                                $this->params['stats']['attr_type'] = ResourceClass::findOne($result->rid)->attr_type;
+                                return  $result->title ?? '';
+                            },
+                    ],
+                    [
+                        'attribute' => 'attr_type',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['attrType'][$this->params['stats']['attr_type']];
                             },
                     ],
                     [
@@ -111,7 +110,7 @@ backend\assets\AppAsset::register($this);
                         'buttons' => [
                             'view'=> function ($url, $model, $key) {
                                 $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
-                                return Html::a($aHtml,['resource-er','rid'=>$model->rid, 'uid' => $model->uid]);
+                                return Html::a($aHtml,['reuser-er','rid'=>$model->rid, 'uid' => $model->uid]);
                             },
                         ],
                     ]
