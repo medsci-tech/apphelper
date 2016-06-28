@@ -95,11 +95,17 @@ class StatsController extends BackendController
      */
     public function actionResourceEr()
     {
-
         $queryParams = Yii::$app->request->queryParams;
-        $query = ResourceStudy::find();
-        $uid = $queryParams['uid'] ?? '';
-        $rid = $queryParams['rid'] ?? '';
+        $rid = $queryParams['rid'];
+        $uid = $queryParams['uid'];
+        $search = new ResourceStudy();
+        $query = $search->searchResourceEr($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['pageSize'],
+            ],
+        ]);
         $resourceModel = Resource::findOne($rid);
         $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
         $resourceInfo = [
@@ -112,16 +118,6 @@ class StatsController extends BackendController
             'nickname' => $memberModel->nickname ?? '',
             'username' => $memberModel->username ?? '',
         ];
-        $query->andFilterWhere([
-            'uid' => $uid,
-            'rid' => $rid,
-        ]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
         $referrerUrl = Yii::$app->request->cookies->getValue('stats-resource-yi-html');
         return $this->render('resource-er', [
             'dataProvider' => $dataProvider,
@@ -171,32 +167,21 @@ class StatsController extends BackendController
     public function actionReuserYi()
     {
         $queryParams = Yii::$app->request->queryParams;
-        $query = ResourceStudy::find();
         $uid = $queryParams['uid'];
-        $title = $queryParams['title'] ?? '';
-        $resourceModel = Resource::find()->where(['like', 'title', $title])->all();
-        $resourceList = [];
-        if($resourceModel){
-            foreach ($resourceModel as $key => $val){
-                $resourceList[] = $val->id;
-            }
-            $query->andFilterWhere(['rid' => $resourceList]);
-        }else{
-            $query->andFilterWhere(['id' => '']);
-        }
-        $query->andFilterWhere(['uid' => $uid]);
-        $memberModel = Member::findOne($uid);
-        $memberInfo = [
-            'real_name' => $memberModel->real_name ?? '',
-            'nickname' => $memberModel->nickname ?? '',
-            'username' => $memberModel->username ?? '',
-        ];
+        $search = new ResourceStudy();
+        $query = $search->searchReuserYi($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('rid'),
             'pagination' => [
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
         ]);
+        $memberModel = Member::findOne($uid);
+        $memberInfo = [
+            'real_name' => $memberModel->real_name ?? '',
+            'nickname' => $memberModel->nickname ?? '',
+            'username' => $memberModel->username ?? '',
+        ];
         //记录本页面URL
         Yii::$app->response->cookies->add(new Cookie([
             'name' => 'stats-reuser-yi-html',
@@ -220,9 +205,16 @@ class StatsController extends BackendController
     public function actionReuserEr()
     {
         $queryParams = Yii::$app->request->queryParams;
-        $query = ResourceStudy::find();
-        $uid = $queryParams['uid'];
         $rid = $queryParams['rid'];
+        $uid = $queryParams['uid'];
+        $search = new ResourceStudy();
+        $query = $search->searchResourceEr($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
         $resourceModel = Resource::findOne($rid);
         $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
         $resourceInfo = [
@@ -235,14 +227,6 @@ class StatsController extends BackendController
             'nickname' => $memberModel->nickname ?? '',
             'username' => $memberModel->username ?? '',
         ];
-        $query->andFilterWhere(['uid' => $uid]);
-        $query->andFilterWhere(['rid' => $rid]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
         $referrerUrl = Yii::$app->request->cookies->getValue('stats-reuser-yi-html');
         return $this->render('reuser-er', [
             'dataProvider' => $dataProvider,
@@ -287,13 +271,14 @@ class StatsController extends BackendController
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('rid'),
         ]);
+        $attrType = $appYii->params['resourceClass']['attrType'];
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $resource = Resource::findOne($val->rid);
             $resourceStudy = ResourceStudy::find()->where(['rid' => $val->rid]);
             $attr_type = $resource ? ResourceClass::findOne($resource->rid)->attr_type : 0;
             $dataArray[$key]['title'] = $resource->title ?? '';
-            $dataArray[$key]['attr_type'] = $appYii->params['resourceClass']['attrType'][$attr_type];
+            $dataArray[$key]['attr_type'] = $attrType[$attr_type];
             $dataArray[$key]['view'] = $resourceStudy->count('id');
             $dataArray[$key]['times'] = $resourceStudy->sum('times');
         }
@@ -357,7 +342,64 @@ class StatsController extends BackendController
     }
 
     /**
-     *
+     * 资源统计--按资源统计--二级列表导出
+     */
+    protected function actionResourceErExportCommon($column){
+        $appYii = Yii::$app;
+        $queryParams = $appYii->request->queryParams;
+        $rid = $queryParams['rid'];
+        $uid = $queryParams['uid'];
+        $search = new ResourceStudy();
+        $query = $search->searchResourceEr($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $resourceModel = Resource::findOne($rid);
+        $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
+        $resourceInfo = [
+            'title' => $resourceModel->title ?? '',
+            'attr_type' => Yii::$app->params['resourceClass']['attrType'][$attr_type],
+        ];
+        $memberModel = Member::findOne($uid);
+        $memberInfo = [
+            'real_name' => $memberModel->real_name ?? '',
+            'username' => $memberModel->username ?? '',
+        ];
+        $dataArray = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
+            $dataArray[$key]['title'] = $resourceInfo['title'];
+            $dataArray[$key]['attr_type'] = $resourceInfo['attr_type'];
+            $dataArray[$key]['real_name'] = $memberInfo['real_name'];
+            $dataArray[$key]['username'] = $memberInfo['username'];
+            $dataArray[$key]['times'] = $val->times;
+        }
+        $config = [
+            'fileName' => '资源统计列表导出-' . date('YmdHis'),
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $excel = new ExcelController();
+        $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 资源统计--按资源统计--二级列表导出
+     */
+    public function actionResourceErExport(){
+        $column = [
+            'created_at'=>['column'=>'A','name'=>'浏览时间','width'=>25],
+            'title'=>['column'=>'B','name'=>'资源名','width'=>25],
+            'attr_type'=>['column'=>'C','name'=>'资源类别','width'=>20],
+            'real_name'=>['column'=>'D','name'=>'姓名','width'=>20],
+            'username'=>['column'=>'E','name'=>'手机号','width'=>25],
+            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+        ];
+        $this->actionResourceErExportCommon($column);
+    }
+
+    /**
      * 资源统计--按用户统计--列表导出
      */
     public function actionReuserExport(){
@@ -371,7 +413,7 @@ class StatsController extends BackendController
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $member = Member::findOne($val->uid);
-            $resourceStudy = ResourceStudy::find()->where(['rid' => $val->rid]);
+            $resourceStudy = ResourceStudy::find()->where(['uid' => $val->uid]);
             $dataArray[$key]['real_name'] = $member->real_name ?? '';
             $dataArray[$key]['username'] = $member->username ?? '';
             $dataArray[$key]['view'] = $resourceStudy->count('id');
@@ -392,6 +434,68 @@ class StatsController extends BackendController
         ];
         $excel = new ExcelController();
         $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 资源统计--按用户统计--列表导出
+     */
+    public function actionReuserYiExport(){
+        $queryParams = Yii::$app->request->queryParams;
+        $uid = $queryParams['uid'];
+        $search = new ResourceStudy();
+        $query = $search->searchReuserYi($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('rid'),
+        ]);
+        $memberModel = Member::findOne($uid);
+        $memberInfo = [
+            'real_name' => $memberModel->real_name ?? '',
+            'username' => $memberModel->username ?? '',
+        ];
+        $attrType = Yii::$app->params['resourceClass']['attrType'];
+        $dataArray = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $resourceModel = Resource::findOne($val->rid);
+            $attr_type = $resourceModel ? ResourceClass::findOne($resourceModel->rid)->attr_type : 0;
+            $resourceStudy = ResourceStudy::find()->where(['rid' => $val->rid, 'uid' => $val->uid]);
+            $dataArray[$key]['real_name'] = $memberInfo['real_name'];
+            $dataArray[$key]['username'] = $memberInfo['username'];
+            $dataArray[$key]['title'] = $resourceModel->title ?? '';
+            $dataArray[$key]['attr_type'] = $attrType[$attr_type] ?? '';
+            $dataArray[$key]['view'] = $resourceStudy->count('id');
+            $dataArray[$key]['times'] = $resourceStudy->sum('times');
+        }
+        $column = [
+            'real_name'=>['column'=>'A','name'=>'姓名','width'=>30],
+            'username'=>['column'=>'B','name'=>'手机号','width'=>20],
+            'title'=>['column'=>'C','name'=>'资源名','width'=>25],
+            'attr_type'=>['column'=>'D','name'=>'资源类别','width'=>25],
+            'view'=>['column'=>'E','name'=>'浏览数','width'=>20],
+            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+        ];
+        $config = [
+            'fileName' => '资源统计列表导出-' . date('YmdHis'),
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $excel = new ExcelController();
+        $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 资源统计--按资源统计--二级列表导出
+     */
+    public function actionReuserErExport(){
+        $column = [
+            'created_at'=>['column'=>'A','name'=>'浏览时间','width'=>25],
+            'real_name'=>['column'=>'B','name'=>'姓名','width'=>25],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
+            'title'=>['column'=>'D','name'=>'资源名','width'=>20],
+            'attr_type'=>['column'=>'E','name'=>'资源类别','width'=>25],
+            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+        ];
+        $this->actionResourceErExportCommon($column);
     }
 
 }

@@ -115,6 +115,18 @@ class ResourceStudy extends ActiveRecord {
         return $query;
     }
 
+    public function searchResourceEr($params)
+    {
+        $query = $this::find();
+        $uid = $params['uid'] ?? '';
+        $rid = $params['rid'] ?? '';
+        $query->andFilterWhere([
+            'uid' => $uid,
+            'rid' => $rid,
+        ]);
+        return $query;
+    }
+
     /**
      * 资源列表搜索
      * @param $params
@@ -147,6 +159,24 @@ class ResourceStudy extends ActiveRecord {
                 $query->andFilterWhere(['id' => '']);
             }
         }
+        return $query;
+    }
+
+    public function searchReuserYi($params){
+        $query = $this::find();
+        $uid = $params['uid'];
+        $title = $params['title'] ?? '';
+        $resourceModel = Resource::find()->where(['like', 'title', $title])->all();
+        $resourceList = [];
+        if($resourceModel){
+            foreach ($resourceModel as $key => $val){
+                $resourceList[] = $val->id;
+            }
+            $query->andFilterWhere(['rid' => $resourceList]);
+        }else{
+            $query->andFilterWhere(['id' => '']);
+        }
+        $query->andFilterWhere(['uid' => $uid]);
         return $query;
     }
    
