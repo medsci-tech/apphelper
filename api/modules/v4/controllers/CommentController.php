@@ -204,7 +204,6 @@ class CommentController extends \api\common\controllers\Controller
                     $res = Exercise::findOne($result->rid);
                 }
                 if($res){
-                    var_dump($res->comments);
                     $res->comments += 1;
                     $res->save(false);
                 }
