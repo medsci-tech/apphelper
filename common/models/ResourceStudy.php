@@ -47,6 +47,7 @@ class ResourceStudy extends ActiveRecord {
             'username' => '手机号',
             'view' => '浏览数',
             'times' => '时长',
+            'created_at' => '浏览时间',
         ];
     }
 
@@ -91,7 +92,7 @@ class ResourceStudy extends ActiveRecord {
             $query->andFilterWhere(['id' => '']);
         }
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->groupBy('rid'),
             'pagination' => [
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
@@ -103,7 +104,7 @@ class ResourceStudy extends ActiveRecord {
     {
         $query = $this::find();
         $username = $params['username'] ?? '';
-        $rid = $params['rid'] ?? '';
+        $rid = $params['rid'];
         $where = [];
         if($username){
             $memberModel = Member::find()->where(['like', 'username', $username])->all();
@@ -115,9 +116,7 @@ class ResourceStudy extends ActiveRecord {
                 $where['id'][] = '';
             }
         }
-        if($rid){
-            $where['rid'] = $rid;
-        }
+        $where['rid'] = $rid;
         $query->andFilterWhere($where);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -127,5 +126,47 @@ class ResourceStudy extends ActiveRecord {
         ]);
         return $dataProvider;
     }
+
+    /**
+     * 资源列表搜索
+     * @param $params
+     * @return ActiveDataProvider
+     */
+    public function searchReuser($params)
+    {
+        $query = $this::find();
+        $startTime = $params['startTime'] ?? '';
+        $endTime = $params['endTime'] ?? '';
+        $username = $params['username'] ?? '';
+        if($startTime){
+            $query->andFilterWhere(['>=', 'created_at', strtotime($startTime)]);
+        }
+        if($endTime){
+            $query->andFilterWhere(['<=', 'created_at', strtotime($endTime)]);
+        }
+        if($username){
+            $memberModel = Member::find()->where(['like', 'username' ,$username])->all();
+            $uid = [];
+            if($memberModel){
+                foreach ($memberModel as $key => $val){
+                    $uid[] = $val->id;
+                }
+            }
+            if($uid){
+                $query->andFilterWhere(['uid' => $uid]);
+            }else{
+                //搜索为空
+                $query->andFilterWhere(['id' => '']);
+            }
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $dataProvider;
+    }
+   
 
 }

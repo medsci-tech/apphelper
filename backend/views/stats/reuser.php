@@ -14,11 +14,9 @@ $this->title = '资源统计';
 $this->params['breadcrumbs'][] = $this->title;
 
 $get = $yiiApp->request->get();
+$startTimeSearch = $get['startTime'] ?? '';
+$endTimeSearch = $get['endTime'] ?? '';
 $usernameSearch = $get['username'] ?? '';
-$rid = $get['rid'];
-
-$this->params['stats']['resourceInfo'] = $resourceInfo;
-
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
@@ -26,16 +24,22 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource-yi?rid=' . $rid,
+                'action' => 'reuser',
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
-            <?= Html::a('返回', $referrerUrl ?? 'index', ['class' => 'btn btn-white']) ?>
+            <div class="form-group">
+                <label class="control-label">起始时间</label>
+                <input id="startTime" type="text" class="form-control layer-date" name="startTime" value="<?php echo $startTimeSearch?>">
+            </div>
+            <div class="form-group">
+                <label class="control-label">截止时间</label>
+                <input id="endTime" type="text" class="form-control layer-date" name="endTime" value="<?php echo $endTimeSearch?>">
+            </div>
             <div class="form-group">
                 <label class="control-label">手机号</label>
                 <input type="text" class="form-control" name="username" value="<?php echo $usernameSearch?>">
             </div>
-
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
             <?= Html::a('导出', 'explode', ['class' => 'btn btn-success']) ?>
             <?php ActiveForm::end(); ?>
@@ -49,20 +53,6 @@ backend\assets\AppAsset::register($this);
                     [
                         'class' => 'yii\grid\SerialColumn',
                         'header' => '序号'
-                    ],
-                    [
-                        'attribute' => 'title',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['title'];
-                            },
-                    ],
-                    [
-                        'attribute' => 'attr_type',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['attr_type'];
-                            },
                     ],
                     [
                         'attribute' => 'real_name',
@@ -92,7 +82,7 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'view',
                         'value'=>
                             function($model){
-                                $result = ResourceStudy::find()->where(['uid' => $model->uid, 'rid' => $model->rid])->count('id');
+                                $result = $model::find()->where(['uid' => $model->uid])->count('id');
                                 return  $result;
                             },
                     ],
@@ -100,7 +90,7 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'times',
                         'value'=>
                             function($model){
-                                $result = ResourceStudy::find()->where(['uid' => $model->uid, 'rid' => $model->rid])->sum('times');
+                                $result = $model::find()->where(['uid' => $model->uid])->sum('times');
                                 return  $result;
                             },
                     ],
@@ -111,7 +101,7 @@ backend\assets\AppAsset::register($this);
                         'buttons' => [
                             'view'=> function ($url, $model, $key) {
                                 $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
-                                return Html::a($aHtml,['resource-er','rid'=>$model->rid, 'uid' => $model->uid]);
+                                return Html::a($aHtml,['reuser-yi','uid' => $model->uid]);
                             },
                         ],
                     ]
