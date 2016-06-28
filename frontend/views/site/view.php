@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <title>文章详情</title>
-    <link rel="stylesheet" href="/css/plyr/plyr.css">
+    <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<!--    <link rel="stylesheet" href="/css/plyr/plyr.css">-->
 </head>
 <style>
     * {
@@ -43,40 +44,31 @@
     img{
         width: 100%;
     }
-    .player{
-        width: 100%;
-    }
+
 </style>
 <body>
 <div class="article">
     <div class="content">
         <div class="article_time">发布时间：<?= date('Y-m-d h:m:s', $data['publish_time']) ?></div>
-         <div class="player">
-            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
-                <!-- Video files -->
-                <source src="http://7xvmio.com1.z0.glb.clouddn.com/6140716hd.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="player">
-            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
-                <!-- Video files -->
-                <source src="http://7xvmio.com1.z0.glb.clouddn.com/test.mp4" type="video/mp4">
-            </video>
-        </div>
-            <div class="player">
-            <video poster="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.jpg" controls crossorigin>
-                <!-- Video files -->
-                <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type="video/mp4">
-            </video>
-        </div>
+        <video id="" class="video-js vjs-default-skin vjs-big-play-centered"
+               controls preload="auto" width="100%"
+               poster="http://video-js.zencoder.com/oceans-clip.png"
+               data-setup='{"example_option":true}'>
+            <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type='video/mp4' />
+        </video>
         <div class="article_details"><?= $data['content'] ?></div>
     </div>
 </div>
 <input type="hidden" id="txt_value">
 </body>
 </html>
-<script src="/js/plyr.js"></script>
-<script>plyr.setup();</script>
+<!--<script src="/js/plyr.js"></script>
+<script>plyr.setup();</script>-->
+<script src="http://vjs.zencdn.net/4.12/video.js"></script>
+<script type="text/javascript">
+    document.createElement('video');document.createElement('audio');document.createElement('track');
+
+</script>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
     var temp = null;
