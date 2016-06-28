@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $get = $yiiApp->request->get();
 $usernameSearch = $get['username'] ?? '';
+$rid = $get['rid'];
 
 $this->params['stats']['resourceInfo'] = $resourceInfo;
 
@@ -25,7 +26,7 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => 'resource-yi',
+                'action' => 'resource-yi?rid=' . $rid,
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
