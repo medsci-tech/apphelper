@@ -47,6 +47,7 @@ class ResourceStudy extends ActiveRecord {
             'username' => '手机号',
             'view' => '浏览数',
             'times' => '时长',
+            'created_at' => '浏览时间',
         ];
     }
 
@@ -127,5 +128,48 @@ class ResourceStudy extends ActiveRecord {
         ]);
         return $dataProvider;
     }
+
+    /**
+     * 资源列表搜索
+     * @param $params
+     * @return ActiveDataProvider
+     */
+    public function searchReuser($params)
+    {
+        $query = $this::find();
+        $startTime = $params['startTime'] ?? '';
+        $endTime = $params['endTime'] ?? '';
+        $username = $params['username'] ?? '';
+        if($startTime){
+            $query->andFilterWhere(['>=', 'created_at', strtotime($startTime)]);
+        }
+        if($endTime){
+            $query->andFilterWhere(['<=', 'created_at', strtotime($endTime)]);
+        }
+//        $classResourceModel = (new ResourceClass())->getDataForWhere(['attr_type' => $attr_type]);
+//        $typeList = [];
+//        foreach ($classResourceModel as $key => $val){
+//            $typeList[] = $val['id'];
+//        }
+//        $resourceModel = Resource::find()->where(['rid' => $typeList])->andWhere(['like', 'title' ,$title])->all();
+//        $resourceStudyWhere = [];
+//        foreach ($resourceModel as $key => $val){
+//            $resourceStudyWhere[] = $val->id;
+//        }
+//        if($resourceStudyWhere){
+//            $query->andFilterWhere(['rid' => $resourceStudyWhere]);
+//        }else{
+//            //搜索为空
+//            $query->andFilterWhere(['id' => '']);
+//        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $dataProvider;
+    }
+   
 
 }
