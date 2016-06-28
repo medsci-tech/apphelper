@@ -49,7 +49,6 @@
     .ppt img:first-child{
         display: block;
     }
-
 </style>
 <body>
 <div class="article">
@@ -82,7 +81,6 @@
             imgList.eq(i).attr('data-position',i);
             imgArray[i] = imgList.eq(i).attr('src');
         }
-
         $('img').click(function(){
             var position = $(this).attr('data-position');
             var jsonString = {
@@ -91,20 +89,16 @@
             };
             temp = jsonString;
             console.log(jsonString);
-
             if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
 //                window.location="https://itunes.apple.com/xxx";
-                  clickImg();
+                clickImg();
             }
             else if (browser.versions.android) {
 //                window.location="http://xxx/xxx.apk";
                 appCallJs();
             }
-
-
         });
     });
-
     function clickImg(){
 //        console.log(temp.imageList[temp.position]);
         var params="ClickImage:"+JSON.stringify(temp);
@@ -114,14 +108,12 @@
 //        location.href = url+"&"+params;
         document.location = params;
     }
-
     function appCallJs(){
         var jsonString = JSON.stringify(temp);
         console.log(111);
         console.log(jsonString);
         Client.showImage(jsonString);
     }
-
     var browser = {
         versions: function() {
             var u = navigator.userAgent, app = navigator.appVersion;
@@ -140,6 +132,4 @@
         }(),
         language: (navigator.browserLanguage || navigator.language).toLowerCase()
     }
-
-
 </script>
