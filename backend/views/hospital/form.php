@@ -24,7 +24,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
-    <?= $form->field($model, 'id')->input('hidden')->label(false) ?>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
@@ -36,7 +35,15 @@ use yii\widgets\ActiveForm;
 $js = <<<JS
     $('#myModal #hospitalFormSubmit').click(function() {
         getRegionValue('Hospital','tableForm');/*地区联动*/
-        $('#myModal #tableForm').submit();
+        var data = getRegionReturnValue('myModal');
+        var elmeParent = '#myModal';
+        data.name = $(elmeParent + ' #hospitalName').val();
+        data.address = $(elmeParent + ' #hospital-address').val();
+        data.status = $(elmeParent + ' #hospital-status').val();
+        var action = $(elmeParent + ' #tableForm').attr('action');
+        var href = window.location.href;
+        console.log(action);
+        subActionAjaxForMime('post', action, {'Hospital':data}, href);
     });
 JS;
 $this->registerJs($js);

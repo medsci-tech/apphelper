@@ -94,16 +94,15 @@ class HospitalController extends BackendController
                 $model->created_at = time();
             }
             $result = $model->save(false);
-            if($result){
-                $return = ['success', '操作成功哦'];
-            }else{
-                $return = ['error', '操作失败哦'];
+            if ($result) {
+                $return = ['code' => 200, 'msg' => '', 'data' => ''];
+            } else {
+                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
             }
         }else{
-            $return = ['error', '操作失败哦'];
+            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        $this->redirect('index');
+        $this->ajaxReturn($return);
     }
 
     public function actionDelete($id)

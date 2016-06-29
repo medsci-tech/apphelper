@@ -84,29 +84,28 @@ class BackendUserController extends BackendController {
         }else{
             $model = new User();
         }
-
-        $params = $appYii->request->post();
-        $user = $params['User'];
-        $model->username = $user['username'];
-        $model->email = $user['email'];
-        $model->address = $user['address'];
-//        $model->load($appYii->request->post());
+        $model->load($appYii->request->post());
         $isValid = $model->validate();
-
         if ($isValid) {
             if(!isset($model->id)){
+                if(isset($model->password)){
+                    $password = $model->password;
+                }else{
+                    $password = Yii::$app->params['member']['defaultPwd'];
+                }
+                $model->setPassword($password);
+                $model->generateAuthKey();
                 $model->created_at = time();
             }
             $result = $model->save(false);
-            if($result){
-                $return = ['success', '操作成功哦'];
-            }else{
-                $return = ['error', '操作失败哦'];
+            if ($result) {
+                $return = ['code' => 200, 'msg' => '', 'data' => ''];
+            } else {
+                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
             }
         }else{
-            $return = ['error', '操作失败哦'];
+            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        $this->redirect('index');
+        $this->ajaxReturn($return);
     }
 }

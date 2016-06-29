@@ -32,7 +32,6 @@ getRegionValue = function (m, parentBom) {
     regionHtml += '<input type="hidden" name="' + m + '[area]" value="' + area.text() + '">';
 
     $(parentBom + '[data-toggle="city-picker-region"]').html(regionHtml);
-    console.log(area);
 };
 
 /**
