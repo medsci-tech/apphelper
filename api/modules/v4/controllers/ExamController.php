@@ -39,7 +39,7 @@ class ExamController extends \api\common\controllers\Controller
         $offset=$pagesize*($page - 1); //计算记录偏移量
         
         $model = new $this->modelClass();
-        $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1];
+        $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1,'id'=>1];
         $orderBy= [ 'publish_time' => SORT_DESC, 'created_at' => SORT_DESC];
         $data = $model::find()->select(['id','name as title','minutes','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',',''))+1)AS total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
         /*  查询历史考试记录  */
@@ -380,10 +380,10 @@ class ExamController extends \api\common\controllers\Controller
                         $level = $data['level'];
                   break;
                 default:
-                    $level = '未定义';           
+                    $level = $minRate;           
             }
         }
-        return $level;
+        return $level ?? $minRate;
     }
     
      /**
