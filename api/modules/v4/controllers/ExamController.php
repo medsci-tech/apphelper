@@ -49,7 +49,7 @@ class ExamController extends \api\common\controllers\Controller
             foreach($data as &$val){
                 $maxTime = $val['minutes']*60; //最大时间       
                 $where =['exa_id'=>$val['id'],'uid'=>$this->uid];
-                $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where($where)->asArray()->one();//最后答题记录
+                $log = ExamLog::find()->OrderBy(['answers'=>SORT_DESC])->where($where)->asArray()->one();//最佳答题记录
                 if($log['status']==1)
                 {
                     /* 根据成绩计算等级 */
