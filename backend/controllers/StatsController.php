@@ -252,6 +252,9 @@ class StatsController extends BackendController
         $query = $search->searchResource($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('rid'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $attrType = $appYii->params['resourceClass']['attrType'];
         $dataArray = [];
@@ -294,6 +297,9 @@ class StatsController extends BackendController
         $query = $search->searchResourceYi($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $resourceModel = Resource::findOne($rid);
         $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
@@ -342,6 +348,9 @@ class StatsController extends BackendController
         $query = $search->searchResourceEr($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $resourceModel = Resource::findOne($rid);
         $attr_type = ResourceClass::findOne($resourceModel->rid)->attr_type;
@@ -404,6 +413,9 @@ class StatsController extends BackendController
         $query = $search->searchReuser($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
@@ -444,6 +456,9 @@ class StatsController extends BackendController
         $query = $search->searchReuserYi($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('rid'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $memberModel = Member::findOne($uid);
         $memberInfo = [
@@ -656,6 +671,9 @@ class StatsController extends BackendController
         $query = $search->searchExam($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('exa_id'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
@@ -689,6 +707,9 @@ class StatsController extends BackendController
         $query = $search->searchExamInfo($queryParams);
         $dataProvider = new ActiveDataProvider([
             'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
         ]);
         $examModel = Exam::findOne($exa_id);
         $examLevelModel = ExamLevel::find()->where(['exam_id' => $examModel->id])->all();
