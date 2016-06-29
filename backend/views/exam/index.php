@@ -71,7 +71,13 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'publish_time:datetime',
+                    [
+                        'attribute' => 'publish_time',
+                        'value' =>
+                            function ($model) {
+                                return $model->publish_time > 0 ? date('Y-m-d H:i:s', $model->publish_time) : '';
+                            },
+                    ],
                     [
                         'attribute' => 'status',
                         'value' =>
