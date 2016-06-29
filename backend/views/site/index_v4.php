@@ -8,37 +8,23 @@
                 <div class="ibox-content">
                     <div>
                             <span class="pull-right text-right">
-                                        <small>在过去销售额最高的地区： <strong>广东</strong></small>
-                                            <br/>
-                                            共销售：162,862
+             
                                         </span>
-                        <h1 class="m-b-xs">$ 50,992</h1>
-                        <h3 class="font-bold no-margins">
-                            半年销售额
-                        </h3>
-                        <small>市场部</small>
+                        <h1 class="m-b-xs"><img src="/img/ab_right.png"></h1>
+                        <h1 class="m-b-xs"><img src="/img/about_img.png"></h1>
                     </div>
 
                     <div class="flot-chart" style="height: 140px">
                         <div class="flot-chart-content" id="flot-chart3"></div>
                     </div>
 
-                    <div class="m-t-md">
-                        <small class="pull-right">
-                            <i class="fa fa-clock-o"> </i>
-                            最后更新：2014.11.11
-                        </small>
-                        <small>
-                            <strong>销售分析：</strong> 该值已随时间发生变化，上个月达到的水平超过50,000元。
-                        </small>
-                    </div>
 
                 </div>
             </div>
         </div>
     </div>
 
-
+<!--
     <div class="row">
 
         <div class="col-sm-4">
@@ -306,7 +292,7 @@
             </div>
         </div>
 
-    </div>
+    </div>-->
 
 </div>
 <!--<script src="/js/jquery.min.js?v=2.1.4"></script>

@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use common\models\Exam;
 use common\models\ExamLevel;
-use yii\helpers\ArrayHelper;
+use common\models\ExamLog;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,7 +19,6 @@ $nameSearch = $get['name'] ?? '';
 $uid = $get['uid'];
 
 $this->params['stats']['memberInfo'] = $memberInfo;
-$referrerUrl = Yii::$app->request->referrer ?? 'exuser';
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
@@ -31,7 +30,7 @@ backend\assets\AppAsset::register($this);
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
-            <?= Html::a('返回', $referrerUrl ?? 'exuser', ['class' => 'btn btn-white']) ?>
+            <?= Html::a('返回', $referrerUrl, ['class' => 'btn btn-white']) ?>
             <div class="form-group">
                 <label class="control-label">试卷名</label>
                 <input type="text" class="form-control" name="name" value="<?php echo $nameSearch?>">
@@ -118,9 +117,10 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'rate',
                         'value'=>
                             function($model){
+                                $examLogModel = $model::find()->where(['uid' => $model->uid, 'exa_id' => $model->exa_id])->max('answers');
                                 $result = 0;
                                 if($this->params['stats']['examInfo']['examLength'] > 0){
-                                    $result = round($model->answers * 100 / $this->params['stats']['examInfo']['examLength']);
+                                    $result = round($examLogModel * 100 / $this->params['stats']['examInfo']['examLength']);
                                 }
                                 /*等级*/
                                 $rateExam = $this->params['stats']['examInfo']['rateExam'];
