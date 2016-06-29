@@ -138,14 +138,10 @@ $js=<<<JS
         var address = $(this).attr('address');
         var email = $(this).attr('email');
 
-        console.log('name:'+name);
-        console.log('email:'+email);
-
         $('#user-id').val(id);
-        $('#user-username').val(name);
-        console.log($('#user-username').val(name));
-        $('#user-email').val(email);
-        $('#user-address').val(address);
+        $('#userFormName').val(name);
+        $('#userFormMail').val(email);
+        $('#userFormAddress').val(address);
         $('#myModal #tableForm').attr('action', '$formUrl?id='+id);
 
     });
@@ -154,9 +150,9 @@ $js=<<<JS
    $('#btn_add').click(function() {
         var defaltData = '';
         $('#user-id').val(defaltData);
-        $('#user-username').val(defaltData);
-        $('#user-address').val(defaltData);
-        $('#user-email').val(defaltData);
+        $('#userFormName').val(defaltData);
+        $('#userFormAddress').val(defaltData);
+        $('#userFormMail').val(defaltData);
         $('#myModal #tableForm').attr('action', '$formUrl');
 
    });
