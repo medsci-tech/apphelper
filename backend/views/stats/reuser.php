@@ -41,7 +41,12 @@ backend\assets\AppAsset::register($this);
                 <input type="text" class="form-control" name="username" value="<?php echo $usernameSearch?>">
             </div>
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('导出', 'explode', ['class' => 'btn btn-success']) ?>
+            <?= Html::a('导出', [
+                'reuser-export',
+                'startTime' => $startTimeSearch,
+                'endTime' => $endTimeSearch,
+                'username' => $usernameSearch,
+            ], ['class' => 'btn btn-success']) ?>
             <?php ActiveForm::end(); ?>
         </div>
     </div>
