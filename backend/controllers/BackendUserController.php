@@ -85,8 +85,14 @@ class BackendUserController extends BackendController {
             $model = new User();
         }
 
-        $model->load($appYii->request->post());
+        $params = $appYii->request->post();
+        $user = $params['User'];
+        $model->username = $user['username'];
+        $model->email = $user['email'];
+        $model->address = $user['address'];
+//        $model->load($appYii->request->post());
         $isValid = $model->validate();
+
         if ($isValid) {
             if(!isset($model->id)){
                 $model->created_at = time();

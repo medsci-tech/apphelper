@@ -14,9 +14,9 @@ use yii\widgets\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin(['action' => ['backend-user/create'],'method'=>'post','id'=>'tableForm']); ?>
     <div class="modal-body">
-        <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'username')->textInput(['maxlength' => true, 'id' => 'userFormName']) ?>
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'id' => 'userFormMail']) ?>
+        <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'id' => 'userFormAddress']) ?>
 
         <?= $form->field($model, 'id')->input('hidden')->label(false) ?>
     </div>
