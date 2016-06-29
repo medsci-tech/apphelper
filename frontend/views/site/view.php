@@ -18,7 +18,6 @@
     .article{
         margin-left: auto;
         margin-right: auto;
-        padding-bottom: 100px;
     }
     .content{
         position: relative;
