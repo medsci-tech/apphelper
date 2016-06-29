@@ -22,7 +22,7 @@ backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
     <div class="navbar-btn">
-        <?= Html::a('返回', $referrerUrl ?? 'resource', ['class' => 'btn btn-white']) ?>
+        <?= Html::a('返回', $referrerUrl, ['class' => 'btn btn-white']) ?>
         <?= Html::a('导出', [
             'resource-er-export',
             'rid' => $rid,

@@ -22,7 +22,7 @@ backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
     <div class="navbar-btn">
-        <?= Html::a('返回', $referrerUrl ?? 'reuser', ['class' => 'btn btn-white']) ?>
+        <?= Html::a('返回', $referrerUrl, ['class' => 'btn btn-white']) ?>
         <?= Html::a('导出', [
             'reuser-er-export',
             'rid' => $rid,

@@ -84,7 +84,7 @@ class StatsController extends BackendController
         $referrerUrl = Yii::$app->request->cookies->getValue('stats-resource-html');
         return $this->render('resource-yi', [
             'dataProvider' => $dataProvider,
-            'referrerUrl' => $referrerUrl,
+            'referrerUrl' => $referrerUrl ?? 'resource',
             'resourceInfo' => $resourceInfo,
         ]);
     }
@@ -124,7 +124,7 @@ class StatsController extends BackendController
         $referrerUrl = Yii::$app->request->cookies->getValue('stats-resource-yi-html');
         return $this->render('resource-er', [
             'dataProvider' => $dataProvider,
-            'referrerUrl' => $referrerUrl,
+            'referrerUrl' => $referrerUrl ?? 'resource',
             'memberInfo' => $memberInfo,
             'resourceInfo' => $resourceInfo,
         ]);
@@ -193,7 +193,7 @@ class StatsController extends BackendController
         $referrerUrl = Yii::$app->request->cookies->getValue('stats-reuser-html');
         return $this->render('reuser-yi', [
             'dataProvider' => $dataProvider,
-            'referrerUrl' => $referrerUrl,
+            'referrerUrl' => $referrerUrl ?? 'reuser',
             'memberInfo' => $memberInfo,
         ]);
     }
@@ -233,7 +233,7 @@ class StatsController extends BackendController
         $referrerUrl = Yii::$app->request->cookies->getValue('stats-reuser-yi-html');
         return $this->render('reuser-er', [
             'dataProvider' => $dataProvider,
-            'referrerUrl' => $referrerUrl,
+            'referrerUrl' => $referrerUrl ?? 'reuser',
             'memberInfo' => $memberInfo,
             'resourceInfo' => $resourceInfo,
         ]);
@@ -519,6 +519,11 @@ class StatsController extends BackendController
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
         ]);
+        //记录本页面URL
+        Yii::$app->response->cookies->add(new Cookie([
+            'name' => 'stats-exam-html',
+            'value' => Yii::$app->request->url,
+        ]));
         return $this->render('exam', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
@@ -567,9 +572,11 @@ class StatsController extends BackendController
             'examLength' => $examLength,
             'rateExam' => $rateExam,
         ];
+        $referrerUrl = Yii::$app->request->cookies->getValue('stats-exam-html');
         return $this->render('exam-info', [
             'dataProvider' => $dataProvider,
             'examInfo' => $examInfo,
+            'referrerUrl' => $referrerUrl ?? 'exam',
         ]);
     }
 
@@ -592,6 +599,11 @@ class StatsController extends BackendController
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
         ]);
+        //记录本页面URL
+        Yii::$app->response->cookies->add(new Cookie([
+            'name' => 'stats-exuser-html',
+            'value' => Yii::$app->request->url,
+        ]));
         return $this->render('exuser', [
             'searchModel' => $search,
             'dataProvider' => $dataProvider,
@@ -612,7 +624,7 @@ class StatsController extends BackendController
         $search = new ExamLog();
         $query = $search->searchExuserInfo($queryParams);
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->orderBy(['answers' => SORT_DESC]),
+            'query' => $query->orderBy(['answers' => SORT_DESC])->groupBy('exa_id'),
             'pagination' => [
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
@@ -623,9 +635,11 @@ class StatsController extends BackendController
             'real_name' => $memberModel->real_name ?? '',
             'nickname' => $memberModel->nickname ?? '',
         ];
+        $referrerUrl = Yii::$app->request->cookies->getValue('stats-exuser-html');
         return $this->render('exuser-info', [
             'dataProvider' => $dataProvider,
             'memberInfo' => $memberInfo,
+            'referrerUrl' => $referrerUrl ?? 'exuser',
         ]);
     }
 

@@ -87,7 +87,7 @@ backend\assets\AppAsset::register($this);
                             'label' => '所答试卷数',
                             'value'=>
                                 function($model){
-                                    $result = $model::find()->where(['uid' => $model->uid])->count('id');
+                                    $result = $model::find()->where(['uid' => $model->uid])->groupBy('exa_id')->count('id');
                                     return  $result;
                                 },
                         ],
