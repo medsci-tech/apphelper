@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <title>文章详情</title>
+    <title><?php echo $data['title']?></title>
     <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
 </head>
 <style>
