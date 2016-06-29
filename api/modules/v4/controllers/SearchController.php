@@ -44,7 +44,13 @@ class SearchController extends \api\common\controllers\Controller
         $resources = $exams =[];//初始化
         $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1];
         $orderBy= [ 'publish_time' => SORT_DESC, 'created_at' => SORT_DESC];
-        $resources = Resource::find()->select(['id','rid','title','imgurl','views','publish_time'])->OrderBy($orderBy)->where($where)->andWhere(['like', 'title', $keyword])->asArray()->all(); //所有推荐资源
+        $resources = Resource::find()->select(['id','rid','title','imgurl','views','publish_time'])
+                ->OrderBy($orderBy)
+                ->where($where)
+                ->andWhere(['like', 'title', $keyword])
+                ->orFilterWhere(['>', "LOCATE('".$keyword."',keyword)", 0])
+                ->asArray()
+                ->all(); //所有推荐资源
         if($resources)
         {
             $rids = ArrayHelper::getColumn($resources, 'rid'); // 关联资源分类id  

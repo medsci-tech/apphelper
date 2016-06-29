@@ -8,6 +8,9 @@
 
 namespace backend\controllers;
 
+use common\models\Exam;
+use common\models\ExamLevel;
+use common\models\ExamLog;
 use common\models\Member;
 use common\models\Resource;
 use common\models\ResourceClass;
@@ -501,12 +504,73 @@ class StatsController extends BackendController
      * 考卷统计--按考卷统计
      * @author zhaiyu
      * @startDate 20160612
-     * @upDate 20160612
+     * @upDate 20160628
      * @return string
      */
     public function actionExam()
     {
+        $appYii = Yii::$app;
+        $queryParams = $appYii->request->queryParams;
+        $search = new ExamLog();
+        $query = $search->searchExam($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('exa_id'),
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $this->render('exam', [
+            'searchModel' => $search,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
+    /**
+     * 考卷统计--按考卷统计--详情
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
+     * @return string
+     */
+    public function actionExamInfo()
+    {
+        $queryParams = Yii::$app->request->queryParams;
+        $exa_id = $queryParams['exa_id'];
+        $search = new ExamLog();
+        $query = $search->searchExamInfo($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        $examModel = Exam::findOne($exa_id);
+        $examLevelModel = ExamLevel::find()->where(['exam_id' => $examModel->id])->all();
+        $rateExam = [];
+        if($examLevelModel){
+            foreach ($examLevelModel as $val){
+                $rateExam[$val['rate']] = [
+                    'rate' => $val['rate'],
+                    'level' => $val['level'],
+                    'condition' => $val['condition'],
+                ];
+            }
+        }
+        if(1 == $examModel->type){
+            $examLength = $examModel->total;
+        }else{
+            $exe_ids = explode(',', $examModel->exe_ids);
+            $examLength = count($exe_ids);
+        }
+        $examInfo = [
+            'name' => $examModel->name ?? '',
+            'examLength' => $examLength,
+            'rateExam' => $rateExam,
+        ];
+        return $this->render('exam-info', [
+            'dataProvider' => $dataProvider,
+            'examInfo' => $examInfo,
+        ]);
     }
 
     /**
@@ -518,7 +582,51 @@ class StatsController extends BackendController
      */
     public function actionExuser()
     {
+        $appYii = Yii::$app;
+        $queryParams = $appYii->request->queryParams;
+        $search = new ExamLog();
+        $query = $search->searchExam($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        return $this->render('exuser', [
+            'searchModel' => $search,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
+    /**
+     * 考卷统计--按用户统计--详情
+     * @author zhaiyu
+     * @startDate 20160628
+     * @upDate 20160628
+     * @return string
+     */
+    public function actionExuserInfo()
+    {
+        $queryParams = Yii::$app->request->queryParams;
+        $uid = $queryParams['uid'];
+        $search = new ExamLog();
+        $query = $search->searchExuserInfo($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->orderBy(['answers' => SORT_DESC]),
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
+        $memberModel = Member::findOne($uid);
+        $memberInfo = [
+            'username' => $memberModel->username ?? '',
+            'real_name' => $memberModel->real_name ?? '',
+            'nickname' => $memberModel->nickname ?? '',
+        ];
+        return $this->render('exuser-info', [
+            'dataProvider' => $dataProvider,
+            'memberInfo' => $memberInfo,
+        ]);
     }
 
 }

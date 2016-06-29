@@ -4,21 +4,22 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use common\models\Member;
-use common\models\ResourceStudy;
+use common\models\ExamLevel;
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\Article */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $yiiApp = Yii::$app;
-$this->title = '资源统计';
+$this->title = '试卷统计';
 $this->params['breadcrumbs'][] = $this->title;
 
 $get = $yiiApp->request->get();
 $usernameSearch = $get['username'] ?? '';
-$rid = $get['rid'];
+$exa_id = $get['exa_id'];
 
-$this->params['stats']['resourceInfo'] = $resourceInfo;
-
+$this->params['stats']['examInfo'] = $examInfo;
+$referrerUrl = Yii::$app->request->referrer ?? 'exam';
 backend\assets\AppAsset::register($this);
 ?>
 <div class="modal-body">
@@ -26,11 +27,11 @@ backend\assets\AppAsset::register($this);
         <div class="hospital-search">
             <?php
             $form = ActiveForm::begin([
-                'action' => ['resource-yi', 'rid' => $rid],
+                'action' => ['exam-info', 'exa_id' => $exa_id],
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
-            <?= Html::a('返回', $referrerUrl ?? 'resource', ['class' => 'btn btn-white']) ?>
+            <?= Html::a('返回', $referrerUrl ?? 'exam', ['class' => 'btn btn-white']) ?>
             <div class="form-group">
                 <label class="control-label">手机号</label>
                 <input type="text" class="form-control" name="username" value="<?php echo $usernameSearch?>">
@@ -38,8 +39,8 @@ backend\assets\AppAsset::register($this);
 
             <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
             <?= Html::a('导出', [
-                'resource-yi-export',
-                'rid' => $rid,
+                'exam-info-export',
+                'exa_id' => $exa_id,
                 'username' => $usernameSearch,
             ], ['class' => 'btn btn-success']) ?>
             <?php ActiveForm::end(); ?>
@@ -55,17 +56,10 @@ backend\assets\AppAsset::register($this);
                         'header' => '序号'
                     ],
                     [
-                        'attribute' => 'title',
+                        'attribute' => 'name',
                         'value'=>
                             function($model){
-                                return  $this->params['stats']['resourceInfo']['title'];
-                            },
-                    ],
-                    [
-                        'attribute' => 'attr_type',
-                        'value'=>
-                            function($model){
-                                return  $this->params['stats']['resourceInfo']['attr_type'];
+                                return  $this->params['stats']['examInfo']['name'];
                             },
                     ],
                     [
@@ -93,66 +87,56 @@ backend\assets\AppAsset::register($this);
                             },
                     ],
                     [
-                        'attribute' => 'view',
-                        'value'=>
-                            function($model){
-                                $result = ResourceStudy::find()->where(['uid' => $model->uid, 'rid' => $model->rid])->count('id');
-                                return  $result;
-                            },
-                    ],
-                    [
                         'attribute' => 'times',
                         'value'=>
                             function($model){
-                                $result = ResourceStudy::find()->where(['uid' => $model->uid, 'rid' => $model->rid])->sum('times');
-                                return  $result;
+                                return  date('Y-m-d H:i:s',$model->start_time) . '～' . date('Y-m-d H:i:s',$model->end_time);
                             },
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
-                        'template'=>'{view}',
-                        'header' => '操作',
-                        'buttons' => [
-                            'view'=> function ($url, $model, $key) {
-                                $aHtml = '<span class="glyphicon glyphicon-eye-open"></span>';
-                                return Html::a($aHtml,['resource-er','rid'=>$model->rid, 'uid' => $model->uid]);
+                        'attribute' => 'rate',
+                        'value'=>
+                            function($model){
+                                $result = 0;
+                                if($this->params['stats']['examInfo']['examLength'] > 0){
+                                    $result = round($model->answers * 100 / $this->params['stats']['examInfo']['examLength']);
+                                }
+                                /*等级*/
+                                $rateExam = $this->params['stats']['examInfo']['rateExam'];
+                                ksort($rateExam);
+                                $level = '未知';
+                                foreach ($rateExam as &$val){
+                                    switch ($val['condition']){
+                                        case 0:
+                                            if($result == $val['rate']){
+                                                $level = $val['level'];
+                                            };
+                                            break;
+                                        case 1:
+                                            if($result >= $val['rate']){
+                                                $level = $val['level'];
+                                            };
+                                            break;
+                                        case -1:
+                                            if($result < $val['rate']){
+                                                $level = $val['level'];
+                                            };
+                                            break;
+                                    }
+                                }
+                                $this->params['stats']['level'] = $level;
+                                return  $result . '%';
                             },
-                        ],
-                    ]
+                    ],
+                    [
+                        'attribute' => 'level',
+                        'value'=>
+                            function($model){
+                                return  $this->params['stats']['level'];
+                            },
+                    ],
                 ],
             ]); ?>
         </div>
     </div>
 </div>
-
-<?php
-$js = <<<JS
-$('#type-list-search').chosen({width: '240px'});
-var start = {
-    elem: '#startTime',
-    format: 'YYYY/MM/DD hh:mm:ss',
-    min: '2000-00-00 00:00:00', //设定最小日期为当前日期
-    max: '2099-06-16 23:59:59', //最大日期
-    istime: true,
-    istoday: false,
-    choose: function(datas){
-         end.min = datas; //开始日选好后，重置结束日的最小日期
-         end.start = datas //将结束日的初始值设定为开始日
-    }
-};
-var end = {
-    elem: '#endTime',
-    format: 'YYYY/MM/DD hh:mm:ss',
-    min: '2000-00-00 00:00:00',
-    max: '2099-06-16 23:59:59',
-    istime: true,
-    istoday: false,
-    choose: function(datas){
-        start.max = datas; //结束日选好后，重置开始日的最大日期
-    }
-};
-laydate(start);
-laydate(end);
-JS;
-$this->registerJs($js);
-?>

@@ -18,7 +18,6 @@
     .article{
         margin-left: auto;
         margin-right: auto;
-        padding-bottom: 100px;
     }
     .content{
         position: relative;
@@ -54,17 +53,24 @@
 <div class="article">
     <div class="content">
         <div class="article_time">发布时间：<?= date('Y-m-d h:m:s', $data['publish_time']) ?></div>
+        <?php if($data['ppt_imgurl']) {?>
         <div class="ppt">
-            <img src="http://7xshr6.com1.z0.glb.clouddn.com/1%20(2).png">
-            <img src="http://7xshr6.com1.z0.glb.clouddn.com/1%20(2).png">
+            <?php foreach($data['ppt_imgurl'] as $key =>$val) { ?>
+            <img data-img="<?php echo $val.'?imageView2/2/w/500/h/450/format/jpg/interlace/1/q/85'?>"  src="<?php echo $val.'?imageView2/2/w/300/h/250/format/jpg/interlace/1/q/85'?>">
+            <?php }?>
         </div>
+        <?php }?>
+        <?php if($data['videourl']) {?>
         <video id="" class="video-js vjs-default-skin vjs-big-play-centered"
                controls preload="auto" width="100%"
                poster=""
                data-setup='{"example_option":true}'>
-            <source src="https://cdn.selz.com/plyr/1.5/View_From_A_Blue_Moon_Trailer-HD.mp4" type='video/mp4' />
+            <source src="<?php echo $data['videourl'];?>" type='video/mp4' />
         </video>
+        <?php }?>
+        <?php if($data['content']) {?>
         <div class="article_details"><?= $data['content'] ?></div>
+        <?php }?>
     </div>
 </div>
 <input type="hidden" id="txt_value">
@@ -79,7 +85,7 @@
         var imgArray = [];
         for(var i = 0; i < imgList.length; i++){
             imgList.eq(i).attr('data-position',i);
-            imgArray[i] = imgList.eq(i).attr('src');
+            imgArray[i] = imgList.eq(i).attr('data-img');
         }
         $('img').click(function(){
             var position = $(this).attr('data-position');
@@ -102,7 +108,7 @@
     function clickImg(){
 //        console.log(temp.imageList[temp.position]);
         var params="ClickImage:"+JSON.stringify(temp);
-        console.log(params);
+        //console.log(params);
 //        console.log(url);
 //        var url = location.href;
 //        location.href = url+"&"+params;
@@ -110,8 +116,7 @@
     }
     function appCallJs(){
         var jsonString = JSON.stringify(temp);
-        console.log(111);
-        console.log(jsonString);
+        //console.log(jsonString);
         Client.showImage(jsonString);
     }
     var browser = {
