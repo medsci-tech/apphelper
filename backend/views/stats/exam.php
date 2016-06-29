@@ -23,7 +23,7 @@ backend\assets\AppAsset::register($this);
             <div class="hospital-search">
                 <?php
                 $form = ActiveForm::begin([
-                    'action' => 'reuser',
+                    'action' => 'exam',
                     'method' => 'get',
                     'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
                 ]); ?>
@@ -41,7 +41,7 @@ backend\assets\AppAsset::register($this);
                 </div>
                 <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
                 <?= Html::a('导出', [
-                    'reuser-export',
+                    'exam-export',
                     'startTime' => $startTimeSearch,
                     'endTime' => $endTimeSearch,
                     'name' => $nameSearch,
@@ -71,7 +71,7 @@ backend\assets\AppAsset::register($this);
                             'label' => '答题人数',
                             'value'=>
                                 function($model){
-                                    $result = $model::find()->where(['exa_id' => $model->exa_id])->count('id');
+                                    $result = $model::find()->where(['exa_id' => $model->exa_id, 'status' => 1])->groupBy('uid')->count('id');
                                     return  $result;
                                 },
                         ],

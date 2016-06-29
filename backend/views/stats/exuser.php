@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
                     <input id="endTime" type="text" class="form-control layer-date" name="endTime" value="<?php echo $endTimeSearch?>">
                 </div>
                 <div class="form-group">
-                    <label class="control-label">试卷名</label>
+                    <label class="control-label">手机号</label>
                     <input type="text" class="form-control" name="username" value="<?php echo $nameSearch?>">
                 </div>
                 <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>
@@ -87,7 +87,7 @@ backend\assets\AppAsset::register($this);
                             'label' => '所答试卷数',
                             'value'=>
                                 function($model){
-                                    $result = $model::find()->where(['uid' => $model->uid])->count('id');
+                                    $result = $model::find()->where(['uid' => $model->uid])->groupBy('exa_id')->count('id');
                                     return  $result;
                                 },
                         ],
