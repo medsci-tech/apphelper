@@ -30,7 +30,7 @@ backend\assets\AppAsset::register($this);
                 'method' => 'get',
                 'options' => ['class' => 'form-inline navbar-btn','id'=>'searchForm'],
             ]); ?>
-            <?= Html::a('返回', $referrerUrl ?? 'index', ['class' => 'btn btn-white']) ?>
+            <?= Html::a('返回', $referrerUrl ?? 'reuser', ['class' => 'btn btn-white']) ?>
             <div class="form-group">
                 <label class="control-label">资源名</label>
                 <input type="text" class="form-control" name="title" value="<?php echo $nameSearch?>">
