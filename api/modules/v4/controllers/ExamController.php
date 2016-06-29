@@ -39,7 +39,7 @@ class ExamController extends \api\common\controllers\Controller
         $offset=$pagesize*($page - 1); //计算记录偏移量
         
         $model = new $this->modelClass();
-        $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1];
+        $where = ['status'=>1, 'publish_status'=>1,'recommend_status'=>1,'id'=>1];
         $orderBy= [ 'publish_time' => SORT_DESC, 'created_at' => SORT_DESC];
         $data = $model::find()->select(['id','name as title','minutes','imgurl',"if(type>0,total,LENGTH(exe_ids) - LENGTH(REPLACE(exe_ids,',',''))+1)AS total"])->OrderBy($orderBy)->where($where)->asArray()->all(); //所有推荐资源
         /*  查询历史考试记录  */
@@ -53,7 +53,7 @@ class ExamController extends \api\common\controllers\Controller
                 if($log['status']==1)
                 {
                     /* 根据成绩计算等级 */
-                    $rate = intval($log['answers']/$val['total'])*100; //正确率     
+                    $rate = intval($log['answers']/$val['total']*100); //正确率 
                     $level = self::getLevel($val['id'],$rate,$val['total']); // 根据正确率返回等级
                     $val['labelName']='历史最佳';
                     $val['labelValue']= $level;
@@ -71,10 +71,6 @@ class ExamController extends \api\common\controllers\Controller
                 }
   
                 $val['status'] = $log['status']==0 && $log['start_time']>0 ? '2' : $log['status'];
-                if (in_array($val['status'], [1,2]))
-                    $val['icon'] = 'http://o7f6z4jud.bkt.clouddn.com/images/level/1.jpg?imageView2/2/w/20/h/20/format/jpg/interlace/1/q/85';
-                else
-                    $val['icon'] = null; 
             }
         }
         
@@ -362,10 +358,11 @@ class ExamController extends \api\common\controllers\Controller
     private function getLevel($id,$rate=0,$total=1)
     {
         $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();
-        $map = ArrayHelper::map($result, 'rate', 'level');
+        $map = ArrayHelper::map($result, 'rate', 'level');   
         if($map)
-            sort($map);  
+            ksort($map);  
         $minRate = $map ? current($map) : 0;// 最小等级
+        
         foreach($result as &$data)
         {
             switch ($data['condition'])
@@ -373,25 +370,20 @@ class ExamController extends \api\common\controllers\Controller
                 case 0: // 等于
                   if($rate==$data['rate'])
                       $level = $data['level'];
-                  else
-                      $level = $minRate;
                   break;
                 case 1://大于等于
                     if($rate>=$data['rate'])
                         $level = $data['level'];
-                    else
-                      $level = $minRate;
                   break;
                 case -1:// 小于
                     if($rate<$data['rate'])
                         $level = $data['level'];
-                    else
-                        $level = $minRate;   
                   break;
                 default:
                     $level = '未定义';           
             }
         }
+                        echo($level);exit;
         return $level;
     }
     
