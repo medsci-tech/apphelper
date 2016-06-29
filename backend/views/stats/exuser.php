@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
                     <input id="endTime" type="text" class="form-control layer-date" name="endTime" value="<?php echo $endTimeSearch?>">
                 </div>
                 <div class="form-group">
-                    <label class="control-label">试卷名</label>
+                    <label class="control-label">手机号</label>
                     <input type="text" class="form-control" name="username" value="<?php echo $nameSearch?>">
                 </div>
                 <?= Html::submitButton('查询', ['class' => 'btn btn-primary']) ?>

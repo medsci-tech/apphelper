@@ -544,7 +544,7 @@ class StatsController extends BackendController
         $search = new ExamLog();
         $query = $search->searchExamInfo($queryParams);
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->groupBy('uid'),
             'pagination' => [
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
@@ -624,7 +624,7 @@ class StatsController extends BackendController
         $search = new ExamLog();
         $query = $search->searchExuserInfo($queryParams);
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->orderBy(['answers' => SORT_DESC])->groupBy('exa_id'),
+            'query' => $query->groupBy('exa_id'),
             'pagination' => [
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
@@ -641,6 +641,257 @@ class StatsController extends BackendController
             'memberInfo' => $memberInfo,
             'referrerUrl' => $referrerUrl ?? 'exuser',
         ]);
+    }
+
+    /**
+     * 试卷统计--按资源统计--列表导出
+     * @author zhaiyu
+     * @startDate 20160629
+     * @upDate 20160629
+     */
+    public function actionExamExport(){
+        $appYii = Yii::$app;
+        $queryParams = $appYii->request->queryParams;
+        $search = new ExamLog();
+        $query = $search->searchExam($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('exa_id'),
+        ]);
+        $dataArray = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $dataArray[$key]['name'] = Exam::findOne($val->exa_id)->name;
+            $dataArray[$key]['num'] = $search::find()->where(['exa_id' => $val->exa_id])->count('id');
+        }
+        $column = [
+            'name'=>['column'=>'A','name'=>'试卷名','width'=>30],
+            'num'=>['column'=>'B','name'=>'答题人数','width'=>20],
+        ];
+        $config = [
+            'fileName' => '资源统计列表导出-' . date('YmdHis'),
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $excel = new ExcelController();
+        $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 试卷统计--按资源统计--详细列表导出
+     * @author zhaiyu
+     * @startDate 20160629
+     * @upDate 20160629
+     */
+    public function actionExamInfoExport(){
+        $queryParams = Yii::$app->request->queryParams;
+        $exa_id = $queryParams['exa_id'];
+        $search = new ExamLog();
+        $query = $search->searchExamInfo($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('uid'),
+        ]);
+        $examModel = Exam::findOne($exa_id);
+        $examLevelModel = ExamLevel::find()->where(['exam_id' => $examModel->id])->all();
+        $rateExam = [];
+        if($examLevelModel){
+            foreach ($examLevelModel as $val){
+                $rateExam[$val['rate']] = [
+                    'rate' => $val['rate'],
+                    'level' => $val['level'],
+                    'condition' => $val['condition'],
+                ];
+            }
+        }
+        if(1 == $examModel->type){
+            $examLength = $examModel->total;
+        }else{
+            $exe_ids = explode(',', $examModel->exe_ids);
+            $examLength = count($exe_ids);
+        }
+        $examInfo = [
+            'examLength' => $examLength,
+            'rateExam' => $rateExam,
+        ];
+        $dataArray = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $member = Member::findOne($val->uid);
+            $dataArray[$key]['real_name'] = $member->real_name ?? '';
+            $dataArray[$key]['username'] = $member->username ?? '';
+            $dataArray[$key]['name'] = $examModel->name ?? '';
+            $getMaxAnswer = ExamLog::find()->where(['uid' => $val->uid, 'exa_id' => $val->exa_id])->max('answers');
+            if($examInfo['examLength'] > 0){
+                $rate = round($getMaxAnswer * 100 / $examInfo['examLength']);
+            }else{
+                $rate = 0;
+            }
+            $dataArray[$key]['rate'] = $rate . '%';
+            $dataArray[$key]['times'] = date('Y-m-d H:i:s',$val->start_time) . '～' . date('Y-m-d H:i:s',$val->end_time);
+            $dataArray[$key]['level'] = $this->getLevel($rateExam, $rate);
+        }
+        $column = [
+            'name'=>['column'=>'A','name'=>'试卷名','width'=>30],
+            'real_name'=>['column'=>'B','name'=>'姓名','width'=>20],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>25],
+            'times'=>['column'=>'D','name'=>'答题时间','width'=>40],
+            'rate'=>['column'=>'E','name'=>'正确率','width'=>20],
+            'level'=>['column'=>'F','name'=>'	答题成绩','width'=>20],
+        ];
+        $config = [
+            'fileName' => '资源统计列表导出-' . date('YmdHis'),
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $excel = new ExcelController();
+        $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 试卷统计--按用户统计--列表导出
+     * @author zhaiyu
+     * @startDate 20160629
+     * @upDate 20160629
+     */
+    public function actionExuserExport(){
+        $appYii = Yii::$app;
+        $queryParams = $appYii->request->queryParams;
+        $search = new ExamLog();
+        $query = $search->searchExam($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('uid'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
+        ]);
+        $dataArray = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $member = Member::findOne($val->uid);
+            $dataArray[$key]['real_name'] = $member->real_name ?? '';
+            $dataArray[$key]['username'] = $member->username ?? '';
+            $dataArray[$key]['num'] = $search::find()->where(['uid' => $val->uid])->count('id');
+        }
+        $column = [
+            'real_name'=>['column'=>'A','name'=>'姓名','width'=>25],
+            'username'=>['column'=>'B','name'=>'手机号','width'=>25],
+            'num'=>['column'=>'C','name'=>'所答试卷数','width'=>20],
+        ];
+        $config = [
+            'fileName' => '资源统计列表导出-' . date('YmdHis'),
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $excel = new ExcelController();
+        $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 试卷统计--按用户统计--详细列表导出
+     * @author zhaiyu
+     * @startDate 20160629
+     * @upDate 20160629
+     */
+    public function actionExuserInfoExport(){
+        $queryParams = Yii::$app->request->queryParams;
+        $uid = $queryParams['uid'];
+        $search = new ExamLog();
+        $query = $search->searchExuserInfo($queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query->groupBy('exa_id'),
+            'pagination' => [
+                'pageSize' => 0,
+            ],
+        ]);
+        $memberModel = Member::findOne($uid);
+
+        $dataArray = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $dataArray[$key]['real_name'] = $memberModel->real_name ?? '';
+            $dataArray[$key]['username'] = $memberModel->username ?? '';
+            $examModel = Exam::findOne($val->exa_id);
+            $examLevelModel = ExamLevel::find()->where(['exam_id' => $examModel->id])->all();
+            $rateExam = [];
+            if($examLevelModel){
+                foreach ($examLevelModel as $v){
+                    $rateExam[$v['rate']] = [
+                        'rate' => $v['rate'],
+                        'level' => $v['level'],
+                        'condition' => $v['condition'],
+                    ];
+                }
+            }
+            if(1 == $examModel->type){
+                $examLength = $examModel->total;
+            }else{
+                $exe_ids = explode(',', $examModel->exe_ids);
+                $examLength = count($exe_ids);
+            }
+            $examInfo = [
+                'examLength' => $examLength,
+                'rateExam' => $rateExam,
+            ];
+            $dataArray[$key]['name'] = $examModel->name ?? '';
+            $getMaxAnswer = ExamLog::find()->where(['uid' => $val->uid, 'exa_id' => $val->exa_id])->max('answers');
+            if($examInfo['examLength'] > 0){
+                $rate = round($getMaxAnswer * 100 / $examInfo['examLength']);
+            }else{
+                $rate = 0;
+            }
+            $dataArray[$key]['rate'] = $rate . '%';
+            $dataArray[$key]['times'] = date('Y-m-d H:i:s',$val->start_time) . '～' . date('Y-m-d H:i:s',$val->end_time);
+            $dataArray[$key]['level'] = $this->getLevel($rateExam, $rate);
+        }
+        $column = [
+            'real_name'=>['column'=>'A','name'=>'试卷名','width'=>30],
+            'username'=>['column'=>'B','name'=>'姓名','width'=>20],
+            'name'=>['column'=>'C','name'=>'手机号','width'=>25],
+            'times'=>['column'=>'D','name'=>'答题时间','width'=>40],
+            'rate'=>['column'=>'E','name'=>'正确率','width'=>20],
+            'level'=>['column'=>'F','name'=>'	答题成绩','width'=>20],
+        ];
+        $config = [
+            'fileName' => '资源统计列表导出-' . date('YmdHis'),
+            'columnHeight' => '20',
+            'contentHeight' => '20',
+            'fontSize' => '12',
+        ];
+        $excel = new ExcelController();
+        $excel->Export($config, $column, $dataArray);
+    }
+
+    /**
+     * 获取等级
+     * @author zhaiyu
+     * @startDate 20160629
+     * @upDate 20160629
+     * @param $rateExam
+     * @param $rate
+     * @return string
+     */
+    protected function getLevel($rateExam, $rate){
+        /*等级*/
+        ksort($rateExam);
+        $level = '未知';
+        foreach ($rateExam as &$val){
+            switch ($val['condition']){
+                case 0:
+                    if($rate == $val['rate']){
+                        $level = $val['level'];
+                    };
+                    break;
+                case 1:
+                    if($rate >= $val['rate']){
+                        $level = $val['level'];
+                    };
+                    break;
+                case -1:
+                    if($rate < $val['rate']){
+                        $level = $val['level'];
+                    };
+                    break;
+            }
+        }
+        return $level;
     }
 
 }

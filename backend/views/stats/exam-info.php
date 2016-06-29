@@ -96,9 +96,10 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'rate',
                         'value'=>
                             function($model){
+                                $examLogModel = $model::find()->where(['uid' => $model->uid, 'exa_id' => $model->exa_id])->max('answers');
                                 $result = 0;
                                 if($this->params['stats']['examInfo']['examLength'] > 0){
-                                    $result = round($model->answers * 100 / $this->params['stats']['examInfo']['examLength']);
+                                    $result = round($examLogModel * 100 / $this->params['stats']['examInfo']['examLength']);
                                 }
                                 /*等级*/
                                 $rateExam = $this->params['stats']['examInfo']['rateExam'];
