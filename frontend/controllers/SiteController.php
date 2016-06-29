@@ -22,18 +22,22 @@ class SiteController extends Controller
      */
     public function actionView($id)
     {
+        //Yii::$app->cache->flush(); 
         $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][2].$id); //获取缓存
         $data  = json_decode($data,true);
-        if(!$data)
+        if(!$data) 
         {
             /* 查询数据库 */
             $data = Resource::find()
-                ->select(['title','content','views','publish_time'])
+                ->select(['title','content','views','publish_time','ppt_imgurl'])
                 ->where(['id' => $id])
                 ->asArray()
                 ->one();
             Yii::$app->cache->set(json_encode(Yii::$app->params['redisKey'][2].$id),2592000);
         }
+        if($data['ppt_imgurl'])
+            $data['ppt_imgurl'] = unserialize($data['ppt_imgurl']);
+          
         return $this->render('view', [
             'data' => $data,
         ]);
