@@ -40,10 +40,20 @@ class HospitalController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-
         $searchModel = new HospitalSearch();
-        $dataProvider = $searchModel->search($appYii->request->queryParams);
-
+        $query = $searchModel->search($appYii->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                    'name' => SORT_ASC,
+                ]
+            ],
+        ]);
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val) {
             $dataArray[$key]['name'] = $val->name;
@@ -53,9 +63,6 @@ class HospitalController extends BackendController
             $dataArray[$key]['address'] = $val->address;
             $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
         }
-
-        /*将数据存入cache以便导出*/
-        $appYii->cache->set('hospitalDataExportToExcel',json_encode($dataArray));
 
         return $this->render('index', [
             'model' => new Hospital(),
@@ -165,11 +172,33 @@ class HospitalController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
+        $data = [];
         if($default){
-            $data = [];
             $config['fileName'] = '单位导入模板';
         }else{
-            $data = json_decode(Yii::$app->cache->get('hospitalDataExportToExcel'),true);
+            $appYii = Yii::$app;
+            $searchModel = new HospitalSearch();
+            $query = $searchModel->search($appYii->request->queryParams);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 0,
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'id' => SORT_DESC,
+                        'name' => SORT_ASC,
+                    ]
+                ],
+            ]);
+            foreach ($dataProvider->getModels() as $key => $val) {
+                $data[$key]['name'] = $val->name;
+                $data[$key]['province'] = $val->province;
+                $data[$key]['city'] = $val->city;
+                $data[$key]['area'] = $val->area;
+                $data[$key]['address'] = $val->address;
+                $data[$key]['status'] = $appYii->params['statusOption'][$val->status];
+            }
         }
 
         $excel = new ExcelController();

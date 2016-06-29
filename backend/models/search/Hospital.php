@@ -39,19 +39,6 @@ class Hospital extends HospitalModel
         }
         $query = $query->andFilterWhere($where)
             ->andFilterWhere(['like', 'name', $this->name]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                    'name' => SORT_ASC,
-                ]
-            ],
-        ]);
-        return $dataProvider;
+        return $query;
     }
 }
