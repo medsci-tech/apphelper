@@ -41,7 +41,8 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
     $('.radioItem').change(function(){
-        var valOption = $('input[name="type"]:checked').val();
+        var valOption = $('input[name="push_type"]:checked').val();
+        console.log(valOption);
         if(valOption =='0') {
             layer.open({
               type: 2,
