@@ -74,13 +74,12 @@ $form = ActiveForm::begin([
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+    <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'btnFormSubmit']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 
 <?php
 $js = <<<JS
-$(function() {
     /*删除题库选项*/
     $('#optionListBody').on('click','.delThisOption',function() {
         delThisRowOptionForMime('#optionListBody', this, 1);
@@ -118,6 +117,26 @@ $(function() {
         }
     });
     
+$('#formModal').on('click','#btnFormSubmit',function() {
+    var data = {};
+    var elmeParent = '#formModal';
+    data.type = $(elmeParent + ' #exercise-type').val();
+    data.category = $(elmeParent + ' #exercise-category').val();
+    data.question = $(elmeParent + ' #exercise-question').val();
+    data.keyword = $(elmeParent + ' #exercise-keyword').val();
+    data.resolve = $(elmeParent + ' #exercise-resolve').val();
+    data.status = $(elmeParent + ' #exercise-status').val();
+    var action = $(elmeParent + ' #tableForm').attr('action');
+    var href = window.location.href;
+    var listBody = $('#optionListBody');
+    /*选项*/
+    var dataList = listBody.find('.form-control');
+    data.option = getDataListForMime(dataList);
+    /*答案*/
+    dataList = listBody.find('.checkValue');
+    data.answer = getDataListForMime(dataList);
+    console.log(data);
+    subActionAjaxForMime('post', action, {'Exercise':data}, href);
 });
 
 JS;
