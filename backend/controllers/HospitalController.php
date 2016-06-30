@@ -11,8 +11,6 @@ use yii\filters\VerbFilter;
 use backend\models\search\Hospital as HospitalSearch;
 use common\models\Hospital;
 use yii\data\ActiveDataProvider;
-use common\models\Upload;
-use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -54,16 +52,7 @@ class HospitalController extends BackendController
                 ]
             ],
         ]);
-        $dataArray = [];
-        foreach ($dataProvider->getModels() as $key => $val) {
-            $dataArray[$key]['name'] = $val->name;
-            $dataArray[$key]['province'] = $val->province;
-            $dataArray[$key]['city'] = $val->city;
-            $dataArray[$key]['area'] = $val->area;
-            $dataArray[$key]['address'] = $val->address;
-            $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
-        }
-
+        
         return $this->render('index', [
             'model' => new Hospital(),
             'searchModel' => $searchModel,

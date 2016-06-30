@@ -13,11 +13,11 @@ use dosamigos\fileupload\FileUpload;
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
-$get = Yii::$app->request->get()['Hospital'];
-$nameSearch = $get['name'] ?? '';
-$province_idSearch = $get['province_id'] ?? '';
-$city_idSearch = $get['city_id'] ?? '';
-$area_idSearch = $get['area_id'] ?? '';
+$get = Yii::$app->request->get();
+$nameSearch = $get['Hospital']['name'] ?? '';
+$province_idSearch = $get['Hospital']['province_id'] ?? '';
+$city_idSearch = $get['Hospital']['city_id'] ?? '';
+$area_idSearch = $get['Hospital']['area_id'] ?? '';
 
 ?>
 

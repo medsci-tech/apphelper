@@ -14,6 +14,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $attr_type */
 /* @var $searchAction */
+$get = Yii::$app->request->get();
+$nameSearch = $get['Resource']['title'] ?? '';
+$ridSearch = $get['Resource']['rid'] ?? '';
 ?>
 
     <?php
@@ -33,7 +36,11 @@ use yii\widgets\ActiveForm;
     <?= Html::button('取消发布', ['class' => 'btn btn-warning','data-toggle'=> 'noPub']) ?>
     <?= Html::button('推荐', ['class' => 'btn btn-info','data-toggle'=> 'isRec']) ?>
     <?= Html::button('取消推荐', ['class' => 'btn btn-warning','data-toggle'=> 'noRec']) ?>
-    <?= Html::a('导出', $attr_type ? 'export' : 'export_pha', ['class' => 'btn btn-success']) ?>
+    <?= Html::a('导出', [
+        $attr_type ? 'export' : 'export_pha',
+        'Hospital[title]' => $nameSearch,
+        'Hospital[rid]' => $ridSearch,
+    ], ['class' => 'btn btn-success']) ?>
     <?php ActiveForm::end(); ?>
 <?php
 $js = <<<JS
