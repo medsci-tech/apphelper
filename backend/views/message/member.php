@@ -35,6 +35,7 @@ $js = <<<JS
 
     $("#btnConfirm").click(function() {
         $("#userForm").submit();
+        parent.layer.close(index);
         //parent.$('#attr_name').val($("#attr_name").val());
         //parent.$('#attr_id').val($("#attr_id").val());
         //parent.$('#attr_from').val($("#type").val());
