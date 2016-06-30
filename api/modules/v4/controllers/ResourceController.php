@@ -79,14 +79,8 @@ class ResourceController extends \api\common\controllers\Controller
                 ->where(['rid'=>array_column($class,'id'), 'uid' => $this->params['uid']])
                 ->asArray()
                 ->all();
-
-            print_r('hour:'.$hour);
-            print_r('study:'.$study[0]['studyTime']);
             $progress = $study[0]['studyTime']/1000/60/$hour;
-            print_r('progress:'.$progress);
             $progress = $progress ?? 0;
-            print_r('progress:'.$progress);
-
             $row = array('id' => $resource['id'], 'title' => $resource['name'], 'progress' => intval($progress));
             array_push($array, $row);
         }
