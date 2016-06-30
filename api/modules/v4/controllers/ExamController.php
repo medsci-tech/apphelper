@@ -49,11 +49,12 @@ class ExamController extends \api\common\controllers\Controller
             foreach($data as &$val){
                 $maxTime = $val['minutes']*60; //最大时间       
                 $where =['exa_id'=>$val['id'],'uid'=>$this->uid];
-                $log = ExamLog::find()->OrderBy(['answers'=>SORT_DESC])->where($where)->asArray()->one();//最佳答题记录
+                $row = (new \yii\db\Query())->select('max(answers) as answers')->from(ExamLog::tableName())->where($where)->one();//最佳答题记录 
+                $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC])->where($where)->asArray()->one();//最新答题记录
                 if($log['status']==1)
                 {
                     /* 根据成绩计算等级 */
-                    $rate = intval($log['answers']/$val['total']*100); //正确率 
+                    $rate = intval($row['answers']/$val['total']*100); //正确率 
                     $level = self::getLevel($val['id'],$rate,$val['total']); // 根据正确率返回等级
                     $val['labelName']='历史最佳';
                     $val['labelValue']= $level;
