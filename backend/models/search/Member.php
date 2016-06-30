@@ -33,12 +33,6 @@ class Member extends MemberModel
         );
         $query->andFilterWhere(['like', 'real_name', $this->real_name]);
         $query->andFilterWhere(['like', 'username', $this->username]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
-        return $dataProvider;
+        return $query;
     }
 }

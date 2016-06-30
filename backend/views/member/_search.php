@@ -13,6 +13,10 @@ use dosamigos\fileupload\FileUpload;
 /* @var $this yii\web\View */
 /* @var $model backend\models\search\Article */
 /* @var $form yii\widgets\ActiveForm */
+$get = Yii::$app->request->get();
+$usernameSearch = $get['Member']['username'] ?? '';
+$real_nameSearch = $get['Member']['real_name'] ?? '';
+$hospital_idSearch = $get['Member']['hospital_id'] ?? '';
 ?>
 
 <div class="hospital-search">
@@ -34,7 +38,13 @@ use dosamigos\fileupload\FileUpload;
     <?= Html::button('启用', ['class' => 'btn btn-info','id'=> 'enable']) ?>
     <?= Html::button('禁用', ['class' => 'btn btn-warning','id'=> 'disable']) ?>
     <?= Html::button('导入', [ 'class' => 'btn btn-success animation_select','data-toggle'=>'modal','data-target'=>'#importModal']) ?>
-    <?= Html::a('导出','export?default=0', ['class' => 'btn btn-success']) ?>
+    <?= Html::a('导出', [
+        'export',
+        'default' => 0,
+        'Member[username]' => $usernameSearch,
+        'Member[real_name]' => $real_nameSearch,
+        'Member[hospital_id]' => $hospital_idSearch,
+    ], ['class' => 'btn btn-success']) ?>
     <?php ActiveForm::end(); ?>
 
 <?php

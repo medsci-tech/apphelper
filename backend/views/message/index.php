@@ -40,13 +40,12 @@ backend\assets\AppAsset::register($this);
                         'attribute' => 'uid',
                         'value' =>
                             function ($model) {
+                                $result = '';
                                 if($model->uid) {
-                                    $member = Member::find()
-                                        ->where(['id'=>$model->uid])
-                                        ->one();
-                                    $result = $member->real_name;
+                                    $member = Member::findOne($model->uid);
+                                    $result = $member->real_name ?? '';
                                 }
-                                return $result ?? '';
+                                return $result;
                             },
                     ],
                     [
@@ -176,6 +175,9 @@ $js=<<<JS
             titles = '浏览';
             $("#btnSave").hide();
             $("#btnSend").hide();
+        }else {
+            $("#btnSave").show();
+            $("#btnSend").show();
         }
 
         $("#l_title").html(titles);
@@ -201,6 +203,8 @@ $js=<<<JS
             $("#rdo2").removeAttr("checked");
             $("#rdo1").attr("checked",true);
         }
+        $("#btnSave").show();
+        $("#btnSend").show();
         var title = '添加';
         $("#l_title").html(title);
         $('#post_type').val('add');

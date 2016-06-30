@@ -33,12 +33,8 @@ use yii\helpers\Html;
         </div>
         <a href="<?= \yii\helpers\Url::to(['/site/logout']) ?>" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
     </div>
-    <div class="row J_mainContent" id="content-main">
+    <div class="row J_mainContent" id="content-main" style="height: calc(100% - 42px)">
         <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/site/index_v4" frameborder="0" data-id="index_v1.html" seamless></iframe>
-    </div>
-    <div class="footer">
-        <div class="pull-right">&copy; 2016 <a href="http://www.zi-han.net/" target="_blank">zihan's blog</a>
-        </div>
     </div>
 </div>
 <!--右侧部分结束-->

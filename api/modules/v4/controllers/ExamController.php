@@ -49,11 +49,11 @@ class ExamController extends \api\common\controllers\Controller
             foreach($data as &$val){
                 $maxTime = $val['minutes']*60; //最大时间       
                 $where =['exa_id'=>$val['id'],'uid'=>$this->uid];
-                $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC,'uid'=>$this->uid])->where($where)->asArray()->one();//最后答题记录
+                $log = ExamLog::find()->OrderBy(['answers'=>SORT_DESC])->where($where)->asArray()->one();//最佳答题记录
                 if($log['status']==1)
                 {
                     /* 根据成绩计算等级 */
-                    $rate = intval($log['answers']/$val['total'])*100; //正确率     
+                    $rate = intval($log['answers']/$val['total']*100); //正确率 
                     $level = self::getLevel($val['id'],$rate,$val['total']); // 根据正确率返回等级
                     $val['labelName']='历史最佳';
                     $val['labelValue']= $level;
@@ -71,10 +71,6 @@ class ExamController extends \api\common\controllers\Controller
                 }
   
                 $val['status'] = $log['status']==0 && $log['start_time']>0 ? '2' : $log['status'];
-                if (in_array($val['status'], [1,2]))
-                    $val['icon'] = 'http://o7f6z4jud.bkt.clouddn.com/images/level/1.jpg?imageView2/2/w/20/h/20/format/jpg/interlace/1/q/85';
-                else
-                    $val['icon'] = null; 
             }
         }
         
@@ -362,10 +358,11 @@ class ExamController extends \api\common\controllers\Controller
     private function getLevel($id,$rate=0,$total=1)
     {
         $result= ExamLevel::find()->where(['exam_id'=>$id])->asArray()->all();
-        $map = ArrayHelper::map($result, 'rate', 'level');
+        $map = ArrayHelper::map($result, 'rate', 'level');   
         if($map)
-            sort($map);  
+            ksort($map);  
         $minRate = $map ? current($map) : 0;// 最小等级
+        
         foreach($result as &$data)
         {
             switch ($data['condition'])
@@ -373,20 +370,14 @@ class ExamController extends \api\common\controllers\Controller
                 case 0: // 等于
                   if($rate==$data['rate'])
                       $level = $data['level'];
-                  else
-                      $level = $minRate;
                   break;
                 case 1://大于等于
                     if($rate>=$data['rate'])
                         $level = $data['level'];
-                    else
-                      $level = $minRate;
                   break;
                 case -1:// 小于
                     if($rate<$data['rate'])
                         $level = $data['level'];
-                    else
-                        $level = $minRate;   
                   break;
                 default:
                     $level = '未定义';           
