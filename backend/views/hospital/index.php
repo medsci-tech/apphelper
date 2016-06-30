@@ -107,31 +107,8 @@ backend\assets\AppAsset::register($this);
 
 <?php
 $formUrl = \yii\helpers\Url::toRoute('form');
-$getError = $yiiApp->getSession()->getFlash('error');
-$getSuccess = $yiiApp->getSession()->getFlash('success');
 $js=<<<JS
-    /*修改操作状态提示*/
-    if('$getError' || '$getSuccess'){
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "onclick": null,
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "3000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-        }
-    }
-    if('$getError'){
-        toastr.error('$getError');
-    }else if('$getSuccess'){
-        toastr.success('$getSuccess');
-    }
-    
+
     /*编辑初始化*/
     $("span[name='saveData']").click(function(){
         var id = $(this).attr('id');
