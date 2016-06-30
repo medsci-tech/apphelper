@@ -11,8 +11,6 @@ use yii\filters\VerbFilter;
 use backend\models\search\Hospital as HospitalSearch;
 use common\models\Hospital;
 use yii\data\ActiveDataProvider;
-use common\models\Upload;
-use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -40,23 +38,21 @@ class HospitalController extends BackendController
     public function actionIndex()
     {
         $appYii = Yii::$app;
-
         $searchModel = new HospitalSearch();
-        $dataProvider = $searchModel->search($appYii->request->queryParams);
-
-        $dataArray = [];
-        foreach ($dataProvider->getModels() as $key => $val) {
-            $dataArray[$key]['name'] = $val->name;
-            $dataArray[$key]['province'] = $val->province;
-            $dataArray[$key]['city'] = $val->city;
-            $dataArray[$key]['area'] = $val->area;
-            $dataArray[$key]['address'] = $val->address;
-            $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
-        }
-
-        /*将数据存入cache以便导出*/
-        $appYii->cache->set('hospitalDataExportToExcel',json_encode($dataArray));
-
+        $query = $searchModel->search($appYii->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                    'name' => SORT_ASC,
+                ]
+            ],
+        ]);
+        
         return $this->render('index', [
             'model' => new Hospital(),
             'searchModel' => $searchModel,
@@ -94,16 +90,15 @@ class HospitalController extends BackendController
                 $model->created_at = time();
             }
             $result = $model->save(false);
-            if($result){
-                $return = ['success', '操作成功哦'];
-            }else{
-                $return = ['error', '操作失败哦'];
+            if ($result) {
+                $return = ['code' => 200, 'msg' => '', 'data' => ''];
+            } else {
+                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
             }
         }else{
-            $return = ['error', '操作失败哦'];
+            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        $this->redirect('index');
+        $this->ajaxReturn($return);
     }
 
     public function actionDelete($id)
@@ -166,11 +161,33 @@ class HospitalController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
+        $data = [];
         if($default){
-            $data = [];
             $config['fileName'] = '单位导入模板';
         }else{
-            $data = json_decode(Yii::$app->cache->get('hospitalDataExportToExcel'),true);
+            $appYii = Yii::$app;
+            $searchModel = new HospitalSearch();
+            $query = $searchModel->search($appYii->request->queryParams);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 0,
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'id' => SORT_DESC,
+                        'name' => SORT_ASC,
+                    ]
+                ],
+            ]);
+            foreach ($dataProvider->getModels() as $key => $val) {
+                $data[$key]['name'] = $val->name;
+                $data[$key]['province'] = $val->province;
+                $data[$key]['city'] = $val->city;
+                $data[$key]['area'] = $val->area;
+                $data[$key]['address'] = $val->address;
+                $data[$key]['status'] = $appYii->params['statusOption'][$val->status];
+            }
         }
 
         $excel = new ExcelController();

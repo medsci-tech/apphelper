@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'username')->textInput(['maxlength' => true, 'id' => 'userFormName']) ?>
         <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'id' => 'userFormMail']) ?>
         <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'id' => 'userFormAddress']) ?>
-
-        <?= $form->field($model, 'id')->input('hidden')->label(false) ?>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
@@ -28,9 +26,17 @@ use yii\widgets\ActiveForm;
 
 <?php
 $js = <<<JS
-    $('#myModal #userFormSubmit').click(function() {
-        $('#myModal #tableForm').submit();
-    });
+$('#myModal #userFormSubmit').click(function() {
+    var data = {};
+    var elmeParent = '#myModal';
+    data.username = $(elmeParent + ' #userFormName').val();
+    data.email = $(elmeParent + ' #userFormMail').val();
+    data.address = $(elmeParent + ' #userFormAddress').val();
+    var action = $(elmeParent + ' #tableForm').attr('action');
+    var href = window.location.href;
+    console.log(data);
+    subActionAjaxForMime('post', action, {'User':data}, href);
+});
 JS;
 $this->registerJs($js);
 ?>

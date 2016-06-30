@@ -89,7 +89,13 @@ backend\assets\AppAsset::register($this);
                                 return $result ?? '';
                             },
                     ],
-                    'publish_time:datetime',
+                    [
+                        'attribute' => 'publish_time',
+                        'value' =>
+                            function ($model) {
+                                return $model->publish_status == 1 ? date('Y-m-d H:i:s', $model->publish_time) : '';
+                            },
+                    ],
                     'created_at:datetime',
                     [
                         'class' => 'yii\grid\ActionColumn',
@@ -105,30 +111,8 @@ backend\assets\AppAsset::register($this);
 </div>
 
 <?php
-$getError = $yiiApp->getSession()->getFlash('error');
-$getSuccess = $yiiApp->getSession()->getFlash('success');
 $js=<<<JS
-    /*修改操作状态提示*/
-    if('$getError' || '$getSuccess'){
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "onclick": null,
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "3000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-        }
-    }
-    if('$getError'){
-        toastr.error('$getError');
-    }else if('$getSuccess'){
-        toastr.success('$getSuccess');
-    }
+
     
     /*树形结构初始化*/
 	var initSelectableTree = function() {

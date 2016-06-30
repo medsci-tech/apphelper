@@ -72,6 +72,7 @@ class MessageController extends BackendController {
                 $data = Yii::$app->cache->get('MessageUser');
                 $userList = json_decode($data, true);
                 $array = array();
+//                $touids = array();
                 foreach($userList as $user){
                     $model = new Message();
                     $model->title = $message['title'];
@@ -79,13 +80,14 @@ class MessageController extends BackendController {
                     $model->link_url = $message['link_url'];
                     $model->push_type = $params['push_type'];
                     $model->isread = 0;
-                    $model->touid = $user;
+                    $model->touid = $user['id'];
                     $model->created_at = time();
                     $model->status = 0;
                     $model->uid = Yii::$app->user->id;
                     $model->save(false);
                     $row = array('id' =>$model->id);
                     array_push($array, $row);
+//                    array_push($touids, $user['id']);
                 }
             }
 
@@ -99,9 +101,9 @@ class MessageController extends BackendController {
                     $model->save(false);
                 } else {
 
-                    $push->pushSingle($message['title'],$message['content'],$array);
-                    foreach($array as $user){
-                        $model = $this->findModel($user);
+                    $push->pushSingle($message['title'],$message['content'], $array);
+                    foreach($array as $ms){
+                        $model = $this->findModel($ms->id);
                         $model->status = 1;
                         $model->send_at = time();
                         $model->save(false);
@@ -133,7 +135,7 @@ class MessageController extends BackendController {
                     $push->pushMessageToApp($message['title'],$message['content']);
                 } else {
                     $array = array();
-                    $row = array('id' =>$model->id);
+                    $row = array('id' =>$model->touid);
                     array_push($array, $row);
                     $push->pushSingle($message['title'],$message['content'],$array);
                 }
@@ -163,7 +165,7 @@ class MessageController extends BackendController {
             print_r($params['phone']);
 //            $str = str_replace(array("\r\n", "\r", "\n"), "", $params['phone']);
             $phones = preg_split('/\r\n/', $params['phone']);
-            print_r($phones);
+//            print_r($phones);
             $array = array();
             foreach($phones as $phone) {
                 $user = Member::find()
@@ -175,7 +177,7 @@ class MessageController extends BackendController {
             }
 
             Yii::$app->cache->set('MessageUser',json_encode($array));
-//            print_r($array);
+            print_r($array);
         }
     }
 

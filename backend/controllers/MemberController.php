@@ -7,11 +7,8 @@ use common\models\Member;
 use common\models\Region;
 use common\models\User;
 use Yii;
-use yii\base\Object;
-use yii\web\Controller;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use common\models\Upload;
-use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -27,26 +24,13 @@ class MemberController extends BackendController
     {
         $appYii = Yii::$app;
         $searchMember = new \backend\models\search\Member();
-        $dataProvider = $searchMember->search($appYii->request->queryParams);
-        $dataArray = [];
-        foreach ($dataProvider->getModels() as $key => $val){
-            $dataArray[$key]['real_name'] = $val->real_name;
-            $dataArray[$key]['nickname'] = $val->nickname;
-            $dataArray[$key]['sex'] = $val->sex;
-            $dataArray[$key]['username'] = $val->username;
-            $dataArray[$key]['email'] = $val->email;
-            $dataArray[$key]['hospital_id'] =$val->hospital_id ? Hospital::findOne($val->hospital_id)->name : '';
-            $dataArray[$key]['rank_id'] = $appYii->params['member']['rank'][$val->rank_id];
-            $dataArray[$key]['province'] =  $val->province;
-            $dataArray[$key]['city'] =  $val->city;
-            $dataArray[$key]['area'] =  $val->area;
-            $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
-            $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
-        }
-
-        /*将数据存入cache以便导出*/
-        $appYii->cache->set('memberDataExportToExcel',json_encode($dataArray));
-
+        $query = $searchMember->search($appYii->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,
@@ -243,17 +227,16 @@ class MemberController extends BackendController
     public function actionExport($default){
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>20],
-            'nickname'=>['column'=>'B','name'=>'昵称','width'=>20],
-            'sex'=>['column'=>'C','name'=>'性别','width'=>10],
-            'username'=>['column'=>'D','name'=>'手机号','width'=>20],
-            'email'=>['column'=>'E','name'=>'邮箱','width'=>30],
-            'hospital_id'=>['column'=>'F','name'=>'医院','width'=>20],
-            'rank_id'=>['column'=>'G','name'=>'职称','width'=>10],
-            'province'=>['column'=>'H','name'=>'省份','width'=>10],
-            'city'=>['column'=>'I','name'=>'城市','width'=>10],
-            'area'=>['column'=>'J','name'=>'县区','width'=>10],
-            'status'=>['column'=>'K','name'=>'状态','width'=>10],
-            'created_at'=>['column'=>'L','name'=>'注册时间','width'=>20],
+            'sex'=>['column'=>'B','name'=>'性别','width'=>10],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
+            'email'=>['column'=>'D','name'=>'邮箱','width'=>30],
+            'hospital_id'=>['column'=>'E','name'=>'医院','width'=>20],
+            'rank_id'=>['column'=>'F','name'=>'职称','width'=>10],
+            'province'=>['column'=>'G','name'=>'省份','width'=>10],
+            'city'=>['column'=>'H','name'=>'城市','width'=>10],
+            'area'=>['column'=>'I','name'=>'县区','width'=>10],
+            'status'=>['column'=>'J','name'=>'状态','width'=>10],
+            'created_at'=>['column'=>'K','name'=>'注册时间','width'=>20],
         ];
         $config = [
             'fileName' => '用户导出-' . date('YmdHis'),
@@ -261,13 +244,35 @@ class MemberController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
+        $data = [];
         if($default){
-            $data = [];
             $config['fileName'] = '用户导入模板';
             unset($column['created_at']);
         }else{
-            $data = json_decode(Yii::$app->cache->get('memberDataExportToExcel'),true);
+            $appYii = Yii::$app;
+            $searchMember = new \backend\models\search\Member();
+            $query = $searchMember->search($appYii->request->queryParams);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 0,
+                ],
+            ]);
+            foreach ($dataProvider->getModels() as $key => $val){
+                $data[$key]['real_name'] = $val->real_name;
+                $data[$key]['sex'] = $val->sex;
+                $data[$key]['username'] = $val->username;
+                $data[$key]['email'] = $val->email;
+                $data[$key]['hospital_id'] =$val->hospital_id ? Hospital::findOne($val->hospital_id)->name : '';
+                $data[$key]['rank_id'] = $appYii->params['member']['rank'][$val->rank_id];
+                $data[$key]['province'] =  $val->province;
+                $data[$key]['city'] =  $val->city;
+                $data[$key]['area'] =  $val->area;
+                $data[$key]['status'] = $appYii->params['statusOption'][$val->status];
+                $data[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
+            }
         }
+//        var_dump($data);
         $excel = new ExcelController();
         $excel->Export($config, $column, $data);
     }
