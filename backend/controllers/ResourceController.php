@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\search\Resource as ResourceSearch;
-//use yidashi\webuploader\WebuploaderAction;
+use yii\data\ActiveDataProvider;
 use common\models\Resource;
 use common\models\ResourceClass;
 use common\models\User;
@@ -46,25 +46,13 @@ class ResourceController extends BackendController
 
         /*条件查询*/
         $search = new ResourceSearch();
-        $dataProvider = $search->search($appYii->request->queryParams, 1);
-
-        /*导出数据处理*/
-        $exportData = [];
-        foreach ($dataProvider->getModels() as $key => $val){
-            $exportData[$key]['title'] = $val->title;
-            $exportData[$key]['author'] = $val->author;
-            $exportData[$key]['views'] = $val->views;
-            $exportData[$key]['comments'] = $val->comments;
-            $exportData[$key]['uid'] = $val->uid ? User::find()->where(['id' => $val->uid])->one()->username : '';
-            $exportData[$key]['recommend_status'] = $appYii->params['recStatusOption'][$val->recommend_status];
-            $exportData[$key]['publish_status'] =$appYii->params['pubStatusOption'][$val->publish_status];
-            $exportData[$key]['status'] = $appYii->params['statusOption'][$val->status];
-            $exportData[$key]['publish_time'] = $val->publish_status == 1 ? date('Y-m-d H:i:s', $val->publish_time) : '';
-            $exportData[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
-        }
-
-        /*将数据存入cache以便导出*/
-        $appYii->cache->set('resourceDataExportToExcel',json_encode($exportData));
+        $query = $search->search($appYii->request->queryParams, 1);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
 
         return $this->render('index', [
             'searchModel' => $search,
@@ -238,26 +226,13 @@ class ResourceController extends BackendController
 
         /*条件查询*/
         $search = new ResourceSearch();
-        $dataProvider = $search->search($appYii->request->queryParams, 0);
-
-        /*导出数据处理*/
-        $exportData = [];
-        foreach ($dataProvider->getModels() as $key => $val){
-            $exportData[$key]['title'] = $val->title;
-            $exportData[$key]['hour'] = $val->hour;
-            $exportData[$key]['author'] = $val->author;
-            $exportData[$key]['views'] = $val->views;
-            $exportData[$key]['comments'] = $val->comments;
-            $exportData[$key]['uid'] = $val->uid ? User::find()->where(['id' => $val->uid])->one()->username : '';
-            $exportData[$key]['recommend_status'] = $appYii->params['recStatusOption'][$val->recommend_status];
-            $exportData[$key]['publish_status'] =$appYii->params['pubStatusOption'][$val->publish_status];
-            $exportData[$key]['status'] = $appYii->params['statusOption'][$val->status];
-            $exportData[$key]['publish_time'] = $val->publish_status == 1 ? date('Y-m-d H:i:s', $val->publish_time) : '';
-            $exportData[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
-        }
-
-        /*将数据存入cache以便导出*/
-        $appYii->cache->set('resourcePharmacyDataExportToExcel',json_encode($exportData));
+        $query = $search->search($appYii->request->queryParams, 0);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => \Yii::$app->params['pageSize'],
+            ],
+        ]);
 
         return $this->render('pharmacy', [
             'searchModel' => $search,
@@ -318,6 +293,30 @@ class ResourceController extends BackendController
      * @author zhaiyu
      */
     public function actionExport(){
+        $appYii = Yii::$app;
+        /*条件查询*/
+        $search = new ResourceSearch();
+        $query = $search->search($appYii->request->queryParams, 1);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 0,
+            ],
+        ]);
+        /*导出数据处理*/
+        $exportData = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $exportData[$key]['title'] = $val->title;
+            $exportData[$key]['author'] = $val->author;
+            $exportData[$key]['views'] = $val->views;
+            $exportData[$key]['comments'] = $val->comments;
+            $exportData[$key]['uid'] = $val->uid ? User::find()->where(['id' => $val->uid])->one()->username : '';
+            $exportData[$key]['recommend_status'] = $appYii->params['recStatusOption'][$val->recommend_status];
+            $exportData[$key]['publish_status'] =$appYii->params['pubStatusOption'][$val->publish_status];
+            $exportData[$key]['status'] = $appYii->params['statusOption'][$val->status];
+            $exportData[$key]['publish_time'] = $val->publish_status == 1 ? date('Y-m-d H:i:s', $val->publish_time) : '';
+            $exportData[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
+        }
         $column = [
             'title'=>['column'=>'A','name'=>'资源名','width'=>30],
             'author'=>['column'=>'B','name'=>'作者','width'=>20],
@@ -336,9 +335,8 @@ class ResourceController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = json_decode(Yii::$app->cache->get('resourceDataExportToExcel'),true);
         $excel = new ExcelController();
-        $excel->Export($config, $column, $data);
+        $excel->Export($config, $column, $exportData);
     }
 
     /**
@@ -346,6 +344,30 @@ class ResourceController extends BackendController
      * @author zhaiyu
      */
     public function actionExport_pha(){
+        $appYii = Yii::$app;
+        $search = new ResourceSearch();
+        $query = $search->search($appYii->request->queryParams, 0);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 0,
+            ],
+        ]);
+        /*导出数据处理*/
+        $exportData = [];
+        foreach ($dataProvider->getModels() as $key => $val){
+            $exportData[$key]['title'] = $val->title;
+            $exportData[$key]['hour'] = $val->hour;
+            $exportData[$key]['author'] = $val->author;
+            $exportData[$key]['views'] = $val->views;
+            $exportData[$key]['comments'] = $val->comments;
+            $exportData[$key]['uid'] = $val->uid ? User::find()->where(['id' => $val->uid])->one()->username : '';
+            $exportData[$key]['recommend_status'] = $appYii->params['recStatusOption'][$val->recommend_status];
+            $exportData[$key]['publish_status'] =$appYii->params['pubStatusOption'][$val->publish_status];
+            $exportData[$key]['status'] = $appYii->params['statusOption'][$val->status];
+            $exportData[$key]['publish_time'] = $val->publish_status == 1 ? date('Y-m-d H:i:s', $val->publish_time) : '';
+            $exportData[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
+        }
         $column = [
             'title'=>
                 ['column'=>'A','name'=>'资源名','width'=>30],
@@ -376,9 +398,8 @@ class ResourceController extends BackendController
             'contentHeight' => '20',
             'fontSize' => '12',
         ];
-        $data = json_decode(Yii::$app->cache->get('resourcePharmacyDataExportToExcel'),true);
         $excel = new ExcelController();
-        $excel->Export($config, $column, $data);
+        $excel->Export($config, $column, $exportData);
     }
     
     /**

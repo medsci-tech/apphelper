@@ -31,21 +31,6 @@ class MemberController extends BackendController
                 'pageSize' => \Yii::$app->params['pageSize'],
             ],
         ]);
-        $dataArray = [];
-        foreach ($dataProvider->getModels() as $key => $val){
-            $dataArray[$key]['real_name'] = $val->real_name;
-            $dataArray[$key]['nickname'] = $val->nickname;
-            $dataArray[$key]['sex'] = $val->sex;
-            $dataArray[$key]['username'] = $val->username;
-            $dataArray[$key]['email'] = $val->email;
-            $dataArray[$key]['hospital_id'] =$val->hospital_id ? Hospital::findOne($val->hospital_id)->name : '';
-            $dataArray[$key]['rank_id'] = $appYii->params['member']['rank'][$val->rank_id];
-            $dataArray[$key]['province'] =  $val->province;
-            $dataArray[$key]['city'] =  $val->city;
-            $dataArray[$key]['area'] =  $val->area;
-            $dataArray[$key]['status'] = $appYii->params['statusOption'][$val->status];
-            $dataArray[$key]['created_at'] = date('Y-m-d H:i:s', $val->created_at);
-        }
         return $this->render('index', [
             'searchModel' => $searchMember,
             'dataProvider' => $dataProvider,

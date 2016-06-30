@@ -31,7 +31,6 @@ class Resource extends ResourceModel
         }else{
             $examClassFind = ResourceClass::find()->andFilterWhere(['attr_type' => $attr_type])->asArray()->all();
         }
-//        $examClassFind = ResourceClass::find()->andFilterWhere(['like', 'path', ',' . $this->rid . ','])->asArray()->all();
         if(count($examClassFind) > 0){
             foreach ($examClassFind as $val){
                 $category[] = $val['id'];
@@ -40,12 +39,6 @@ class Resource extends ResourceModel
         $query = ResourceModel::find();
         $query->andFilterWhere(['rid'=> $category]);
         $query->andFilterWhere(['like', 'title', $this->title]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => \Yii::$app->params['pageSize'],
-            ],
-        ]);
-        return $dataProvider;
+        return $query;
     }
 }
