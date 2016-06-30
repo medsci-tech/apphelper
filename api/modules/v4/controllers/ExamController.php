@@ -407,7 +407,7 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function lastExam($id)
     {
-        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->one();     
+        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->one();
         if(!$model)
             $model = new ExamLog();
         return $model;
