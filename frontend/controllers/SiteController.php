@@ -29,7 +29,7 @@ class SiteController extends Controller
         {
             /* 查询数据库 */
             $data = Resource::find()
-                ->select(['title','content','views','publish_time','ppt_imgurl'])
+                ->select(['title','content','views','publish_time','ppt_imgurl','videourl'])
                 ->where(['id' => $id])
                 ->asArray()
                 ->one();
