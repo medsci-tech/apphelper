@@ -171,8 +171,19 @@ class ExamController extends \api\common\controllers\Controller
         $model->end_time =time();
         $model->save();
         /* 根据成绩计算等级 */
-        $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
-        $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
+        //如果用户是第一次考本试卷
+        $log = ExamLog::find()->OrderBy(['answers'=>SORT_DESC])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最佳答题记录
+        if($log['status']==1)
+        {
+            /* 根据成绩计算等级 */
+            $rate = intval($log['answers']/$exam_total*100); //正确率 
+            $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
+        }
+        else // 获取本次提交的结果
+        {
+            $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
+            $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
+        }
         $mins = intval( $timeLeft / 60 ); //分钟
         $secs = $timeLeft % 60; //秒
         $times = $mins.':'.$secs;     
