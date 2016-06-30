@@ -11,8 +11,6 @@ use yii\filters\VerbFilter;
 use backend\models\search\Hospital as HospitalSearch;
 use common\models\Hospital;
 use yii\data\ActiveDataProvider;
-use common\models\Upload;
-use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
