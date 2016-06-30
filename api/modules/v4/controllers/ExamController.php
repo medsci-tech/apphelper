@@ -179,17 +179,15 @@ class ExamController extends \api\common\controllers\Controller
             $rate = intval($log['answers']/$exam_total*100); //正确率 
             $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
         }
-        else // 获取本次提交的结果
-        {
-            $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
-            $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
-        }
+         // 获取本次提交的结果
+        $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
+        $currentlevel = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
         $mins = intval( $timeLeft / 60 ); //分钟
         $secs = $timeLeft % 60; //秒
         $times = $mins.':'.$secs;     
         //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         Yii::$app->cache->delete(Yii::$app->params['redisKey'][5].$id.'_'.$this->uid);  //删除本试卷最后历史记录
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$level]];
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$currentlevel]];
         return $result; 
     } 
     
