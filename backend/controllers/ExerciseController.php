@@ -31,13 +31,15 @@ class ExerciseController extends BackendController
         $dataProvider = $search->search($appYii->request->queryParams);
 
         /*获取试题分类的树形结构*/
-        $examClassData = $examClass->getDataForWhere();
-        $tree = new TreeController($examClassData, ' |- ');
-        $examClassTree = $tree->get_tree('id', 'name');
         $examClassTreeAr = [];
-        if($examClassTree){
-            foreach ($examClassTree as $key => $val){
-                $examClassTreeAr[$val['id']] = $val['name'];
+        $examClassData = $examClass->getDataForWhere();
+        if($examClassData){
+            $tree = new TreeController($examClassData, ' |- ');
+            $examClassTree = $tree->get_tree('id', 'name');
+            if($examClassTree){
+                foreach ($examClassTree as $key => $val){
+                    $examClassTreeAr[$val['id']] = $val['name'];
+                }
             }
         }
         return $this->render('index', [
