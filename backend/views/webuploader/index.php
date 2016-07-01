@@ -10,7 +10,7 @@ $modelName = $name ?? '';
 $imgMaxSize = $imgMaxSize ?? 2097152;//最大限制，默认2M
 $proBarMaxWidth = $proBarWidth ?? 200;
 $actionCtrl = $actionCtrl ?? 'img';//上传function
-$uploadPath = $uploadPath ?? 'images/exam';//上传到七牛的目录
+$uploadPath = $uploadPath ?? 'image';//上传到七牛的目录
 $buttonName = $buttonName ?? '上传';
 
 ?>
