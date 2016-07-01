@@ -70,7 +70,7 @@ class Upload extends Model
             if($res){
                 $return = ['code'=>200,'msg'=>'上传成功哦','data'=>[
                     'path' => $filePath,
-                    'name' => $name . '.' . $suffix,
+                    'name' => $name . $suffix,
                 ]];
             }else{
                 $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
@@ -98,7 +98,10 @@ class Upload extends Model
             $fileName = $filePath . $name . $suffix;
             $res = $this->file->saveAs($fileName);
             if($res){
-                $return = ['code'=>200,'msg'=>'上传成功哦','data' => $fileName];
+                $return = ['code'=>200,'msg'=>'上传成功哦','data'=>[
+                    'path' => $filePath,
+                    'name' => $name . $suffix,
+                ]];
             }else{
                 $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
             }
