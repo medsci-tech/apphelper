@@ -50,7 +50,7 @@ class IndexController extends \api\common\controllers\Controller
                 ->all();
             Yii::$app->cache->set(Yii::$app->params['redisKey'][1],json_encode($data),2592000);
         }
-        $result = ['code' => 200, 'message' => '轮播图', 'data' => $data];
+        $result = ['code' => 200, 'message' => '轮播图', 'data' => $data ?? null];
         return $result;
     } 
     /**
