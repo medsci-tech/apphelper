@@ -162,7 +162,7 @@ class MessageController extends BackendController {
         $params = Yii::$app->request->get();
 
         if($params['phone']){
-            print_r($params['phone']);
+//            print_r($params['phone']);
 //            $str = str_replace(array("\r\n", "\r", "\n"), "", $params['phone']);
             $phones = preg_split('/\r\n/', $params['phone']);
 //            print_r($phones);
@@ -177,7 +177,7 @@ class MessageController extends BackendController {
             }
 
             Yii::$app->cache->set('MessageUser',json_encode($array));
-            print_r($array);
+//            print_r($array);
         }
     }
 
