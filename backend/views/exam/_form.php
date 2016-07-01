@@ -51,8 +51,10 @@ $form = ActiveForm::begin([
         <select class="form-control" name="Exam[class_id]" id="exam-class_id">
             <?php
                 echo '<option selected="selected" value="">全部</option>';
-            foreach ($examClassTree as $key => $val){
-                echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
+            if($examClassTree){
+                foreach ($examClassTree as $key => $val){
+                    echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
+                }
             }
             ?>
         </select>
