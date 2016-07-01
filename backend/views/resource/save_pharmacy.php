@@ -33,7 +33,17 @@ $referrer = Yii::$app->request->referrer ?? 'pharmacy';
             <label class="control-label">缩略图</label>
             <?= $this->render('/webuploader/index',[
                 'name' => 'Resource[imgurl]',
+                'uploadPath' => 'image/resource',
                 'imgMaxSize' => 2097152,/*文件限制2M*/
+            ]);?>
+            <div class="help-block"></div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">上传pdf</label>
+            <?= $this->render('/webuploader/index',[
+                'actionCtrl' => 'pdf',
+                'uploadPath' => 'pdf',
+                'imgMaxSize' => 10240000,/*文件限制10M*/
             ]);?>
             <div class="help-block"></div>
         </div>
