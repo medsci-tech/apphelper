@@ -22,6 +22,8 @@ class SiteController extends Controller
      */
     public function actionView($id)
     {
+    	$im = new \imagick();
+        echo(phpinfo());exit;
         //Yii::$app->cache->flush(); 
         $data = Yii::$app->cache->get(Yii::$app->params['redisKey'][2].$id); //获取缓存
         $data  = json_decode($data,true);
