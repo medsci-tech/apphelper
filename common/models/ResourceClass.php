@@ -71,7 +71,7 @@ class ResourceClass extends \yii\db\ActiveRecord
         $column = [];
         $where['parent'] = $parent;
         $model = $this->getDataForWhere($where);
-        if(is_array($model)){
+        if($model){
             foreach ($model as $key => $val){
                 $column[$key]['id'] = $val['id'];
                 $column[$key]['text'] = $val['name'];
