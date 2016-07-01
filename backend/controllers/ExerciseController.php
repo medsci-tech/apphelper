@@ -64,7 +64,7 @@ class ExerciseController extends BackendController
         }
         $exercise->load($appYii->request->post());
         $isValid = $exercise->validate();
-        if ($isValid) {
+        if ($isValid && is_array($exercise->option)) {
             $optionArray = [];
             foreach ($exercise->option as $key => $val){
                 $optionArray[chr(65 + $key)] = $val;
@@ -77,16 +77,15 @@ class ExerciseController extends BackendController
                 $exercise->created_at = time();
             }
             $result = $exercise->save(false);
-            if($result){
-                $return = ['success','操作成功哦'];
-            }else{
-                $return = ['error', '操作失败哦'];
+            if ($result) {
+                $return = ['code' => 200, 'msg' => '', 'data' => ''];
+            } else {
+                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
             }
         }else{
-            $return = ['error', '操作失败哦'];
+            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
-        Yii::$app->getSession()->setFlash($return[0], $return[1]);
-        $this->redirect('index');
+        $this->ajaxReturn($return);
     }
 
 

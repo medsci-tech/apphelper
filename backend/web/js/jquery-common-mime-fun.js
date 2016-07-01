@@ -179,3 +179,24 @@ subActionAjaxForMime = function (type, url, data, location) {
         }
     });
 };
+
+/**
+ *  获取dom列表的值
+ * @param dataList
+ * @returns {Array}
+ */
+var getDataListForMime = function(dataList) {
+    var list = [];var j = 0;
+    for(var i = 0; i < dataList.length; i++){
+        var child = dataList[i];
+        if(('radio' == child.type || 'checkbox' == child.type)){
+            if(true == child.checked){
+                list[j] = $(child).val();
+                j++;
+            }
+        }else {
+            list[i] = $(child).val();
+        }
+    }
+    return list;
+};

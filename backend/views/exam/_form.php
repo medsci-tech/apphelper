@@ -48,7 +48,7 @@ $form = ActiveForm::begin([
     </div>
     <div class="form-group" data-toggle="random-exam">
         <label class="control-label">考题目录</label>
-        <select class="form-control" name="Exam[class_id]">
+        <select class="form-control" name="Exam[class_id]" id="exam-class_id">
             <?php
                 echo '<option selected="selected" value="">全部</option>';
             foreach ($examClassTree as $key => $val){
@@ -82,7 +82,7 @@ $form = ActiveForm::begin([
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-    <?= Html::submitButton('确定', ['class' => 'btn btn-primary']) ?>
+    <?= Html::button('确定', ['class' => 'btn btn-primary', 'id' => 'btnFormSubmit']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 
@@ -150,6 +150,49 @@ $js = <<<JS
             $('[data-toggle="custom-exam"]').hide();
         }
     })
+    
+$('#formModal').on('click','#btnFormSubmit',function() {
+    var data = {};var dataLevel = {};  
+    var elmeParent = '#formModal';  
+    var action = $(elmeParent + ' #tableForm').attr('action');
+    var href = window.location.href;
+    data.type = $(elmeParent + ' #exam-type').val();
+    data.name = $(elmeParent + ' #exam-name').val();
+    data.minutes = $(elmeParent + ' #exam-minutes').val();
+    data.imgurl = $(elmeParent + ' [data-toggle="upload-saveInput"]').val();
+    data.about = $(elmeParent + ' #exam-about').val();
+    data.total = $(elmeParent + ' #exam-total').val();
+    data.class_id = $(elmeParent + ' #exam-class_id').val();
+    data.status = $(elmeParent + ' #exam-status').val();
+    
+
+    var examList = $('#examListBody');
+    var examLevelList = $('#examLevelListBody');
+    /*试题*/
+    var dataList = examList.find('[name="Exam[exe_ids][]"]');
+    data.exe_ids = getDataListForMime(dataList);
+    
+    /*等级id*/
+    dataList = examLevelList.find('[name="ExamLevel[id][]"]');
+    dataLevel.id = getDataListForMime(dataList);
+    /*等级*/
+    dataList = examLevelList.find('[name="ExamLevel[level][]"]');
+    dataLevel.level = getDataListForMime(dataList);
+    /*等级条件*/
+    dataList = examLevelList.find('[name="ExamLevel[condition][]"]');
+    dataLevel.condition = getDataListForMime(dataList);
+    /*等级正确率*/
+    dataList = examLevelList.find('[name="ExamLevel[rate][]"]');
+    dataLevel.rate = getDataListForMime(dataList);
+    /*等级评分*/
+    dataList = examLevelList.find('[name="ExamLevel[remark][]"]');
+    dataLevel.remark = getDataListForMime(dataList);     
+    console.log(data);
+    console.log(dataLevel);
+    subActionAjaxForMime('post', action, {'Exam':data, 'ExamLevel':dataLevel}, href);
+});
+
+
 
 JS;
 $this->registerJs($js);
