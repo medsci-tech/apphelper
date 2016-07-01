@@ -85,7 +85,8 @@ class UploadController extends BackendController
         $this->ajaxReturn($return);
     }
 
-    public function pdf2png($PDF, $qiniuPath){
+    public function pdf2png($pdfFile, $qiniuPath){
+        $PDF = $pdfFile['path'] . $pdfFile['name'];
         if(!extension_loaded('imagick')){
             $return = ['code'=>601,'msg'=>'缺少扩展','data'=>''];
         }elseif(!file_exists($PDF)){
@@ -101,15 +102,14 @@ class UploadController extends BackendController
             foreach($IM as $Key => $Var){
                 $Var->setImageFormat('png');
                 $saveName = date('YmdHis') . rand(1000,9999) .'.png';
-                $Filename = '/uploads/temp/' . $saveName;
+                $Filename = $pdfFile['path'] . $saveName;
                 if($Var->writeImage($Filename)==true){
-                $key = $qiniuPath . '/' . $saveName; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
-                $qiniu->uploadFile($PDF,$key); // 要上传的图片
-                $url = $qiniu->getLink($key);
-                if($url){
-                    $Return[]= $url;
-                }
-                    $returnData[]= $Filename;
+                    $key = $qiniuPath . '/' . $saveName; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
+                    $qiniu->uploadFile($PDF,$key); // 要上传的图片
+                    $url = $qiniu->getLink($key);
+                    if($url){
+                        $returnData[]= $url;
+                    }
                 }
             }
             $returnData = array_unique($returnData);
