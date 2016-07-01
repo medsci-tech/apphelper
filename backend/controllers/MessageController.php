@@ -89,6 +89,7 @@ class MessageController extends BackendController {
                     array_push($array, $row);
 //                    array_push($touids, $user['id']);
                 }
+                Yii::$app->cache->delete('MessageUser');
             }
 
             if ('send' == $params['type']) {
@@ -101,20 +102,16 @@ class MessageController extends BackendController {
                     $model->save(false);
                 } else {
 
-                    $push->pushSingle($message['title'],$message['content'], $array);
+                    $push->pushSingle($message['title'],$message['content'], $userList);
                     foreach($array as $ms){
-                        $model = $this->findModel($ms->id);
+                        $model = $this->findModel($ms);
                         $model->status = 1;
                         $model->send_at = time();
                         $model->save(false);
                     }
                 }
             }
-
-
-//            if ('save' == $params['type']) {
-//                $status = 0;
-//            }
+//            return $this->redirect(['message/index']);
         }
 
         if ('edit' == $params['post_type']) {
@@ -143,13 +140,10 @@ class MessageController extends BackendController {
                 $model->send_at = time();
                 $model->save(false);
             }
-
-//            if ('save' == $params['type']) {
-//
-//            }
+//            return $this->redirect(['message/index']);
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['message/index']);
     }
 
     public function actionMember()
@@ -161,8 +155,9 @@ class MessageController extends BackendController {
     {
         $params = Yii::$app->request->get();
 
+        Yii::$app->cache->delete('MessageUser');
         if($params['phone']){
-            print_r($params['phone']);
+//            print_r($params['phone']);
 //            $str = str_replace(array("\r\n", "\r", "\n"), "", $params['phone']);
             $phones = preg_split('/\r\n/', $params['phone']);
 //            print_r($phones);
@@ -177,7 +172,7 @@ class MessageController extends BackendController {
             }
 
             Yii::$app->cache->set('MessageUser',json_encode($array));
-            print_r($array);
+            print_r(Yii::$app->cache->get('MessageUser'));
         }
     }
 

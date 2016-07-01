@@ -24,10 +24,10 @@
                 <a class="J_menuItem" href="backend-user/index"><i class="fa fa-user-secret"></i> <span class="nav-label">管理员管理</span></a>
             </li>
             <li>
-                <a class="J_menuItem" href="/hospital/index"><i class="fa fa-medkit"></i> <span class="nav-label">单位管理</span></a>
+                <a class="J_menuItem" href="hospital/index"><i class="fa fa-medkit"></i> <span class="nav-label">单位管理</span></a>
             </li>
             <li>
-                <a class="J_menuItem" href="/ad/index"><i class="fa fa-image"></i> <span class="nav-label">轮播图管理</span></a>
+                <a class="J_menuItem" href="ad/index"><i class="fa fa-image"></i> <span class="nav-label">轮播图管理</span></a>
             </li>
             <li>
                 <a href="#">
@@ -66,7 +66,7 @@
                 </ul>
             </li>
             <li>
-                <a class="J_menuItem" href="/message/index"><i class="fa fa-comments"></i> <span class="nav-label">消息推送</span></a>
+                <a class="J_menuItem" href="message/index"><i class="fa fa-comments"></i> <span class="nav-label">消息推送</span></a>
             </li>
             <li>
                 <a class="J_menuItem" href="comment/index"><i class="fa fa-commenting"></i> <span class="nav-label">评论管理</a>
