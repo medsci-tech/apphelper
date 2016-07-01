@@ -38,15 +38,6 @@ $referrer = Yii::$app->request->referrer ?? 'pharmacy';
             ]);?>
             <div class="help-block"></div>
         </div>
-        <div class="form-group">
-            <label class="control-label">上传pdf</label>
-            <?= $this->render('/webuploader/index',[
-                'actionCtrl' => 'pdf',
-                'uploadPath' => 'pdf',
-                'imgMaxSize' => 10240000,/*文件限制10M*/
-            ]);?>
-            <div class="help-block"></div>
-        </div>
     <?= $form->field($model, 'videourl')->textInput(['placeholder' => '填写格式为：http://xx.com/xx/xx.mp4']) ?>
         <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
         <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
