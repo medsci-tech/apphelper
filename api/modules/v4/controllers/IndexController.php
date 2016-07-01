@@ -221,7 +221,7 @@ class IndexController extends \api\common\controllers\Controller
      */
     public function actionVersion()
     {
-        $result = ['code' => 200,'message'=>'版本升级提醒','data'=>['lastVersion'=>'1.0.6','download'=>'http://mydgt.com/mydisk/DoctorHelper_P1_1.0.2_debug.apk','isUpdate'=>true,'isCompel'=>false]];
+        $result = ['code' => 200,'message'=>'版本升级提醒','data'=>['lastVersion'=>'1.0.7','download'=>'http://7xvmio.com1.z0.glb.clouddn.com/DoctorHelper_P1_1.0.7_release.apk','isUpdate'=>true,'isCompel'=>false]];
         return $result;
     }
 
