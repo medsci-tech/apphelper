@@ -42,23 +42,25 @@ class TreeController {
      */
     public function change_key($array, $id, $name, $type = 0){
         $result = array();
-        if($type == 0){
-            foreach($array as $value){
-                $tmpArr = array();
-                $tmpArr['id']= $value[$id];
-                $tmpArr['name'] = $value[$name];
-                unset($value[$id]);//去除原数组中的id元素
-                unset($value[$name]);//去除原数组中的name元素
-                $result[] = array_merge($tmpArr, $value);//合并装入新数组
-            }
-        }else{
-            foreach($array as $value){
-                $tmpArr = array();
-                $tmpArr[$id]= $value['id'];
-                $tmpArr[$name] = $value['name'];
-                unset($value['id']);//去除数组中的id元素
-                unset($value['name']);//去除数组中的name元素
-                $result[] = array_merge($tmpArr, $value);//合并装入新数组
+        if($array){
+            if($type == 0){
+                foreach($array as $value){
+                    $tmpArr = array();
+                    $tmpArr['id']= $value[$id];
+                    $tmpArr['name'] = $value[$name];
+                    unset($value[$id]);//去除原数组中的id元素
+                    unset($value[$name]);//去除原数组中的name元素
+                    $result[] = array_merge($tmpArr, $value);//合并装入新数组
+                }
+            }else{
+                foreach($array as $value){
+                    $tmpArr = array();
+                    $tmpArr[$id]= $value['id'];
+                    $tmpArr[$name] = $value['name'];
+                    unset($value['id']);//去除数组中的id元素
+                    unset($value['name']);//去除数组中的name元素
+                    $result[] = array_merge($tmpArr, $value);//合并装入新数组
+                }
             }
         }
         return $result ? $result : false;
@@ -77,9 +79,11 @@ class TreeController {
     public function get_child($id, $name, $pid){
         $children = array();
         $newArr = $this->change_key($this->arr, $id, $name);//更改数组索引
-        foreach($newArr as $node){
-            if($node['parent'] == $pid){
-                $children[] = $node;//子元素数据填充
+        if($newArr){
+            foreach($newArr as $node){
+                if($node['parent'] == $pid){
+                    $children[] = $node;//子元素数据填充
+                }
             }
         }
         return $children ? $children : false;
