@@ -11,3 +11,4 @@ runtime/logs/app.log
 /nbproject
 /common/config/main.php
 /backend/controllers/TestController.php
+/common/config/db.php

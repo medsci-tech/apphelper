@@ -32,6 +32,7 @@ $referrer = Yii::$app->request->referrer ?? 'index';
             <label class="control-label">缩略图</label>
             <?= $this->render('/webuploader/index',[
                 'name' => 'Resource[imgurl]',
+                'uploadPath' => 'image/resource',
                 'imgMaxSize' => 2097152,/*文件限制2M*/
             ]);?>
             <div class="help-block"></div>

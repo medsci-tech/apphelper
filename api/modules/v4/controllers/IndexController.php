@@ -50,7 +50,7 @@ class IndexController extends \api\common\controllers\Controller
                 ->all();
             Yii::$app->cache->set(Yii::$app->params['redisKey'][1],json_encode($data),2592000);
         }
-        $result = ['code' => 200, 'message' => '轮播图', 'data' => $data];
+        $result = ['code' => 200, 'message' => '轮播图', 'data' => $data ? $data : null];
         return $result;
     } 
     /**
@@ -221,7 +221,7 @@ class IndexController extends \api\common\controllers\Controller
      */
     public function actionVersion()
     {
-        $result = ['code' => 200,'message'=>'版本升级提醒','data'=>['lastVersion'=>'1.0.2','download'=>'http://mydgt.com/mydisk/DoctorHelper_P1_1.0.2_debug.apk','isUpdate'=>true,'isCompel'=>false]];
+        $result = ['code' => 200,'message'=>'版本升级提醒','data'=>['lastVersion'=>'1.0.7','download'=>'http://7xvmio.com1.z0.glb.clouddn.com/DoctorHelper_P1_1.0.7_release.apk','isUpdate'=>true,'isCompel'=>false]];
         return $result;
     }
 

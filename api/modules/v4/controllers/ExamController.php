@@ -49,11 +49,12 @@ class ExamController extends \api\common\controllers\Controller
             foreach($data as &$val){
                 $maxTime = $val['minutes']*60; //最大时间       
                 $where =['exa_id'=>$val['id'],'uid'=>$this->uid];
-                $log = ExamLog::find()->OrderBy(['answers'=>SORT_DESC])->where($where)->asArray()->one();//最佳答题记录
+                $row = (new \yii\db\Query())->select('max(answers) as answers')->from(ExamLog::tableName())->where($where)->one();//最佳答题记录 
+                $log = ExamLog::find()->OrderBy(['id'=>SORT_DESC])->where($where)->asArray()->one();//最新答题记录
                 if($log['status']==1)
                 {
                     /* 根据成绩计算等级 */
-                    $rate = intval($log['answers']/$val['total']*100); //正确率 
+                    $rate = intval($row['answers']/$val['total']*100); //正确率 
                     $level = self::getLevel($val['id'],$rate,$val['total']); // 根据正确率返回等级
                     $val['labelName']='历史最佳';
                     $val['labelValue']= $level;
@@ -171,14 +172,23 @@ class ExamController extends \api\common\controllers\Controller
         $model->end_time =time();
         $model->save();
         /* 根据成绩计算等级 */
+        //如果用户是第一次考本试卷
+        $log = ExamLog::find()->OrderBy(['answers'=>SORT_DESC])->where(['exa_id'=>$id,'uid'=>$this->uid])->asArray()->one();//最佳答题记录
+        if($log['status']==1)
+        {
+            /* 根据成绩计算等级 */
+            $rate = intval($log['answers']/$exam_total*100); //正确率 
+            $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
+        }
+         // 获取本次提交的结果
         $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
-        $level = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
+        $currentlevel = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
         $mins = intval( $timeLeft / 60 ); //分钟
         $secs = $timeLeft % 60; //秒
         $times = $mins.':'.$secs;     
         //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         Yii::$app->cache->delete(Yii::$app->params['redisKey'][5].$id.'_'.$this->uid);  //删除本试卷最后历史记录
-        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$level]];
+        $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$currentlevel]];
         return $result; 
     } 
     
@@ -380,10 +390,10 @@ class ExamController extends \api\common\controllers\Controller
                         $level = $data['level'];
                   break;
                 default:
-                    $level = '未定义';           
+                    $level = $minRate;           
             }
         }
-        return $level;
+        return $level ?? $minRate;//未定义
     }
     
      /**
@@ -396,7 +406,7 @@ class ExamController extends \api\common\controllers\Controller
      */
     private function lastExam($id)
     {
-        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->one();     
+        $model = ExamLog::find()->where(['uid'=>$this->uid,'status'=>0,'exa_id'=>$id])->OrderBy(['id'=>SORT_DESC])->one();
         if(!$model)
             $model = new ExamLog();
         return $model;

@@ -24,6 +24,7 @@ $form = ActiveForm::begin([
         <label class="control-label">封面图</label>
         <?= $this->render('/webuploader/index',[
             'name' => 'Exam[imgurl]',
+            'uploadPath' => 'image/exam',
             'imgMaxSize' => 2097152,/*文件限制2M*/
         ]);?>
         <div class="help-block"></div>
@@ -51,8 +52,10 @@ $form = ActiveForm::begin([
         <select class="form-control" name="Exam[class_id]" id="exam-class_id">
             <?php
                 echo '<option selected="selected" value="">全部</option>';
-            foreach ($examClassTree as $key => $val){
-                echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
+            if($examClassTree){
+                foreach ($examClassTree as $key => $val){
+                    echo '<option value="' . $val['id'] . '">' . $val['name'] . '</option>';
+                }
             }
             ?>
         </select>

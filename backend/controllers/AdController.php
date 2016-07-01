@@ -42,6 +42,7 @@ class AdController extends BackendController
 
     public function actionCreate()
     {
+        $data = Yii::$app->cache->delete(Yii::$app->params['redisKey'][1]); 
         $params = Yii::$app->request->post();
         if('add' == $params['mode']) {
             $model = new AD();

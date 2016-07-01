@@ -103,6 +103,7 @@ class ExamController extends BackendController
         }else{
             $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
         }
+        Yii::$app->cache->delete(Yii::$app->params['redisKey'][3]);
         $this->ajaxReturn($return);
     }
 
@@ -146,6 +147,7 @@ class ExamController extends BackendController
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][7].$val);
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][4].$val);
         }
+        Yii::$app->cache->delete(Yii::$app->params['redisKey'][3]);
         return $this->redirect(['index']);
     }
 
