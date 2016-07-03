@@ -44,6 +44,7 @@ class Resource extends ActiveRecord {
                 'author',
                 'keyword',
                 'imgurl',
+                'ppt_imgurl',
                 'videourl',
                 'content',
                 'author',

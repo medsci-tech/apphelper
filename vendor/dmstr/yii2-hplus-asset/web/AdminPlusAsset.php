@@ -39,6 +39,7 @@ class AdminPlusAsset extends AssetBundle
         '/js/jquery-common-mime-fun.js',
         'js/plugins/toastr/toastr.min.js',
         'js/plugins/webuploader/jquery.ajaxupload.js',
+        'js/plugins/webuploader/webuploader.min.js',
         'js/plugins/chosen/chosen.jquery.js',
         'js/plugins/plyr/plyr.js',
     ];
