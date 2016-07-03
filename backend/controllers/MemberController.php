@@ -106,6 +106,13 @@ class MemberController extends BackendController
             $checkUsername = $model->checkUsernameExist($model->username, $model->id);
             if(false == $checkUsername){
                 if (!isset($model->id)) {
+                    if(isset($model->password)){
+                        $password = $model->password;
+                    }else{
+                        $password = Yii::$app->params['member']['defaultPwd'];
+                    }
+                    $model->setPassword($password);
+                    $model->generateAuthKey();
                     $model->created_at = time();
                 } else {
                     $model->updated_at = time();
