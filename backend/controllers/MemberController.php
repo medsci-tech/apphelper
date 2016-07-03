@@ -200,6 +200,8 @@ class MemberController extends BackendController
                 $rank = $appYii->params['member']['rank'];
                 $status = $appYii->params['statusOption'];
                 $user = new User();
+                $user->setPassword($appYii->params['member']['defaultPwd']);
+                $user->generateAuthKey();
                 foreach ($result['data'] as $key => $val){
                     $val['updated_at'] = time();
                     $val['created_at'] = time();
@@ -209,8 +211,6 @@ class MemberController extends BackendController
                     $val['province_id'] = Region::find()->andFilterWhere(['like', 'name', $val['province']])->one()->id;
                     $val['city_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['city']])->one()->id;
                     $val['area_id'] =  Region::find()->andFilterWhere(['like', 'name', $val['area']])->one()->id;
-                    $user->setPassword($appYii->params['member']['defaultPwd']);
-                    $user->generateAuthKey();
                     $val['password_hash'] =$user->password_hash;
                     $val['auth_key'] =$user->auth_key;
                     $appYii->db->createCommand()->insert('{{%member}}',$val)->execute();
