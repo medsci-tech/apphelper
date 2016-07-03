@@ -89,6 +89,7 @@ class ResourceController extends BackendController
             if(!isset($model->id)){
                 $model->created_at = time();
             }
+            $model->ppt_imgurl = serialize($model->ppt_imgurl);
             $model->rids = implode(',', array_unique($model->rids));
             $result = $model->save(false);
             if ($result) {

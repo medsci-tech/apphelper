@@ -63,6 +63,9 @@ class UploadController extends BackendController
         $this->ajaxReturn($return);
     }
 
+    /**
+     * 上传pdf
+     */
     public function actionPdf(){
         $uploadModel = new Upload();
         $qiniuPath = Yii::$app->request->get()['path'];
@@ -85,6 +88,13 @@ class UploadController extends BackendController
         $this->ajaxReturn($return);
     }
 
+    /**
+     * pdf转png
+     * @param $pdfFile
+     * @param $qiniuPath
+     * @return array
+     * @throws \yii\web\HttpException
+     */
     public function pdf2png($pdfFile, $qiniuPath){
         $PDF = $pdfFile['path'] . $pdfFile['name'];
         if(!extension_loaded('imagick')){
@@ -105,7 +115,7 @@ class UploadController extends BackendController
                 $Filename = $pdfFile['path'] . $saveName;
                 if($Var->writeImage($Filename)==true){
                     $key = $qiniuPath . '/' . $saveName; // 上传文件目录名images后面跟单独文件夹（ad为自定义）
-                    $qiniu->uploadFile($PDF,$key); // 要上传的图片
+                    $qiniu->uploadFile($Filename,$key); // 要上传的图片
                     $url = $qiniu->getLink($key);
                     if($url){
                         $returnData[]= $url;
