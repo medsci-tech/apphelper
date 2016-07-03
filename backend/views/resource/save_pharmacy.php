@@ -40,7 +40,7 @@ $referrer = Yii::$app->request->referrer ?? 'pharmacy';
             <div class="help-block"></div>
         </div>
         <div class="form-group">
-            <label class="control-label">上传pdf</label>
+            <label class="control-label">上传pdf(<font style="font-size: 12px;color: #ed5565;font-weight: 100;">如果是ppt格式，请手动转成pdf再上传</font>)</label>
             <?= $this->render('/webuploader/index2',[
                 'name' => 'Resource[ppt_imgurl]',
                 'uploadPath' => 'pdf',
