@@ -13,6 +13,7 @@ $saveInput = $saveInput ?? 'one';//为了区分上传一
 <div class="form-inline">
     <div class="form-group">
         <input readonly type="text" class="form-control" data-toggle="upload-progressInput-<?php echo $saveInput?>">
+        <div id="saveInput-<?php echo $saveInput?>"></div>
     </div>
     <div id="filePicker-<?php echo $saveInput?>" class="form-group">上传</div>
     <div class="form-group progress"  >
@@ -126,7 +127,7 @@ var saveInput =	function (list) {
         html += list[i];
         html += '">';
     }
-    return html;
+    $('#saveInput-$saveInput').html(html);
 }
 JS;
 $this->registerJs($js);
