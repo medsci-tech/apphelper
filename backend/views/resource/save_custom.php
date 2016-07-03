@@ -31,8 +31,19 @@ $referrer = Yii::$app->request->referrer ?? 'index';
         <div class="form-group">
             <label class="control-label">缩略图</label>
             <?= $this->render('/webuploader/index',[
+                'actionCtrl' => 'img',
                 'name' => 'Resource[imgurl]',
                 'uploadPath' => 'image/resource',
+                'imgMaxSize' => 2097152,/*文件限制2M*/
+            ]);?>
+            <div class="help-block"></div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">上传pdf</label>
+            <?= $this->render('/webuploader/index2',[
+                'name' => 'Resource[ppt_imgurl]',
+                'uploadPath' => 'pdf',
+                'actionCtrl' => 'pdf',
                 'imgMaxSize' => 2097152,/*文件限制2M*/
             ]);?>
             <div class="help-block"></div>
@@ -67,6 +78,8 @@ $('#submitBtn').click(function() {
     data.videourl = $(elmeParent + '-videourl').val();
     data.content = $(elmeParent + '-content').val();
     var id = $(elmeParent + '-id').val();
+    var ppt_imgurl = $('[data-toggle="upload-saveInput-one"]');
+    data.ppt_imgurl = getDataListForMime(ppt_imgurl);
     console.log(data);
     subActionAjaxForMime('post', 'form?id=' + id, {'Resource':data}, '$referrer');
 });

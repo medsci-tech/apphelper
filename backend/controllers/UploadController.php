@@ -75,7 +75,10 @@ class UploadController extends BackendController
             if(200 == $result['code']){
                 $pdf2png = self::pdf2png($result['data'], $qiniuPath);
                 if(200 == $pdf2png['code']){
-                    $return = ['code'=>200,'msg'=>'上传成功','data'=>$pdf2png['data']];
+                    $return = ['code'=>200,'msg'=>'上传成功','data'=>[
+                        'tName' => $uploadModel->file->name,
+                        'saveName' => $pdf2png['data'],
+                    ]];
                 }else{
                     $return = ['code'=>801,'msg'=>$pdf2png['msg'],'data'=>''];
                 }

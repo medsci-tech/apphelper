@@ -80,7 +80,8 @@ $('#submitBtn').click(function() {
     data.videourl = $(elmeParent + '-videourl').val();
     data.content = $(elmeParent + '-content').val();
     var id = $(elmeParent + '-id').val();
-    console.log(data);
+    var ppt_imgurl = $('[data-toggle="upload-saveInput-one"]');
+    data.ppt_imgurl = getDataListForMime(ppt_imgurl);
     subActionAjaxForMime('post', 'form?id=' + id, {'Resource':data}, '$referrer');
 });
 JS;

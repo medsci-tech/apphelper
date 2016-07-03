@@ -123,7 +123,7 @@ uploader.on( 'uploadError', function( file ,reason) {
 var saveInput =	function (list) {
     var html ='';
     for(var i = 0; i < list.length; i++){
-        html += '<input type="hidden" data-toggle="upload-saveInput-<?php echo $saveInput?>" name="<?php echo $modelName;?>" value="';
+        html += '<input type="hidden" data-toggle="upload-saveInput-$saveInput" name="$modelName" value="';
         html += list[i];
         html += '">';
     }

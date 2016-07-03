@@ -84,21 +84,18 @@ class ResourceController extends BackendController
             $model = new Resource();
         }
         $model->load($post);
-        $isValid = $model->validate();
-        if ($isValid) {
-            if(!isset($model->id)){
-                $model->created_at = time();
-            }
+        if(!isset($model->id)){
+            $model->created_at = time();
+        }
+        if($model->ppt_imgurl){
             $model->ppt_imgurl = serialize($model->ppt_imgurl);
-            $model->rids = implode(',', array_unique($model->rids));
-            $result = $model->save(false);
-            if ($result) {
-                $return = ['code' => 200, 'msg' => '', 'data' => ''];
-            } else {
-                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
-            }
-        }else{
-            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
+        }
+        $model->rids = implode(',', array_unique($model->rids));
+        $result = $model->save(false);
+        if ($result) {
+            $return = ['code' => 200, 'msg' => '', 'data' => ''];
+        } else {
+            $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
         }
         self::clearIndex();// 更新app首页缓存
         $this->ajaxReturn($return);
