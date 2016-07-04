@@ -42,9 +42,9 @@ class HospitalController extends \api\common\controllers\Controller
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset=$pagesize*($page - 1); //计算记录偏移量
 
-        $province = str_replace("区","",$this->params['province']);
+        $province = str_replace("省","",$this->params['province']);
         $city = str_replace("市","",$this->params['city']);
-        $area = str_replace("市","",$this->params['area']);
+        $area = str_replace("区","",$this->params['area']);
         $data = Hospital::find()
             ->select(['id as hospital_id','name'])
             ->andWhere(['status' => 1])
