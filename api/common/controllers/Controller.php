@@ -48,7 +48,7 @@ class Controller extends ActiveController
         $access_token = $headers->get('access-token');
         if(!$uid || !$access_token)
         {    
-            $result = ['code' => -1,'message'=>'无效的uid和tocken访问验证!','data'=>null];
+            $result = ['code' => -1,'message'=>'无效的uid和token访问验证!','data'=>null];
             exit(json_encode($result));
         }      
         $data = ['uid'=>$uid,'access_token' => $access_token];
@@ -64,7 +64,7 @@ class Controller extends ActiveController
             $res = array_diff_assoc($mem,$data);    
             if($res)  // 授权认证失败
             {
-                $result = ['code' => -1,'message'=>'无效的tocken访问验证!','data'=>null];
+                $result = ['code' => -1,'message'=>'无效的token访问验证!','data'=>null];
                 exit(json_encode($result));
             }
             else
@@ -75,7 +75,7 @@ class Controller extends ActiveController
             $model= \api\common\models\Member::findIdentityByAccessToken($access_token);
             if($model->id!=$uid)
             {
-                $result = ['code' => -1,'message'=>'tocken验证失败!','data'=>null];
+                $result = ['code' => -1,'message'=>'token验证失败!','data'=>null];
                 exit(json_encode($result));
             }
             else  

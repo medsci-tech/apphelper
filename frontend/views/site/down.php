@@ -37,11 +37,10 @@
         if( isWeiXin() && app.ct=="iphone")
         {
             alert("IOS需要提供uuid,由于微信浏览器限制，请点击右上角，选择“使用Safari打开”");
-            //window.location.href = 'https://appsto.re/cn/vGPwbb.i';
         }
         if( !isWeiXin() && app.ct=="iphone")
         {
-            //window.location.href = 'http://www.chengliwang.com/package/木奇灵AR.apk';
+
             alert("IOS需要提供uuid,由于微信浏览器限制，请点击右上角，选择“使用Safari打开”");
         }
 
