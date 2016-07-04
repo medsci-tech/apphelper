@@ -25,7 +25,7 @@ class AD extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'attr_id', 'attr_from', 'status'], 'integer'],
+            [['created_at', 'attr_id', 'attr_from', 'status', 'sort'], 'integer'],
             [['title'], 'string', 'max' => 20],
             [['imgurl'], 'string', 'max' => 150],
             // 若 "linkurl" 为空，则设其为 null
