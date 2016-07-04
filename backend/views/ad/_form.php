@@ -70,6 +70,7 @@ $js = <<<JS
             $('#attr_name').val('');
         }
     });
+
 JS;
 $this->registerJs($js);
 ?>

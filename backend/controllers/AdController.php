@@ -47,6 +47,10 @@ class AdController extends BackendController
         if('add' == $params['mode']) {
             $model = new AD();
             if ($model->load(Yii::$app->request->post())) {
+                if($params['AD']['sort']) {
+                    $model->sort = $params['AD']['sort'];
+                }
+
                 if (0 == $params['attr_type']) {
                     $model->attr_id = $params['attr_id'];
                     $model->attr_from = $params['attr_from'];
@@ -66,6 +70,10 @@ class AdController extends BackendController
             $id = $params['aid'];
             $model = $this->findModel($id);
             if ($model->load(Yii::$app->request->post())) {
+                if($params['AD']['sort']) {
+                    $model->sort = $params['AD']['sort'];
+                }
+
                 if (0 == $params['attr_type']) {
                     $model->attr_id = $params['attr_id'];
                     $model->attr_from = $params['attr_from'];
@@ -169,12 +177,25 @@ class AdController extends BackendController
 
         foreach($allAD as $ad)
         {
+            if ($ad->attr_from == 1) {
+                $res = Resource::find()
+                    ->where(['id' => $ad->attr_id])
+                    ->one();
+                $attr_name = $res->title;
+            }
+
+            if ($ad->attr_from == 2) {
+                $exam = Exam::find()
+                    ->where(['id' => $ad->attr_id])
+                    ->one();
+                $attr_name = $exam->about;
+            }
             $strHtml = $strHtml." <div class='col-sm-6 col-md-4'>
                 <img src='".$ad->imgurl."' class='thumbnail' width='300px'
                 aid='".$ad->id."' sort='".$ad->sort."'
                 links='".$ad->linkurl."'  status ='".$ad->status."'
                 attr_id='".$ad->attr_id."' attr_from ='".$ad->attr_from."'
-                atitle='".$ad->title."'></div> ";
+                atitle='".$ad->title."' adname='".$attr_name."'></div> ";
         }
 
         return $strHtml;

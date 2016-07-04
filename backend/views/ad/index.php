@@ -60,6 +60,7 @@ $js = <<<JS
             var attr_id;
             var attr_from;
             var titles;
+            var ad_name;
         $('div.row img').click(function () {
             $("div.row img").css("border","1px solid #ddd");
             $(this).css("border","1px solid #3B9A2E");
@@ -71,6 +72,7 @@ $js = <<<JS
             attr_id = $(this).attr('attr_id');
             attr_from = $(this).attr('attr_from');
             titles = $(this).attr('atitle');
+            ad_name = $(this).attr('adname');
             $("#btnEdit").show();
             $("#btnDelete").show();
         });
@@ -88,6 +90,8 @@ $js = <<<JS
             $("#ad-title").val('');
             $("#attr_id").val('');
             $("#attr_from").val('');
+            $("#attr_name").val('');
+            $("#attr_type").val(0);
         });
 
         $('#btnEdit').click(function () {
@@ -103,6 +107,16 @@ $js = <<<JS
             $("#ad-title").val(titles);
             $("#attr_id").val(attr_id);
             $("#attr_from").val(attr_from);
+            if(attr_from == 0) {
+                $("#attr_type").val(1);
+                $("#attr_name").val(linkUrl);
+                $('#select').hide();
+            }
+            else {
+                $("#attr_type").val(0);
+                $("#attr_name").val(ad_name);
+                $('#select').show();
+            }
         });
 
         $('#btnDelete').click(function () {
