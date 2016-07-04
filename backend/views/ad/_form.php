@@ -60,9 +60,9 @@ use yii\widgets\ActiveForm;
 <?php
 $js = <<<JS
     $('#attr_type').change(function(){
-        var valOptions= $("#attr_type  option:selected").text();
+        var valOptions= $("#attr_type  option:selected").val();
         console.log(valOptions);
-        if(valOptions == '内部资源') {
+        if(valOptions == '0') {
             $('#select').show();
             $('#attr_name').val('');
         } else {
