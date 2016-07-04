@@ -58,7 +58,7 @@ class Controller extends ActiveController
             /*  验证token 是否过期 */
             if($access_token!=$mem['access_token'])
             {
-                $result = ['code' => 0,'message'=>'tocken已过期!请重新登录!','data'=>null];
+                $result = ['code' => 0,'message'=>'token已过期!请重新登录!','data'=>null];
                 exit(json_encode($result));
             }
             $res = array_diff_assoc($mem,$data);    
