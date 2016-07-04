@@ -64,9 +64,9 @@ CSS;
 
 $js = <<<JS
 // 初始化Web Uploader
-var probar = $('#fileList-$saveInput');
-var progressbarMaxWidth = $proBarMaxWidth;
-var uploader = WebUploader.create({
+var probar$saveInput = $('#fileList-$saveInput');
+var progressbarMaxWidth$saveInput = $proBarMaxWidth;
+var uploader$saveInput = WebUploader.create({
 
     // 选完文件后，是否自动上传。
     auto: true,
@@ -80,7 +80,7 @@ var uploader = WebUploader.create({
 
 });
 // 当有文件添加进来的时候
-uploader.on( 'fileQueued', function( file ) {
+uploader$saveInput.on( 'fileQueued', function( file ) {
 
 
     // 创建缩略图
@@ -89,43 +89,47 @@ uploader.on( 'fileQueued', function( file ) {
 
 });
 // 文件上传过程中创建进度条实时显示。
-uploader.on( 'uploadProgress', function( file , percentage ) {
-    probar.removeClass('progress-bar-danger progress-bar-success');
-    probar.addClass('progress-bar-info');
-    probar.css('width', percentage * progressbarMaxWidth);
-    probar.find('span').text(Math.round(percentage * 100) + '%');
+uploader$saveInput.on( 'uploadProgress', function( file , percentage ) {
+    probar$saveInput.removeClass('progress-bar-danger progress-bar-success');
+    probar$saveInput.addClass('progress-bar-info');
+    probar$saveInput.css('width', percentage * progressbarMaxWidth$saveInput);
+    probar$saveInput.find('span').text(Math.round(percentage * 99) + '%');
 });
 
 // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-uploader.on( 'uploadSuccess', function( file, ret, hds  ) {
+uploader$saveInput.on( 'uploadSuccess', function( file, ret, hds  ) {
     if(200 == ret.code){
         var data = ret.data;
-        probar.removeClass('progress-bar-info');
-        probar.addClass('progress-bar-success');
+        probar$saveInput.removeClass('progress-bar-info');
+        probar$saveInput.addClass('progress-bar-success');
         $('[data-toggle="upload-progressInput-$saveInput"]').val(data.tName);
         saveInput(data.saveName);
     }else {
-        probar.removeClass('progress-bar-info');
-        probar.addClass('progress-bar-danger');
+        probar$saveInput.removeClass('progress-bar-info');
+        probar$saveInput.addClass('progress-bar-danger');
         $('[data-toggle="upload-progressInput-$saveInput"]').val('');
+        saveInput(false);
     }
-    probar.find('span').text(ret.msg);
+    probar$saveInput.find('span').text(ret.msg);
 });
 
 // 文件上传失败，显示上传出错。
-uploader.on( 'uploadError', function( file ,reason) {
-        probar.removeClass('progress-bar-info');
-        probar.addClass('progress-bar-danger');
-        probar.find('span').text('上传失败');
-        probar.css('width', progressbarMaxWidth);
+uploader$saveInput.on( 'uploadError', function( file ,reason) {
+        probar$saveInput.removeClass('progress-bar-info');
+        probar$saveInput.addClass('progress-bar-danger');
+        probar$saveInput.find('span').text('上传失败');
+        probar$saveInput.css('width', progressbarMaxWidth$saveInput);
         $('[data-toggle="upload-progressInput-$saveInput"]').val('');
+        saveInput(false);
 });
 var saveInput =	function (list) {
     var html ='';
-    for(var i = 0; i < list.length; i++){
-        html += '<input type="hidden" data-toggle="upload-saveInput-$saveInput" name="$modelName" value="';
-        html += list[i];
-        html += '">';
+    if(list){
+        for(var i = 0; i < list.length; i++){
+            html += '<input type="hidden" data-toggle="upload-saveInput-$saveInput" name="$modelName" value="';
+            html += list[i];
+            html += '">';
+        }
     }
     $('#saveInput-$saveInput').html(html);
 }

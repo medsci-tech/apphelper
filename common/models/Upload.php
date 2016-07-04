@@ -76,7 +76,7 @@ class Upload extends Model
                 $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
             }
         }else{
-            $return = ['code'=>703,'msg'=>'目前只支持png,jpg,gif格式','data'=>''];
+            $return = ['code'=>703,'msg'=>'目前只支持png,jpg,gif,bmp格式','data'=>''];
         }
         return $return;
     }
@@ -106,7 +106,7 @@ class Upload extends Model
                 $return = ['code'=>701,'msg'=>'上传失败哦','data'=>''];
             }
         }else{
-            $return = ['code'=>703,'msg'=>'目前只支持png,jpg,gif格式','data'=>''];
+            $return = ['code'=>703,'msg'=>'目前只支持pdf格式','data'=>''];
         }
         return $return;
     }
