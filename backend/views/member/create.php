@@ -32,6 +32,16 @@ $('#myModal #memberFormSubmit').click(function() {
     subActionAjaxForMime('post', 'form', {'Member':data}, href);
 });
 
+//根据地区筛选医院
+$('#myModal .district').on('click','a',function() {
+    var data = getRegionReturnValue('myModal');
+   data.area_id = $(this).attr('data-code');
+    console.log(data);
+    var action = '/hospital/get-hospital-by-region';
+    var hospitalDom = '#myModal #member-hospital_id';
+    getHospitalByRegionForMime('post', action, data, hospitalDom);
+});
+
 JS;
 $this->registerJs($js);
 ?>

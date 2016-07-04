@@ -200,3 +200,27 @@ var getDataListForMime = function(dataList) {
     }
     return list;
 };
+
+/**
+ * 根据地区筛选医院
+ * @param type
+ * @param url
+ * @param data
+ * @param hospitalDom
+ */
+getHospitalByRegionForMime = function (type, url, data, hospitalDom) {
+    $.ajax({
+        type: type,
+        url: url,
+        data: data,
+        success: function(res){
+            var data = res.data,html='';
+            if(data){
+                for(var i =0; i < data.length; i++){
+                    html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                }
+            }
+            $(hospitalDom).html(html);
+        }
+    });
+};

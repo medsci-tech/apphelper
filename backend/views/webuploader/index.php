@@ -48,7 +48,7 @@ $js = <<<JS
 			if (e.lengthComputable) {
 				var percentComplete = e.loaded / e.total;
 				probar.css('width', percentComplete * progressbarMaxWidth);
-                probar.find('span').text(Math.round(percentComplete * 100) + '%');
+                probar.find('span').text(Math.round(percentComplete * 99) + '%');
 			}
 		},
 		error : function () {

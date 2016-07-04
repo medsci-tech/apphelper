@@ -33,17 +33,28 @@ $referrer = Yii::$app->request->referrer ?? 'pharmacy';
             <label class="control-label">缩略图</label>
             <?= $this->render('/webuploader/index',[
                 'name' => 'Resource[imgurl]',
+                'actionCtrl' => 'img',
                 'uploadPath' => 'image/resource',
                 'imgMaxSize' => 2097152,/*文件限制2M*/
             ]);?>
             <div class="help-block"></div>
         </div>
-    <?= $form->field($model, 'videourl')->textInput(['placeholder' => '填写格式为：http://xx.com/xx/xx.mp4']) ?>
+        <div class="form-group">
+            <label class="control-label">上传pdf(<font style="font-size: 12px;color: #ed5565;font-weight: 100;">如果是ppt格式，请手动转成pdf再上传</font>)</label>
+            <?= $this->render('/webuploader/index2',[
+                'name' => 'Resource[ppt_imgurl]',
+                'uploadPath' => 'pdf',
+                'actionCtrl' => 'pdf',
+                'imgMaxSize' => 2097152,/*文件限制2M*/
+            ]);?>
+            <div class="help-block"></div>
+        </div>
+        <?= $form->field($model, 'videourl')->textInput(['placeholder' => '填写格式为：http://xx.com/xx/xx.mp4']) ?>
         <?= $form->field($model, 'content')->widget('kucha\ueditor\UEditor', ['options' => ['style' => '']]) ?>
         <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 
         <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
-    <?= Html::button('确定', ['class' => 'btn btn-primary','id'=>'submitBtn']) ?>
+        <?= Html::button('确定', ['class' => 'btn btn-primary','id'=>'submitBtn']) ?>
 
     <?php ActiveForm::end(); ?>
 
@@ -69,7 +80,8 @@ $('#submitBtn').click(function() {
     data.videourl = $(elmeParent + '-videourl').val();
     data.content = $(elmeParent + '-content').val();
     var id = $(elmeParent + '-id').val();
-    console.log(data);
+    var ppt_imgurl = $('[data-toggle="upload-saveInput-one"]');
+    data.ppt_imgurl = getDataListForMime(ppt_imgurl);
     subActionAjaxForMime('post', 'form?id=' + id, {'Resource':data}, '$referrer');
 });
 JS;

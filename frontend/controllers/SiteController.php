@@ -56,4 +56,19 @@ class SiteController extends Controller
       
     }
 
+
+    /**
+     * app下载功能
+     * @author by lxhui
+     * @version [2010-07-02]
+     * @param array $params additional parameters
+     * @desc 如果用户没有权限，应抛出一个ForbiddenHttpException异常
+     */
+    public function actionDown()
+    {
+        return $this->render('down', [
+
+        ]);
+    }
+
 }
