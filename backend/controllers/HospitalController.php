@@ -258,4 +258,34 @@ class HospitalController extends BackendController
         $this->ajaxReturn($return);
     }
 
+    /**
+     * 根据地区筛选医院
+     */
+    public function actionGetHospitalByRegion(){
+        $post = Yii::$app->request->post();
+        $where = [];
+        $province_id = $post['province_id'] ?? '420000';
+        $city_id = $post['city_id'] ?? '420100';
+        $area_id = $post['area_id'] ?? '420103';
+        if($province_id){
+            $where['province_id'] = $province_id;
+            if($city_id){
+                $where['city_id'] = $city_id;
+                if($area_id){
+                    $where['area_id'] = $area_id;
+                }
+            }
+        }
+        $hospital = (new Hospital())->getDataForWhere($where);
+        $data = [];
+        foreach ($hospital as $key => $val){
+            $data[$key] = [
+                'id' => $val['id'],
+                'name' => $val['name'],
+            ];
+        }
+        $return = ['code'=>200,'msg'=>'','data'=>$data];
+        $this->ajaxReturn($return);
+    }
+
 }
