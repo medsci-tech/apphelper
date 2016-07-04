@@ -49,8 +49,8 @@ class HospitalController extends \api\common\controllers\Controller
             ->select(['id as hospital_id','name'])
             ->andWhere(['status' => 1])
             ->andWhere(['>', "LOCATE('".$province."',province)", 0])
-            ->andFilterWhere(['>', "LOCATE('".$this->params['city']."',city)", 0])
-            ->andFilterWhere(['>', "LOCATE('".$this->params['area']."',area)", 0]);
+            ->andFilterWhere(['>', "LOCATE('".$city."',city)", 0])
+            ->andFilterWhere(['>', "LOCATE('".$area."',area)", 0]);
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count()/$pagesize);
