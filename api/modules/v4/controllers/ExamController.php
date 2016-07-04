@@ -184,8 +184,17 @@ class ExamController extends \api\common\controllers\Controller
         $rate = $exam_total>0 ? intval($i/$exam_total)*100 : 0; //正确率     
         $currentlevel = self::getLevel($id,$rate,$exam_total); // 根据正确率返回等级
         $mins = intval( $timeLeft / 60 ); //分钟
+        $mins = $mins<10 ? '0'.$mins : $mins; //处理分钟格式
         $secs = $timeLeft % 60; //秒
-        $times = $mins.':'.$secs;     
+        /* 处理离线情况下的提交时间超时处理，统一设置为试卷时间 */
+        if($mins>$data['minutes'])
+        {
+            $mins = $data['minutes'];
+            $secs = 0;
+        }   
+        $secs = $secs<10 ? '0'.$secs : $secs; //处理秒格式    
+        $times = $mins.':'.$secs;  
+
         //ExamLog::deleteAll('id < :id AND uid = :uid AND exa_id = :exa_id AND status=0', [':id' => $model->id,':uid' =>$this->uid,'exa_id'=>$id]); //删除历史脏数据
         Yii::$app->cache->delete(Yii::$app->params['redisKey'][5].$id.'_'.$this->uid);  //删除本试卷最后历史记录
         $result = ['code' => 200,'message'=>'提交成功!','data'=>['times'=>$times,'labelName'=>'历史最佳','labelValue'=>$level,'level'=>$currentlevel]];
