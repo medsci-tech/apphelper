@@ -49,7 +49,7 @@ backend\assets\AppAsset::register($this);
     </table>
 </div>
 <div class="modal-footer">
-    <input type="hidden" name="type" id="type">
+    <input type="hidden" name="res_type" id="res_type" value="2">
     <input type="hidden" name="attr_id" id="attr_id">
     <input type="hidden" name="attr_name" id="attr_name">
     <button id="btnClose" type="button" class="btn btn-white">关闭</button>
@@ -69,9 +69,10 @@ $js = <<<JS
     });
 
     $("#btnConfirm").click(function() {
+        console.log("xxx:"+$("#res_type").val());
         parent.$('#attr_name').val($("#attr_name").val());
         parent.$('#attr_id').val($("#attr_id").val());
-        parent.$('#attr_from').val($("#type").val());
+        parent.$('#attr_from').val($("#res_type").val());
         parent.layer.close(index);
     });
 
@@ -98,7 +99,7 @@ $js = <<<JS
 
     $('.radioItem').change(function(){
         var valOption = $('input[name="optionsResource"]:checked').val();
-        $("#type").val(valOption);
+        $("#res_type").val(valOption);
         console.log(valOption);
         $("#table3  tr:not(:first)").html("");
     });
@@ -126,8 +127,10 @@ var getParam = (function(){
             console.log(type);
                 if(type=='1') {
                     $("#rdo1").attr("checked","checked");
+                    $("#res_type").val('1');
                 } else{
                     $("#rdo2").attr("checked","checked");
+                    $("#res_type").val('2');
                 }
             }
         }
