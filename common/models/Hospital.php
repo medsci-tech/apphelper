@@ -58,4 +58,15 @@ class Hospital extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
         ];
     }
+
+    /**
+     * 根据条件查询
+     * @param array $where
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getDataForWhere($where = []){
+        $where['status'] = 1;
+        $examClass = $this::find()->where($where)->asArray()->all();
+        return $examClass;
+    }
 }
