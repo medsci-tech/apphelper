@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
     </div>
     <?= $form->field($model, 'sort')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList([0 => '禁用', 1 => '启用']) ?>
+    <?= $form->field($model, 'status')->dropDownList(Yii::$app->params['statusOption']) ?>
 </div>
 <div class="modal-footer">
     <input type="hidden" name="aid" id="aid">
