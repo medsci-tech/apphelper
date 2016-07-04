@@ -41,12 +41,16 @@ class HospitalController extends \api\common\controllers\Controller
         $pagesize = 10; // 默认每页记录数
         $page = $this->params['page'] ?? 1; // 当前页码
         $offset=$pagesize*($page - 1); //计算记录偏移量
+
+        $province = str_replace("区","",$this->params['province']);
+        $city = str_replace("市","",$this->params['city']);
+        $area = str_replace("市","",$this->params['area']);
         $data = Hospital::find()
             ->select(['id as hospital_id','name'])
             ->andWhere(['status' => 1])
-            ->andWhere(['like', 'province',$province])
-            ->andFilterWhere(['like', 'city', $this->params['city'] ?? ''])
-            ->andFilterWhere(['like', 'area', $this->params['area'] ?? '']);
+            ->andWhere(['>', "LOCATE('".$province."',province)", 0])
+            ->andFilterWhere(['>', "LOCATE('".$this->params['city']."',city)", 0])
+            ->andFilterWhere(['>', "LOCATE('".$this->params['area']."',area)", 0]);
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => $pagesize]);
         $model = $data->offset($offset)->limit($pages->limit)->asArray()->all();
         $total_page = ceil($data->count()/$pagesize);
