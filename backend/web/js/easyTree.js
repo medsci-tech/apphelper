@@ -36,7 +36,8 @@
                 enableTip: '启用',
                 disableTip: '禁用',
                 cancelButtonLabel: '取消'
-            }
+            },
+            disableUid:{}
         };
 
         var warningAlert = $('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong></strong><span class="alert-content"></span> </div> ');

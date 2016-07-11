@@ -28,7 +28,7 @@ use yii\helpers\Html;
         <?= $strHtml ?>
     </div>
 </div>
-<form id="option" method="post" action="option">
+<form id="option" method="post" action="option?redirect=<?= $redirect ?>">
     <input id="uid" name="uid" type="hidden">
     <input id="grade" name="grade" type="hidden">
     <input id="type" name="type" type="hidden">
@@ -37,16 +37,17 @@ use yii\helpers\Html;
 </form>
 <script>
     (function ($) {
+        var disableUid = <?= $disableUid ?>;
         function init() {
             $('.easy-tree').EasyTree({
                 addable: true,
                 editable: true,
                 deletable: true,
                 enable: false,
-                disable: false
+                disable: false,
+                disableUid:disableUid
             });
         }
-
         window.onload = init();
     })(jQuery)
 </script>
