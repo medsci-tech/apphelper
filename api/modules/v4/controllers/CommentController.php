@@ -58,7 +58,7 @@ class CommentController extends \api\common\controllers\Controller
             //orderBy排序
             $orderByParams = $this->params['orderBy'];
             $orderBy = [];
-            if('hot' == $orderByParams){
+            if('hot' == $orderByParams || empty($orderByParams)){
                 $orderBy['comments'] = SORT_DESC;
             }
             $dataCount = $model->getDataCountForWhere($where);//查询评论总条数
