@@ -91,7 +91,7 @@ class Member extends \yii\db\ActiveRecord implements IdentityInterface
             /* 个人资料相关 */
             [['uid'], 'required', 'message' => 'uid不能为空!', 'on' => ['setNickname','setRealname','next','sexSex']],
             [[ 'nickname'], 'required', 'message' => '昵称不能为空!', 'on' => ['setNickname','next']],
-            [['nickname'], 'string', 'max' => 20,'message' => '昵称不能超过20个字符!'],
+            [['nickname'], 'string', 'max' => 16,'message' => '昵称不能超过16个字符!'],
             [['real_name'], 'required', 'message' => '真实姓名不能为空!', 'on' => 'setRealname'],
             [['sex'], 'required', 'message' => '性别不能为空!', 'on' => 'setSex'],
             [['hospital_id'], 'required','message' => '药店不能为空!', 'on' => ['setHospital','next']],
