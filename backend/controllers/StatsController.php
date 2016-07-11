@@ -310,6 +310,7 @@ class StatsController extends BackendController
             $dataArray[$key]['attr_type'] = $attr_type_name;
             $member = Member::findOne($val->uid);
             $dataArray[$key]['real_name'] = $member->real_name ?? '';
+            $dataArray[$key]['nickname'] = $member->nickname ?? '';
             $dataArray[$key]['username'] = $member->username ?? '';
             $dataArray[$key]['view'] = ResourceStudy::find()->where(['uid' => $val->uid, 'rid' => $val->rid])->count('id');
             $dataArray[$key]['times'] = ResourceStudy::find()->where(['uid' => $val->uid, 'rid' => $val->rid])->sum('times');
@@ -318,9 +319,10 @@ class StatsController extends BackendController
             'title'=>['column'=>'A','name'=>'资源名','width'=>30],
             'attr_type'=>['column'=>'B','name'=>'资源类别','width'=>20],
             'real_name'=>['column'=>'C','name'=>'姓名','width'=>25],
-            'username'=>['column'=>'D','name'=>'手机号','width'=>25],
-            'view'=>['column'=>'E','name'=>'浏览数','width'=>20],
-            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+            'nickname'=>['column'=>'D','name'=>'昵称','width'=>25],
+            'username'=>['column'=>'E','name'=>'手机号','width'=>25],
+            'view'=>['column'=>'F','name'=>'浏览数','width'=>20],
+            'times'=>['column'=>'G','name'=>'时长(秒)','width'=>20],
         ];
         $config = [
             'fileName' => '资源统计列表导出-' . date('YmdHis'),
@@ -362,6 +364,7 @@ class StatsController extends BackendController
         $memberInfo = [
             'real_name' => $memberModel->real_name ?? '',
             'username' => $memberModel->username ?? '',
+            'nickname' => $memberModel->nickname ?? '',
         ];
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
@@ -369,6 +372,7 @@ class StatsController extends BackendController
             $dataArray[$key]['title'] = $resourceInfo['title'];
             $dataArray[$key]['attr_type'] = $resourceInfo['attr_type'];
             $dataArray[$key]['real_name'] = $memberInfo['real_name'];
+            $dataArray[$key]['nickname'] = $memberInfo['nickname'];
             $dataArray[$key]['username'] = $memberInfo['username'];
             $dataArray[$key]['times'] = $val->times;
         }
@@ -394,8 +398,9 @@ class StatsController extends BackendController
             'title'=>['column'=>'B','name'=>'资源名','width'=>25],
             'attr_type'=>['column'=>'C','name'=>'资源类别','width'=>20],
             'real_name'=>['column'=>'D','name'=>'姓名','width'=>20],
-            'username'=>['column'=>'E','name'=>'手机号','width'=>25],
-            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+            'nickname'=>['column'=>'E','name'=>'昵称','width'=>20],
+            'username'=>['column'=>'F','name'=>'手机号','width'=>25],
+            'times'=>['column'=>'G','name'=>'时长(秒)','width'=>20],
         ];
         $this->actionResourceErExportCommon($column);
     }
@@ -422,6 +427,7 @@ class StatsController extends BackendController
             $member = Member::findOne($val->uid);
             $resourceStudy = ResourceStudy::find()->where(['uid' => $val->uid]);
             $dataArray[$key]['real_name'] = $member->real_name ?? '';
+            $dataArray[$key]['nickname'] = $member->nickname ?? '';
             $dataArray[$key]['username'] = $member->username ?? '';
             $dataArray[$key]['view'] = $resourceStudy->count('id');
             $dataArray[$key]['times'] = $resourceStudy->sum('times');
@@ -429,9 +435,10 @@ class StatsController extends BackendController
         }
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>30],
-            'username'=>['column'=>'B','name'=>'手机号','width'=>20],
-            'view'=>['column'=>'C','name'=>'浏览数','width'=>10],
-            'times'=>['column'=>'D','name'=>'时长(秒)','width'=>20],
+            'nickname'=>['column'=>'B','name'=>'昵称','width'=>30],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
+            'view'=>['column'=>'D','name'=>'浏览数','width'=>10],
+            'times'=>['column'=>'E','name'=>'时长(秒)','width'=>20],
         ];
         $config = [
             'fileName' => '资源统计列表导出-' . date('YmdHis'),
@@ -463,6 +470,7 @@ class StatsController extends BackendController
         $memberModel = Member::findOne($uid);
         $memberInfo = [
             'real_name' => $memberModel->real_name ?? '',
+            'nickname' => $memberModel->nickname ?? '',
             'username' => $memberModel->username ?? '',
         ];
         $attrType = Yii::$app->params['resourceClass']['attrType'];
@@ -472,6 +480,7 @@ class StatsController extends BackendController
             $attr_type = $resourceModel ? ResourceClass::findOne($resourceModel->rid)->attr_type : 0;
             $resourceStudy = ResourceStudy::find()->where(['rid' => $val->rid, 'uid' => $val->uid]);
             $dataArray[$key]['real_name'] = $memberInfo['real_name'];
+            $dataArray[$key]['nickname'] = $memberInfo['nickname'];
             $dataArray[$key]['username'] = $memberInfo['username'];
             $dataArray[$key]['title'] = $resourceModel->title ?? '';
             $dataArray[$key]['attr_type'] = $attrType[$attr_type] ?? '';
@@ -480,11 +489,12 @@ class StatsController extends BackendController
         }
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>30],
-            'username'=>['column'=>'B','name'=>'手机号','width'=>20],
-            'title'=>['column'=>'C','name'=>'资源名','width'=>25],
-            'attr_type'=>['column'=>'D','name'=>'资源类别','width'=>25],
-            'view'=>['column'=>'E','name'=>'浏览数','width'=>20],
-            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+            'nickname'=>['column'=>'B','name'=>'昵称','width'=>30],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
+            'title'=>['column'=>'D','name'=>'资源名','width'=>25],
+            'attr_type'=>['column'=>'E','name'=>'资源类别','width'=>25],
+            'view'=>['column'=>'F','name'=>'浏览数','width'=>20],
+            'times'=>['column'=>'G','name'=>'时长(秒)','width'=>20],
         ];
         $config = [
             'fileName' => '资源统计列表导出-' . date('YmdHis'),
@@ -506,10 +516,11 @@ class StatsController extends BackendController
         $column = [
             'created_at'=>['column'=>'A','name'=>'浏览时间','width'=>25],
             'real_name'=>['column'=>'B','name'=>'姓名','width'=>25],
-            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
-            'title'=>['column'=>'D','name'=>'资源名','width'=>20],
-            'attr_type'=>['column'=>'E','name'=>'资源类别','width'=>25],
-            'times'=>['column'=>'F','name'=>'时长(秒)','width'=>20],
+            'nickname'=>['column'=>'C','name'=>'姓名','width'=>25],
+            'username'=>['column'=>'D','name'=>'手机号','width'=>20],
+            'title'=>['column'=>'E','name'=>'资源名','width'=>20],
+            'attr_type'=>['column'=>'F','name'=>'资源类别','width'=>25],
+            'times'=>['column'=>'G','name'=>'时长(秒)','width'=>20],
         ];
         $this->actionResourceErExportCommon($column);
     }
@@ -737,6 +748,7 @@ class StatsController extends BackendController
         foreach ($dataProvider->getModels() as $key => $val){
             $member = Member::findOne($val->uid);
             $dataArray[$key]['real_name'] = $member->real_name ?? '';
+            $dataArray[$key]['nickname'] = $member->nickname ?? '';
             $dataArray[$key]['username'] = $member->username ?? '';
             $dataArray[$key]['name'] = $examModel->name ?? '';
             $getMaxAnswer = ExamLog::find()->where(['uid' => $val->uid, 'exa_id' => $val->exa_id])->max('answers');
@@ -752,10 +764,11 @@ class StatsController extends BackendController
         $column = [
             'name'=>['column'=>'A','name'=>'试卷名','width'=>30],
             'real_name'=>['column'=>'B','name'=>'姓名','width'=>20],
-            'username'=>['column'=>'C','name'=>'手机号','width'=>25],
-            'times'=>['column'=>'D','name'=>'答题时间','width'=>40],
-            'rate'=>['column'=>'E','name'=>'正确率','width'=>20],
-            'level'=>['column'=>'F','name'=>'	答题成绩','width'=>20],
+            'nickname'=>['column'=>'C','name'=>'昵称','width'=>20],
+            'username'=>['column'=>'D','name'=>'手机号','width'=>25],
+            'times'=>['column'=>'E','name'=>'答题时间','width'=>40],
+            'rate'=>['column'=>'F','name'=>'正确率','width'=>20],
+            'level'=>['column'=>'G','name'=>'	答题成绩','width'=>20],
         ];
         $config = [
             'fileName' => '资源统计列表导出-' . date('YmdHis'),
@@ -788,13 +801,15 @@ class StatsController extends BackendController
         foreach ($dataProvider->getModels() as $key => $val){
             $member = Member::findOne($val->uid);
             $dataArray[$key]['real_name'] = $member->real_name ?? '';
+            $dataArray[$key]['nickname'] = $member->nickname ?? '';
             $dataArray[$key]['username'] = $member->username ?? '';
             $dataArray[$key]['num'] = $search::find()->where(['uid' => $val->uid])->count('id');
         }
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>25],
-            'username'=>['column'=>'B','name'=>'手机号','width'=>25],
-            'num'=>['column'=>'C','name'=>'所答试卷数','width'=>20],
+            'nickname'=>['column'=>'B','name'=>'昵称','width'=>25],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>25],
+            'num'=>['column'=>'D','name'=>'所答试卷数','width'=>20],
         ];
         $config = [
             'fileName' => '资源统计列表导出-' . date('YmdHis'),
@@ -828,6 +843,7 @@ class StatsController extends BackendController
         $dataArray = [];
         foreach ($dataProvider->getModels() as $key => $val){
             $dataArray[$key]['real_name'] = $memberModel->real_name ?? '';
+            $dataArray[$key]['nickname'] = $memberModel->nickname ?? '';
             $dataArray[$key]['username'] = $memberModel->username ?? '';
             $examModel = Exam::findOne($val->exa_id);
             $examLevelModel = ExamLevel::find()->where(['exam_id' => $examModel->id])->all();
@@ -863,12 +879,13 @@ class StatsController extends BackendController
             $dataArray[$key]['level'] = $this->getLevel($rateExam, $rate);
         }
         $column = [
-            'real_name'=>['column'=>'A','name'=>'试卷名','width'=>30],
-            'username'=>['column'=>'B','name'=>'姓名','width'=>20],
-            'name'=>['column'=>'C','name'=>'手机号','width'=>25],
-            'times'=>['column'=>'D','name'=>'答题时间','width'=>40],
-            'rate'=>['column'=>'E','name'=>'正确率','width'=>20],
-            'level'=>['column'=>'F','name'=>'	答题成绩','width'=>20],
+            'real_name'=>['column'=>'A','name'=>'姓名','width'=>30],
+            'nickname'=>['column'=>'B','name'=>'昵称','width'=>30],
+            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
+            'name'=>['column'=>'D','name'=>'试卷名','width'=>25],
+            'times'=>['column'=>'E','name'=>'答题时间','width'=>40],
+            'rate'=>['column'=>'F','name'=>'正确率','width'=>20],
+            'level'=>['column'=>'G','name'=>'	答题成绩','width'=>20],
         ];
         $config = [
             'fileName' => '资源统计列表导出-' . date('YmdHis'),
