@@ -36,7 +36,7 @@ class Member extends User
     {
         return [
             [['username', 'email', 'real_name', 'hospital_id', 'rank_id'], 'required'],
-            [['province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
+            [['username','province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
             [['area', 'city', 'province', 'sex'], 'string'],
             [['username'], 'string', 'length' => 11],
             [['real_name'], 'string', 'max' => 30],
