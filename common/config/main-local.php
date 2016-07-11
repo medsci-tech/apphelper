@@ -24,5 +24,9 @@ return [
             'viewPath' => '@common/mail',
             'useFileTransport' => true,
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
     ],
 ];

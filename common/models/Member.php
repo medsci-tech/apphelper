@@ -35,11 +35,11 @@ class Member extends User
     public function rules()
     {
         return [
-            [['username', 'email', 'real_name', 'hospital_id', 'rank_id'], 'required'],
-            [['username','province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer'],
-            [['area', 'city', 'province', 'sex', 'nickname'], 'string'],
-            [['username'], 'string', 'length' => 11],
-            [['real_name'], 'string', 'max' => 30],
+            [['username', 'email', 'real_name', 'hospital_id', 'rank_id'], 'required','message'=>'不能为空'],
+            [['username','province_id', 'city_id', 'area_id', 'hospital_id', 'rank_id'], 'integer','message'=>'只能为数字'],
+            [['area', 'city', 'province', 'sex', 'nickname'], 'string','message'=>'只能为字符'],
+            [['username'], 'string', 'length' => 11,'message'=>'只能为11个字符'],
+            [['real_name'], 'string', 'max' => 30,'message'=>'最大为30个字符'],
         ];
     }
     public function attributeLabels()
