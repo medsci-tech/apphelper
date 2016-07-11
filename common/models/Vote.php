@@ -29,7 +29,7 @@ class Vote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'user_id', 'type_id'], 'required'],
+            [['type', 'user_id', 'type_id'], 'required','message'=>'不能为空'],
             [['user_id', 'type_id'], 'integer'],
             [['type', 'action'], 'string', 'max' => 20],
             ['action', 'in', 'range' => ['up', 'down']],

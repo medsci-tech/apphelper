@@ -26,7 +26,7 @@ class Exercise extends ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'question', 'category', 'option', 'answer', 'keyword', 'resolve'], 'required'],
+            [['type', 'question', 'category', 'option', 'answer', 'keyword', 'resolve'], 'required','message'=>'不能为空'],
         ];
     }
 

@@ -18,7 +18,7 @@ class Exam extends ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'name', 'minutes', 'uid', 'about', 'count', 'status', 'publish_status', 'recommend_status'], 'required'],
+            [['type', 'name', 'minutes', 'uid', 'about', 'count', 'status', 'publish_status', 'recommend_status'], 'required','message'=>'不能为空'],
             [[ 'class_id', 'total'], 'integer'],
             [[ 'imgurl'], 'string'],
             // 若 "imgurl" 为空，则设其为 null

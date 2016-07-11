@@ -28,7 +28,7 @@ class Video extends ActiveRecord {
             [[
                 'name',
                 'url',
-            ], 'required'],
+            ], 'required','message'=>'不能为空'],
             [[
                 'name',
                 'url',

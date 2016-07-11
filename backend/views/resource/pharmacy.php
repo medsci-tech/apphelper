@@ -36,7 +36,7 @@ backend\assets\AppAsset::register($this);
         <div class="box-body">
             <?php
             $form = ActiveForm::begin([
-                'action' => ['delete'],
+                'action' => ['delete','redirect'=>'pharmacy'],
                 'method' => 'post',
                 'options' => ['class' => 'form-inline', 'id' => 'changeStatus'],
             ]); ?>
