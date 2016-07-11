@@ -37,8 +37,8 @@ class SiteController extends Controller
         }
         if($data['ppt_imgurl'])
             $data['ppt_imgurl'] = unserialize($data['ppt_imgurl']);
-		else
-        	$data['ppt_imgurl'] = [];
+
+		is_array($data['ppt_imgurl'])?null:$data['ppt_imgurl']=[];
 
         return $this->render('view', [
             'data' => $data,
