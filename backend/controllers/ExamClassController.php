@@ -40,9 +40,21 @@ class ExamClassController extends BackendController
 //        print($strHtml);
         return $this->render('index', [
             'strHtml' => $strHtml,
+            'redirect' => 'index',
+            'disableUid' => $this->getDisableUid(),
         ]);
     }
 
+    public function getDisableUid(){
+        $disableUid = ExamClass::find()->where(['parent' => 0])->all();
+        $list = [];
+        if($disableUid){
+            foreach ($disableUid as $val){
+                $list[] = $val->id;
+            }
+        }
+        return json_encode($list);
+    }
 
     /**
      * Deletes an existing Article model.
@@ -147,6 +159,7 @@ class ExamClassController extends BackendController
 
     public function actionOption()
     {
+        $redirect = Yii::$app->request->get()['redirect'] ?? 'index';
         $params = Yii::$app->request->post();
         if('addable' == $params['type']){
             if ('0' == $params['uid']) {
@@ -178,14 +191,12 @@ class ExamClassController extends BackendController
                 $model->path = $model->path.$model->id.',';
                 $model->save(false);
             }
-            return $this->redirect(['index']);
         } else if('editable' == $params['type']) {
 
             $model = $this->findModel($params['uid']);
             $model -> name = $params['resource_name'];
             $model -> save(false);
 
-            return $this->redirect(['index']);
         } else if('enable' == $params['type']) {
             $model = $this->findModel($params['uid']);
             $model -> status = 1;
@@ -202,7 +213,6 @@ class ExamClassController extends BackendController
                     }
                 }
             }
-            return $this->redirect(['index']);
         } else if('disable' == $params['type']) {
             $model = $this->findModel($params['uid']);
             $model -> status = 0;
@@ -219,7 +229,6 @@ class ExamClassController extends BackendController
                     }
                 }
             }
-            return $this->redirect(['index']);
         } else if('delete' == $params['type']) {
             $model = $this->findModel($params['uid']);
             if($model->grade == 3) {
@@ -230,9 +239,7 @@ class ExamClassController extends BackendController
                     ->all();
                 $childs->delete();
             }
-            return $this->redirect(['index']);
-        } else{
-            return $this->redirect(['index']);
         }
+        return $this->redirect($redirect);
     }
 }
