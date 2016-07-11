@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\ResourceClass;
+use yii\base\Object;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -34,9 +35,10 @@ class ResourceClassController extends BackendController
     {
         $type = 0;
         $strHtml = $this->getTreeMenu($type);
-//        print($strHtml);
         return $this->render('index', [
             'strHtml' => $strHtml,
+            'redirect' => 'index',
+            'disableUid' => $this->getDisableUid(),
         ]);
     }
 
@@ -47,7 +49,20 @@ class ResourceClassController extends BackendController
 //        print($strHtml);
         return $this->render('index', [
             'strHtml' => $strHtml,
+            'redirect' => 'custom',
+            'disableUid' => $this->getDisableUid(),
         ]);
+    }
+
+    public function getDisableUid(){
+        $disableUid = ResourceClass::find()->where(['parent' => 0])->all();
+        $list = [];
+        if($disableUid){
+            foreach ($disableUid as $val){
+                $list[] = $val->id;
+            }
+        }
+        return json_encode($list);
     }
 
     /**
@@ -152,6 +167,7 @@ class ResourceClassController extends BackendController
 
     public function actionOption()
     {
+        $redirect = Yii::$app->request->get()['redirect'] ?? 'index';
         $params = Yii::$app->request->post();
         if('addable' == $params['type']){
             if ('0' == $params['uid']) {
@@ -185,15 +201,12 @@ class ResourceClassController extends BackendController
                 $model->path = $model->path.$model->id.',';
                 $model->save(false);
             }
-            return $this->redirect(['index']);
         } else if('editable' == $params['type']) {
 
             $model = $this->findModel($params['uid']);
             $model -> name = $params['resource_name'];
             $model -> sort = $params['sort'];
             $model -> save(false);
-
-            return $this->redirect(['index']);
         } else if('enable' == $params['type']) {
             $model = $this->findModel($params['uid']);
             $model -> status = 1;
@@ -210,7 +223,6 @@ class ResourceClassController extends BackendController
                     }
                 }
             }
-            return $this->redirect(['index']);
         } else if('disable' == $params['type']) {
             $model = $this->findModel($params['uid']);
             $model -> status = 0;
@@ -227,7 +239,6 @@ class ResourceClassController extends BackendController
                     }
                 }
             }
-            return $this->redirect(['index']);
         } else if('delete' == $params['type']) {
             $model = $this->findModel($params['uid']);
             if($model->grade == 3) {
@@ -238,9 +249,7 @@ class ResourceClassController extends BackendController
                     ->all();
                 $childs->delete();
             }
-            return $this->redirect(['index']);
-        } else{
-            return $this->redirect(['index']);
         }
+        return $this->redirect($redirect);
     }
 }

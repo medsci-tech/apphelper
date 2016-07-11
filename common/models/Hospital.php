@@ -32,9 +32,9 @@ class Hospital extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'address'], 'required'],
+            [['name', 'address'], 'required','message'=>'不能为空'],
             [['province_id', 'city_id', 'area_id'], 'integer'],
-            [['name', 'address'], 'string', 'max' => 40],
+            [['name', 'address'], 'string', 'max' => 40,'message'=>'最大为40个字符'],
             [['province', 'city', 'area'], 'string', 'max' => 255],
         ];
     }

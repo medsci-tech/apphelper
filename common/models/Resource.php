@@ -31,7 +31,7 @@ class Resource extends ActiveRecord {
                 'rids',
                 'author',
                 'keyword',
-            ], 'required'],
+            ], 'required','message'=>'不能为空'],
             [[
                 'status',
                 'hour',

@@ -25,7 +25,7 @@ class ExamLevel extends ActiveRecord
     public function rules()
     {
         return [
-            [['level', 'condition', 'rate', 'remark', 'exam_id'], 'required'],
+            [['level', 'condition', 'rate', 'remark', 'exam_id'], 'required','message'=>'不能为空'],
         ];
     }
 

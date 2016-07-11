@@ -22,6 +22,7 @@ $('#updateModal #memberFormSubmit').click(function() {
     var elmeParent = '#updateModal';
     data.real_name = $(elmeParent + ' #member-real_name').val();
     data.sex = $(elmeParent + ' #member-sex').val();
+    data.nickname = $(elmeParent + ' #member-nickname').val();
     data.username = $(elmeParent + ' #member-username').val();
     data.email = $(elmeParent + ' #member-email').val();
     data.hospital_id = $(elmeParent + ' #member-hospital_id').val();

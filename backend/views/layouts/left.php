@@ -20,14 +20,25 @@
             <li>
                 <a class="J_menuItem" href="member/index"><i class="fa fa-user"></i><span class="nav-label">用户管理</span></a>
             </li>
-            <li>
-                <a class="J_menuItem" href="backend-user/index"><i class="fa fa-user-secret"></i> <span class="nav-label">管理员管理</span></a>
-            </li>
+<!--            <li>-->
+<!--                <a class="J_menuItem" href="backend-user/index"><i class="fa fa-user-secret"></i> <span class="nav-label">管理员管理</span></a>-->
+<!--            </li>-->
             <li>
                 <a class="J_menuItem" href="hospital/index"><i class="fa fa-medkit"></i> <span class="nav-label">单位管理</span></a>
             </li>
             <li>
                 <a class="J_menuItem" href="ad/index"><i class="fa fa-image"></i> <span class="nav-label">轮播图管理</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-bars"></i> <span class="nav-label">目录管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a class="J_menuItem" href="resource-class/index">培训分类</a>
+                    </li>
+                    <li><a class="J_menuItem" href="resource-class/custom">自定义分类</a>
+                    </li>
+                    <li><a class="J_menuItem" href="exam-class/index">考题分类</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="#">
@@ -45,17 +56,6 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="#"><i class="fa fa-bars"></i> <span class="nav-label">目录管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a class="J_menuItem" href="resource-class/index">培训分类</a>
-                    </li>
-                    <li><a class="J_menuItem" href="resource-class/custom">自定义分类</a>
-                    </li>
-                    <li><a class="J_menuItem" href="exam-class/index">考题分类</a>
-                    </li>
-                </ul>
-            </li>
             <li>
                 <a href="#"><i class="fa fa-graduation-cap"></i> <span class="nav-label">考题管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
