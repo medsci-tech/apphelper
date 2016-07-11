@@ -180,7 +180,6 @@ class MemberController extends BackendController
          //文件上传成功
         $column = [
             'real_name'=>'姓名',
-            'nickname'=>'昵称',
             'sex'=>'性别',
             'username'=>'手机号',
             'email'=>'邮箱',
@@ -235,15 +234,16 @@ class MemberController extends BackendController
         $column = [
             'real_name'=>['column'=>'A','name'=>'姓名','width'=>20],
             'sex'=>['column'=>'B','name'=>'性别','width'=>10],
-            'username'=>['column'=>'C','name'=>'手机号','width'=>20],
-            'email'=>['column'=>'D','name'=>'邮箱','width'=>30],
-            'hospital_id'=>['column'=>'E','name'=>'药店','width'=>20],
-            'rank_id'=>['column'=>'F','name'=>'职称','width'=>10],
-            'province'=>['column'=>'G','name'=>'省份','width'=>10],
-            'city'=>['column'=>'H','name'=>'城市','width'=>10],
-            'area'=>['column'=>'I','name'=>'县区','width'=>10],
-            'status'=>['column'=>'J','name'=>'状态','width'=>10],
-            'created_at'=>['column'=>'K','name'=>'注册时间','width'=>20],
+            'nickname'=>['column'=>'C','name'=>'昵称','width'=>10],
+            'username'=>['column'=>'D','name'=>'手机号','width'=>20],
+            'email'=>['column'=>'E','name'=>'邮箱','width'=>30],
+            'hospital_id'=>['column'=>'F','name'=>'药店','width'=>20],
+            'rank_id'=>['column'=>'G','name'=>'职称','width'=>10],
+            'province'=>['column'=>'H','name'=>'省份','width'=>10],
+            'city'=>['column'=>'I','name'=>'城市','width'=>10],
+            'area'=>['column'=>'J','name'=>'县区','width'=>10],
+            'status'=>['column'=>'K','name'=>'状态','width'=>10],
+            'created_at'=>['column'=>'L','name'=>'注册时间','width'=>20],
         ];
         $config = [
             'fileName' => '用户导出-' . date('YmdHis'),
@@ -268,6 +268,7 @@ class MemberController extends BackendController
             foreach ($dataProvider->getModels() as $key => $val){
                 $data[$key]['real_name'] = $val->real_name;
                 $data[$key]['sex'] = $val->sex;
+                $data[$key]['nickname'] = $val->nickname;
                 $data[$key]['username'] = $val->username;
                 $data[$key]['email'] = $val->email;
                 $data[$key]['hospital_id'] =$val->hospital_id ? Hospital::findOne($val->hospital_id)->name : '';
