@@ -153,27 +153,34 @@ class MessageController extends BackendController {
 
     public function actionUser()
     {
-        $params = Yii::$app->request->get();
-
-        Yii::$app->cache->delete('MessageUser');
-        if($params['phone']){
-//            print_r($params['phone']);
-//            $str = str_replace(array("\r\n", "\r", "\n"), "", $params['phone']);
-            $phones = preg_split('/\r\n/', $params['phone']);
-//            print_r($phones);
-            $array = array();
-            foreach($phones as $phone) {
-                $user = Member::find()
-                    ->select('id')
-                    ->where(['username' => $phone])
-                    ->one();
-                $row = array('id' =>$user->id);
-                array_push($array, $row);
-            }
-
-            Yii::$app->cache->set('MessageUser',json_encode($array));
-            print_r(Yii::$app->cache->get('MessageUser'));
+        $this->layout = false;
+        $request = Yii::$app->request;
+        $params = $request->post();
+        if ($request->isPost)
+        { 
+            Yii::$app->cache->delete('MessageUser');
+            if($params['phone']){
+                $phones = explode('<br>', $params['phone']);
+                $array = array();
+                foreach($phones as $phone) {
+                    $user = Member::find()
+                        ->select('id')
+                        ->where(['username' => $phone])
+                        ->one();
+                    if($user)
+                    {
+                        $row = array('id' =>$user->id);
+                        array_push($array, $row); 
+                    }
+                }
+                Yii::$app->cache->set('MessageUser',json_encode($array));
+            }     
         }
+        else
+        {
+           exit('无效访问');
+        }
+
     }
 
     protected function findModel($id)
