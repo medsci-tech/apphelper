@@ -26,7 +26,7 @@ class ExamClass extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'path', 'grade', 'name', 'uid', 'sort', 'status'], 'required'],
+            [['parent', 'path', 'grade', 'name', 'uid', 'sort', 'status'], 'required','message'=>'不能为空'],
         ];
     }
 

@@ -34,7 +34,29 @@
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         , toolbars: [[
-           'FullScreen', 'Source', 'Undo', 'Redo','Bold','test'
+           'FullScreen', 'Source', 'Undo', 'Redo','Bold','test',
+            'bold', //加粗
+            'indent', //首行缩进
+            'italic', //斜体
+            'underline', //下划线
+            'strikethrough', //删除线
+            'subscript', //下标
+            'fontborder', //字符边框
+            'formatmatch', //格式刷
+            'horizontal', //分隔线
+            'removeformat', //清除格式
+            'time', //时间
+            'date', //日期
+            'cleardoc', //清空文档
+            'insertparagraphbeforetable', //"表格前插入行"
+            'fontfamily', //字体
+            'link', //超链接
+            'justifyleft', //居左对齐
+            'justifyright', //居右对齐
+            'justifycenter', //居中对齐
+            'justifyjustify', //两端对齐
+            'forecolor', //字体颜色
+            'backcolor', //背景色
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
@@ -80,7 +102,7 @@
         //,indentValue:'2em'
 
         //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
-        //,initialFrameHeight:320  //初始化编辑器高度,默认320
+        ,initialFrameHeight:120  //初始化编辑器高度,默认320
 
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
 

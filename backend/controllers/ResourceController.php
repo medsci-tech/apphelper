@@ -155,6 +155,7 @@ class ResourceController extends BackendController
         $appYii = Yii::$app;
         $params = $appYii->request->post();
         $id = $appYii->request->get('id');
+        $redirect = $appYii->request->get('redirect');
         if(isset($params['selection'])) {
             if ('del' == $params['type']) {
                 /*删除*/
@@ -189,7 +190,7 @@ class ResourceController extends BackendController
             Yii::$app->cache->delete(Yii::$app->params['redisKey'][2].$val); //删除缓存
     }
         
-        return $this->redirect(['index']);
+        return $this->redirect($redirect);
     }
 
     /**

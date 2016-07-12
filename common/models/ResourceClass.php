@@ -29,7 +29,7 @@ class ResourceClass extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'required','message'=>'不能为空'],
             [['status', 'parent', 'grade', 'uid', 'attr_type', 'sort'], 'integer'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INIT]],

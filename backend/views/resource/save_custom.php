@@ -63,7 +63,7 @@ $referrer = Yii::$app->request->referrer ?? 'index';
 $js = <<<JS
 $('#resource-rid').chosen({width: '100%'});
 $('#resource-rids').chosen({width: '100%'});
-
+var ue = UE.getEditor('resource-content');   
 //提交操作
 $('#submitBtn').click(function() {
     var data = {};
@@ -76,7 +76,7 @@ $('#submitBtn').click(function() {
     data.keyword = $(elmeParent + '-keyword').val();
     data.imgurl = $('[data-toggle="upload-saveInput"]').val();
     data.videourl = $(elmeParent + '-videourl').val();
-    data.content = $(elmeParent + '-content').val();
+    data.content = ue.getContent();
     var id = $(elmeParent + '-id').val();
     var ppt_imgurl = $('[data-toggle="upload-saveInput-one"]');
     data.ppt_imgurl = getDataListForMime(ppt_imgurl);

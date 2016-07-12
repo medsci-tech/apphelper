@@ -36,7 +36,8 @@
                 enableTip: '启用',
                 disableTip: '禁用',
                 cancelButtonLabel: '取消'
-            }
+            },
+            disableUid:{}
         };
 
         var warningAlert = $('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong></strong><span class="alert-content"></span> </div> ');
@@ -174,6 +175,13 @@
                 console.log('editable');
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="edit"><button class="btn btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .edit > button').attr('title', options.i18n.editTip).click(function () {
+
+                    var zyeasyTreeClass = $(this).attr('class');
+                    var zycheckClass = zyCheckDisable(zyeasyTreeClass);
+                    if(zycheckClass){
+                        console.log('biu');
+                        return false;
+                    }
                     $(easyTree).find('input.easy-tree-editor').remove();
                     $(easyTree).find('input.easy-tree-editor-sort').remove();
                     $(easyTree).find('button.edit-confirm').remove();
@@ -259,6 +267,12 @@
                 console.log('deletable');
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="remove"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-trash"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.deleteTip).click(function () {
+                    var zyeasyTreeClass = $(this).attr('class');
+                    var zycheckClass = zyCheckDisable(zyeasyTreeClass);
+                    if(zycheckClass){
+                        console.log('biu');
+                        return false;
+                    }
                     var selected = getSelectedItems();
                     if (selected.length <= 0) {
                         $(easyTree).prepend(warningAlert);
@@ -438,5 +452,15 @@
                 return $(easyTree).find('li.li_selected');
             };
         });
+
+        /**
+         * 检测是否可操作，不可操作返回true，可操作返回false
+         * zhaiyu
+         * @param zyeasyTreeClass
+         * @returns {boolean}
+         */
+        var zyCheckDisable = function (zyeasyTreeClass) {
+            return /disable/.test(zyeasyTreeClass);
+        }
     };
 })(jQuery);
