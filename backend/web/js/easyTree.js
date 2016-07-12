@@ -394,24 +394,33 @@
 
                     if (options.deletable || options.editable || options.enable || options.disable || options.addable) {
                         var selected = getSelectedItems();
+                        var zyIsDisableUid = zyCheckDisableUid(zyUid);
                         if (options.editable) {
                             $(easyTree).find('input.easy-tree-editor').remove();
                             $(easyTree).find('input.easy-tree-editor-sort').remove();
                             $(easyTree).find('button.edit-confirm').remove();
                             $(easyTree).find('button.edit-cancel').remove();
                             $(easyTree).find('li > span > a:hidden').show();
-                            if (selected.length <= 0 || selected.length > 1){
+                            if (selected.length == 0){
                                 $(easyTree).find('.easy-tree-toolbar .edit > button').addClass('disabled');
                             }else{
-                                $(easyTree).find('.easy-tree-toolbar .edit > button').removeClass('disabled');
+                                if(zyIsDisableUid == -1){
+                                    $(easyTree).find('.easy-tree-toolbar .edit > button').removeClass('disabled');
+                                }else {
+                                    $(easyTree).find('.easy-tree-toolbar .edit > button').addClass('disabled');
+                                }
                             }
                         }
 
                         if (options.deletable) {
-                            if (selected.length <= 0 || selected.length > 1){
+                            if (selected.length == 0){
                                 $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
                             }else{
-                                $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                                if(zyIsDisableUid == -1){
+                                    $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                                }else {
+                                    $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
+                                }
                             }
                         }
 
