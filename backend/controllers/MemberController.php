@@ -127,7 +127,13 @@ class MemberController extends BackendController
                 $return = ['code' => 803, 'msg' => '手机号已存在', 'data' => ''];
             }
         }else{
-            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
+            $attributeLabels = $model->attributeLabels();
+            $getError = '数据验证错误';
+            foreach ($model->errors as $key => $val){
+                $getError = $attributeLabels[$key] . $val[0];
+                break;
+            }
+            $return = ['code' => 802, 'msg' => $getError, 'data' => ''];
         }
         $this->ajaxReturn($return);
     }

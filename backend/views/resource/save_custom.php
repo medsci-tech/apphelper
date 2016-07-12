@@ -23,6 +23,8 @@ $referrer = Yii::$app->request->referrer ?? 'index';
         'method' => 'post',
     ]); ?>
         <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'imgurl')->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'ppt_imgurl')->hiddenInput()->label(false) ?>
         <?= $form->field($model, 'title')->textInput() ?>
         <?= $form->field($model, 'rid')->dropDownList($directoryStructureList) ?>
         <?= $form->field($model, 'author')->textInput() ?>
@@ -32,7 +34,7 @@ $referrer = Yii::$app->request->referrer ?? 'index';
             <label class="control-label">缩略图</label>
             <?= $this->render('/webuploader/index',[
                 'actionCtrl' => 'img',
-                'name' => 'Resource[imgurl]',
+                'name' => '',
                 'uploadPath' => 'image/resource',
                 'imgMaxSize' => 2097152,/*文件限制2M*/
             ]);?>
@@ -41,7 +43,7 @@ $referrer = Yii::$app->request->referrer ?? 'index';
         <div class="form-group">
             <label class="control-label">上传pdf(<font style="font-size: 12px;color: #ed5565;font-weight: 100;">如果是ppt格式，请手动转成pdf再上传</font>)</label>
             <?= $this->render('/webuploader/index2',[
-                'name' => 'Resource[ppt_imgurl]',
+                'name' => '',
                 'uploadPath' => 'pdf',
                 'actionCtrl' => 'pdf',
                 'imgMaxSize' => 2097152,/*文件限制2M*/
@@ -61,6 +63,16 @@ $referrer = Yii::$app->request->referrer ?? 'index';
 
 <?php
 $js = <<<JS
+
+var ppt_imgurlVal = $('#resource-ppt_imgurl').val();
+if(ppt_imgurlVal){
+    $('[data-toggle="upload-progressInput-one"]').val('已传过pdf');
+}
+
+var imgurlVal = $('#resource-imgurl').val();
+$('[data-toggle="upload-progressInput"]').val(imgurlVal);
+$('[data-toggle="upload-saveInput"]').val(imgurlVal);
+
 $('#resource-rid').chosen({width: '100%'});
 $('#resource-rids').chosen({width: '100%'});
 var ue = UE.getEditor('resource-content');   
