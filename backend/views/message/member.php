@@ -13,7 +13,8 @@ backend\assets\AppAsset::register($this);
 
 <?php $form = ActiveForm::begin(['action' => ['message/user'], 'method' => 'post', 'id' => 'userForm']); ?>
     <div class="modal-body" style="background-color: white">
-        <textarea name="phone" cols=45 rows=10 id="phone"></textarea>
+        <textarea id="phone" name="phone" cols=45 rows=10>
+        </textarea>
     </div>
     <div class="modal-footer">
         <button id="btnClose" type="button" class="btn btn-white">关闭</button>
@@ -33,18 +34,28 @@ $js = <<<JS
     });
 
     $("#btnConfirm").click(function() {
-        var phone=$("#phone").val().replace(/[\\r\\n]/g,"<br>");  
+        var phone=$("#phone").val().replace(/[\\r\\n]/g,"<br>");
         if(!phone)
         {
             layer.alert('手机号不能为空!');
             return false;
         }
-        $.post("/message/user", { phone: phone},
-        function(data){
-        
-        });
-        parent.layer.close(index);
+        console.log(phone);
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            data:{"phone":phone},
+            url:"/message/user",
+            success: function(json) {
+                //alert(json.data);
+                parent.layer.close(index);
+            },
+            error: function (xhr, status, errorThrown) {
+                //alert("Sorry, there was a problem!");
+                parent.layer.close(index);
+            }
 
+        });
     });
 
     $("#btnSearch").click(function() {
