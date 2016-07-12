@@ -13,7 +13,7 @@ backend\assets\AppAsset::register($this);
 
 <?php $form = ActiveForm::begin(['action' => ['message/user'], 'method' => 'get', 'id' => 'userForm']); ?>
     <div class="modal-body" style="background-color: white">
-        <textarea name="phone" cols=45 rows=10>
+        <textarea id="phone" name="phone" cols=45 rows=10>
         </textarea>
     </div>
     <div class="modal-footer">
@@ -34,8 +34,26 @@ $js = <<<JS
     });
 
     $("#btnConfirm").click(function() {
-        $("#userForm").submit();
-        parent.layer.close(index);
+        //$("#userForm").submit();
+        var phone = $("#phone").val();
+        console.log(phone);
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            data:{"phone":phone},
+            url:"/message/user",
+            success: function(json) {
+                //alert(json.data);
+                parent.layer.close(index);
+            },
+            error: function (xhr, status, errorThrown) {
+                //alert("Sorry, there was a problem!");
+                parent.layer.close(index);
+            }
+
+        });
+
+        //parent.layer.close(index);
         //parent.$('#attr_name').val($("#attr_name").val());
         //parent.$('#attr_id').val($("#attr_id").val());
         //parent.$('#attr_from').val($("#type").val());

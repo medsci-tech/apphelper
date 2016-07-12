@@ -73,6 +73,7 @@ class MessageController extends BackendController {
                 $userList = json_decode($data, true);
                 $array = array();
 //                $touids = array();
+                is_array($userList)? null : $userList=[];
                 foreach($userList as $user){
                     $model = new Message();
                     $model->title = $message['title'];
@@ -153,7 +154,7 @@ class MessageController extends BackendController {
 
     public function actionUser()
     {
-        $params = Yii::$app->request->get();
+        $params = Yii::$app->request->post();
 
         Yii::$app->cache->delete('MessageUser');
         if($params['phone']){
@@ -172,8 +173,14 @@ class MessageController extends BackendController {
             }
 
             Yii::$app->cache->set('MessageUser',json_encode($array));
-            print_r(Yii::$app->cache->get('MessageUser'));
+//            print_r(Yii::$app->cache->get('MessageUser'));
+            $return = ['code'=>200,'msg'=>'提交成功','data'=>json_encode($array)];
         }
+        else{
+            $return = ['code'=>802,'msg'=>'提交失败','data'=>''];
+        }
+
+        $this->ajaxReturn($return);
     }
 
     protected function findModel($id)
