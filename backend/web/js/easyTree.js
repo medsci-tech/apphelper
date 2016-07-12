@@ -176,12 +176,14 @@
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="edit"><button class="btn btn-sm btn-primary disabled"><span class="glyphicon glyphicon-edit"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .edit > button').attr('title', options.i18n.editTip).click(function () {
 
+                    /****disable状态下不可点-start-zhaiyu***********/
                     var zyeasyTreeClass = $(this).attr('class');
                     var zycheckClass = zyCheckDisable(zyeasyTreeClass);
                     if(zycheckClass){
                         console.log('biu');
                         return false;
                     }
+                    /****disable状态下不可点-end-zhaiyu***********/
                     $(easyTree).find('input.easy-tree-editor').remove();
                     $(easyTree).find('input.easy-tree-editor-sort').remove();
                     $(easyTree).find('button.edit-confirm').remove();
@@ -223,9 +225,11 @@
                             }
                         });
                         $(cancel).click(function () {
-                            console.log('cancel click');
+                            console.log($(easyTree));
                             $(easyTree).find('input.easy-tree-editor').remove();
                             $(easyTree).find('input.easy-tree-editor-sort').remove();
+                            $(easyTree).find('.easy-tree-toolbar .edit > button').addClass('disabled');
+                            $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
                             $(easyTree).find('button.edit-confirm').remove();
                             $(easyTree).find('button.edit-cancel').remove();
                             $(easyTree).find('li > span > a:hidden').show();
@@ -267,12 +271,14 @@
                 console.log('deletable');
                 $(easyTree).find('.easy-tree-toolbar').append('<div class="remove"><button class="btn btn-default btn-sm btn-danger disabled"><span class="glyphicon glyphicon-trash"></span></button></div> ');
                 $(easyTree).find('.easy-tree-toolbar .remove > button').attr('title', options.i18n.deleteTip).click(function () {
+                    /****disable状态下不可点-start-zhaiyu***********/
                     var zyeasyTreeClass = $(this).attr('class');
                     var zycheckClass = zyCheckDisable(zyeasyTreeClass);
                     if(zycheckClass){
                         console.log('biu');
                         return false;
                     }
+                    /****disable状态下不可点-end-zhaiyu***********/
                     var selected = getSelectedItems();
                     if (selected.length <= 0) {
                         $(easyTree).prepend(warningAlert);
@@ -360,25 +366,6 @@
                     }
                 });
             }
-            // collapse or expand
-            $(easyTree).delegate('li.parent_li > span', 'click', function (e) {
-                var children = $(this).parent('li.parent_li').find(' > ul > li');
-                if (children.is(':visible')) {
-                    children.hide('fast');
-                    $(this).attr('title', options.i18n.expandTip)
-                        .find(' > span.glyphicon')
-                        .addClass('glyphicon-folder-close')
-                        .removeClass('glyphicon-folder-open');
-                } else {
-                    children.show('fast');
-                    $(this).attr('title', options.i18n.collapseTip)
-                        .find(' > span.glyphicon')
-                        .addClass('glyphicon-folder-open')
-                        .removeClass('glyphicon-folder-close');
-                }
-                e.stopPropagation();
-            });
-
 
             // selectable, only single select
             if (options.selectable) {
@@ -389,9 +376,9 @@
                     //console.log(li[0]);
                     //console.log($(li[0]).attr('grade'));
                     $("#grade").val($(li[0]).attr('grade'));
-                    //console.log($(li[0]).attr('uid'));
-                    $("#uid").val($(li[0]).attr('uid'));
-                    $("#sort").val($(li[0]).attr('sort'))
+                    var zyUid = $(li[0]).attr('uid');
+                    $("#uid").val(zyUid);
+                    $("#sort").val($(li[0]).attr('sort'));
                     $("#type").val('selectable');
                     var dd = $(li[0]).find(' span > a')[0];
                     console.log($(dd).text());
@@ -413,17 +400,19 @@
                             $(easyTree).find('button.edit-confirm').remove();
                             $(easyTree).find('button.edit-cancel').remove();
                             $(easyTree).find('li > span > a:hidden').show();
-                            if (selected.length <= 0 || selected.length > 1)
+                            if (selected.length <= 0 || selected.length > 1){
                                 $(easyTree).find('.easy-tree-toolbar .edit > button').addClass('disabled');
-                            else
+                            }else{
                                 $(easyTree).find('.easy-tree-toolbar .edit > button').removeClass('disabled');
+                            }
                         }
 
                         if (options.deletable) {
-                            if (selected.length <= 0 || selected.length > 1)
+                            if (selected.length <= 0 || selected.length > 1){
                                 $(easyTree).find('.easy-tree-toolbar .remove > button').addClass('disabled');
-                            else
+                            }else{
                                 $(easyTree).find('.easy-tree-toolbar .remove > button').removeClass('disabled');
+                            }
                         }
 
                         if (options.enable) {
@@ -445,7 +434,26 @@
                     e.stopPropagation();
 
                 });
-            }
+            };
+
+            // collapse or expand
+            $(easyTree).delegate('li.parent_li > span', 'click', function (e) {
+                var children = $(this).parent('li.parent_li').find(' > ul > li');
+                if (children.is(':visible')) {
+                    children.hide('fast');
+                    $(this).attr('title', options.i18n.expandTip)
+                        .find(' > span.glyphicon')
+                        .addClass('glyphicon-folder-close')
+                        .removeClass('glyphicon-folder-open');
+                } else {
+                    children.show('fast');
+                    $(this).attr('title', options.i18n.collapseTip)
+                        .find(' > span.glyphicon')
+                        .addClass('glyphicon-folder-open')
+                        .removeClass('glyphicon-folder-close');
+                }
+                e.stopPropagation();
+            });
 
             // Get selected items
             var getSelectedItems = function () {
@@ -455,12 +463,22 @@
 
         /**
          * 检测是否可操作，不可操作返回true，可操作返回false
-         * zhaiyu
+         * @author zhaiyu
          * @param zyeasyTreeClass
          * @returns {boolean}
          */
         var zyCheckDisable = function (zyeasyTreeClass) {
             return /disable/.test(zyeasyTreeClass);
-        }
+        };
+
+        /**
+         * 验证元素uid是否存在于不可操作数据列表，存在返回所在位置，不存在返回-1
+         * @author zhaiyu
+         * @param uid
+         * @returns {*}
+         */
+        var zyCheckDisableUid = function (uid) {
+            return $.inArray(uid, defaults.disableUid);
+        };
     };
 })(jQuery);
