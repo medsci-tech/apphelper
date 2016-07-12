@@ -23,6 +23,8 @@ $referrer = Yii::$app->request->referrer ?? 'pharmacy';
         'method' => 'post',
     ]); ?>
         <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'imgurl')->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'ppt_imgurl')->hiddenInput()->label(false) ?>
         <?= $form->field($model, 'title')->textInput() ?>
         <?= $form->field($model, 'rid')->dropDownList($directoryStructureList) ?>
         <?= $form->field($model, 'author')->textInput() ?>
@@ -62,6 +64,16 @@ $referrer = Yii::$app->request->referrer ?? 'pharmacy';
 
 <?php
 $js = <<<JS
+
+var ppt_imgurlVal = $('#resource-ppt_imgurl').val();
+if(ppt_imgurlVal){
+    $('[data-toggle="upload-progressInput-one"]').val('已传过pdf');
+}
+
+var imgurlVal = $('#resource-imgurl').val();
+$('[data-toggle="upload-progressInput"]').val(imgurlVal);
+$('[data-toggle="upload-saveInput"]').val(imgurlVal);
+
 $('#resource-rid').chosen({width: '100%'});
 $('#resource-rids').chosen({width: '100%'});
 var ue = UE.getEditor('resource-content');   
