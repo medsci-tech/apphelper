@@ -6,39 +6,23 @@
  * Time: 17:34
  */
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
 
 ?>
 <div class="modal-body">
+    <div class="form-group">
+        <label class="control-label">标题</label>
+        <p class="single-line" data-toggle="form-content"></p>
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="form-group">
+        <label class="control-label">pdf图片</label>
+        <div data-toggle="form-img"></div>
+    </div>
 
-    <p>
-        <?= Html::a('返回', Yii::$app->request->referrer ?? 'index', ['class' => 'btn btn-white']) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'rid',
-            'keywords',
-            'hour',
-            'imgurl',
-            'content',
-            'views',
-            'comments',
-            'publish_time:datetime',
-            'created_at:datetime',
-            'publish_status',
-            'recommend_status',
-            'status',
-        ],
-    ]) ?>
-
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
 </div>
