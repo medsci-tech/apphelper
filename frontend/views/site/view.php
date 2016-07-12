@@ -56,7 +56,7 @@
         <?php if($data['ppt_imgurl']) {?>
         <div class="ppt">
             <?php foreach($data['ppt_imgurl'] as $key =>$val) { ?>
-            <img data-img="<?php echo $val.'?imageView2/2/w/900/h/850/format/jpg/interlace/1/q/95'?>"  src="<?php echo $val.'?imageView2/2/w/300/h/250/format/jpg/interlace/1/q/85'?>">
+            <img data-img="<?php echo $val.'?imageView2/2/w/900/h/850/format/jpg/interlace/1/q/95'?>"  src="<?php echo $val.'?imageView2/2/w/400/h/350/format/jpg/interlace/1/q/85'?>">
             <?php }?>
         </div>
         <?php }?>
