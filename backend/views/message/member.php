@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 backend\assets\AppAsset::register($this);
 ?>
 
-<?php $form = ActiveForm::begin(['action' => ['message/user'], 'method' => 'get', 'id' => 'userForm']); ?>
+<?php $form = ActiveForm::begin(['action' => ['message/user'], 'method' => 'post', 'id' => 'userForm']); ?>
     <div class="modal-body" style="background-color: white">
         <textarea id="phone" name="phone" cols=45 rows=10>
         </textarea>
@@ -28,14 +28,18 @@ backend\assets\AppAsset::register($this);
 $js = <<<JS
 
     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-
+        
     $("#btnClose").click(function() {
         parent.layer.close(index);
     });
 
     $("#btnConfirm").click(function() {
-        //$("#userForm").submit();
-        var phone = $("#phone").val();
+        var phone=$("#phone").val().replace(/[\\r\\n]/g,"<br>");
+        if(!phone)
+        {
+            layer.alert('手机号不能为空!');
+            return false;
+        }
         console.log(phone);
         $.ajax({
             type:"POST",
@@ -52,12 +56,6 @@ $js = <<<JS
             }
 
         });
-
-        //parent.layer.close(index);
-        //parent.$('#attr_name').val($("#attr_name").val());
-        //parent.$('#attr_id').val($("#attr_id").val());
-        //parent.$('#attr_from').val($("#type").val());
-        //parent.layer.close(index);
     });
 
     $("#btnSearch").click(function() {

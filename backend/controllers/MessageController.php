@@ -158,10 +158,8 @@ class MessageController extends BackendController {
 
         Yii::$app->cache->delete('MessageUser');
         if($params['phone']){
-//            print_r($params['phone']);
 //            $str = str_replace(array("\r\n", "\r", "\n"), "", $params['phone']);
-            $phones = preg_split('/\r\n/', $params['phone']);
-//            print_r($phones);
+            $phones = explode('<br>', $params['phone']);
             $array = array();
             foreach($phones as $phone) {
                 $user = Member::find()
@@ -173,7 +171,6 @@ class MessageController extends BackendController {
             }
 
             Yii::$app->cache->set('MessageUser',json_encode($array));
-//            print_r(Yii::$app->cache->get('MessageUser'));
             $return = ['code'=>200,'msg'=>'提交成功','data'=>json_encode($array)];
         }
         else{
