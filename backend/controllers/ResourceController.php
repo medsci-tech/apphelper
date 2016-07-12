@@ -84,20 +84,31 @@ class ResourceController extends BackendController
             $model = new Resource();
         }
         $model->load($post);
-        if(!isset($model->id)){
-            $model->created_at = time();
+        $isValid = $model->validate();
+        if($isValid){
+            if(!isset($model->id)){
+                $model->created_at = time();
+            }
+            if($model->ppt_imgurl){
+                $model->ppt_imgurl = serialize($model->ppt_imgurl);
+            }
+            $model->rids = implode(',', array_unique($model->rids));
+            $result = $model->save(false);
+            if ($result) {
+                $return = ['code' => 200, 'msg' => '', 'data' => ''];
+                self::clearIndex();// 更新app首页缓存
+            } else {
+                $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
+            }
+        }else{
+            $attributeLabels = $model->attributeLabels();
+            $getError = '数据验证错误';
+            foreach ($model->errors as $key => $val){
+                $getError = $attributeLabels[$key] . $val[0];
+                break;
+            }
+            $return = ['code' => 802, 'msg' => $getError, 'data' => ''];
         }
-        if($model->ppt_imgurl){
-            $model->ppt_imgurl = serialize($model->ppt_imgurl);
-        }
-        $model->rids = implode(',', array_unique($model->rids));
-        $result = $model->save(false);
-        if ($result) {
-            $return = ['code' => 200, 'msg' => '', 'data' => ''];
-        } else {
-            $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
-        }
-        self::clearIndex();// 更新app首页缓存
         $this->ajaxReturn($return);
     }
 

@@ -100,12 +100,31 @@ backend\assets\AppAsset::register($this);
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'header' => '操作',
-                        'template' => '{update}',//只需要展示删除和更新
-
+                        'template' => '{update} {view}',//只需要展示删除和更新
+                        'buttons' => [
+                            'view'=> function ($url, $model, $key) {
+                                $imgurl = json_encode(unserialize($model->ppt_imgurl));
+                                $aHtml = '<span class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#formModal" data-content=' . $model->title . ' data-imgurl=' . $imgurl . ' ></span>';
+                                return Html::a($aHtml);
+                            },
+                        ],
                     ],
                 ],
             ]); ?>
             <?php ActiveForm::end(); ?>
+        </div>
+    </div>
+</div>
+
+<!-- 弹出层 -->
+<div class="modal inmodal" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">查看资源</h4>
+            </div>
+            <?=$this->render('view');?>
         </div>
     </div>
 </div>
@@ -129,6 +148,30 @@ $js=<<<JS
 	};
 	var selectableNodes = findSelectableNodes();
 
+  /*查看详情*/
+    $('[data-toggle="modal"]').click(function(){
+        var content = $(this).attr('data-content');
+        var imgurl = JSON.parse($(this).attr('data-imgurl'));
+        var html = '';
+        if(imgurl){
+            var listLen = imgurl.length;
+            for(var i = 0; i < listLen; i++){
+                var fix = '';
+                var pattern = /^http:\/\//i;
+                var preg = pattern.test(imgurl[i]);
+                if(false == preg){
+                    fix = 'http://';
+                }
+                html += '<img class="img-thumbnail"  src="' + fix + imgurl[i] + '">';
+            }
+        }else {
+            html += '<p class="single-line">无图片</p>';
+        }
+
+        $('[data-toggle="form-content"]').text(content);
+        $('[data-toggle="form-img"]').html(html);
+    });
+    
 JS;
 $this->registerJs($js);
 ?>

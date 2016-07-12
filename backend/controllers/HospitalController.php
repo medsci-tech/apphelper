@@ -96,7 +96,13 @@ class HospitalController extends BackendController
                 $return = ['code' => 801, 'msg' => '服务端操作失败', 'data' => ''];
             }
         }else{
-            $return = ['code'=>802,'msg'=>'数据有误','data'=>''];
+            $attributeLabels = $model->attributeLabels();
+            $getError = '数据验证错误';
+            foreach ($model->errors as $key => $val){
+                $getError = $attributeLabels[$key] . $val[0];
+                break;
+            }
+            $return = ['code' => 802, 'msg' => $getError, 'data' => ''];
         }
         $this->ajaxReturn($return);
     }
