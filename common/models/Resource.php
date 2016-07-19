@@ -44,11 +44,13 @@ class Resource extends ActiveRecord {
                 'author',
                 'keyword',
                 'imgurl',
-                'ppt_imgurl',
                 'videourl',
                 'content',
                 'author',
             ], 'string'],
+            [[
+                'ppt_imgurl',
+            ], 'array'],
               // 若 "imgurl" 为空，则设其为 null
             ['imgurl', 'default', 'value' => null],
         ];
@@ -68,6 +70,7 @@ class Resource extends ActiveRecord {
             'keyword' => '关键词',
             'hour' => '课时(单位:分钟)',
             'imgurl' => '缩略图',
+            'ppt_imgurl' => 'pdf图片',
             'videourl' => '视频地址',
             'content' => '内容',
             'views' => '浏览次数',
