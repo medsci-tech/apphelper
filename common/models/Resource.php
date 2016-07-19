@@ -50,7 +50,7 @@ class Resource extends ActiveRecord {
             ], 'string'],
             [[
                 'ppt_imgurl',
-            ], 'allowArray' => true],
+            ], 'trim'],
               // 若 "imgurl" 为空，则设其为 null
             ['imgurl', 'default', 'value' => null],
         ];
