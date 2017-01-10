@@ -12,3 +12,4 @@ runtime/logs/app.log
 /common/config/main.php
 /backend/controllers/TestController.php
 /common/config/db.php
+/app_helper.sql
