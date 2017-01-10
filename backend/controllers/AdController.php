@@ -182,13 +182,13 @@ class AdController extends BackendController
                     ->where(['id' => $ad->attr_id])
                     ->one();
                 $attr_name = $res->title;
-            }
-
-            if ($ad->attr_from == 2) {
+            }elseif ($ad->attr_from == 2) {
                 $exam = Exam::find()
                     ->where(['id' => $ad->attr_id])
                     ->one();
                 $attr_name = $exam->about;
+            }else{
+                $attr_name = '';
             }
             $strHtml = $strHtml." <div class='col-sm-6 col-md-4'>
                 <img src='".$ad->imgurl."' class='thumbnail' width='300px'

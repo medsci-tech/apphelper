@@ -8,8 +8,8 @@ return [
     'name' => '普安医师助手管理系统',
     'components' => [
         'cache' => [
-           // 'class' => 'yii\caching\FileCache',
-            'class' => 'yii\redis\Cache',
+            'class' => 'yii\caching\FileCache',
+//            'class' => 'yii\redis\Cache',
            # 'cachePath' => '@frontend/runtime/cache'
         ],
         'request' => [
